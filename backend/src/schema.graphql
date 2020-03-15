@@ -1,0 +1,16 @@
+# import * from './generated/prisma.graphql'
+
+type Query{
+users: [User]
+posts: [Post]
+}
+
+type Mutation{
+  createUser(name: String, lastName: String, pets:[String], posts:PostCreateManyInput): User!
+  createPost(text: String, title: String) : Post!
+}
+
+type Post{
+  title: String!
+  text: String!
+}
