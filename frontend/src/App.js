@@ -2,6 +2,7 @@ import React from "react";
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client";
 import Home from "./pages/Home";
+import Doors from "./pages/Doors";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -16,7 +17,7 @@ const client = new ApolloClient({
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <Home />
+      <Doors />
     </ApolloProvider>
   );
 };

@@ -1,13 +1,135 @@
-type User {
-  id: ID! @id
-  name: String!
-  lastName: String!
-  posts: [Post] 
-  pets: [String] @scalarList(strategy: RELATION)
+type Door {
+  Id: ID! @id
+  Brand: String!
+  StyleNumber: String!
+  ArchitecturalStyle: [String] @scalarList(strategy:RELATION)
+  DoorCollection: DoorCollection @relation(name:"DoorCollection")
+  DoorLine: DoorLine @relation(name:"DoorLine")
+  ProductLine: String
+  DoorType: String
+  FrameProfiles: [ FrameProfiles ] @relation(name:"FrameProfiles")
+  DefaultFrameProfile: FrameProfiles @relation(name:"DefaultFrameProfiles")
+  ParentGlassFamilyAbbreviation: String
+  GlassFamilyAbbreviation: String
+  LiteQuantity: Int
+  LocationOnHouse: [String] @scalarList(strategy:RELATION)
+  AvailableSizeDetails: [String] @scalarList(strategy:RELATION)
+  AvailableSizes: [String] @scalarList(strategy:RELATION)
+  DefaultSize: String
+  VisualizedHeight: Int  
+  VisualizedWidth: Int
+  StyleGroups: [String] @scalarList(strategy:RELATION)
+  StyleShape: StyleShape @relation(name:"StyleShape")
+  RatingEligibility: [String] @scalarList(strategy:RELATION)
+  LaunchYear: Int
+  RecentlyLaunched: Boolean
+  GlassSizeCategory: String
+  SupportedAccessories: [String] @scalarList(strategy:RELATION)
+  AllowedSidelites: [String] @scalarList(strategy:RELATION)
+  AllowedTransoms: [String] @scalarList(strategy:RELATION)
+  DefaultSidelite: String
+  DefaultTransom: String
+  DefaultGlassWidth: String
+  AbstractPrice: Int
+  SOSPrice: Float
+  MDSPrice: Float
+  LowesStocked: Boolean
+  GlassType: String
+  GlassDesign: String
+  GlassFeatures: [String] @scalarList(strategy:RELATION)
+  DefaultImageName: String
+  ImageUrl: String
+  Ordinal: Int
+  GlassAssociation: String
+  IsLimitedAvailability: Boolean
+  LimitedAvailabilityCategories: [String] @scalarList(strategy:RELATION)
+  ProductTrends: String
+  DefaultDoorSurroundStyleNumber: String
+  StyleLayoutPairs: StyleLayoutPairs @relation(name:"StyleLayoutPairs")
+  GrainProfile: String
+  CurrentYearTrends: [String] @scalarList(strategy:RELATION)
+  LydDisplay: Boolean
+  LydDefaultFinishId: String
+  LydAvailableFinishIds: [String] @scalarList(strategy:RELATION)
+  LydGlassCategory: String
+  LydDisplayOrder: Int
+  LydDisplayCaming: String
+  FacetMaterial: String
+  FacetRecentlyLaunched: String
+  RelatedStyleID: String
+  AllowsHandlesets: Boolean
+  IsFlushGlazed: Boolean
+  Sidelites: [Sidelites] @relation(name:"Sidelites")
 }
 
-type Post {
-  id: ID! @id
-  title: String!
-  text: String!
+type DoorCollection {
+  Id: ID! @id
+  Brand: String
+  Name: String
+  ShortName: String
+  Abbreviation: String! @unique
+  Material: String
+  Surface: String
+  Accugrain: Boolean
+  Paintable: Boolean
+  Stainable: Boolean
+  Doors: [Door] @relation(name:"DoorCollection")
 }
+
+type DoorLine {
+  Id: ID! @id
+  Brand: String
+  Name: String
+  ShortName: String
+  Abbreviation: String! @unique
+  ProductLineId: String
+  DetailUrl: String
+  SuppressCollectionName: Boolean
+  Doors: [Door] @relation(name:"DoorLine")
+}
+
+type FrameProfiles {
+  Id: ID! @id
+  Abbreviation: String! @unique
+  Name: String
+  ImgURL: String
+  DoorCollectionAbbreviation: String
+  StyleShapeAbbreviation: String
+  Doors: [Door] @relation(name:"FrameProfiles")
+}
+
+type StyleShape {
+  Id: ID! @id
+  Brand: String
+  Name: String
+  Abbreviation: String! @unique
+  TopCut: Int
+  Doors: [Door] @relation(name:"StyleShape")
+}
+
+type Sidelites {
+  Id: ID! @id
+  DoorType: String
+  ReferencedByStyleNumbers: [String] @scalarList(strategy:RELATION)
+  StyleNumber: String! @unique
+  DefaultImageName: String
+  VisualizedWidth: Int
+  ImageUrl: String
+  Doors: [Door] @relation(name:"Sidelites")
+}
+
+type StyleLayoutPairs {
+  Id: ID! @id
+  Double_Left: String! @unique
+  Double_Right: String
+  Triple_Left: String
+  Triple_Center: String
+  Triple_Right: String
+  Quad_Left_Outer: String
+  Quad_Left_Inner: String
+  Quad_Right_Inner: String
+  Quad_Right_Outer: String
+  Must_Be_Double: Boolean
+  Doors: [Door] @relation(name:"StyleLayoutPairs")
+}
+
