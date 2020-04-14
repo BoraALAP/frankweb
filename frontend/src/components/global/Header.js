@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const Home = props => {
+const Header = props => {
   return (
     <Container>
-      <p>text</p>
+      <p>Header</p>
     </Container>
   );
 };
 
 const Container = styled.div``;
 
-export default Home;
+export default Header;

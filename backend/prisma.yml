@@ -1,7 +1,7 @@
-endpoint: ${env:PRISMA_ENDPOINT}
-# endpoint: ${env:PRISMA_PRODENDPOINT}
+# endpoint: ${env:PRISMA_ENDPOINT}
+endpoint: ${env:PRISMA_PRODENDPOINT}
 datamodel: datamodel.graphql
-# secret: ${env:PRISMA_SECRET}
+secret: ${env:PRISMA_SECRET}
 
 hooks:
   post-deploy:

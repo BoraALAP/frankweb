@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const Home = props => {
+const Footer = props => {
   return (
     <Container>
-      <p>text</p>
+      <p>Footer</p>
     </Container>
   );
 };
 
 const Container = styled.div``;
 
-export default Home;
+export default Footer;
