@@ -1,16 +1,402 @@
 # import * from './generated/prisma.graphql'
 
-type Query{
-users: [User]
-posts: [Post]
+type Query {
+  doors(where: DoorWhereInput, orderBy: DoorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Door]
+  doorCollections(where: DoorCollectionWhereInput, orderBy: DoorCollectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DoorCollection]
+  doorLines(where: DoorLineWhereInput, orderBy: DoorLineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DoorLine]
+  styleShapes(where: StyleShapeWhereInput, orderBy: StyleShapeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [StyleShape]
+  sidelites(where: SideliteWhereInput, orderBy: SideliteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sidelite]
+  styleLayoutPairs(where: StyleLayoutPairWhereInput, orderBy: StyleLayoutPairOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [StyleLayoutPair]
+  glassFamilies(where: GlassFamilyWhereInput, orderBy: GlassFamilyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GlassFamily]
+  handleSets(where: HandleSetWhereInput, orderBy: HandleSetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HandleSet]
+  finishes(where: FinishWhereInput, orderBy: FinishOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Finish]
+  camingOptions(where: CamingOptionWhereInput, orderBy: CamingOptionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CamingOption]
+  glassFeatures(where: GlassFeatureWhereInput, orderBy: GlassFeatureOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GlassFeature]
+  dividedLiteTypes(where: DividedLiteTypeWhereInput, orderBy: DividedLiteTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DividedLiteType]
+  grilleColors(where: GrilleColorWhereInput, orderBy: GrilleColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GrilleColor]
+  transoms(where: TransomWhereInput, orderBy: TransomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transom]
+  glassAssociations(where: GlassAssociationWhereInput, orderBy: GlassAssociationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GlassAssociation]
+  glasses(where: GlassWhereInput, orderBy: GlassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Glass]
+  frameProfiles(where: FrameProfileWhereInput, orderBy: FrameProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FrameProfile]
+  door(where: DoorWhereUniqueInput!): Door
+  doorCollection(where: DoorCollectionWhereUniqueInput!): DoorCollection
+  doorLine(where: DoorLineWhereUniqueInput!): DoorLine
+  styleShape(where: StyleShapeWhereUniqueInput!): StyleShape
+  sidelite(where: SideliteWhereUniqueInput!): Sidelite
+  styleLayoutPair(where: StyleLayoutPairWhereUniqueInput!): StyleLayoutPair
+  glassFamily(where: GlassFamilyWhereUniqueInput!): GlassFamily
+  handleSet(where: HandleSetWhereUniqueInput!): HandleSet
+  finish(where: FinishWhereUniqueInput!): Finish
+  camingOption(where: CamingOptionWhereUniqueInput!): CamingOption
+  glassFeature(where: GlassFeatureWhereUniqueInput!): GlassFeature
+  dividedLiteType(where: DividedLiteTypeWhereUniqueInput!): DividedLiteType
+  grilleColor(where: GrilleColorWhereUniqueInput!): GrilleColor
+  transom(where: TransomWhereUniqueInput!): Transom
+  glassAssociation(where: GlassAssociationWhereUniqueInput!): GlassAssociation
+  glass(where: GlassWhereUniqueInput!): Glass
+  frameProfile(where: FrameProfileWhereUniqueInput!): FrameProfile
+  doorsConnection(where: DoorWhereInput, orderBy: DoorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorConnection
+  doorCollectionsConnection(where: DoorCollectionWhereInput, orderBy: DoorCollectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorCollectionConnection
+  doorLinesConnection(where: DoorLineWhereInput, orderBy: DoorLineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorLineConnection
+  styleShapesConnection(where: StyleShapeWhereInput, orderBy: StyleShapeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StyleShapeConnection
+  sidelitesConnection(where: SideliteWhereInput, orderBy: SideliteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SideliteConnection
+  styleLayoutPairsConnection(where: StyleLayoutPairWhereInput, orderBy: StyleLayoutPairOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StyleLayoutPairConnection
+  glassFamiliesConnection(where: GlassFamilyWhereInput, orderBy: GlassFamilyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassFamilyConnection
+  handleSetsConnection(where: HandleSetWhereInput, orderBy: HandleSetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HandleSetConnection
+  finishesConnection(where: FinishWhereInput, orderBy: FinishOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FinishConnection
+  camingOptionsConnection(where: CamingOptionWhereInput, orderBy: CamingOptionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CamingOptionConnection
+  glassFeaturesConnection(where: GlassFeatureWhereInput, orderBy: GlassFeatureOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassFeatureConnection
+  dividedLiteTypesConnection(where: DividedLiteTypeWhereInput, orderBy: DividedLiteTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DividedLiteTypeConnection
+  grilleColorsConnection(where: GrilleColorWhereInput, orderBy: GrilleColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GrilleColorConnection
+  transomsConnection(where: TransomWhereInput, orderBy: TransomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransomConnection
+  glassAssociationsConnection(where: GlassAssociationWhereInput, orderBy: GlassAssociationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassAssociationConnection
+  glassesConnection(where: GlassWhereInput, orderBy: GlassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassConnection
+  frameProfilesConnection(where: FrameProfileWhereInput, orderBy: FrameProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FrameProfileConnection
 }
 
-type Mutation{
-  createUser(name: String, lastName: String, pets:[String], posts:PostCreateManyInput): User!
-  createPost(text: String, title: String) : Post!
-}
+type Mutation {
+  createDoor(
+    Id: ID
+    Brand: String
+    StyleNumber: String
+    ArchitecturalStyle: [String]
+    DoorCollection: DoorCollectionUpdateOneWithoutDoorsInput
+    DoorLine: DoorLineUpdateOneWithoutDoorsInput
+    FrameProfiles: FrameProfileUpdateManyWithoutDoorsInput
+    DefaultFrameProfile: FrameProfileUpdateOneInput
+    StyleShape: StyleShapeUpdateOneWithoutDoorsInput
+    Sidelites: SideliteUpdateManyWithoutDoorsInput
+    Transoms: TransomUpdateManyWithoutDoorsInput
+    StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
+    ProductLine: String
+    DoorType: String
+    ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
+    GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
+    LiteQuantity: Int
+    LocationOnHouse: [String]
+    AvailableSizeDetails: [String]
+    AvailableSizes: [String]
+    DefaultSize: String
+    VisualizedHeight: Int
+    VisualizedWidth: Int
+    StyleGroups: [String]
+    RatingEligibility: [String]
+    LaunchYear: Int
+    RecentlyLaunched: Boolean
+    GlassSizeCategory: String
+    SupportedAccessories: [String]
+    AllowedSidelites: [String]
+    AllowedTransoms: [String]
+    DefaultSidelite: String
+    DefaultTransom: String
+    DefaultGlassWidth: String
+    AbstractPrice: Int
+    SOSPrice: Float
+    MDSPrice: Float
+    LowesStocked: Boolean
+    GlassType: String
+    GlassDesign: String
+    GlassFeatures: [String]
+    DefaultImageName: String
+    ImageUrl: String
+    Ordinal: Int
+    GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+    IsLimitedAvailability: Boolean
+    LimitedAvailabilityCategories: [String]
+    ProductTrends: String
+    DefaultDoorSurroundStyleNumber: String
+    GrainProfile: String
+    CurrentYearTrends: [String]
+    LydDisplay: Boolean
+    LydDefaultFinishId: String
+    LydAvailableFinishIds: [String]
+    LydGlassCategory: String
+    LydDisplayOrder: Int
+    LydDisplayCaming: String
+    FacetMaterial: String
+    FacetRecentlyLaunched: String
+    RelatedStyleID: String
+    AllowsHandlesets: Boolean
+    IsFlushGlazed: Boolean
+    RelatedGlasses: GlassUpdateManyInput
+  ): Door!
+  createDoorCollection(
+    Id: ID
+    Brand: String
+    Name: String
+    ShortName: String
+    Abbreviation: String
+    Material: String
+    Surface: String
+    Accugrain: Boolean
+    Paintable: Boolean
+    Stainable: Boolean
+    Doors: DoorCreateManyWithoutDoorCollectionInput
+  ): DoorCollection!
+  createDoorLine(
+    Id: ID
+    Brand: String
+    Name: String
+    ShortName: String
+    Abbreviation: String
+    ProductLineId: String
+    DetailUrl: String
+    SuppressCollectionName: Boolean
+    Doors: DoorCreateManyWithoutDoorLineInput
+  ): DoorLine!
+  createFrameProfile(
+    Id: ID
+    Abbreviation: String
+    Name: String
+    ImgURL: String
+    DoorCollectionAbbreviation: String
+    StyleShapeAbbreviation: String
+    Doors: DoorCreateManyWithoutFrameProfilesInput
+  ): FrameProfile!
+  createStyleShape(
+    Id: ID
+    Brand: String
+    Name: String
+    Abbreviation: String
+    TopCut: Int
+    Doors: DoorCreateManyWithoutStyleShapeInput
+  ): StyleShape!
+  createStyleLayoutPair(
+    Id: ID!
+    Double_Left: String
+    Double_Right: String
+    Triple_Left: String
+    Triple_Center: String
+    Triple_Right: String
+    Quad_Left_Outer: String
+    Quad_Left_Inner: String
+    Quad_Right_Inner: String
+    Quad_Right_Outer: String
+    Must_Be_Double: Boolean
+    Doors: DoorCreateManyWithoutStyleLayoutPairsInput
+  ): StyleLayoutPair!
+  createGlassFamily(
+    Id: ID
+    Brand: String
+    name: String
+    abbreviation: String
+    glassType: String
+    privacyRating: Int
+    availableFeatures: [String!]!
+    availableDividedLiteTypes: [String!]!
+    isLowE: Boolean
+    description: String
+    imageUrl: String
+    detailUrl: String
+    Doors: DoorCreateManyWithoutGlassFamilyAbbreviationInput
+  ): GlassFamily!
+  createHandleSet(
+    Id: ID
+    Finish: String
+    FinishToken: String
+    Design: String
+    Locking: String
+    Size: String
+    ProductFamily: String
+    FeedDYD: String
+    ShowInDYD: Boolean
+    IsMultiPoint: Boolean
+    ImageUrl: String
+    PartCode: String
+    Brand: Int
+    WebSiteProductCategoryId: Int
+    WebSiteProductCategoryName: String
+    PartType: Int
+  ): HandleSet!
+  createFinish(
+    Id: ID
+    Name: String
+    Value: String
+    ImageUrl: String
+    FinishTypeSelection: Int
+    Selected: Boolean
+  ): Finish!
+  createSidelite(
+    Brand: String
+    StyleNumber: String
+    ArchitecturalStyle: [String]
+    DoorCollection: DoorCollectionUpdateOneWithoutSidelitesInput
+    DoorLine: DoorLineUpdateOneWithoutSidelitesInput
+    FrameProfiles: FrameProfileUpdateManyWithoutSidelitesInput
+    DefaultFrameProfile: FrameProfileUpdateOneInput
+    StyleShape: StyleShapeUpdateOneWithoutSidelitesInput
+    StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutSidelitesInput
+    ProductLine: String
+    DoorType: String
+    ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutSidelitesInput
+    GlassFamilyAbbreviation: GlassUpdateOneWithoutSidelitesInput
+    LiteQuantity: Int
+    LocationOnHouse: [String]
+    AvailableSizeDetails: [String]
+    AvailableSizes: [String]
+    DefaultSize: String
+    VisualizedHeight: Int
+    VisualizedWidth: Int
+    StyleGroups: [String]
+    RatingEligibility: [String]
+    LaunchYear: Int
+    RecentlyLaunched: Boolean
+    GlassSizeCategory: String
+    SupportedAccessories: [String]
+    AllowedSidelites: [String]
+    AllowedTransoms: [String]
+    DefaultSidelite: String
+    DefaultTransom: String
+    DefaultGlassWidth: String
+    AbstractPrice: Int
+    SOSPrice: Float
+    MDSPrice: Float
+    LowesStocked: Boolean
+    GlassType: String
+    GlassDesign: String
+    GlassFeatures: [String]
+    DefaultImageName: String
+    ImageUrl: String
+    Ordinal: Int
+    GlassAssociation: GlassAssociationUpdateOneWithoutSidelitesInput
+    IsLimitedAvailability: Boolean
+    LimitedAvailabilityCategories: [String]
+    ProductTrends: String
+    DefaultDoorSurroundStyleNumber: String
+    GrainProfile: String
+    CurrentYearTrends: [String]
+    LydDisplay: Boolean
+    LydDefaultFinishId: String
+    LydAvailableFinishIds: [String]
+    LydGlassCategory: String
+    LydDisplayOrder: Int
+    LydDisplayCaming: String
+    FacetMaterial: String
+    FacetRecentlyLaunched: String
+    RelatedStyleID: String
+    AllowsHandlesets: Boolean
+    IsFlushGlazed: Boolean
+    Doors: DoorCreateManyWithoutSidelitesInput
+  ): Sidelite!
+  createGlass(
+    Id: ID
+    Brand: String
+    Name: String
+    Abbreviation: String
+    GlassType: String
+    ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutGlassesInput
+    DividedLiteType: DividedLiteTypeUpdateOneWithoutGlassesInput
+    GlassFeatures: GlassFeatureUpdateManyWithoutGlassesInput
+    CamingOptionsByFrameProfile: FrameProfileUpdateManyWithoutCamingOptionsByFrameProfilesInput
+    AllCamingOptions: CamingOptionUpdateManyWithoutGlassesInput
+    GrilleColors: GrilleColorUpdateManyWithoutGlassesInput
+    ImpactAvailable: Boolean
+    Summaries: [String]
+    GlassAssociation: GlassAssociationUpdateOneWithoutGlassesInput
+    ImageUrl: String
+    Doors: DoorUpdateManyWithoutGlassFamilyAbbreviationInput
+  ): Glass!
+  createCamingOption(
+    Id: ID
+    Name: String
+    Abbreviation: String
+    GlassFamilyAbbreviation: String
+    Token: String
+    ImageUrl: String
+    FrameProfiles: FrameProfileUpdateManyWithoutCamingOptionsInput
+    Glasses: GlassUpdateManyWithoutAllCamingOptionsInput
+  ): CamingOption!
+  createGlassFeature(
+    Id: ID
+    Name: String
+    Abbreviation: String
+    Glasses: GlassUpdateManyWithoutGlassFeaturesInput
+  ): GlassFeature!
+  createDividedLiteType(
+    Id: ID
+    Name: String
+    Abbreviation: String
+    GrilleColorCanBeVisualized: Boolean
+    Glasses: GlassUpdateManyWithoutDividedLiteTypeInput
+  ): DividedLiteType!
+  createGrilleColor(
+    Id: ID
+    Name: String
+    Abbreviation: String
+    Token: String
+    ImageUrl: String
+    Glasses: GlassUpdateManyWithoutGrilleColorsInput
+  ): GrilleColor!
+  createTransom(
+    Id: ID
+    Brand: String
+    StyleNumber: String
+    ArchitecturalStyle: [String]
+    DoorCollection: DoorCollectionUpdateOneWithoutTransomsInput
+    DoorLine: DoorLineUpdateOneWithoutTransomsInput
+    ProductLine: String
+    DoorType: String
+    FrameProfiles: FrameProfileUpdateManyWithoutTransomsInput
+    DefaultFrameProfile: FrameProfileUpdateOneInput
+    ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutTransomsInput
+    GlassFamilyAbbreviation: GlassUpdateOneWithoutTransomsInput
+    LiteQuantity: Int
+    LocationOnHouse: [String]
+    AvailableSizeDetails: [String]
+    AvailableSizes: [String]
+    DefaultSize: String
+    VisualizedHeight: Int
+    VisualizedWidth: Int
+    StyleGroups: [String]
+    StyleShape: StyleShapeUpdateOneWithoutTransomsInput
+    RatingEligibility: [String]
+    LaunchYear: Int
+    RecentlyLaunched: Boolean
+    GlassSizeCategory: String
+    SupportedAccessories: [String]
+    AllowedSidelites: [String]
+    AllowedTransoms: [String]
+    DefaultSidelite: String
+    DefaultTransom: String
+    DefaultGlassWidth: String
+    AbstractPrice: Int
+    SOSPrice: Float
+    MDSPrice: Float
+    LowesStocked: Boolean
+    GlassType: String
+    GlassDesign: String
+    GlassFeatures: [String]
+    DefaultImageName: String
+    Sidelites: [String]
+    Transoms: [String]
+    ImageUrl: String
+    Ordinal: Int
+    GlassAssociation: GlassAssociationUpdateOneWithoutTransomsInput
+    IsLimitedAvailability: Boolean
+    LimitedAvailabilityCategories: [String]
+    ProductTrends: String
+    DefaultDoorSurroundStyleNumber: String
+    StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutTransomsInput
+    GrainProfile: String
+    CurrentYearTrends: [String]
+    LydDisplay: Boolean
+    LydDefaultFinishId: String
+    LydAvailableFinishIds: [String]
+    LydGlassCategory: String
+    LydDisplayOrder: Int
+    LydDisplayCaming: String
+    FacetMaterial: String
+    FacetRecentlyLaunched: String
+    RelatedStyleID: String
+    AllowsHandlesets: Boolean
+    IsFlushGlazed: Boolean
+    Doors: DoorUpdateManyWithoutTransomsInput
+  ): Transom!
+  createGlassAssociation(
+    Id: ID
+    GlassAssociation: String
+  ): GlassAssociation!
 
-type Post{
-  title: String!
-  text: String!
+  deleteDoor(Id: ID!): Door
+  deleteGlassAssociation(GlassAssociation: String): GlassAssociation
 }

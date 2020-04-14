@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const Home = props => {
+const Spinner = props => {
   return (
     <Container>
-      <p>text</p>
+      <p>Loading</p>
     </Container>
   );
 };
 
 const Container = styled.div``;
 
-export default Home;
+export default Spinner;
