@@ -37,7 +37,7 @@ export const initialState = {
     sideliteGlass: { value: "", completed: false },
     transomStyle: { value: "", completed: false }
   },
-  imgSrc: "http://frank.com.s3-website-us-east-1.amazonaws.com/"
+  imgSrc: "http://frank.com.s3-website-us-east-1.amazonaws.com"
 };
 
 const appReducer = (state = initialState, actions) => {

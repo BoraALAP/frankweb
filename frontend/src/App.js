@@ -28,20 +28,22 @@ import Sidelites from "./dbComponents/Sidelites";
 import StyleLayoutPairs from "./dbComponents/StyleLayoutPairs";
 import StyleShapes from "./dbComponents/StyleShapes";
 import Transoms from "./dbComponents/Transoms";
+import DisplayAll from "./components/applicationComponents/DisplayAll";
 
 const App = () => {
   const [store, dispatch] = useReducer(appReducer, initialState);
 
   return (
-    <appContext.Provider value={{ dispatch }}>
+    <appContext.Provider value={{ store, dispatch }}>
       <ThemeProvider theme={store.theme ? primaryTheme : secondaryTheme}>
         <GlobalStyle />
         <Router>
           <Layout>
             <Switch>
               <Route path="/application" component={DoorApplication} />
-              <Route path="/" exact />
-              <GlassAssociation />
+              <Route path="/" exact component={DisplayAll} />
+
+              {/* <GlassAssociation /> */}
               {/* <CamingOption />
                 
                 <DividedLiteType />
