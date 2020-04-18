@@ -17,7 +17,24 @@ const Query = {
   dividedLiteTypes: forwardTo("db"),
   grilleColors: forwardTo("db"),
   transoms: forwardTo("db"),
-  glassAssociations: forwardTo("db")
+  glassAssociations: forwardTo("db"),
+  doorsConnection: forwardTo("db"),
+  doorCollectionsConnection: forwardTo("db"),
+  doorLinesConnection: forwardTo("db"),
+  styleShapesConnection: forwardTo("db"),
+  sidelitesConnection: forwardTo("db"),
+  styleLayoutPairsConnection: forwardTo("db"),
+  glassFamiliesConnection: forwardTo("db"),
+  handleSetsConnection: forwardTo("db"),
+  finishesConnection: forwardTo("db"),
+  camingOptionsConnection: forwardTo("db"),
+  glassFeaturesConnection: forwardTo("db"),
+  dividedLiteTypesConnection: forwardTo("db"),
+  grilleColorsConnection: forwardTo("db"),
+  transomsConnection: forwardTo("db"),
+  glassAssociationsConnection: forwardTo("db"),
+  glassesConnection: forwardTo("db"),
+  frameProfilesConnection: forwardTo("db"),
 };
 
 module.exports = Query;

@@ -1,3 +1,12 @@
+enum LocationOnHouse {
+  Entry
+  Patio
+  HouseToGarage
+  BackOfHouse
+  SideOfHouse
+  SideOfGarage
+}
+
 type Door {
   Id: ID! @id
   Brand: String!
