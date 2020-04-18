@@ -6,10 +6,12 @@ import Footer from "./Footer";
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client";
 
+import { endpoint, prodEndpoint } from "../../config.js";
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
-    uri: process.env.REACT_APP_API_ENDPOINT,
+    uri: process.env.NODE_ENV === "development" ? endpoint : prodEndpoint,
     fetchOptions: {
       credentials: "include"
     }
