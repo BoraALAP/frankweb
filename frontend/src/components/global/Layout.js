@@ -11,14 +11,14 @@ import { endpoint, prodEndpoint } from "../../config.js";
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
-    uri: endpoint,
+    uri: prodEndpoint,
     fetchOptions: {
-      credentials: "include"
-    }
-  })
+      credentials: "include",
+    },
+  }),
 });
 console.log(process.env.NODE_ENV);
-const Layout = props => {
+const Layout = (props) => {
   console.log(process.env.NODE_ENV);
   return (
     <ApolloProvider client={client}>

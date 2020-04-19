@@ -6,46 +6,46 @@ import axios from "axios";
 const CREATE_GLASS_FAMILY_MUTATION = gql`
   mutation CREATE_GLASS_FAMILY_MUTATION(
     $Brand: String
-    $name: String
-    $abbreviation: String
-    $glassType: String
-    $privacyRating: Int
-    $availableFeatures: [String!]!
-    $availableDividedLiteTypes: [String!]!
-    $isLowE: Boolean
-    $description: String
-    $imageUrl: String
-    $detailUrl: String
+    $Name: String
+    $Abbreviation: String
+    $GlassType: String
+    $PrivacyRating: Int
+    $AvailableFeatures: [String!]!
+    $AvailableDividedLiteTypes: [String!]!
+    $IsLowE: Boolean
+    $Description: String
+    $ImageUrl: String
+    $DetailUrl: String
   ) {
     createGlassFamily(
       Brand: $Brand
-      name: $name
-      abbreviation: $abbreviation
-      glassType: $glassType
-      privacyRating: $privacyRating
-      availableFeatures: $availableFeatures
-      availableDividedLiteTypes: $availableDividedLiteTypes
-      isLowE: $isLowE
-      description: $description
-      imageUrl: $imageUrl
-      detailUrl: $detailUrl
+      Name: $Name
+      Abbreviation: $Abbreviation
+      GlassType: $GlassType
+      PrivacyRating: $PrivacyRating
+      AvailableFeatures: $AvailableFeatures
+      AvailableDividedLiteTypes: $AvailableDividedLiteTypes
+      IsLowE: $IsLowE
+      Description: $Description
+      ImageUrl: $ImageUrl
+      DetailUrl: $DetailUrl
     ) {
       Brand
-      name
-      abbreviation
-      glassType
-      privacyRating
-      availableFeatures
-      availableDividedLiteTypes
-      isLowE
-      description
-      imageUrl
-      detailUrl
+      Name
+      Abbreviation
+      GlassType
+      PrivacyRating
+      AvailableFeatures
+      AvailableDividedLiteTypes
+      IsLowE
+      Description
+      ImageUrl
+      DetailUrl
     }
   }
 `;
 
-const GlassFamily = (props) => {
+const GlassFamily = props => {
   const [createGlassFamily, { data, loading, error }] = useMutation(
     CREATE_GLASS_FAMILY_MUTATION
   );
@@ -54,11 +54,11 @@ const GlassFamily = (props) => {
   const fetchData = async () => {
     try {
       const { data } = await axios.get("./data/dbGlassFamilies.json");
-      data.glassFamilies.map(async (item) => {
+      data.glassFamilies.map(async item => {
         const res = await createGlassFamily({
           variables: {
-            ...item,
-          },
+            ...item
+          }
         });
         console.log(res);
       });

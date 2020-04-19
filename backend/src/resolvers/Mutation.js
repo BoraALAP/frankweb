@@ -44,7 +44,7 @@ const Mutation = {
   },
 
   async deleteManyGlassFamilies(parent, args, ctx, info) {
-    const where = { GlassFamily: args.GlassFamily };
+    const where = { Id: args.Id };
     const door = await ctx.db.mutation.deleteManyGlassFamilies({ where }, info);
     return door;
   },
@@ -68,8 +68,8 @@ const Mutation = {
     const glassFamily = await ctx.db.mutation.createGlassFamily({
       data: {
         ...args,
-        availableFeatures: { set: args.availableFeatures },
-        availableDividedLiteTypes: { set: args.availableDividedLiteTypes }
+        AvailableFeatures: { set: args.AvailableFeatures },
+        AvailableDividedLiteTypes: { set: args.AvailableDividedLiteTypes }
       }
     });
     return glassFamily;

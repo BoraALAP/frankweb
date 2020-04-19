@@ -148,7 +148,7 @@ type Mutation {
     Id: ID
     Abbreviation: String
     Name: String
-    ImgURL: String
+    ImageUrl: String
     DoorCollectionAbbreviation: String
     StyleShapeAbbreviation: String
     Doors: DoorCreateManyWithoutFrameProfilesInput
@@ -178,16 +178,16 @@ type Mutation {
   createGlassFamily(
     Id: ID
     Brand: String
-    name: String
-    abbreviation: String
-    glassType: String
-    privacyRating: Int
-    availableFeatures: [String!]!
-    availableDividedLiteTypes: [String!]!
-    isLowE: Boolean
-    description: String
-    imageUrl: String
-    detailUrl: String
+    Name: String
+    Abbreviation: String
+    GlassType: String
+    PrivacyRating: Int
+    AvailableFeatures: [String]!
+    AvailableDividedLiteTypes: [String]!
+    IsLowE: Boolean
+    Description: String
+    ImageUrl: String
+    DetailUrl: String
     Doors: DoorCreateManyWithoutGlassFamilyAbbreviationInput
   ): GlassFamily!
   createHandleSet(

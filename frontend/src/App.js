@@ -43,23 +43,22 @@ const App = () => {
               <Route path="/application" component={DoorApplication} />
               <Route path="/" exact>
                 {/* <GlassAssociation /> */}
+                {/* <FrameProfile /> */}
+                {/* <GlassFeature /> */}
+                {/* <GlassFamily /> */}
                 {/* <CamingOption /> */}
-
                 {/* <DividedLiteType /> */}
+                {/* <GrilleColor /> */}
+                {/* <StyleLayoutPairs /> */}
+                {/* <Finishes /> */}
+                {/* <HandleSets /> */}
+                {/* <StyleShapes /> */}
                 {/* <DoorCollections /> */}
                 {/* <DoorLine /> */}
-                {/* <Doors/> */}
-                {/* <Finishes /> */}
-                {/* <FrameProfile /> */}
                 {/* <Glass /> */}
-                <GlassFamily />
-                {/* <GlassFeature /> */}
-                {/* <GrilleColor /> */}
-                {/* <HandleSets /> */}
+                {/* <Transoms /> */}
                 {/* <Sidelites /> */}
-                {/* <StyleLayoutPairs /> */}
-                {/* <StyleShapes /> */}
-                {/* <Transoms />  */}
+                <Doors />
               </Route>
             </Switch>
           </Layout>

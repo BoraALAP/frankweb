@@ -133,7 +133,7 @@ const CREATE_SIDELITES_MUTATION = gql`
   }
 `;
 
-const Sidelites = (props) => {
+const Sidelites = props => {
   const [createSidelite, { data, loading, error }] = useMutation(
     CREATE_SIDELITES_MUTATION
   );
@@ -148,58 +148,58 @@ const Sidelites = (props) => {
             ...item,
             DoorCollection: {
               connect: {
-                Abbreviation: item.DoorCollection.Abbreviation,
-              },
+                Abbreviation: item.DoorCollection.Abbreviation
+              }
             },
             DoorLine: {
               connect: {
-                Abbreviation: item.DoorLine.Abbreviation,
-              },
+                Abbreviation: item.DoorLine.Abbreviation
+              }
             },
             StyleShape: {
               connect: {
-                Abbreviation: item.StyleShape.Abbreviation,
-              },
+                Abbreviation: item.StyleShape.Abbreviation
+              }
             },
             ParentGlassFamilyAbbreviation: {
               connect: {
-                abbreviation: item.ParentGlassFamilyAbbreviation,
-              },
+                Abbreviation: item.ParentGlassFamilyAbbreviation
+              }
             },
             GlassFamilyAbbreviation: {
               connect: {
-                Abbreviation: item.GlassFamilyAbbreviation,
-              },
+                Abbreviation: item.GlassFamilyAbbreviation
+              }
             },
             GlassAssociation: {
               connect: {
-                GlassAssociation: item.GlassAssociation,
-              },
+                GlassAssociation: item.GlassAssociation
+              }
             },
             StyleLayoutPairs: {
-              create: { ...item.StyleLayoutPairs },
+              create: { ...item.StyleLayoutPairs }
             },
             DefaultFrameProfile: {
               connect: {
-                Abbreviation: item.DefaultFrameProfile.Abbreviation,
-              },
+                Abbreviation: item.DefaultFrameProfile.Abbreviation
+              }
             },
             FrameProfiles: {
-              connect: item.FrameProfiles.map((item) => ({
-                Abbreviation: item.Abbreviation,
-              })),
+              connect: item.FrameProfiles.map(item => ({
+                Abbreviation: item.Abbreviation
+              }))
             },
             Sidelites: {
-              connect: item.Sidelites.map((item) => ({
-                StyleNumber: item.StyleNumber,
-              })),
+              connect: item.Sidelites.map(item => ({
+                StyleNumber: item.StyleNumber
+              }))
             },
             Transoms: {
-              connect: item.Transoms.map((item) => ({
-                StyleNumber: item.StyleNumber,
-              })),
-            },
-          },
+              connect: item.Transoms.map(item => ({
+                StyleNumber: item.StyleNumber
+              }))
+            }
+          }
         });
         console.log(index, data.doorStyles.length, res);
       });
