@@ -41,7 +41,7 @@ const App = () => {
           <Layout>
             <Switch>
               <Route path="/application" component={DoorApplication} />
-              <Route path="/" exact>
+              <Route path="/" exact component={DisplayAll}>
                 {/* <GlassAssociation /> */}
                 {/* <FrameProfile /> */}
                 {/* <GlassFeature /> */}
@@ -58,7 +58,7 @@ const App = () => {
                 {/* <Glass /> */}
                 {/* <Transoms /> */}
                 {/* <Sidelites /> */}
-                <Doors />
+                {/* <Doors /> */}
               </Route>
             </Switch>
           </Layout>
