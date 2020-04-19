@@ -1,5 +1,5 @@
 #endpoint: ${env:PRISMA_ENDPOINT} 
-endpoint: ${env:PRISMA_PRODENDPOINT}
+endpoint: ${env:PRISMA_ENDPOINT}
 datamodel: datamodel.graphql
 secret: ${env:PRISMA_SECRET}
 

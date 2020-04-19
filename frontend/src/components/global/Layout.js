@@ -11,7 +11,7 @@ import { endpoint, prodEndpoint } from "../../config.js";
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
-    uri: prodEndpoint,
+    uri: endpoint,
     fetchOptions: {
       credentials: "include",
     },
