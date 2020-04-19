@@ -18,7 +18,7 @@ import DoorCollections from "./dbComponents/DoorCollections";
 import DoorLine from "./dbComponents/DoorLine";
 import Doors from "./dbComponents/Doors";
 import Finishes from "./dbComponents/Finishes";
-import FrameProfiles from "./dbComponents/FrameProfile";
+import FrameProfile from "./dbComponents/FrameProfile";
 import Glass from "./dbComponents/Glass";
 import GlassFamily from "./dbComponents/GlassFamily";
 import GlassFeature from "./dbComponents/GlassFeature";
@@ -41,26 +41,26 @@ const App = () => {
           <Layout>
             <Switch>
               <Route path="/application" component={DoorApplication} />
-              <Route path="/" exact component={DisplayAll} />
+              <Route path="/" exact>
+                {/* <GlassAssociation /> */}
+                {/* <CamingOption /> */}
 
-              {/* <GlassAssociation /> */}
-              {/* <CamingOption />
-                
-                <DividedLiteType />
-                <DoorCollections />
-                <DoorLine />
-                <Doors/>
-                <Finishes />
-                <FrameProfile />
-                <Glass />
+                {/* <DividedLiteType /> */}
+                {/* <DoorCollections /> */}
+                {/* <DoorLine /> */}
+                {/* <Doors/> */}
+                {/* <Finishes /> */}
+                {/* <FrameProfile /> */}
+                {/* <Glass /> */}
                 <GlassFamily />
-                <GlassFeature />
-                <GrilleColor />
-                <HandleSets />
-                <Sidelites />
-                <StyleLayoutPairs />
-                <StyleShapes />
-                <Transoms /> */}
+                {/* <GlassFeature /> */}
+                {/* <GrilleColor /> */}
+                {/* <HandleSets /> */}
+                {/* <Sidelites /> */}
+                {/* <StyleLayoutPairs /> */}
+                {/* <StyleShapes /> */}
+                {/* <Transoms />  */}
+              </Route>
             </Switch>
           </Layout>
         </Router>

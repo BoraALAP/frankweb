@@ -12,10 +12,7 @@ server.start(
   {
     cors: {
       credentials: true,
-      origin:
-        process.env.NODE_ENV === "development"
-          ? process.env.FRONTEND_DEV
-          : process.env.FRONTEND_URL
+      origin: process.env.FRONTEND_DEV
     }
   },
   deets => {
