@@ -399,5 +399,5 @@ type Mutation {
 
   deleteDoor(Id: ID!): Door
   deleteGlassAssociation(GlassAssociation: String): GlassAssociation
-  deleteGlassFamily(where: GlassFamilyWhereInput!): BatchPayload!
+  deleteManyGlassFamilies(where: GlassFamilyWhereInput): BatchPayload!
 }

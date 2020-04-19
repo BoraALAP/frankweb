@@ -43,9 +43,9 @@ const Mutation = {
     return door;
   },
 
-  async deleteGlassFamily(parent, args, ctx, info) {
+  async deleteManyGlassFamilies(parent, args, ctx, info) {
     const where = { GlassFamily: args.GlassFamily };
-    const door = await ctx.db.mutation.deleteGlassFamily({ where }, info);
+    const door = await ctx.db.mutation.deleteManyGlassFamilies({ where }, info);
     return door;
   },
   async createDoorCollection(parent, args, ctx, info) {
