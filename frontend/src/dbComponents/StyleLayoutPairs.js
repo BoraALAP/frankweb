@@ -7,27 +7,27 @@ const CREATE_STYLE_LAYOUT_PAIRS_MUTATION = gql`
   mutation CREATE_STYLE_LAYOUT_PAIRS_MUTATION(
     $Abbreviation: String
     $Name: String
-    $ImgURL: String
+    $ImageUrl: String
     $DoorCollectionAbbreviation: String
     $StyleShapeAbbreviation: String
   ) {
     createStyleLayoutPairs(
       Abbreviation: $Abbreviation
       Name: $Name
-      ImgURL: $ImgURL
+      ImageUrl: $ImageUrl
       DoorCollectionAbbreviation: $DoorCollectionAbbreviation
       StyleShapeAbbreviation: $StyleShapeAbbreviation
     ) {
       Abbreviation
       Name
-      ImgURL
+      ImageUrl
       DoorCollectionAbbreviation
       StyleShapeAbbreviation
     }
   }
 `;
 
-const StyleLayoutPairs = (props) => {
+const StyleLayoutPairs = props => {
   const [createStyleLayoutPairs, { data, loading, error }] = useMutation(
     CREATE_STYLE_LAYOUT_PAIRS_MUTATION
   );
@@ -36,11 +36,11 @@ const StyleLayoutPairs = (props) => {
   const fetchData = async () => {
     try {
       const { data } = await axios.get("./data/dbStyleLayoutPairs.json");
-      data.frameProfile.map(async (item) => {
+      data.frameProfile.map(async item => {
         const res = await createStyleLayoutPairs({
           variables: {
-            ...item,
-          },
+            ...item
+          }
         });
         console.log(res);
       });

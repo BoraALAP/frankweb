@@ -46,7 +46,7 @@ const CREATE_GLASS_MUTATION = gql`
   }
 `;
 
-const Glass = (props) => {
+const Glass = props => {
   const [createGlass, { data, loading, error }] = useMutation(
     CREATE_GLASS_MUTATION
   );
@@ -56,46 +56,46 @@ const Glass = (props) => {
   const fetchData = async () => {
     try {
       const { data } = await axios.get("./data/dbGlass.json");
-      data.glasses.map(async (item) => {
+      data.glasses.map(async item => {
         const res = await createGlass({
           variables: {
             ...item,
             ParentGlassFamilyAbbreviation: {
               connect: {
-                abbreviation: item.ParentGlassFamilyAbbreviation,
-              },
+                Abbreviation: item.ParentGlassFamilyAbbreviation
+              }
             },
             DividedLiteType: {
               connect: {
-                Abbreviation: item.DividedLiteType.Abbreviation,
-              },
+                Abbreviation: item.DividedLiteType.Abbreviation
+              }
             },
             GlassAssociation: {
               connect: {
-                GlassAssociation: item.GlassAssociation,
-              },
+                GlassAssociation: item.GlassAssociation
+              }
             },
             CamingOptionsByFrameProfile: {
-              connect: item.CamingOptionsByFrameProfile.map((it) => ({
-                Abbreviation: it.Frame,
-              })),
+              connect: item.CamingOptionsByFrameProfile.map(it => ({
+                Abbreviation: it.Frame
+              }))
             },
             AllCamingOptions: {
-              connect: item.AllCamingOptions.map((it) => ({
-                Abbreviation: it.Abbreviation,
-              })),
+              connect: item.AllCamingOptions.map(it => ({
+                Abbreviation: it.Abbreviation
+              }))
             },
             GrilleColors: {
-              connect: item.GrilleColors.map((it) => ({
-                Abbreviation: it.Abbreviation,
-              })),
+              connect: item.GrilleColors.map(it => ({
+                Abbreviation: it.Abbreviation
+              }))
             },
             GlassFeatures: {
-              connect: item.GlassFeatures.map((it) => ({
-                Abbreviation: it.Abbreviation,
-              })),
-            },
-          },
+              connect: item.GlassFeatures.map(it => ({
+                Abbreviation: it.Abbreviation
+              }))
+            }
+          }
         });
         console.log(res);
       });

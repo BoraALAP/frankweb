@@ -164,7 +164,7 @@ const Doors = props => {
             },
             ParentGlassFamilyAbbreviation: {
               connect: {
-                abbreviation: item.ParentGlassFamilyAbbreviation
+                Abbreviation: item.ParentGlassFamilyAbbreviation
               }
             },
             GlassFamilyAbbreviation: {

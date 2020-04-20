@@ -7,27 +7,27 @@ const CREATE_FRAME_PROFILE_MUTATION = gql`
   mutation CREATE_FRAME_PROFILE_MUTATION(
     $Abbreviation: String
     $Name: String
-    $ImgURL: String
+    $ImageUrl: String
     $DoorCollectionAbbreviation: String
     $StyleShapeAbbreviation: String
   ) {
     createFrameProfile(
       Abbreviation: $Abbreviation
       Name: $Name
-      ImgURL: $ImgURL
+      ImageUrl: $ImageUrl
       DoorCollectionAbbreviation: $DoorCollectionAbbreviation
       StyleShapeAbbreviation: $StyleShapeAbbreviation
     ) {
       Abbreviation
       Name
-      ImgURL
+      ImageUrl
       DoorCollectionAbbreviation
       StyleShapeAbbreviation
     }
   }
 `;
 
-const FrameProfile = (props) => {
+const FrameProfile = props => {
   const [createFrameProfile, { data, loading, error }] = useMutation(
     CREATE_FRAME_PROFILE_MUTATION
   );
@@ -36,11 +36,11 @@ const FrameProfile = (props) => {
   const fetchData = async () => {
     try {
       const { data } = await axios.get("./data/dbFrameProfile.json");
-      data.frameProfile.map(async (item) => {
+      data.frameProfile.map(async item => {
         const res = await createFrameProfile({
           variables: {
-            ...item,
-          },
+            ...item
+          }
         });
         console.log(res);
       });

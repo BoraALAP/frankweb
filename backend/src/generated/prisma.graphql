@@ -1,5 +1,5 @@
-# source: https://eu1.prisma.sh/bora-alap-3bfda9/dev/dev
-# timestamp: Fri Apr 10 2020 19:08:26 GMT-0400 (Eastern Daylight Time)
+# source: https://frank-f43807b388.herokuapp.com/FrankProd/Prod
+# timestamp: Sat Apr 18 2020 23:51:01 GMT-0400 (Eastern Daylight Time)
 
 type AggregateCamingOption {
   count: Int!
@@ -7104,7 +7104,7 @@ type FrameProfile {
   Id: ID!
   Abbreviation: String!
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles(where: GlassWhereInput, orderBy: GlassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Glass!]
@@ -7128,7 +7128,7 @@ input FrameProfileCreateInput {
   Id: ID
   Abbreviation: String!
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles: GlassCreateManyWithoutCamingOptionsByFrameProfileInput
@@ -7172,7 +7172,7 @@ input FrameProfileCreateWithoutCamingOptionsByFrameProfilesInput {
   Id: ID
   Abbreviation: String!
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptions: CamingOptionCreateManyWithoutFrameProfilesInput
@@ -7185,7 +7185,7 @@ input FrameProfileCreateWithoutCamingOptionsInput {
   Id: ID
   Abbreviation: String!
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles: GlassCreateManyWithoutCamingOptionsByFrameProfileInput
@@ -7198,7 +7198,7 @@ input FrameProfileCreateWithoutDoorsInput {
   Id: ID
   Abbreviation: String!
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles: GlassCreateManyWithoutCamingOptionsByFrameProfileInput
@@ -7211,7 +7211,7 @@ input FrameProfileCreateWithoutSidelitesInput {
   Id: ID
   Abbreviation: String!
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles: GlassCreateManyWithoutCamingOptionsByFrameProfileInput
@@ -7224,7 +7224,7 @@ input FrameProfileCreateWithoutTransomsInput {
   Id: ID
   Abbreviation: String!
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles: GlassCreateManyWithoutCamingOptionsByFrameProfileInput
@@ -7249,8 +7249,8 @@ enum FrameProfileOrderByInput {
   Abbreviation_DESC
   Name_ASC
   Name_DESC
-  ImgURL_ASC
-  ImgURL_DESC
+  ImageUrl_ASC
+  ImageUrl_DESC
   DoorCollectionAbbreviation_ASC
   DoorCollectionAbbreviation_DESC
   StyleShapeAbbreviation_ASC
@@ -7261,7 +7261,7 @@ type FrameProfilePreviousValues {
   Id: ID!
   Abbreviation: String!
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
 }
@@ -7395,46 +7395,46 @@ input FrameProfileScalarWhereInput {
 
   """All values not ending with the given string."""
   Name_not_ends_with: String
-  ImgURL: String
+  ImageUrl: String
 
   """All values that are not equal to given value."""
-  ImgURL_not: String
+  ImageUrl_not: String
 
   """All values that are contained in given list."""
-  ImgURL_in: [String!]
+  ImageUrl_in: [String!]
 
   """All values that are not contained in given list."""
-  ImgURL_not_in: [String!]
+  ImageUrl_not_in: [String!]
 
   """All values less than the given value."""
-  ImgURL_lt: String
+  ImageUrl_lt: String
 
   """All values less than or equal the given value."""
-  ImgURL_lte: String
+  ImageUrl_lte: String
 
   """All values greater than the given value."""
-  ImgURL_gt: String
+  ImageUrl_gt: String
 
   """All values greater than or equal the given value."""
-  ImgURL_gte: String
+  ImageUrl_gte: String
 
   """All values containing the given string."""
-  ImgURL_contains: String
+  ImageUrl_contains: String
 
   """All values not containing the given string."""
-  ImgURL_not_contains: String
+  ImageUrl_not_contains: String
 
   """All values starting with the given string."""
-  ImgURL_starts_with: String
+  ImageUrl_starts_with: String
 
   """All values not starting with the given string."""
-  ImgURL_not_starts_with: String
+  ImageUrl_not_starts_with: String
 
   """All values ending with the given string."""
-  ImgURL_ends_with: String
+  ImageUrl_ends_with: String
 
   """All values not ending with the given string."""
-  ImgURL_not_ends_with: String
+  ImageUrl_not_ends_with: String
   DoorCollectionAbbreviation: String
 
   """All values that are not equal to given value."""
@@ -7557,7 +7557,7 @@ input FrameProfileSubscriptionWhereInput {
 input FrameProfileUpdateDataInput {
   Abbreviation: String
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles: GlassUpdateManyWithoutCamingOptionsByFrameProfileInput
@@ -7570,7 +7570,7 @@ input FrameProfileUpdateDataInput {
 input FrameProfileUpdateInput {
   Abbreviation: String
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles: GlassUpdateManyWithoutCamingOptionsByFrameProfileInput
@@ -7583,7 +7583,7 @@ input FrameProfileUpdateInput {
 input FrameProfileUpdateManyDataInput {
   Abbreviation: String
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
 }
@@ -7591,7 +7591,7 @@ input FrameProfileUpdateManyDataInput {
 input FrameProfileUpdateManyMutationInput {
   Abbreviation: String
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
 }
@@ -7673,7 +7673,7 @@ input FrameProfileUpdateOneInput {
 input FrameProfileUpdateWithoutCamingOptionsByFrameProfilesDataInput {
   Abbreviation: String
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptions: CamingOptionUpdateManyWithoutFrameProfilesInput
@@ -7685,7 +7685,7 @@ input FrameProfileUpdateWithoutCamingOptionsByFrameProfilesDataInput {
 input FrameProfileUpdateWithoutCamingOptionsDataInput {
   Abbreviation: String
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles: GlassUpdateManyWithoutCamingOptionsByFrameProfileInput
@@ -7697,7 +7697,7 @@ input FrameProfileUpdateWithoutCamingOptionsDataInput {
 input FrameProfileUpdateWithoutDoorsDataInput {
   Abbreviation: String
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles: GlassUpdateManyWithoutCamingOptionsByFrameProfileInput
@@ -7709,7 +7709,7 @@ input FrameProfileUpdateWithoutDoorsDataInput {
 input FrameProfileUpdateWithoutSidelitesDataInput {
   Abbreviation: String
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles: GlassUpdateManyWithoutCamingOptionsByFrameProfileInput
@@ -7721,7 +7721,7 @@ input FrameProfileUpdateWithoutSidelitesDataInput {
 input FrameProfileUpdateWithoutTransomsDataInput {
   Abbreviation: String
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles: GlassUpdateManyWithoutCamingOptionsByFrameProfileInput
@@ -7919,46 +7919,46 @@ input FrameProfileWhereInput {
 
   """All values not ending with the given string."""
   Name_not_ends_with: String
-  ImgURL: String
+  ImageUrl: String
 
   """All values that are not equal to given value."""
-  ImgURL_not: String
+  ImageUrl_not: String
 
   """All values that are contained in given list."""
-  ImgURL_in: [String!]
+  ImageUrl_in: [String!]
 
   """All values that are not contained in given list."""
-  ImgURL_not_in: [String!]
+  ImageUrl_not_in: [String!]
 
   """All values less than the given value."""
-  ImgURL_lt: String
+  ImageUrl_lt: String
 
   """All values less than or equal the given value."""
-  ImgURL_lte: String
+  ImageUrl_lte: String
 
   """All values greater than the given value."""
-  ImgURL_gt: String
+  ImageUrl_gt: String
 
   """All values greater than or equal the given value."""
-  ImgURL_gte: String
+  ImageUrl_gte: String
 
   """All values containing the given string."""
-  ImgURL_contains: String
+  ImageUrl_contains: String
 
   """All values not containing the given string."""
-  ImgURL_not_contains: String
+  ImageUrl_not_contains: String
 
   """All values starting with the given string."""
-  ImgURL_starts_with: String
+  ImageUrl_starts_with: String
 
   """All values not starting with the given string."""
-  ImgURL_not_starts_with: String
+  ImageUrl_not_starts_with: String
 
   """All values ending with the given string."""
-  ImgURL_ends_with: String
+  ImageUrl_ends_with: String
 
   """All values not ending with the given string."""
-  ImgURL_not_ends_with: String
+  ImageUrl_not_ends_with: String
   DoorCollectionAbbreviation: String
 
   """All values that are not equal to given value."""
@@ -8726,16 +8726,16 @@ type GlassEdge {
 type GlassFamily {
   Id: ID!
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  availableFeatures: [String!]!
-  availableDividedLiteTypes: [String!]!
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  AvailableFeatures: [String!]!
+  AvailableDividedLiteTypes: [String!]!
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
   Doors(where: DoorWhereInput, orderBy: DoorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Door!]
   Sidelites(where: SideliteWhereInput, orderBy: SideliteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sidelite!]
   Transoms(where: TransomWhereInput, orderBy: TransomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transom!]
@@ -8752,27 +8752,27 @@ type GlassFamilyConnection {
   aggregate: AggregateGlassFamily!
 }
 
-input GlassFamilyCreateavailableDividedLiteTypesInput {
+input GlassFamilyCreateAvailableDividedLiteTypesInput {
   set: [String!]
 }
 
-input GlassFamilyCreateavailableFeaturesInput {
+input GlassFamilyCreateAvailableFeaturesInput {
   set: [String!]
 }
 
 input GlassFamilyCreateInput {
   Id: ID
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
-  availableFeatures: GlassFamilyCreateavailableFeaturesInput
-  availableDividedLiteTypes: GlassFamilyCreateavailableDividedLiteTypesInput
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
+  AvailableFeatures: GlassFamilyCreateAvailableFeaturesInput
+  AvailableDividedLiteTypes: GlassFamilyCreateAvailableDividedLiteTypesInput
   Doors: DoorCreateManyWithoutParentGlassFamilyAbbreviationInput
   Sidelites: SideliteCreateManyWithoutParentGlassFamilyAbbreviationInput
   Transoms: TransomCreateManyWithoutParentGlassFamilyAbbreviationInput
@@ -8802,16 +8802,16 @@ input GlassFamilyCreateOneWithoutTransomsInput {
 input GlassFamilyCreateWithoutDoorsInput {
   Id: ID
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
-  availableFeatures: GlassFamilyCreateavailableFeaturesInput
-  availableDividedLiteTypes: GlassFamilyCreateavailableDividedLiteTypesInput
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
+  AvailableFeatures: GlassFamilyCreateAvailableFeaturesInput
+  AvailableDividedLiteTypes: GlassFamilyCreateAvailableDividedLiteTypesInput
   Sidelites: SideliteCreateManyWithoutParentGlassFamilyAbbreviationInput
   Transoms: TransomCreateManyWithoutParentGlassFamilyAbbreviationInput
   Glasses: GlassCreateManyWithoutParentGlassFamilyAbbreviationInput
@@ -8820,16 +8820,16 @@ input GlassFamilyCreateWithoutDoorsInput {
 input GlassFamilyCreateWithoutGlassesInput {
   Id: ID
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
-  availableFeatures: GlassFamilyCreateavailableFeaturesInput
-  availableDividedLiteTypes: GlassFamilyCreateavailableDividedLiteTypesInput
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
+  AvailableFeatures: GlassFamilyCreateAvailableFeaturesInput
+  AvailableDividedLiteTypes: GlassFamilyCreateAvailableDividedLiteTypesInput
   Doors: DoorCreateManyWithoutParentGlassFamilyAbbreviationInput
   Sidelites: SideliteCreateManyWithoutParentGlassFamilyAbbreviationInput
   Transoms: TransomCreateManyWithoutParentGlassFamilyAbbreviationInput
@@ -8838,16 +8838,16 @@ input GlassFamilyCreateWithoutGlassesInput {
 input GlassFamilyCreateWithoutSidelitesInput {
   Id: ID
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
-  availableFeatures: GlassFamilyCreateavailableFeaturesInput
-  availableDividedLiteTypes: GlassFamilyCreateavailableDividedLiteTypesInput
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
+  AvailableFeatures: GlassFamilyCreateAvailableFeaturesInput
+  AvailableDividedLiteTypes: GlassFamilyCreateAvailableDividedLiteTypesInput
   Doors: DoorCreateManyWithoutParentGlassFamilyAbbreviationInput
   Transoms: TransomCreateManyWithoutParentGlassFamilyAbbreviationInput
   Glasses: GlassCreateManyWithoutParentGlassFamilyAbbreviationInput
@@ -8856,16 +8856,16 @@ input GlassFamilyCreateWithoutSidelitesInput {
 input GlassFamilyCreateWithoutTransomsInput {
   Id: ID
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
-  availableFeatures: GlassFamilyCreateavailableFeaturesInput
-  availableDividedLiteTypes: GlassFamilyCreateavailableDividedLiteTypesInput
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
+  AvailableFeatures: GlassFamilyCreateAvailableFeaturesInput
+  AvailableDividedLiteTypes: GlassFamilyCreateAvailableDividedLiteTypesInput
   Doors: DoorCreateManyWithoutParentGlassFamilyAbbreviationInput
   Sidelites: SideliteCreateManyWithoutParentGlassFamilyAbbreviationInput
   Glasses: GlassCreateManyWithoutParentGlassFamilyAbbreviationInput
@@ -8885,37 +8885,37 @@ enum GlassFamilyOrderByInput {
   Id_DESC
   Brand_ASC
   Brand_DESC
-  name_ASC
-  name_DESC
-  abbreviation_ASC
-  abbreviation_DESC
-  glassType_ASC
-  glassType_DESC
-  privacyRating_ASC
-  privacyRating_DESC
-  isLowE_ASC
-  isLowE_DESC
-  description_ASC
-  description_DESC
-  imageUrl_ASC
-  imageUrl_DESC
-  detailUrl_ASC
-  detailUrl_DESC
+  Name_ASC
+  Name_DESC
+  Abbreviation_ASC
+  Abbreviation_DESC
+  GlassType_ASC
+  GlassType_DESC
+  PrivacyRating_ASC
+  PrivacyRating_DESC
+  IsLowE_ASC
+  IsLowE_DESC
+  Description_ASC
+  Description_DESC
+  ImageUrl_ASC
+  ImageUrl_DESC
+  DetailUrl_ASC
+  DetailUrl_DESC
 }
 
 type GlassFamilyPreviousValues {
   Id: ID!
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  availableFeatures: [String!]!
-  availableDividedLiteTypes: [String!]!
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  AvailableFeatures: [String!]!
+  AvailableDividedLiteTypes: [String!]!
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
 }
 
 type GlassFamilySubscriptionPayload {
@@ -8955,26 +8955,26 @@ input GlassFamilySubscriptionWhereInput {
   node: GlassFamilyWhereInput
 }
 
-input GlassFamilyUpdateavailableDividedLiteTypesInput {
+input GlassFamilyUpdateAvailableDividedLiteTypesInput {
   set: [String!]
 }
 
-input GlassFamilyUpdateavailableFeaturesInput {
+input GlassFamilyUpdateAvailableFeaturesInput {
   set: [String!]
 }
 
 input GlassFamilyUpdateInput {
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
-  availableFeatures: GlassFamilyUpdateavailableFeaturesInput
-  availableDividedLiteTypes: GlassFamilyUpdateavailableDividedLiteTypesInput
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
+  AvailableFeatures: GlassFamilyUpdateAvailableFeaturesInput
+  AvailableDividedLiteTypes: GlassFamilyUpdateAvailableDividedLiteTypesInput
   Doors: DoorUpdateManyWithoutParentGlassFamilyAbbreviationInput
   Sidelites: SideliteUpdateManyWithoutParentGlassFamilyAbbreviationInput
   Transoms: TransomUpdateManyWithoutParentGlassFamilyAbbreviationInput
@@ -8983,16 +8983,16 @@ input GlassFamilyUpdateInput {
 
 input GlassFamilyUpdateManyMutationInput {
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
-  availableFeatures: GlassFamilyUpdateavailableFeaturesInput
-  availableDividedLiteTypes: GlassFamilyUpdateavailableDividedLiteTypesInput
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
+  AvailableFeatures: GlassFamilyUpdateAvailableFeaturesInput
+  AvailableDividedLiteTypes: GlassFamilyUpdateAvailableDividedLiteTypesInput
 }
 
 input GlassFamilyUpdateOneWithoutDoorsInput {
@@ -9033,16 +9033,16 @@ input GlassFamilyUpdateOneWithoutTransomsInput {
 
 input GlassFamilyUpdateWithoutDoorsDataInput {
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
-  availableFeatures: GlassFamilyUpdateavailableFeaturesInput
-  availableDividedLiteTypes: GlassFamilyUpdateavailableDividedLiteTypesInput
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
+  AvailableFeatures: GlassFamilyUpdateAvailableFeaturesInput
+  AvailableDividedLiteTypes: GlassFamilyUpdateAvailableDividedLiteTypesInput
   Sidelites: SideliteUpdateManyWithoutParentGlassFamilyAbbreviationInput
   Transoms: TransomUpdateManyWithoutParentGlassFamilyAbbreviationInput
   Glasses: GlassUpdateManyWithoutParentGlassFamilyAbbreviationInput
@@ -9050,16 +9050,16 @@ input GlassFamilyUpdateWithoutDoorsDataInput {
 
 input GlassFamilyUpdateWithoutGlassesDataInput {
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
-  availableFeatures: GlassFamilyUpdateavailableFeaturesInput
-  availableDividedLiteTypes: GlassFamilyUpdateavailableDividedLiteTypesInput
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
+  AvailableFeatures: GlassFamilyUpdateAvailableFeaturesInput
+  AvailableDividedLiteTypes: GlassFamilyUpdateAvailableDividedLiteTypesInput
   Doors: DoorUpdateManyWithoutParentGlassFamilyAbbreviationInput
   Sidelites: SideliteUpdateManyWithoutParentGlassFamilyAbbreviationInput
   Transoms: TransomUpdateManyWithoutParentGlassFamilyAbbreviationInput
@@ -9067,16 +9067,16 @@ input GlassFamilyUpdateWithoutGlassesDataInput {
 
 input GlassFamilyUpdateWithoutSidelitesDataInput {
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
-  availableFeatures: GlassFamilyUpdateavailableFeaturesInput
-  availableDividedLiteTypes: GlassFamilyUpdateavailableDividedLiteTypesInput
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
+  AvailableFeatures: GlassFamilyUpdateAvailableFeaturesInput
+  AvailableDividedLiteTypes: GlassFamilyUpdateAvailableDividedLiteTypesInput
   Doors: DoorUpdateManyWithoutParentGlassFamilyAbbreviationInput
   Transoms: TransomUpdateManyWithoutParentGlassFamilyAbbreviationInput
   Glasses: GlassUpdateManyWithoutParentGlassFamilyAbbreviationInput
@@ -9084,16 +9084,16 @@ input GlassFamilyUpdateWithoutSidelitesDataInput {
 
 input GlassFamilyUpdateWithoutTransomsDataInput {
   Brand: String
-  name: String
-  abbreviation: String
-  glassType: String
-  privacyRating: Int
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
-  availableFeatures: GlassFamilyUpdateavailableFeaturesInput
-  availableDividedLiteTypes: GlassFamilyUpdateavailableDividedLiteTypesInput
+  Name: String
+  Abbreviation: String
+  GlassType: String
+  PrivacyRating: Int
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
+  AvailableFeatures: GlassFamilyUpdateAvailableFeaturesInput
+  AvailableDividedLiteTypes: GlassFamilyUpdateAvailableDividedLiteTypesInput
   Doors: DoorUpdateManyWithoutParentGlassFamilyAbbreviationInput
   Sidelites: SideliteUpdateManyWithoutParentGlassFamilyAbbreviationInput
   Glasses: GlassUpdateManyWithoutParentGlassFamilyAbbreviationInput
@@ -9208,272 +9208,272 @@ input GlassFamilyWhereInput {
 
   """All values not ending with the given string."""
   Brand_not_ends_with: String
-  name: String
+  Name: String
 
   """All values that are not equal to given value."""
-  name_not: String
+  Name_not: String
 
   """All values that are contained in given list."""
-  name_in: [String!]
+  Name_in: [String!]
 
   """All values that are not contained in given list."""
-  name_not_in: [String!]
+  Name_not_in: [String!]
 
   """All values less than the given value."""
-  name_lt: String
+  Name_lt: String
 
   """All values less than or equal the given value."""
-  name_lte: String
+  Name_lte: String
 
   """All values greater than the given value."""
-  name_gt: String
+  Name_gt: String
 
   """All values greater than or equal the given value."""
-  name_gte: String
+  Name_gte: String
 
   """All values containing the given string."""
-  name_contains: String
+  Name_contains: String
 
   """All values not containing the given string."""
-  name_not_contains: String
+  Name_not_contains: String
 
   """All values starting with the given string."""
-  name_starts_with: String
+  Name_starts_with: String
 
   """All values not starting with the given string."""
-  name_not_starts_with: String
+  Name_not_starts_with: String
 
   """All values ending with the given string."""
-  name_ends_with: String
+  Name_ends_with: String
 
   """All values not ending with the given string."""
-  name_not_ends_with: String
-  abbreviation: String
+  Name_not_ends_with: String
+  Abbreviation: String
 
   """All values that are not equal to given value."""
-  abbreviation_not: String
+  Abbreviation_not: String
 
   """All values that are contained in given list."""
-  abbreviation_in: [String!]
+  Abbreviation_in: [String!]
 
   """All values that are not contained in given list."""
-  abbreviation_not_in: [String!]
+  Abbreviation_not_in: [String!]
 
   """All values less than the given value."""
-  abbreviation_lt: String
+  Abbreviation_lt: String
 
   """All values less than or equal the given value."""
-  abbreviation_lte: String
+  Abbreviation_lte: String
 
   """All values greater than the given value."""
-  abbreviation_gt: String
+  Abbreviation_gt: String
 
   """All values greater than or equal the given value."""
-  abbreviation_gte: String
+  Abbreviation_gte: String
 
   """All values containing the given string."""
-  abbreviation_contains: String
+  Abbreviation_contains: String
 
   """All values not containing the given string."""
-  abbreviation_not_contains: String
+  Abbreviation_not_contains: String
 
   """All values starting with the given string."""
-  abbreviation_starts_with: String
+  Abbreviation_starts_with: String
 
   """All values not starting with the given string."""
-  abbreviation_not_starts_with: String
+  Abbreviation_not_starts_with: String
 
   """All values ending with the given string."""
-  abbreviation_ends_with: String
+  Abbreviation_ends_with: String
 
   """All values not ending with the given string."""
-  abbreviation_not_ends_with: String
-  glassType: String
+  Abbreviation_not_ends_with: String
+  GlassType: String
 
   """All values that are not equal to given value."""
-  glassType_not: String
+  GlassType_not: String
 
   """All values that are contained in given list."""
-  glassType_in: [String!]
+  GlassType_in: [String!]
 
   """All values that are not contained in given list."""
-  glassType_not_in: [String!]
+  GlassType_not_in: [String!]
 
   """All values less than the given value."""
-  glassType_lt: String
+  GlassType_lt: String
 
   """All values less than or equal the given value."""
-  glassType_lte: String
+  GlassType_lte: String
 
   """All values greater than the given value."""
-  glassType_gt: String
+  GlassType_gt: String
 
   """All values greater than or equal the given value."""
-  glassType_gte: String
+  GlassType_gte: String
 
   """All values containing the given string."""
-  glassType_contains: String
+  GlassType_contains: String
 
   """All values not containing the given string."""
-  glassType_not_contains: String
+  GlassType_not_contains: String
 
   """All values starting with the given string."""
-  glassType_starts_with: String
+  GlassType_starts_with: String
 
   """All values not starting with the given string."""
-  glassType_not_starts_with: String
+  GlassType_not_starts_with: String
 
   """All values ending with the given string."""
-  glassType_ends_with: String
+  GlassType_ends_with: String
 
   """All values not ending with the given string."""
-  glassType_not_ends_with: String
-  privacyRating: Int
+  GlassType_not_ends_with: String
+  PrivacyRating: Int
 
   """All values that are not equal to given value."""
-  privacyRating_not: Int
+  PrivacyRating_not: Int
 
   """All values that are contained in given list."""
-  privacyRating_in: [Int!]
+  PrivacyRating_in: [Int!]
 
   """All values that are not contained in given list."""
-  privacyRating_not_in: [Int!]
+  PrivacyRating_not_in: [Int!]
 
   """All values less than the given value."""
-  privacyRating_lt: Int
+  PrivacyRating_lt: Int
 
   """All values less than or equal the given value."""
-  privacyRating_lte: Int
+  PrivacyRating_lte: Int
 
   """All values greater than the given value."""
-  privacyRating_gt: Int
+  PrivacyRating_gt: Int
 
   """All values greater than or equal the given value."""
-  privacyRating_gte: Int
-  isLowE: Boolean
+  PrivacyRating_gte: Int
+  IsLowE: Boolean
 
   """All values that are not equal to given value."""
-  isLowE_not: Boolean
-  description: String
+  IsLowE_not: Boolean
+  Description: String
 
   """All values that are not equal to given value."""
-  description_not: String
+  Description_not: String
 
   """All values that are contained in given list."""
-  description_in: [String!]
+  Description_in: [String!]
 
   """All values that are not contained in given list."""
-  description_not_in: [String!]
+  Description_not_in: [String!]
 
   """All values less than the given value."""
-  description_lt: String
+  Description_lt: String
 
   """All values less than or equal the given value."""
-  description_lte: String
+  Description_lte: String
 
   """All values greater than the given value."""
-  description_gt: String
+  Description_gt: String
 
   """All values greater than or equal the given value."""
-  description_gte: String
+  Description_gte: String
 
   """All values containing the given string."""
-  description_contains: String
+  Description_contains: String
 
   """All values not containing the given string."""
-  description_not_contains: String
+  Description_not_contains: String
 
   """All values starting with the given string."""
-  description_starts_with: String
+  Description_starts_with: String
 
   """All values not starting with the given string."""
-  description_not_starts_with: String
+  Description_not_starts_with: String
 
   """All values ending with the given string."""
-  description_ends_with: String
+  Description_ends_with: String
 
   """All values not ending with the given string."""
-  description_not_ends_with: String
-  imageUrl: String
+  Description_not_ends_with: String
+  ImageUrl: String
 
   """All values that are not equal to given value."""
-  imageUrl_not: String
+  ImageUrl_not: String
 
   """All values that are contained in given list."""
-  imageUrl_in: [String!]
+  ImageUrl_in: [String!]
 
   """All values that are not contained in given list."""
-  imageUrl_not_in: [String!]
+  ImageUrl_not_in: [String!]
 
   """All values less than the given value."""
-  imageUrl_lt: String
+  ImageUrl_lt: String
 
   """All values less than or equal the given value."""
-  imageUrl_lte: String
+  ImageUrl_lte: String
 
   """All values greater than the given value."""
-  imageUrl_gt: String
+  ImageUrl_gt: String
 
   """All values greater than or equal the given value."""
-  imageUrl_gte: String
+  ImageUrl_gte: String
 
   """All values containing the given string."""
-  imageUrl_contains: String
+  ImageUrl_contains: String
 
   """All values not containing the given string."""
-  imageUrl_not_contains: String
+  ImageUrl_not_contains: String
 
   """All values starting with the given string."""
-  imageUrl_starts_with: String
+  ImageUrl_starts_with: String
 
   """All values not starting with the given string."""
-  imageUrl_not_starts_with: String
+  ImageUrl_not_starts_with: String
 
   """All values ending with the given string."""
-  imageUrl_ends_with: String
+  ImageUrl_ends_with: String
 
   """All values not ending with the given string."""
-  imageUrl_not_ends_with: String
-  detailUrl: String
+  ImageUrl_not_ends_with: String
+  DetailUrl: String
 
   """All values that are not equal to given value."""
-  detailUrl_not: String
+  DetailUrl_not: String
 
   """All values that are contained in given list."""
-  detailUrl_in: [String!]
+  DetailUrl_in: [String!]
 
   """All values that are not contained in given list."""
-  detailUrl_not_in: [String!]
+  DetailUrl_not_in: [String!]
 
   """All values less than the given value."""
-  detailUrl_lt: String
+  DetailUrl_lt: String
 
   """All values less than or equal the given value."""
-  detailUrl_lte: String
+  DetailUrl_lte: String
 
   """All values greater than the given value."""
-  detailUrl_gt: String
+  DetailUrl_gt: String
 
   """All values greater than or equal the given value."""
-  detailUrl_gte: String
+  DetailUrl_gte: String
 
   """All values containing the given string."""
-  detailUrl_contains: String
+  DetailUrl_contains: String
 
   """All values not containing the given string."""
-  detailUrl_not_contains: String
+  DetailUrl_not_contains: String
 
   """All values starting with the given string."""
-  detailUrl_starts_with: String
+  DetailUrl_starts_with: String
 
   """All values not starting with the given string."""
-  detailUrl_not_starts_with: String
+  DetailUrl_not_starts_with: String
 
   """All values ending with the given string."""
-  detailUrl_ends_with: String
+  DetailUrl_ends_with: String
 
   """All values not ending with the given string."""
-  detailUrl_not_ends_with: String
+  DetailUrl_not_ends_with: String
   Doors_every: DoorWhereInput
   Doors_some: DoorWhereInput
   Doors_none: DoorWhereInput
@@ -9490,7 +9490,7 @@ input GlassFamilyWhereInput {
 
 input GlassFamilyWhereUniqueInput {
   Id: ID
-  abbreviation: String
+  Abbreviation: String
 }
 
 type GlassFeature {

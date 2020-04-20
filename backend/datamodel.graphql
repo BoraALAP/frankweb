@@ -1,3 +1,12 @@
+enum LocationOnHouse {
+  Entry
+  Patio
+  HouseToGarage
+  BackOfHouse
+  SideOfHouse
+  SideOfGarage
+}
+
 type Door {
   Id: ID! @id
   Brand: String!
@@ -192,16 +201,16 @@ type StyleLayoutPair {
 type GlassFamily {
   Id: ID! @id
   Brand: String
-  name: String
-  abbreviation: String @unique
-  glassType: String
-  privacyRating: Int
-  availableFeatures: [String] @scalarList(strategy: RELATION)
-  availableDividedLiteTypes: [String] @scalarList(strategy: RELATION)
-  isLowE: Boolean
-  description: String
-  imageUrl: String
-  detailUrl: String
+  Name: String
+  Abbreviation: String @unique
+  GlassType: String
+  PrivacyRating: Int
+  AvailableFeatures: [String] @scalarList(strategy: RELATION)
+  AvailableDividedLiteTypes: [String] @scalarList(strategy: RELATION)
+  IsLowE: Boolean
+  Description: String
+  ImageUrl: String
+  DetailUrl: String
   Doors: [Door] @relation(name: "ParentGlassFamilyAbbreviation")
   Sidelites: [Sidelite] @relation(name: "ParentGlassFamilyAbbreviationSidelite")
   Transoms: [Transom] @relation(name: "ParentGlassFamilyAbbreviationTransom")
@@ -240,7 +249,7 @@ type FrameProfile {
   Id: ID! @id
   Abbreviation: String! @unique
   Name: String
-  ImgURL: String
+  ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
   CamingOptionsByFrameProfiles: [Glass] @relation(name: "CamingOptionsByFrameProfile")
