@@ -1,11 +1,3 @@
-enum LocationOnHouse {
-  Entry
-  Patio
-  HouseToGarage
-  BackOfHouse
-  SideOfHouse
-  SideOfGarage
-}
 
 type Door {
   Id: ID! @id
@@ -21,7 +13,7 @@ type Door {
   ParentGlassFamilyAbbreviation: GlassFamily @relation(name: "ParentGlassFamilyAbbreviation")
   GlassFamilyAbbreviation: Glass @relation(name: "GlassFamilyAbbreviation")
   LiteQuantity: Int
-  LocationOnHouse: [String] @scalarList(strategy: RELATION)
+  LocationOnHouse: [LocationOnHouse] @relation(name:"LocationOnHouseDoor")
   AvailableSizeDetails: [String] @scalarList(strategy: RELATION)
   AvailableSizes: [String] @scalarList(strategy: RELATION)
   DefaultSize: String
@@ -129,7 +121,7 @@ type Sidelite {
   ParentGlassFamilyAbbreviation: GlassFamily @relation(name: "ParentGlassFamilyAbbreviationSidelite")
   GlassFamilyAbbreviation: Glass @relation(name: "GlassFamilyAbbreviationSidelite")
   LiteQuantity: Int
-  LocationOnHouse: [String] @scalarList(strategy: RELATION)
+  LocationOnHouse: [LocationOnHouse] @relation(name:"LocationOnHouseSidelite")
   AvailableSizeDetails: [String] @scalarList(strategy: RELATION)
   AvailableSizes: [String] @scalarList(strategy: RELATION)
   DefaultSize: [String] @scalarList(strategy: RELATION)
@@ -229,7 +221,7 @@ type HandleSet {
   ShowInDYD: Boolean
   IsMultiPoint: Boolean
   ImageUrl: String
-  PartCode: String
+  PartCode: String @unique
   Brand: Int
   WebSiteProductCategoryId: Int
   WebSiteProductCategoryName: String
@@ -331,7 +323,7 @@ type Transom {
   ParentGlassFamilyAbbreviation: GlassFamily @relation(name: "ParentGlassFamilyAbbreviationTransom")
   GlassFamilyAbbreviation: Glass @relation(name: "GlassFamilyAbbreviationTransom")
   LiteQuantity: Int
-  LocationOnHouse: [String] @scalarList(strategy: RELATION)
+  LocationOnHouse: [LocationOnHouse] @relation(name:"LocationOnHouseTransom")
   AvailableSizeDetails: [String] @scalarList(strategy: RELATION)
   AvailableSizes: [String] @scalarList(strategy: RELATION)
   DefaultSize: [String] @scalarList(strategy: RELATION)
@@ -381,6 +373,16 @@ type Transom {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   Doors: [Door] @relation(name: "Transoms")
+}
+
+type LocationOnHouse{
+  Id:ID! @id
+    Name: String @unique
+    ImageUrl: String
+    IconUrl: String
+    Doors: [Door] @relation(name:"LocationOnHouseDoor")
+    Sidelites: [Sidelite] @relation(name:"LocationOnHouseSidelite")
+    Transoms: [Transom] @relation(name:"LocationOnHouseTransom")
 }
 
 type GlassAssociation{

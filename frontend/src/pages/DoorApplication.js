@@ -9,7 +9,6 @@ import GlassSize from "../components/applicationComponents/Steps/GlassSize";
 import Success from "../components/applicationComponents/Steps/Success";
 import Wrong from "../components/applicationComponents/Steps/Wrong";
 import appContext from "../context/context";
-import Sidelites from "../dbComponents/Sidelites";
 
 const DoorApplication = ({ match }) => {
   const { dispatch } = useContext(appContext);
@@ -51,7 +50,7 @@ const DoorApplication = ({ match }) => {
       <Left>
         <Switch />
       </Left>
-      <Right></Right>
+      <Right />
     </Container>
   );
 };

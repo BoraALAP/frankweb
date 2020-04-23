@@ -3,31 +3,31 @@ export const initialState = {
   steps: {
     person: {
       value: "",
-      completed: false
+      completed: false,
     },
     location: {
       value: "",
-      completed: false
+      completed: false,
     },
     texture: {
       value: "",
-      completed: false
+      completed: false,
     },
     size: {
       value: "",
-      completed: false
+      completed: false,
     },
     glassSize: {
       value: "",
-      completed: false
+      completed: false,
     },
     doorConfiguration: {
       value: "",
-      completed: false
+      completed: false,
     },
     doorFinishes: {
       value: "",
-      completed: false
+      completed: false,
     },
     glassType: { value: "", completed: false },
     handle: { value: "", completed: false },
@@ -35,25 +35,29 @@ export const initialState = {
     sideliteStyle: { value: "", completed: false },
     sideliteFinish: { value: "", completed: false },
     sideliteGlass: { value: "", completed: false },
-    transomStyle: { value: "", completed: false }
+    transomStyle: { value: "", completed: false },
   },
-  imgSrc: "http://frank.com.s3-website-us-east-1.amazonaws.com"
+  imgSrc: "http://frank.com.s3-website-us-east-1.amazonaws.com",
+  search: "",
 };
 
 const appReducer = (state = initialState, actions) => {
   switch (actions.type) {
     case "UPDATE_STEP":
-      console.log(actions.payload);
-
       return {
         ...state,
         steps: {
           ...state.steps,
           [actions.step]: {
             value: actions.payload,
-            completed: true
-          }
-        }
+            completed: true,
+          },
+        },
+      };
+    case "UPDATE_SEARCH":
+      return {
+        ...state,
+        search: actions.payload,
       };
     default:
       return state;

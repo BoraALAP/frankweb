@@ -30,6 +30,7 @@ type Query {
   camingOption(where: CamingOptionWhereUniqueInput!): CamingOption
   glassFeature(where: GlassFeatureWhereUniqueInput!): GlassFeature
   dividedLiteType(where: DividedLiteTypeWhereUniqueInput!): DividedLiteType
+  locationOnHouse(where: LocationOnHouseWhereUniqueInput!): LocationOnHouse
   grilleColor(where: GrilleColorWhereUniqueInput!): GrilleColor
   transom(where: TransomWhereUniqueInput!): Transom
   glassAssociation(where: GlassAssociationWhereUniqueInput!): GlassAssociation
@@ -47,6 +48,7 @@ type Query {
   camingOptionsConnection(where: CamingOptionWhereInput, orderBy: CamingOptionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CamingOptionConnection
   glassFeaturesConnection(where: GlassFeatureWhereInput, orderBy: GlassFeatureOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassFeatureConnection
   dividedLiteTypesConnection(where: DividedLiteTypeWhereInput, orderBy: DividedLiteTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DividedLiteTypeConnection
+  locationOnHousesConnection(where: LocationOnHouseWhereInput, orderBy: LocationOnHouseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationOnHouseConnection!
   grilleColorsConnection(where: GrilleColorWhereInput, orderBy: GrilleColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GrilleColorConnection
   transomsConnection(where: TransomWhereInput, orderBy: TransomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransomConnection
   glassAssociationsConnection(where: GlassAssociationWhereInput, orderBy: GlassAssociationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassAssociationConnection
@@ -73,7 +75,7 @@ type Mutation {
     ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
     GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
     LiteQuantity: Int
-    LocationOnHouse: [String]
+    LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
     AvailableSizeDetails: [String]
     AvailableSizes: [String]
     DefaultSize: String
@@ -231,7 +233,7 @@ type Mutation {
     ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutSidelitesInput
     GlassFamilyAbbreviation: GlassUpdateOneWithoutSidelitesInput
     LiteQuantity: Int
-    LocationOnHouse: [String]
+    LocationOnHouse: LocationOnHouseUpdateManyWithoutSidelitesInput
     AvailableSizeDetails: [String]
     AvailableSizes: [String]
     DefaultSize: String
@@ -341,7 +343,7 @@ type Mutation {
     ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutTransomsInput
     GlassFamilyAbbreviation: GlassUpdateOneWithoutTransomsInput
     LiteQuantity: Int
-    LocationOnHouse: [String]
+    LocationOnHouse: LocationOnHouseUpdateManyWithoutTransomsInput
     AvailableSizeDetails: [String]
     AvailableSizes: [String]
     DefaultSize: String
@@ -397,7 +399,19 @@ type Mutation {
     GlassAssociation: String
   ): GlassAssociation!
 
+  createLocationOnHouse(
+    Id:ID
+    Name: String
+    ImageUrl: String
+    IconUrl: String
+    Doors: LocationOnHouseUpdateManyWithoutDoorsInput
+    Sidelites: LocationOnHouseUpdateManyWithoutSidelitesInput
+    Transoms: LocationOnHouseUpdateManyWithoutTransomsInput
+  ): LocationOnHouse!
+
   deleteDoor(Id: ID!): Door
   deleteGlassAssociation(GlassAssociation: String): GlassAssociation
   deleteManyGlassFamilies(where: GlassFamilyWhereInput): BatchPayload!
+  deleteManyTransoms(where: TransomWhereInput): BatchPayload!
+  deleteManyHandleSets(where: HandleSetWhereInput): BatchPayload!
 }

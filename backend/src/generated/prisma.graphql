@@ -1,5 +1,5 @@
-# source: https://frank-f43807b388.herokuapp.com/FrankProd/Prod
-# timestamp: Sat Apr 18 2020 23:51:01 GMT-0400 (Eastern Daylight Time)
+# source: https://eu1.prisma.sh/bora-alap-3bfda9/dev/dev
+# timestamp: Wed Apr 22 2020 00:06:53 GMT-0400 (Eastern Daylight Time)
 
 type AggregateCamingOption {
   count: Int!
@@ -50,6 +50,10 @@ type AggregateGrilleColor {
 }
 
 type AggregateHandleSet {
+  count: Int!
+}
+
+type AggregateLocationOnHouse {
   count: Int!
 }
 
@@ -1106,7 +1110,7 @@ type Door {
   ParentGlassFamilyAbbreviation: GlassFamily
   GlassFamilyAbbreviation: Glass
   LiteQuantity: Int
-  LocationOnHouse: [String!]!
+  LocationOnHouse(where: LocationOnHouseWhereInput, orderBy: LocationOnHouseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [LocationOnHouse!]
   AvailableSizeDetails: [String!]!
   AvailableSizes: [String!]!
   DefaultSize: String
@@ -1848,7 +1852,6 @@ input DoorCreateInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorCreateArchitecturalStyleInput
-  LocationOnHouse: DoorCreateLocationOnHouseInput
   AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
   AvailableSizes: DoorCreateAvailableSizesInput
   StyleGroups: DoorCreateStyleGroupsInput
@@ -1866,6 +1869,7 @@ input DoorCreateInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
@@ -1875,10 +1879,6 @@ input DoorCreateInput {
 }
 
 input DoorCreateLimitedAvailabilityCategoriesInput {
-  set: [String!]
-}
-
-input DoorCreateLocationOnHouseInput {
   set: [String!]
 }
 
@@ -1908,6 +1908,11 @@ input DoorCreateManyWithoutGlassAssociationInput {
 
 input DoorCreateManyWithoutGlassFamilyAbbreviationInput {
   create: [DoorCreateWithoutGlassFamilyAbbreviationInput!]
+  connect: [DoorWhereUniqueInput!]
+}
+
+input DoorCreateManyWithoutLocationOnHouseInput {
+  create: [DoorCreateWithoutLocationOnHouseInput!]
   connect: [DoorWhereUniqueInput!]
 }
 
@@ -1988,7 +1993,6 @@ input DoorCreateWithoutDoorCollectionInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorCreateArchitecturalStyleInput
-  LocationOnHouse: DoorCreateLocationOnHouseInput
   AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
   AvailableSizes: DoorCreateAvailableSizesInput
   StyleGroups: DoorCreateStyleGroupsInput
@@ -2005,6 +2009,7 @@ input DoorCreateWithoutDoorCollectionInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
@@ -2053,7 +2058,6 @@ input DoorCreateWithoutDoorLineInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorCreateArchitecturalStyleInput
-  LocationOnHouse: DoorCreateLocationOnHouseInput
   AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
   AvailableSizes: DoorCreateAvailableSizesInput
   StyleGroups: DoorCreateStyleGroupsInput
@@ -2070,6 +2074,7 @@ input DoorCreateWithoutDoorLineInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
@@ -2118,7 +2123,6 @@ input DoorCreateWithoutFrameProfilesInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorCreateArchitecturalStyleInput
-  LocationOnHouse: DoorCreateLocationOnHouseInput
   AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
   AvailableSizes: DoorCreateAvailableSizesInput
   StyleGroups: DoorCreateStyleGroupsInput
@@ -2135,6 +2139,7 @@ input DoorCreateWithoutFrameProfilesInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
@@ -2183,7 +2188,6 @@ input DoorCreateWithoutGlassAssociationInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorCreateArchitecturalStyleInput
-  LocationOnHouse: DoorCreateLocationOnHouseInput
   AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
   AvailableSizes: DoorCreateAvailableSizesInput
   StyleGroups: DoorCreateStyleGroupsInput
@@ -2201,6 +2205,7 @@ input DoorCreateWithoutGlassAssociationInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
@@ -2248,7 +2253,6 @@ input DoorCreateWithoutGlassFamilyAbbreviationInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorCreateArchitecturalStyleInput
-  LocationOnHouse: DoorCreateLocationOnHouseInput
   AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
   AvailableSizes: DoorCreateAvailableSizesInput
   StyleGroups: DoorCreateStyleGroupsInput
@@ -2265,6 +2269,72 @@ input DoorCreateWithoutGlassFamilyAbbreviationInput {
   FrameProfiles: FrameProfileCreateManyWithoutDoorsInput
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
+  StyleShape: StyleShapeCreateOneWithoutDoorsInput
+  GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
+  Sidelites: SideliteCreateManyWithoutDoorsInput
+  Transoms: TransomCreateManyWithoutDoorsInput
+  RelatedGlasses: GlassCreateManyInput
+}
+
+input DoorCreateWithoutLocationOnHouseInput {
+  Id: ID
+  Brand: String!
+  StyleNumber: String!
+  ProductLine: String
+  DoorType: String
+  LiteQuantity: Int
+  DefaultSize: String
+  VisualizedHeight: Int
+  VisualizedWidth: Int
+  LaunchYear: Int
+  RecentlyLaunched: Boolean
+  GlassSizeCategory: String
+  DefaultSidelite: String
+  DefaultTransom: String
+  DefaultGlassWidth: String
+  AbstractPrice: Int
+  SOSPrice: Float
+  MDSPrice: Float
+  LowesStocked: Boolean
+  GlassType: String
+  GlassDesign: String
+  DefaultImageName: String
+  ImageUrl: String
+  Ordinal: Int
+  IsLimitedAvailability: Boolean
+  ProductTrends: String
+  DefaultDoorSurroundStyleNumber: String
+  GrainProfile: String
+  LydDisplay: Boolean
+  LydDefaultFinishId: String
+  LydGlassCategory: String
+  LydDisplayOrder: Int
+  LydDisplayCaming: String
+  FacetMaterial: String
+  FacetRecentlyLaunched: String
+  RelatedStyleID: String
+  AllowsHandlesets: Boolean
+  IsFlushGlazed: Boolean
+  ArchitecturalStyle: DoorCreateArchitecturalStyleInput
+  AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
+  AvailableSizes: DoorCreateAvailableSizesInput
+  StyleGroups: DoorCreateStyleGroupsInput
+  RatingEligibility: DoorCreateRatingEligibilityInput
+  SupportedAccessories: DoorCreateSupportedAccessoriesInput
+  AllowedSidelites: DoorCreateAllowedSidelitesInput
+  AllowedTransoms: DoorCreateAllowedTransomsInput
+  GlassFeatures: DoorCreateGlassFeaturesInput
+  LimitedAvailabilityCategories: DoorCreateLimitedAvailabilityCategoriesInput
+  CurrentYearTrends: DoorCreateCurrentYearTrendsInput
+  LydAvailableFinishIds: DoorCreateLydAvailableFinishIdsInput
+  DoorCollection: DoorCollectionCreateOneWithoutDoorsInput
+  DoorLine: DoorLineCreateOneWithoutDoorsInput
+  FrameProfiles: FrameProfileCreateManyWithoutDoorsInput
+  DefaultFrameProfile: FrameProfileCreateOneInput
+  ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
+  GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
@@ -2313,7 +2383,6 @@ input DoorCreateWithoutParentGlassFamilyAbbreviationInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorCreateArchitecturalStyleInput
-  LocationOnHouse: DoorCreateLocationOnHouseInput
   AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
   AvailableSizes: DoorCreateAvailableSizesInput
   StyleGroups: DoorCreateStyleGroupsInput
@@ -2330,6 +2399,7 @@ input DoorCreateWithoutParentGlassFamilyAbbreviationInput {
   FrameProfiles: FrameProfileCreateManyWithoutDoorsInput
   DefaultFrameProfile: FrameProfileCreateOneInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
@@ -2378,7 +2448,6 @@ input DoorCreateWithoutSidelitesInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorCreateArchitecturalStyleInput
-  LocationOnHouse: DoorCreateLocationOnHouseInput
   AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
   AvailableSizes: DoorCreateAvailableSizesInput
   StyleGroups: DoorCreateStyleGroupsInput
@@ -2396,6 +2465,7 @@ input DoorCreateWithoutSidelitesInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
@@ -2443,7 +2513,6 @@ input DoorCreateWithoutStyleLayoutPairsInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorCreateArchitecturalStyleInput
-  LocationOnHouse: DoorCreateLocationOnHouseInput
   AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
   AvailableSizes: DoorCreateAvailableSizesInput
   StyleGroups: DoorCreateStyleGroupsInput
@@ -2461,6 +2530,7 @@ input DoorCreateWithoutStyleLayoutPairsInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
@@ -2508,7 +2578,6 @@ input DoorCreateWithoutStyleShapeInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorCreateArchitecturalStyleInput
-  LocationOnHouse: DoorCreateLocationOnHouseInput
   AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
   AvailableSizes: DoorCreateAvailableSizesInput
   StyleGroups: DoorCreateStyleGroupsInput
@@ -2526,6 +2595,7 @@ input DoorCreateWithoutStyleShapeInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
@@ -2573,7 +2643,6 @@ input DoorCreateWithoutTransomsInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorCreateArchitecturalStyleInput
-  LocationOnHouse: DoorCreateLocationOnHouseInput
   AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
   AvailableSizes: DoorCreateAvailableSizesInput
   StyleGroups: DoorCreateStyleGroupsInput
@@ -2591,6 +2660,7 @@ input DoorCreateWithoutTransomsInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
@@ -3272,7 +3342,6 @@ type DoorPreviousValues {
   ProductLine: String
   DoorType: String
   LiteQuantity: Int
-  LocationOnHouse: [String!]!
   AvailableSizeDetails: [String!]!
   AvailableSizes: [String!]!
   DefaultSize: String
@@ -4575,7 +4644,6 @@ input DoorUpdateInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -4593,6 +4661,7 @@ input DoorUpdateInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
@@ -4602,10 +4671,6 @@ input DoorUpdateInput {
 }
 
 input DoorUpdateLimitedAvailabilityCategoriesInput {
-  set: [String!]
-}
-
-input DoorUpdateLocationOnHouseInput {
   set: [String!]
 }
 
@@ -4652,7 +4717,6 @@ input DoorUpdateManyDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -4705,7 +4769,6 @@ input DoorUpdateManyMutationInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -4777,6 +4840,18 @@ input DoorUpdateManyWithoutGlassFamilyAbbreviationInput {
   updateMany: [DoorUpdateManyWithWhereNestedInput!]
   deleteMany: [DoorScalarWhereInput!]
   upsert: [DoorUpsertWithWhereUniqueWithoutGlassFamilyAbbreviationInput!]
+}
+
+input DoorUpdateManyWithoutLocationOnHouseInput {
+  create: [DoorCreateWithoutLocationOnHouseInput!]
+  connect: [DoorWhereUniqueInput!]
+  set: [DoorWhereUniqueInput!]
+  disconnect: [DoorWhereUniqueInput!]
+  delete: [DoorWhereUniqueInput!]
+  update: [DoorUpdateWithWhereUniqueWithoutLocationOnHouseInput!]
+  updateMany: [DoorUpdateManyWithWhereNestedInput!]
+  deleteMany: [DoorScalarWhereInput!]
+  upsert: [DoorUpsertWithWhereUniqueWithoutLocationOnHouseInput!]
 }
 
 input DoorUpdateManyWithoutParentGlassFamilyAbbreviationInput {
@@ -4895,7 +4970,6 @@ input DoorUpdateWithoutDoorCollectionDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -4912,6 +4986,7 @@ input DoorUpdateWithoutDoorCollectionDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
@@ -4959,7 +5034,6 @@ input DoorUpdateWithoutDoorLineDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -4976,6 +5050,7 @@ input DoorUpdateWithoutDoorLineDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
@@ -5023,7 +5098,6 @@ input DoorUpdateWithoutFrameProfilesDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -5040,6 +5114,7 @@ input DoorUpdateWithoutFrameProfilesDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
@@ -5087,7 +5162,6 @@ input DoorUpdateWithoutGlassAssociationDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -5105,6 +5179,7 @@ input DoorUpdateWithoutGlassAssociationDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
@@ -5151,7 +5226,6 @@ input DoorUpdateWithoutGlassFamilyAbbreviationDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -5168,6 +5242,71 @@ input DoorUpdateWithoutGlassFamilyAbbreviationDataInput {
   FrameProfiles: FrameProfileUpdateManyWithoutDoorsInput
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
+  StyleShape: StyleShapeUpdateOneWithoutDoorsInput
+  GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
+  Sidelites: SideliteUpdateManyWithoutDoorsInput
+  Transoms: TransomUpdateManyWithoutDoorsInput
+  RelatedGlasses: GlassUpdateManyInput
+}
+
+input DoorUpdateWithoutLocationOnHouseDataInput {
+  Brand: String
+  StyleNumber: String
+  ProductLine: String
+  DoorType: String
+  LiteQuantity: Int
+  DefaultSize: String
+  VisualizedHeight: Int
+  VisualizedWidth: Int
+  LaunchYear: Int
+  RecentlyLaunched: Boolean
+  GlassSizeCategory: String
+  DefaultSidelite: String
+  DefaultTransom: String
+  DefaultGlassWidth: String
+  AbstractPrice: Int
+  SOSPrice: Float
+  MDSPrice: Float
+  LowesStocked: Boolean
+  GlassType: String
+  GlassDesign: String
+  DefaultImageName: String
+  ImageUrl: String
+  Ordinal: Int
+  IsLimitedAvailability: Boolean
+  ProductTrends: String
+  DefaultDoorSurroundStyleNumber: String
+  GrainProfile: String
+  LydDisplay: Boolean
+  LydDefaultFinishId: String
+  LydGlassCategory: String
+  LydDisplayOrder: Int
+  LydDisplayCaming: String
+  FacetMaterial: String
+  FacetRecentlyLaunched: String
+  RelatedStyleID: String
+  AllowsHandlesets: Boolean
+  IsFlushGlazed: Boolean
+  ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
+  AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
+  AvailableSizes: DoorUpdateAvailableSizesInput
+  StyleGroups: DoorUpdateStyleGroupsInput
+  RatingEligibility: DoorUpdateRatingEligibilityInput
+  SupportedAccessories: DoorUpdateSupportedAccessoriesInput
+  AllowedSidelites: DoorUpdateAllowedSidelitesInput
+  AllowedTransoms: DoorUpdateAllowedTransomsInput
+  GlassFeatures: DoorUpdateGlassFeaturesInput
+  LimitedAvailabilityCategories: DoorUpdateLimitedAvailabilityCategoriesInput
+  CurrentYearTrends: DoorUpdateCurrentYearTrendsInput
+  LydAvailableFinishIds: DoorUpdateLydAvailableFinishIdsInput
+  DoorCollection: DoorCollectionUpdateOneWithoutDoorsInput
+  DoorLine: DoorLineUpdateOneWithoutDoorsInput
+  FrameProfiles: FrameProfileUpdateManyWithoutDoorsInput
+  DefaultFrameProfile: FrameProfileUpdateOneInput
+  ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
+  GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
@@ -5215,7 +5354,6 @@ input DoorUpdateWithoutParentGlassFamilyAbbreviationDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -5232,6 +5370,7 @@ input DoorUpdateWithoutParentGlassFamilyAbbreviationDataInput {
   FrameProfiles: FrameProfileUpdateManyWithoutDoorsInput
   DefaultFrameProfile: FrameProfileUpdateOneInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
@@ -5279,7 +5418,6 @@ input DoorUpdateWithoutSidelitesDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -5297,6 +5435,7 @@ input DoorUpdateWithoutSidelitesDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
@@ -5343,7 +5482,6 @@ input DoorUpdateWithoutStyleLayoutPairsDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -5361,6 +5499,7 @@ input DoorUpdateWithoutStyleLayoutPairsDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
@@ -5407,7 +5546,6 @@ input DoorUpdateWithoutStyleShapeDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -5425,6 +5563,7 @@ input DoorUpdateWithoutStyleShapeDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
@@ -5471,7 +5610,6 @@ input DoorUpdateWithoutTransomsDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: DoorUpdateArchitecturalStyleInput
-  LocationOnHouse: DoorUpdateLocationOnHouseInput
   AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
   AvailableSizes: DoorUpdateAvailableSizesInput
   StyleGroups: DoorUpdateStyleGroupsInput
@@ -5489,6 +5627,7 @@ input DoorUpdateWithoutTransomsDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
@@ -5519,6 +5658,11 @@ input DoorUpdateWithWhereUniqueWithoutGlassAssociationInput {
 input DoorUpdateWithWhereUniqueWithoutGlassFamilyAbbreviationInput {
   where: DoorWhereUniqueInput!
   data: DoorUpdateWithoutGlassFamilyAbbreviationDataInput!
+}
+
+input DoorUpdateWithWhereUniqueWithoutLocationOnHouseInput {
+  where: DoorWhereUniqueInput!
+  data: DoorUpdateWithoutLocationOnHouseDataInput!
 }
 
 input DoorUpdateWithWhereUniqueWithoutParentGlassFamilyAbbreviationInput {
@@ -5574,6 +5718,12 @@ input DoorUpsertWithWhereUniqueWithoutGlassFamilyAbbreviationInput {
   where: DoorWhereUniqueInput!
   update: DoorUpdateWithoutGlassFamilyAbbreviationDataInput!
   create: DoorCreateWithoutGlassFamilyAbbreviationInput!
+}
+
+input DoorUpsertWithWhereUniqueWithoutLocationOnHouseInput {
+  where: DoorWhereUniqueInput!
+  update: DoorUpdateWithoutLocationOnHouseDataInput!
+  create: DoorCreateWithoutLocationOnHouseInput!
 }
 
 input DoorUpsertWithWhereUniqueWithoutParentGlassFamilyAbbreviationInput {
@@ -6765,6 +6915,9 @@ input DoorWhereInput {
   DefaultFrameProfile: FrameProfileWhereInput
   ParentGlassFamilyAbbreviation: GlassFamilyWhereInput
   GlassFamilyAbbreviation: GlassWhereInput
+  LocationOnHouse_every: LocationOnHouseWhereInput
+  LocationOnHouse_some: LocationOnHouseWhereInput
+  LocationOnHouse_none: LocationOnHouseWhereInput
   StyleShape: StyleShapeWhereInput
   GlassAssociation: GlassAssociationWhereInput
   StyleLayoutPairs: StyleLayoutPairWhereInput
@@ -12305,6 +12458,617 @@ input HandleSetWhereUniqueInput {
   Id: ID
 }
 
+type LocationOnHouse {
+  Id: ID!
+  Name: String
+  ImageUrl: String
+  IconUrl: String
+  Doors(where: DoorWhereInput, orderBy: DoorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Door!]
+  Sidelites(where: SideliteWhereInput, orderBy: SideliteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sidelite!]
+  Transoms(where: TransomWhereInput, orderBy: TransomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transom!]
+}
+
+"""A connection to a list of items."""
+type LocationOnHouseConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [LocationOnHouseEdge]!
+  aggregate: AggregateLocationOnHouse!
+}
+
+input LocationOnHouseCreateInput {
+  Id: ID
+  Name: String
+  ImageUrl: String
+  IconUrl: String
+  Doors: DoorCreateManyWithoutLocationOnHouseInput
+  Sidelites: SideliteCreateManyWithoutLocationOnHouseInput
+  Transoms: TransomCreateManyWithoutLocationOnHouseInput
+}
+
+input LocationOnHouseCreateManyWithoutDoorsInput {
+  create: [LocationOnHouseCreateWithoutDoorsInput!]
+  connect: [LocationOnHouseWhereUniqueInput!]
+}
+
+input LocationOnHouseCreateManyWithoutSidelitesInput {
+  create: [LocationOnHouseCreateWithoutSidelitesInput!]
+  connect: [LocationOnHouseWhereUniqueInput!]
+}
+
+input LocationOnHouseCreateManyWithoutTransomsInput {
+  create: [LocationOnHouseCreateWithoutTransomsInput!]
+  connect: [LocationOnHouseWhereUniqueInput!]
+}
+
+input LocationOnHouseCreateWithoutDoorsInput {
+  Id: ID
+  Name: String
+  ImageUrl: String
+  IconUrl: String
+  Sidelites: SideliteCreateManyWithoutLocationOnHouseInput
+  Transoms: TransomCreateManyWithoutLocationOnHouseInput
+}
+
+input LocationOnHouseCreateWithoutSidelitesInput {
+  Id: ID
+  Name: String
+  ImageUrl: String
+  IconUrl: String
+  Doors: DoorCreateManyWithoutLocationOnHouseInput
+  Transoms: TransomCreateManyWithoutLocationOnHouseInput
+}
+
+input LocationOnHouseCreateWithoutTransomsInput {
+  Id: ID
+  Name: String
+  ImageUrl: String
+  IconUrl: String
+  Doors: DoorCreateManyWithoutLocationOnHouseInput
+  Sidelites: SideliteCreateManyWithoutLocationOnHouseInput
+}
+
+"""An edge in a connection."""
+type LocationOnHouseEdge {
+  """The item at the end of the edge."""
+  node: LocationOnHouse!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum LocationOnHouseOrderByInput {
+  Id_ASC
+  Id_DESC
+  Name_ASC
+  Name_DESC
+  ImageUrl_ASC
+  ImageUrl_DESC
+  IconUrl_ASC
+  IconUrl_DESC
+}
+
+type LocationOnHousePreviousValues {
+  Id: ID!
+  Name: String
+  ImageUrl: String
+  IconUrl: String
+}
+
+input LocationOnHouseScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LocationOnHouseScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LocationOnHouseScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LocationOnHouseScalarWhereInput!]
+  Id: ID
+
+  """All values that are not equal to given value."""
+  Id_not: ID
+
+  """All values that are contained in given list."""
+  Id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  Id_not_in: [ID!]
+
+  """All values less than the given value."""
+  Id_lt: ID
+
+  """All values less than or equal the given value."""
+  Id_lte: ID
+
+  """All values greater than the given value."""
+  Id_gt: ID
+
+  """All values greater than or equal the given value."""
+  Id_gte: ID
+
+  """All values containing the given string."""
+  Id_contains: ID
+
+  """All values not containing the given string."""
+  Id_not_contains: ID
+
+  """All values starting with the given string."""
+  Id_starts_with: ID
+
+  """All values not starting with the given string."""
+  Id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  Id_ends_with: ID
+
+  """All values not ending with the given string."""
+  Id_not_ends_with: ID
+  Name: String
+
+  """All values that are not equal to given value."""
+  Name_not: String
+
+  """All values that are contained in given list."""
+  Name_in: [String!]
+
+  """All values that are not contained in given list."""
+  Name_not_in: [String!]
+
+  """All values less than the given value."""
+  Name_lt: String
+
+  """All values less than or equal the given value."""
+  Name_lte: String
+
+  """All values greater than the given value."""
+  Name_gt: String
+
+  """All values greater than or equal the given value."""
+  Name_gte: String
+
+  """All values containing the given string."""
+  Name_contains: String
+
+  """All values not containing the given string."""
+  Name_not_contains: String
+
+  """All values starting with the given string."""
+  Name_starts_with: String
+
+  """All values not starting with the given string."""
+  Name_not_starts_with: String
+
+  """All values ending with the given string."""
+  Name_ends_with: String
+
+  """All values not ending with the given string."""
+  Name_not_ends_with: String
+  ImageUrl: String
+
+  """All values that are not equal to given value."""
+  ImageUrl_not: String
+
+  """All values that are contained in given list."""
+  ImageUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  ImageUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  ImageUrl_lt: String
+
+  """All values less than or equal the given value."""
+  ImageUrl_lte: String
+
+  """All values greater than the given value."""
+  ImageUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  ImageUrl_gte: String
+
+  """All values containing the given string."""
+  ImageUrl_contains: String
+
+  """All values not containing the given string."""
+  ImageUrl_not_contains: String
+
+  """All values starting with the given string."""
+  ImageUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  ImageUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  ImageUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  ImageUrl_not_ends_with: String
+  IconUrl: String
+
+  """All values that are not equal to given value."""
+  IconUrl_not: String
+
+  """All values that are contained in given list."""
+  IconUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  IconUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  IconUrl_lt: String
+
+  """All values less than or equal the given value."""
+  IconUrl_lte: String
+
+  """All values greater than the given value."""
+  IconUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  IconUrl_gte: String
+
+  """All values containing the given string."""
+  IconUrl_contains: String
+
+  """All values not containing the given string."""
+  IconUrl_not_contains: String
+
+  """All values starting with the given string."""
+  IconUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  IconUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  IconUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  IconUrl_not_ends_with: String
+}
+
+type LocationOnHouseSubscriptionPayload {
+  mutation: MutationType!
+  node: LocationOnHouse
+  updatedFields: [String!]
+  previousValues: LocationOnHousePreviousValues
+}
+
+input LocationOnHouseSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LocationOnHouseSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LocationOnHouseSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LocationOnHouseSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: LocationOnHouseWhereInput
+}
+
+input LocationOnHouseUpdateInput {
+  Name: String
+  ImageUrl: String
+  IconUrl: String
+  Doors: DoorUpdateManyWithoutLocationOnHouseInput
+  Sidelites: SideliteUpdateManyWithoutLocationOnHouseInput
+  Transoms: TransomUpdateManyWithoutLocationOnHouseInput
+}
+
+input LocationOnHouseUpdateManyDataInput {
+  Name: String
+  ImageUrl: String
+  IconUrl: String
+}
+
+input LocationOnHouseUpdateManyMutationInput {
+  Name: String
+  ImageUrl: String
+  IconUrl: String
+}
+
+input LocationOnHouseUpdateManyWithoutDoorsInput {
+  create: [LocationOnHouseCreateWithoutDoorsInput!]
+  connect: [LocationOnHouseWhereUniqueInput!]
+  set: [LocationOnHouseWhereUniqueInput!]
+  disconnect: [LocationOnHouseWhereUniqueInput!]
+  delete: [LocationOnHouseWhereUniqueInput!]
+  update: [LocationOnHouseUpdateWithWhereUniqueWithoutDoorsInput!]
+  updateMany: [LocationOnHouseUpdateManyWithWhereNestedInput!]
+  deleteMany: [LocationOnHouseScalarWhereInput!]
+  upsert: [LocationOnHouseUpsertWithWhereUniqueWithoutDoorsInput!]
+}
+
+input LocationOnHouseUpdateManyWithoutSidelitesInput {
+  create: [LocationOnHouseCreateWithoutSidelitesInput!]
+  connect: [LocationOnHouseWhereUniqueInput!]
+  set: [LocationOnHouseWhereUniqueInput!]
+  disconnect: [LocationOnHouseWhereUniqueInput!]
+  delete: [LocationOnHouseWhereUniqueInput!]
+  update: [LocationOnHouseUpdateWithWhereUniqueWithoutSidelitesInput!]
+  updateMany: [LocationOnHouseUpdateManyWithWhereNestedInput!]
+  deleteMany: [LocationOnHouseScalarWhereInput!]
+  upsert: [LocationOnHouseUpsertWithWhereUniqueWithoutSidelitesInput!]
+}
+
+input LocationOnHouseUpdateManyWithoutTransomsInput {
+  create: [LocationOnHouseCreateWithoutTransomsInput!]
+  connect: [LocationOnHouseWhereUniqueInput!]
+  set: [LocationOnHouseWhereUniqueInput!]
+  disconnect: [LocationOnHouseWhereUniqueInput!]
+  delete: [LocationOnHouseWhereUniqueInput!]
+  update: [LocationOnHouseUpdateWithWhereUniqueWithoutTransomsInput!]
+  updateMany: [LocationOnHouseUpdateManyWithWhereNestedInput!]
+  deleteMany: [LocationOnHouseScalarWhereInput!]
+  upsert: [LocationOnHouseUpsertWithWhereUniqueWithoutTransomsInput!]
+}
+
+input LocationOnHouseUpdateManyWithWhereNestedInput {
+  where: LocationOnHouseScalarWhereInput!
+  data: LocationOnHouseUpdateManyDataInput!
+}
+
+input LocationOnHouseUpdateWithoutDoorsDataInput {
+  Name: String
+  ImageUrl: String
+  IconUrl: String
+  Sidelites: SideliteUpdateManyWithoutLocationOnHouseInput
+  Transoms: TransomUpdateManyWithoutLocationOnHouseInput
+}
+
+input LocationOnHouseUpdateWithoutSidelitesDataInput {
+  Name: String
+  ImageUrl: String
+  IconUrl: String
+  Doors: DoorUpdateManyWithoutLocationOnHouseInput
+  Transoms: TransomUpdateManyWithoutLocationOnHouseInput
+}
+
+input LocationOnHouseUpdateWithoutTransomsDataInput {
+  Name: String
+  ImageUrl: String
+  IconUrl: String
+  Doors: DoorUpdateManyWithoutLocationOnHouseInput
+  Sidelites: SideliteUpdateManyWithoutLocationOnHouseInput
+}
+
+input LocationOnHouseUpdateWithWhereUniqueWithoutDoorsInput {
+  where: LocationOnHouseWhereUniqueInput!
+  data: LocationOnHouseUpdateWithoutDoorsDataInput!
+}
+
+input LocationOnHouseUpdateWithWhereUniqueWithoutSidelitesInput {
+  where: LocationOnHouseWhereUniqueInput!
+  data: LocationOnHouseUpdateWithoutSidelitesDataInput!
+}
+
+input LocationOnHouseUpdateWithWhereUniqueWithoutTransomsInput {
+  where: LocationOnHouseWhereUniqueInput!
+  data: LocationOnHouseUpdateWithoutTransomsDataInput!
+}
+
+input LocationOnHouseUpsertWithWhereUniqueWithoutDoorsInput {
+  where: LocationOnHouseWhereUniqueInput!
+  update: LocationOnHouseUpdateWithoutDoorsDataInput!
+  create: LocationOnHouseCreateWithoutDoorsInput!
+}
+
+input LocationOnHouseUpsertWithWhereUniqueWithoutSidelitesInput {
+  where: LocationOnHouseWhereUniqueInput!
+  update: LocationOnHouseUpdateWithoutSidelitesDataInput!
+  create: LocationOnHouseCreateWithoutSidelitesInput!
+}
+
+input LocationOnHouseUpsertWithWhereUniqueWithoutTransomsInput {
+  where: LocationOnHouseWhereUniqueInput!
+  update: LocationOnHouseUpdateWithoutTransomsDataInput!
+  create: LocationOnHouseCreateWithoutTransomsInput!
+}
+
+input LocationOnHouseWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LocationOnHouseWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LocationOnHouseWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LocationOnHouseWhereInput!]
+  Id: ID
+
+  """All values that are not equal to given value."""
+  Id_not: ID
+
+  """All values that are contained in given list."""
+  Id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  Id_not_in: [ID!]
+
+  """All values less than the given value."""
+  Id_lt: ID
+
+  """All values less than or equal the given value."""
+  Id_lte: ID
+
+  """All values greater than the given value."""
+  Id_gt: ID
+
+  """All values greater than or equal the given value."""
+  Id_gte: ID
+
+  """All values containing the given string."""
+  Id_contains: ID
+
+  """All values not containing the given string."""
+  Id_not_contains: ID
+
+  """All values starting with the given string."""
+  Id_starts_with: ID
+
+  """All values not starting with the given string."""
+  Id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  Id_ends_with: ID
+
+  """All values not ending with the given string."""
+  Id_not_ends_with: ID
+  Name: String
+
+  """All values that are not equal to given value."""
+  Name_not: String
+
+  """All values that are contained in given list."""
+  Name_in: [String!]
+
+  """All values that are not contained in given list."""
+  Name_not_in: [String!]
+
+  """All values less than the given value."""
+  Name_lt: String
+
+  """All values less than or equal the given value."""
+  Name_lte: String
+
+  """All values greater than the given value."""
+  Name_gt: String
+
+  """All values greater than or equal the given value."""
+  Name_gte: String
+
+  """All values containing the given string."""
+  Name_contains: String
+
+  """All values not containing the given string."""
+  Name_not_contains: String
+
+  """All values starting with the given string."""
+  Name_starts_with: String
+
+  """All values not starting with the given string."""
+  Name_not_starts_with: String
+
+  """All values ending with the given string."""
+  Name_ends_with: String
+
+  """All values not ending with the given string."""
+  Name_not_ends_with: String
+  ImageUrl: String
+
+  """All values that are not equal to given value."""
+  ImageUrl_not: String
+
+  """All values that are contained in given list."""
+  ImageUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  ImageUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  ImageUrl_lt: String
+
+  """All values less than or equal the given value."""
+  ImageUrl_lte: String
+
+  """All values greater than the given value."""
+  ImageUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  ImageUrl_gte: String
+
+  """All values containing the given string."""
+  ImageUrl_contains: String
+
+  """All values not containing the given string."""
+  ImageUrl_not_contains: String
+
+  """All values starting with the given string."""
+  ImageUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  ImageUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  ImageUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  ImageUrl_not_ends_with: String
+  IconUrl: String
+
+  """All values that are not equal to given value."""
+  IconUrl_not: String
+
+  """All values that are contained in given list."""
+  IconUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  IconUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  IconUrl_lt: String
+
+  """All values less than or equal the given value."""
+  IconUrl_lte: String
+
+  """All values greater than the given value."""
+  IconUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  IconUrl_gte: String
+
+  """All values containing the given string."""
+  IconUrl_contains: String
+
+  """All values not containing the given string."""
+  IconUrl_not_contains: String
+
+  """All values starting with the given string."""
+  IconUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  IconUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  IconUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  IconUrl_not_ends_with: String
+  Doors_every: DoorWhereInput
+  Doors_some: DoorWhereInput
+  Doors_none: DoorWhereInput
+  Sidelites_every: SideliteWhereInput
+  Sidelites_some: SideliteWhereInput
+  Sidelites_none: SideliteWhereInput
+  Transoms_every: TransomWhereInput
+  Transoms_some: TransomWhereInput
+  Transoms_none: TransomWhereInput
+}
+
+input LocationOnHouseWhereUniqueInput {
+  Id: ID
+  Name: String
+}
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -12326,6 +13090,7 @@ type Mutation {
   createDividedLiteType(data: DividedLiteTypeCreateInput!): DividedLiteType!
   createGrilleColor(data: GrilleColorCreateInput!): GrilleColor!
   createTransom(data: TransomCreateInput!): Transom!
+  createLocationOnHouse(data: LocationOnHouseCreateInput!): LocationOnHouse!
   createGlassAssociation(data: GlassAssociationCreateInput!): GlassAssociation!
   createGlass(data: GlassCreateInput!): Glass!
   createFrameProfile(data: FrameProfileCreateInput!): FrameProfile!
@@ -12343,6 +13108,7 @@ type Mutation {
   updateDividedLiteType(data: DividedLiteTypeUpdateInput!, where: DividedLiteTypeWhereUniqueInput!): DividedLiteType
   updateGrilleColor(data: GrilleColorUpdateInput!, where: GrilleColorWhereUniqueInput!): GrilleColor
   updateTransom(data: TransomUpdateInput!, where: TransomWhereUniqueInput!): Transom
+  updateLocationOnHouse(data: LocationOnHouseUpdateInput!, where: LocationOnHouseWhereUniqueInput!): LocationOnHouse
   updateGlassAssociation(data: GlassAssociationUpdateInput!, where: GlassAssociationWhereUniqueInput!): GlassAssociation
   updateGlass(data: GlassUpdateInput!, where: GlassWhereUniqueInput!): Glass
   updateFrameProfile(data: FrameProfileUpdateInput!, where: FrameProfileWhereUniqueInput!): FrameProfile
@@ -12360,6 +13126,7 @@ type Mutation {
   deleteDividedLiteType(where: DividedLiteTypeWhereUniqueInput!): DividedLiteType
   deleteGrilleColor(where: GrilleColorWhereUniqueInput!): GrilleColor
   deleteTransom(where: TransomWhereUniqueInput!): Transom
+  deleteLocationOnHouse(where: LocationOnHouseWhereUniqueInput!): LocationOnHouse
   deleteGlassAssociation(where: GlassAssociationWhereUniqueInput!): GlassAssociation
   deleteGlass(where: GlassWhereUniqueInput!): Glass
   deleteFrameProfile(where: FrameProfileWhereUniqueInput!): FrameProfile
@@ -12377,6 +13144,7 @@ type Mutation {
   upsertDividedLiteType(where: DividedLiteTypeWhereUniqueInput!, create: DividedLiteTypeCreateInput!, update: DividedLiteTypeUpdateInput!): DividedLiteType!
   upsertGrilleColor(where: GrilleColorWhereUniqueInput!, create: GrilleColorCreateInput!, update: GrilleColorUpdateInput!): GrilleColor!
   upsertTransom(where: TransomWhereUniqueInput!, create: TransomCreateInput!, update: TransomUpdateInput!): Transom!
+  upsertLocationOnHouse(where: LocationOnHouseWhereUniqueInput!, create: LocationOnHouseCreateInput!, update: LocationOnHouseUpdateInput!): LocationOnHouse!
   upsertGlassAssociation(where: GlassAssociationWhereUniqueInput!, create: GlassAssociationCreateInput!, update: GlassAssociationUpdateInput!): GlassAssociation!
   upsertGlass(where: GlassWhereUniqueInput!, create: GlassCreateInput!, update: GlassUpdateInput!): Glass!
   upsertFrameProfile(where: FrameProfileWhereUniqueInput!, create: FrameProfileCreateInput!, update: FrameProfileUpdateInput!): FrameProfile!
@@ -12394,6 +13162,7 @@ type Mutation {
   updateManyDividedLiteTypes(data: DividedLiteTypeUpdateManyMutationInput!, where: DividedLiteTypeWhereInput): BatchPayload!
   updateManyGrilleColors(data: GrilleColorUpdateManyMutationInput!, where: GrilleColorWhereInput): BatchPayload!
   updateManyTransoms(data: TransomUpdateManyMutationInput!, where: TransomWhereInput): BatchPayload!
+  updateManyLocationOnHouses(data: LocationOnHouseUpdateManyMutationInput!, where: LocationOnHouseWhereInput): BatchPayload!
   updateManyGlassAssociations(data: GlassAssociationUpdateManyMutationInput!, where: GlassAssociationWhereInput): BatchPayload!
   updateManyGlasses(data: GlassUpdateManyMutationInput!, where: GlassWhereInput): BatchPayload!
   updateManyFrameProfiles(data: FrameProfileUpdateManyMutationInput!, where: FrameProfileWhereInput): BatchPayload!
@@ -12411,6 +13180,7 @@ type Mutation {
   deleteManyDividedLiteTypes(where: DividedLiteTypeWhereInput): BatchPayload!
   deleteManyGrilleColors(where: GrilleColorWhereInput): BatchPayload!
   deleteManyTransoms(where: TransomWhereInput): BatchPayload!
+  deleteManyLocationOnHouses(where: LocationOnHouseWhereInput): BatchPayload!
   deleteManyGlassAssociations(where: GlassAssociationWhereInput): BatchPayload!
   deleteManyGlasses(where: GlassWhereInput): BatchPayload!
   deleteManyFrameProfiles(where: FrameProfileWhereInput): BatchPayload!
@@ -12458,6 +13228,7 @@ type Query {
   dividedLiteTypes(where: DividedLiteTypeWhereInput, orderBy: DividedLiteTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DividedLiteType]!
   grilleColors(where: GrilleColorWhereInput, orderBy: GrilleColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GrilleColor]!
   transoms(where: TransomWhereInput, orderBy: TransomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transom]!
+  locationOnHouses(where: LocationOnHouseWhereInput, orderBy: LocationOnHouseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [LocationOnHouse]!
   glassAssociations(where: GlassAssociationWhereInput, orderBy: GlassAssociationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GlassAssociation]!
   glasses(where: GlassWhereInput, orderBy: GlassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Glass]!
   frameProfiles(where: FrameProfileWhereInput, orderBy: FrameProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FrameProfile]!
@@ -12475,6 +13246,7 @@ type Query {
   dividedLiteType(where: DividedLiteTypeWhereUniqueInput!): DividedLiteType
   grilleColor(where: GrilleColorWhereUniqueInput!): GrilleColor
   transom(where: TransomWhereUniqueInput!): Transom
+  locationOnHouse(where: LocationOnHouseWhereUniqueInput!): LocationOnHouse
   glassAssociation(where: GlassAssociationWhereUniqueInput!): GlassAssociation
   glass(where: GlassWhereUniqueInput!): Glass
   frameProfile(where: FrameProfileWhereUniqueInput!): FrameProfile
@@ -12492,6 +13264,7 @@ type Query {
   dividedLiteTypesConnection(where: DividedLiteTypeWhereInput, orderBy: DividedLiteTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DividedLiteTypeConnection!
   grilleColorsConnection(where: GrilleColorWhereInput, orderBy: GrilleColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GrilleColorConnection!
   transomsConnection(where: TransomWhereInput, orderBy: TransomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransomConnection!
+  locationOnHousesConnection(where: LocationOnHouseWhereInput, orderBy: LocationOnHouseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationOnHouseConnection!
   glassAssociationsConnection(where: GlassAssociationWhereInput, orderBy: GlassAssociationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassAssociationConnection!
   glassesConnection(where: GlassWhereInput, orderBy: GlassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassConnection!
   frameProfilesConnection(where: FrameProfileWhereInput, orderBy: FrameProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FrameProfileConnection!
@@ -12517,7 +13290,7 @@ type Sidelite {
   ParentGlassFamilyAbbreviation: GlassFamily
   GlassFamilyAbbreviation: Glass
   LiteQuantity: Int
-  LocationOnHouse: [String!]!
+  LocationOnHouse(where: LocationOnHouseWhereInput, orderBy: LocationOnHouseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [LocationOnHouse!]
   AvailableSizeDetails: [String!]!
   AvailableSizes: [String!]!
   DefaultSize: [String!]!
@@ -12650,7 +13423,6 @@ input SideliteCreateInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteCreateArchitecturalStyleInput
-  LocationOnHouse: SideliteCreateLocationOnHouseInput
   AvailableSizeDetails: SideliteCreateAvailableSizeDetailsInput
   AvailableSizes: SideliteCreateAvailableSizesInput
   DefaultSize: SideliteCreateDefaultSizeInput
@@ -12671,6 +13443,7 @@ input SideliteCreateInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutSidelitesInput
   StyleShape: StyleShapeCreateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationCreateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutSidelitesInput
@@ -12678,10 +13451,6 @@ input SideliteCreateInput {
 }
 
 input SideliteCreateLimitedAvailabilityCategoriesInput {
-  set: [String!]
-}
-
-input SideliteCreateLocationOnHouseInput {
   set: [String!]
 }
 
@@ -12716,6 +13485,11 @@ input SideliteCreateManyWithoutGlassAssociationInput {
 
 input SideliteCreateManyWithoutGlassFamilyAbbreviationInput {
   create: [SideliteCreateWithoutGlassFamilyAbbreviationInput!]
+  connect: [SideliteWhereUniqueInput!]
+}
+
+input SideliteCreateManyWithoutLocationOnHouseInput {
+  create: [SideliteCreateWithoutLocationOnHouseInput!]
   connect: [SideliteWhereUniqueInput!]
 }
 
@@ -12793,7 +13567,6 @@ input SideliteCreateWithoutDoorCollectionInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteCreateArchitecturalStyleInput
-  LocationOnHouse: SideliteCreateLocationOnHouseInput
   AvailableSizeDetails: SideliteCreateAvailableSizeDetailsInput
   AvailableSizes: SideliteCreateAvailableSizesInput
   DefaultSize: SideliteCreateDefaultSizeInput
@@ -12813,6 +13586,7 @@ input SideliteCreateWithoutDoorCollectionInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutSidelitesInput
   StyleShape: StyleShapeCreateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationCreateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutSidelitesInput
@@ -12858,7 +13632,6 @@ input SideliteCreateWithoutDoorLineInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteCreateArchitecturalStyleInput
-  LocationOnHouse: SideliteCreateLocationOnHouseInput
   AvailableSizeDetails: SideliteCreateAvailableSizeDetailsInput
   AvailableSizes: SideliteCreateAvailableSizesInput
   DefaultSize: SideliteCreateDefaultSizeInput
@@ -12878,6 +13651,7 @@ input SideliteCreateWithoutDoorLineInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutSidelitesInput
   StyleShape: StyleShapeCreateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationCreateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutSidelitesInput
@@ -12923,7 +13697,6 @@ input SideliteCreateWithoutDoorsInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteCreateArchitecturalStyleInput
-  LocationOnHouse: SideliteCreateLocationOnHouseInput
   AvailableSizeDetails: SideliteCreateAvailableSizeDetailsInput
   AvailableSizes: SideliteCreateAvailableSizesInput
   DefaultSize: SideliteCreateDefaultSizeInput
@@ -12944,6 +13717,7 @@ input SideliteCreateWithoutDoorsInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutSidelitesInput
   StyleShape: StyleShapeCreateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationCreateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutSidelitesInput
@@ -12988,7 +13762,6 @@ input SideliteCreateWithoutFrameProfilesInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteCreateArchitecturalStyleInput
-  LocationOnHouse: SideliteCreateLocationOnHouseInput
   AvailableSizeDetails: SideliteCreateAvailableSizeDetailsInput
   AvailableSizes: SideliteCreateAvailableSizesInput
   DefaultSize: SideliteCreateDefaultSizeInput
@@ -13008,6 +13781,7 @@ input SideliteCreateWithoutFrameProfilesInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutSidelitesInput
   StyleShape: StyleShapeCreateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationCreateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutSidelitesInput
@@ -13053,7 +13827,6 @@ input SideliteCreateWithoutGlassAssociationInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteCreateArchitecturalStyleInput
-  LocationOnHouse: SideliteCreateLocationOnHouseInput
   AvailableSizeDetails: SideliteCreateAvailableSizeDetailsInput
   AvailableSizes: SideliteCreateAvailableSizesInput
   DefaultSize: SideliteCreateDefaultSizeInput
@@ -13074,6 +13847,7 @@ input SideliteCreateWithoutGlassAssociationInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutSidelitesInput
   StyleShape: StyleShapeCreateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutSidelitesInput
   Doors: DoorCreateManyWithoutSidelitesInput
@@ -13118,7 +13892,6 @@ input SideliteCreateWithoutGlassFamilyAbbreviationInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteCreateArchitecturalStyleInput
-  LocationOnHouse: SideliteCreateLocationOnHouseInput
   AvailableSizeDetails: SideliteCreateAvailableSizeDetailsInput
   AvailableSizes: SideliteCreateAvailableSizesInput
   DefaultSize: SideliteCreateDefaultSizeInput
@@ -13138,6 +13911,72 @@ input SideliteCreateWithoutGlassFamilyAbbreviationInput {
   FrameProfiles: FrameProfileCreateManyWithoutSidelitesInput
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutSidelitesInput
+  StyleShape: StyleShapeCreateOneWithoutSidelitesInput
+  GlassAssociation: GlassAssociationCreateOneWithoutSidelitesInput
+  StyleLayoutPairs: StyleLayoutPairCreateOneWithoutSidelitesInput
+  Doors: DoorCreateManyWithoutSidelitesInput
+}
+
+input SideliteCreateWithoutLocationOnHouseInput {
+  Id: ID
+  Brand: String
+  StyleNumber: String
+  ProductLine: String
+  DoorType: String
+  LiteQuantity: Int
+  VisualizedHeight: Int
+  VisualizedWidth: Int
+  LaunchYear: Int
+  RecentlyLaunched: Boolean
+  GlassSizeCategory: String
+  DefaultSidelite: String
+  DefaultTransom: String
+  DefaultGlassWidth: String
+  AbstractPrice: String
+  SOSPrice: Int
+  MDSPrice: Int
+  LowesStocked: Boolean
+  GlassType: String
+  GlassDesign: String
+  DefaultImageName: String
+  ImageUrl: String
+  Ordinal: Int
+  IsLimitedAvailability: Boolean
+  ProductTrends: String
+  DefaultDoorSurroundStyleNumber: String
+  GrainProfile: String
+  LydDisplay: Boolean
+  LydDefaultFinishId: String
+  LydGlassCategory: String
+  LydDisplayOrder: Int
+  LydDisplayCaming: String
+  FacetMaterial: String
+  FacetRecentlyLaunched: String
+  RelatedStyleID: String
+  AllowsHandlesets: Boolean
+  IsFlushGlazed: Boolean
+  ArchitecturalStyle: SideliteCreateArchitecturalStyleInput
+  AvailableSizeDetails: SideliteCreateAvailableSizeDetailsInput
+  AvailableSizes: SideliteCreateAvailableSizesInput
+  DefaultSize: SideliteCreateDefaultSizeInput
+  StyleGroups: SideliteCreateStyleGroupsInput
+  RatingEligibility: SideliteCreateRatingEligibilityInput
+  SupportedAccessories: SideliteCreateSupportedAccessoriesInput
+  AllowedSidelites: SideliteCreateAllowedSidelitesInput
+  AllowedTransoms: SideliteCreateAllowedTransomsInput
+  GlassFeatures: SideliteCreateGlassFeaturesInput
+  Sidelites: SideliteCreateSidelitesInput
+  Transoms: SideliteCreateTransomsInput
+  LimitedAvailabilityCategories: SideliteCreateLimitedAvailabilityCategoriesInput
+  CurrentYearTrends: SideliteCreateCurrentYearTrendsInput
+  LydAvailableFinishIds: SideliteCreateLydAvailableFinishIdsInput
+  DoorCollection: DoorCollectionCreateOneWithoutSidelitesInput
+  DoorLine: DoorLineCreateOneWithoutSidelitesInput
+  FrameProfiles: FrameProfileCreateManyWithoutSidelitesInput
+  DefaultFrameProfile: FrameProfileCreateOneInput
+  ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutSidelitesInput
+  GlassFamilyAbbreviation: GlassCreateOneWithoutSidelitesInput
   StyleShape: StyleShapeCreateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationCreateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutSidelitesInput
@@ -13183,7 +14022,6 @@ input SideliteCreateWithoutParentGlassFamilyAbbreviationInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteCreateArchitecturalStyleInput
-  LocationOnHouse: SideliteCreateLocationOnHouseInput
   AvailableSizeDetails: SideliteCreateAvailableSizeDetailsInput
   AvailableSizes: SideliteCreateAvailableSizesInput
   DefaultSize: SideliteCreateDefaultSizeInput
@@ -13203,6 +14041,7 @@ input SideliteCreateWithoutParentGlassFamilyAbbreviationInput {
   FrameProfiles: FrameProfileCreateManyWithoutSidelitesInput
   DefaultFrameProfile: FrameProfileCreateOneInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutSidelitesInput
   StyleShape: StyleShapeCreateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationCreateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutSidelitesInput
@@ -13248,7 +14087,6 @@ input SideliteCreateWithoutStyleLayoutPairsInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteCreateArchitecturalStyleInput
-  LocationOnHouse: SideliteCreateLocationOnHouseInput
   AvailableSizeDetails: SideliteCreateAvailableSizeDetailsInput
   AvailableSizes: SideliteCreateAvailableSizesInput
   DefaultSize: SideliteCreateDefaultSizeInput
@@ -13269,6 +14107,7 @@ input SideliteCreateWithoutStyleLayoutPairsInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutSidelitesInput
   StyleShape: StyleShapeCreateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationCreateOneWithoutSidelitesInput
   Doors: DoorCreateManyWithoutSidelitesInput
@@ -13313,7 +14152,6 @@ input SideliteCreateWithoutStyleShapeInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteCreateArchitecturalStyleInput
-  LocationOnHouse: SideliteCreateLocationOnHouseInput
   AvailableSizeDetails: SideliteCreateAvailableSizeDetailsInput
   AvailableSizes: SideliteCreateAvailableSizesInput
   DefaultSize: SideliteCreateDefaultSizeInput
@@ -13334,6 +14172,7 @@ input SideliteCreateWithoutStyleShapeInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutSidelitesInput
   GlassAssociation: GlassAssociationCreateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutSidelitesInput
   Doors: DoorCreateManyWithoutSidelitesInput
@@ -13433,7 +14272,6 @@ type SidelitePreviousValues {
   ProductLine: String
   DoorType: String
   LiteQuantity: Int
-  LocationOnHouse: [String!]!
   AvailableSizeDetails: [String!]!
   AvailableSizes: [String!]!
   DefaultSize: [String!]!
@@ -14719,7 +15557,6 @@ input SideliteUpdateInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
-  LocationOnHouse: SideliteUpdateLocationOnHouseInput
   AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
   AvailableSizes: SideliteUpdateAvailableSizesInput
   DefaultSize: SideliteUpdateDefaultSizeInput
@@ -14740,6 +15577,7 @@ input SideliteUpdateInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutSidelitesInput
   StyleShape: StyleShapeUpdateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationUpdateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutSidelitesInput
@@ -14747,10 +15585,6 @@ input SideliteUpdateInput {
 }
 
 input SideliteUpdateLimitedAvailabilityCategoriesInput {
-  set: [String!]
-}
-
-input SideliteUpdateLocationOnHouseInput {
   set: [String!]
 }
 
@@ -14796,7 +15630,6 @@ input SideliteUpdateManyDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
-  LocationOnHouse: SideliteUpdateLocationOnHouseInput
   AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
   AvailableSizes: SideliteUpdateAvailableSizesInput
   DefaultSize: SideliteUpdateDefaultSizeInput
@@ -14851,7 +15684,6 @@ input SideliteUpdateManyMutationInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
-  LocationOnHouse: SideliteUpdateLocationOnHouseInput
   AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
   AvailableSizes: SideliteUpdateAvailableSizesInput
   DefaultSize: SideliteUpdateDefaultSizeInput
@@ -14938,6 +15770,18 @@ input SideliteUpdateManyWithoutGlassFamilyAbbreviationInput {
   updateMany: [SideliteUpdateManyWithWhereNestedInput!]
   deleteMany: [SideliteScalarWhereInput!]
   upsert: [SideliteUpsertWithWhereUniqueWithoutGlassFamilyAbbreviationInput!]
+}
+
+input SideliteUpdateManyWithoutLocationOnHouseInput {
+  create: [SideliteCreateWithoutLocationOnHouseInput!]
+  connect: [SideliteWhereUniqueInput!]
+  set: [SideliteWhereUniqueInput!]
+  disconnect: [SideliteWhereUniqueInput!]
+  delete: [SideliteWhereUniqueInput!]
+  update: [SideliteUpdateWithWhereUniqueWithoutLocationOnHouseInput!]
+  updateMany: [SideliteUpdateManyWithWhereNestedInput!]
+  deleteMany: [SideliteScalarWhereInput!]
+  upsert: [SideliteUpsertWithWhereUniqueWithoutLocationOnHouseInput!]
 }
 
 input SideliteUpdateManyWithoutParentGlassFamilyAbbreviationInput {
@@ -15039,7 +15883,6 @@ input SideliteUpdateWithoutDoorCollectionDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
-  LocationOnHouse: SideliteUpdateLocationOnHouseInput
   AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
   AvailableSizes: SideliteUpdateAvailableSizesInput
   DefaultSize: SideliteUpdateDefaultSizeInput
@@ -15059,6 +15902,7 @@ input SideliteUpdateWithoutDoorCollectionDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutSidelitesInput
   StyleShape: StyleShapeUpdateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationUpdateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutSidelitesInput
@@ -15103,7 +15947,6 @@ input SideliteUpdateWithoutDoorLineDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
-  LocationOnHouse: SideliteUpdateLocationOnHouseInput
   AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
   AvailableSizes: SideliteUpdateAvailableSizesInput
   DefaultSize: SideliteUpdateDefaultSizeInput
@@ -15123,6 +15966,7 @@ input SideliteUpdateWithoutDoorLineDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutSidelitesInput
   StyleShape: StyleShapeUpdateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationUpdateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutSidelitesInput
@@ -15167,7 +16011,6 @@ input SideliteUpdateWithoutDoorsDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
-  LocationOnHouse: SideliteUpdateLocationOnHouseInput
   AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
   AvailableSizes: SideliteUpdateAvailableSizesInput
   DefaultSize: SideliteUpdateDefaultSizeInput
@@ -15188,6 +16031,7 @@ input SideliteUpdateWithoutDoorsDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutSidelitesInput
   StyleShape: StyleShapeUpdateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationUpdateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutSidelitesInput
@@ -15231,7 +16075,6 @@ input SideliteUpdateWithoutFrameProfilesDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
-  LocationOnHouse: SideliteUpdateLocationOnHouseInput
   AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
   AvailableSizes: SideliteUpdateAvailableSizesInput
   DefaultSize: SideliteUpdateDefaultSizeInput
@@ -15251,6 +16094,7 @@ input SideliteUpdateWithoutFrameProfilesDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutSidelitesInput
   StyleShape: StyleShapeUpdateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationUpdateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutSidelitesInput
@@ -15295,7 +16139,6 @@ input SideliteUpdateWithoutGlassAssociationDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
-  LocationOnHouse: SideliteUpdateLocationOnHouseInput
   AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
   AvailableSizes: SideliteUpdateAvailableSizesInput
   DefaultSize: SideliteUpdateDefaultSizeInput
@@ -15316,6 +16159,7 @@ input SideliteUpdateWithoutGlassAssociationDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutSidelitesInput
   StyleShape: StyleShapeUpdateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutSidelitesInput
   Doors: DoorUpdateManyWithoutSidelitesInput
@@ -15359,7 +16203,6 @@ input SideliteUpdateWithoutGlassFamilyAbbreviationDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
-  LocationOnHouse: SideliteUpdateLocationOnHouseInput
   AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
   AvailableSizes: SideliteUpdateAvailableSizesInput
   DefaultSize: SideliteUpdateDefaultSizeInput
@@ -15379,6 +16222,71 @@ input SideliteUpdateWithoutGlassFamilyAbbreviationDataInput {
   FrameProfiles: FrameProfileUpdateManyWithoutSidelitesInput
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutSidelitesInput
+  StyleShape: StyleShapeUpdateOneWithoutSidelitesInput
+  GlassAssociation: GlassAssociationUpdateOneWithoutSidelitesInput
+  StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutSidelitesInput
+  Doors: DoorUpdateManyWithoutSidelitesInput
+}
+
+input SideliteUpdateWithoutLocationOnHouseDataInput {
+  Brand: String
+  StyleNumber: String
+  ProductLine: String
+  DoorType: String
+  LiteQuantity: Int
+  VisualizedHeight: Int
+  VisualizedWidth: Int
+  LaunchYear: Int
+  RecentlyLaunched: Boolean
+  GlassSizeCategory: String
+  DefaultSidelite: String
+  DefaultTransom: String
+  DefaultGlassWidth: String
+  AbstractPrice: String
+  SOSPrice: Int
+  MDSPrice: Int
+  LowesStocked: Boolean
+  GlassType: String
+  GlassDesign: String
+  DefaultImageName: String
+  ImageUrl: String
+  Ordinal: Int
+  IsLimitedAvailability: Boolean
+  ProductTrends: String
+  DefaultDoorSurroundStyleNumber: String
+  GrainProfile: String
+  LydDisplay: Boolean
+  LydDefaultFinishId: String
+  LydGlassCategory: String
+  LydDisplayOrder: Int
+  LydDisplayCaming: String
+  FacetMaterial: String
+  FacetRecentlyLaunched: String
+  RelatedStyleID: String
+  AllowsHandlesets: Boolean
+  IsFlushGlazed: Boolean
+  ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
+  AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
+  AvailableSizes: SideliteUpdateAvailableSizesInput
+  DefaultSize: SideliteUpdateDefaultSizeInput
+  StyleGroups: SideliteUpdateStyleGroupsInput
+  RatingEligibility: SideliteUpdateRatingEligibilityInput
+  SupportedAccessories: SideliteUpdateSupportedAccessoriesInput
+  AllowedSidelites: SideliteUpdateAllowedSidelitesInput
+  AllowedTransoms: SideliteUpdateAllowedTransomsInput
+  GlassFeatures: SideliteUpdateGlassFeaturesInput
+  Sidelites: SideliteUpdateSidelitesInput
+  Transoms: SideliteUpdateTransomsInput
+  LimitedAvailabilityCategories: SideliteUpdateLimitedAvailabilityCategoriesInput
+  CurrentYearTrends: SideliteUpdateCurrentYearTrendsInput
+  LydAvailableFinishIds: SideliteUpdateLydAvailableFinishIdsInput
+  DoorCollection: DoorCollectionUpdateOneWithoutSidelitesInput
+  DoorLine: DoorLineUpdateOneWithoutSidelitesInput
+  FrameProfiles: FrameProfileUpdateManyWithoutSidelitesInput
+  DefaultFrameProfile: FrameProfileUpdateOneInput
+  ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutSidelitesInput
+  GlassFamilyAbbreviation: GlassUpdateOneWithoutSidelitesInput
   StyleShape: StyleShapeUpdateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationUpdateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutSidelitesInput
@@ -15423,7 +16331,6 @@ input SideliteUpdateWithoutParentGlassFamilyAbbreviationDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
-  LocationOnHouse: SideliteUpdateLocationOnHouseInput
   AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
   AvailableSizes: SideliteUpdateAvailableSizesInput
   DefaultSize: SideliteUpdateDefaultSizeInput
@@ -15443,6 +16350,7 @@ input SideliteUpdateWithoutParentGlassFamilyAbbreviationDataInput {
   FrameProfiles: FrameProfileUpdateManyWithoutSidelitesInput
   DefaultFrameProfile: FrameProfileUpdateOneInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutSidelitesInput
   StyleShape: StyleShapeUpdateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationUpdateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutSidelitesInput
@@ -15487,7 +16395,6 @@ input SideliteUpdateWithoutStyleLayoutPairsDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
-  LocationOnHouse: SideliteUpdateLocationOnHouseInput
   AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
   AvailableSizes: SideliteUpdateAvailableSizesInput
   DefaultSize: SideliteUpdateDefaultSizeInput
@@ -15508,6 +16415,7 @@ input SideliteUpdateWithoutStyleLayoutPairsDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutSidelitesInput
   StyleShape: StyleShapeUpdateOneWithoutSidelitesInput
   GlassAssociation: GlassAssociationUpdateOneWithoutSidelitesInput
   Doors: DoorUpdateManyWithoutSidelitesInput
@@ -15551,7 +16459,6 @@ input SideliteUpdateWithoutStyleShapeDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: SideliteUpdateArchitecturalStyleInput
-  LocationOnHouse: SideliteUpdateLocationOnHouseInput
   AvailableSizeDetails: SideliteUpdateAvailableSizeDetailsInput
   AvailableSizes: SideliteUpdateAvailableSizesInput
   DefaultSize: SideliteUpdateDefaultSizeInput
@@ -15572,6 +16479,7 @@ input SideliteUpdateWithoutStyleShapeDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutSidelitesInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutSidelitesInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutSidelitesInput
   GlassAssociation: GlassAssociationUpdateOneWithoutSidelitesInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutSidelitesInput
   Doors: DoorUpdateManyWithoutSidelitesInput
@@ -15605,6 +16513,11 @@ input SideliteUpdateWithWhereUniqueWithoutGlassAssociationInput {
 input SideliteUpdateWithWhereUniqueWithoutGlassFamilyAbbreviationInput {
   where: SideliteWhereUniqueInput!
   data: SideliteUpdateWithoutGlassFamilyAbbreviationDataInput!
+}
+
+input SideliteUpdateWithWhereUniqueWithoutLocationOnHouseInput {
+  where: SideliteWhereUniqueInput!
+  data: SideliteUpdateWithoutLocationOnHouseDataInput!
 }
 
 input SideliteUpdateWithWhereUniqueWithoutParentGlassFamilyAbbreviationInput {
@@ -15656,6 +16569,12 @@ input SideliteUpsertWithWhereUniqueWithoutGlassFamilyAbbreviationInput {
   where: SideliteWhereUniqueInput!
   update: SideliteUpdateWithoutGlassFamilyAbbreviationDataInput!
   create: SideliteCreateWithoutGlassFamilyAbbreviationInput!
+}
+
+input SideliteUpsertWithWhereUniqueWithoutLocationOnHouseInput {
+  where: SideliteWhereUniqueInput!
+  update: SideliteUpdateWithoutLocationOnHouseDataInput!
+  create: SideliteCreateWithoutLocationOnHouseInput!
 }
 
 input SideliteUpsertWithWhereUniqueWithoutParentGlassFamilyAbbreviationInput {
@@ -16813,6 +17732,9 @@ input SideliteWhereInput {
   DefaultFrameProfile: FrameProfileWhereInput
   ParentGlassFamilyAbbreviation: GlassFamilyWhereInput
   GlassFamilyAbbreviation: GlassWhereInput
+  LocationOnHouse_every: LocationOnHouseWhereInput
+  LocationOnHouse_some: LocationOnHouseWhereInput
+  LocationOnHouse_none: LocationOnHouseWhereInput
   StyleShape: StyleShapeWhereInput
   GlassAssociation: GlassAssociationWhereInput
   StyleLayoutPairs: StyleLayoutPairWhereInput
@@ -18014,6 +18936,7 @@ type Subscription {
   dividedLiteType(where: DividedLiteTypeSubscriptionWhereInput): DividedLiteTypeSubscriptionPayload
   grilleColor(where: GrilleColorSubscriptionWhereInput): GrilleColorSubscriptionPayload
   transom(where: TransomSubscriptionWhereInput): TransomSubscriptionPayload
+  locationOnHouse(where: LocationOnHouseSubscriptionWhereInput): LocationOnHouseSubscriptionPayload
   glassAssociation(where: GlassAssociationSubscriptionWhereInput): GlassAssociationSubscriptionPayload
   glass(where: GlassSubscriptionWhereInput): GlassSubscriptionPayload
   frameProfile(where: FrameProfileSubscriptionWhereInput): FrameProfileSubscriptionPayload
@@ -18033,7 +18956,7 @@ type Transom {
   ParentGlassFamilyAbbreviation: GlassFamily
   GlassFamilyAbbreviation: Glass
   LiteQuantity: Int
-  LocationOnHouse: [String!]!
+  LocationOnHouse(where: LocationOnHouseWhereInput, orderBy: LocationOnHouseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [LocationOnHouse!]
   AvailableSizeDetails: [String!]!
   AvailableSizes: [String!]!
   DefaultSize: [String!]!
@@ -18166,7 +19089,6 @@ input TransomCreateInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomCreateArchitecturalStyleInput
-  LocationOnHouse: TransomCreateLocationOnHouseInput
   AvailableSizeDetails: TransomCreateAvailableSizeDetailsInput
   AvailableSizes: TransomCreateAvailableSizesInput
   DefaultSize: TransomCreateDefaultSizeInput
@@ -18187,6 +19109,7 @@ input TransomCreateInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutTransomsInput
   StyleShape: StyleShapeCreateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationCreateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutTransomsInput
@@ -18194,10 +19117,6 @@ input TransomCreateInput {
 }
 
 input TransomCreateLimitedAvailabilityCategoriesInput {
-  set: [String!]
-}
-
-input TransomCreateLocationOnHouseInput {
   set: [String!]
 }
 
@@ -18232,6 +19151,11 @@ input TransomCreateManyWithoutGlassAssociationInput {
 
 input TransomCreateManyWithoutGlassFamilyAbbreviationInput {
   create: [TransomCreateWithoutGlassFamilyAbbreviationInput!]
+  connect: [TransomWhereUniqueInput!]
+}
+
+input TransomCreateManyWithoutLocationOnHouseInput {
+  create: [TransomCreateWithoutLocationOnHouseInput!]
   connect: [TransomWhereUniqueInput!]
 }
 
@@ -18309,7 +19233,6 @@ input TransomCreateWithoutDoorCollectionInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomCreateArchitecturalStyleInput
-  LocationOnHouse: TransomCreateLocationOnHouseInput
   AvailableSizeDetails: TransomCreateAvailableSizeDetailsInput
   AvailableSizes: TransomCreateAvailableSizesInput
   DefaultSize: TransomCreateDefaultSizeInput
@@ -18329,6 +19252,7 @@ input TransomCreateWithoutDoorCollectionInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutTransomsInput
   StyleShape: StyleShapeCreateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationCreateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutTransomsInput
@@ -18374,7 +19298,6 @@ input TransomCreateWithoutDoorLineInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomCreateArchitecturalStyleInput
-  LocationOnHouse: TransomCreateLocationOnHouseInput
   AvailableSizeDetails: TransomCreateAvailableSizeDetailsInput
   AvailableSizes: TransomCreateAvailableSizesInput
   DefaultSize: TransomCreateDefaultSizeInput
@@ -18394,6 +19317,7 @@ input TransomCreateWithoutDoorLineInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutTransomsInput
   StyleShape: StyleShapeCreateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationCreateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutTransomsInput
@@ -18439,7 +19363,6 @@ input TransomCreateWithoutDoorsInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomCreateArchitecturalStyleInput
-  LocationOnHouse: TransomCreateLocationOnHouseInput
   AvailableSizeDetails: TransomCreateAvailableSizeDetailsInput
   AvailableSizes: TransomCreateAvailableSizesInput
   DefaultSize: TransomCreateDefaultSizeInput
@@ -18460,6 +19383,7 @@ input TransomCreateWithoutDoorsInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutTransomsInput
   StyleShape: StyleShapeCreateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationCreateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutTransomsInput
@@ -18504,7 +19428,6 @@ input TransomCreateWithoutFrameProfilesInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomCreateArchitecturalStyleInput
-  LocationOnHouse: TransomCreateLocationOnHouseInput
   AvailableSizeDetails: TransomCreateAvailableSizeDetailsInput
   AvailableSizes: TransomCreateAvailableSizesInput
   DefaultSize: TransomCreateDefaultSizeInput
@@ -18524,6 +19447,7 @@ input TransomCreateWithoutFrameProfilesInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutTransomsInput
   StyleShape: StyleShapeCreateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationCreateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutTransomsInput
@@ -18569,7 +19493,6 @@ input TransomCreateWithoutGlassAssociationInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomCreateArchitecturalStyleInput
-  LocationOnHouse: TransomCreateLocationOnHouseInput
   AvailableSizeDetails: TransomCreateAvailableSizeDetailsInput
   AvailableSizes: TransomCreateAvailableSizesInput
   DefaultSize: TransomCreateDefaultSizeInput
@@ -18590,6 +19513,7 @@ input TransomCreateWithoutGlassAssociationInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutTransomsInput
   StyleShape: StyleShapeCreateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutTransomsInput
   Doors: DoorCreateManyWithoutTransomsInput
@@ -18634,7 +19558,6 @@ input TransomCreateWithoutGlassFamilyAbbreviationInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomCreateArchitecturalStyleInput
-  LocationOnHouse: TransomCreateLocationOnHouseInput
   AvailableSizeDetails: TransomCreateAvailableSizeDetailsInput
   AvailableSizes: TransomCreateAvailableSizesInput
   DefaultSize: TransomCreateDefaultSizeInput
@@ -18654,6 +19577,72 @@ input TransomCreateWithoutGlassFamilyAbbreviationInput {
   FrameProfiles: FrameProfileCreateManyWithoutTransomsInput
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutTransomsInput
+  StyleShape: StyleShapeCreateOneWithoutTransomsInput
+  GlassAssociation: GlassAssociationCreateOneWithoutTransomsInput
+  StyleLayoutPairs: StyleLayoutPairCreateOneWithoutTransomsInput
+  Doors: DoorCreateManyWithoutTransomsInput
+}
+
+input TransomCreateWithoutLocationOnHouseInput {
+  Id: ID
+  Brand: String
+  StyleNumber: String
+  ProductLine: String
+  DoorType: String
+  LiteQuantity: Int
+  VisualizedHeight: Int
+  VisualizedWidth: Int
+  LaunchYear: Int
+  RecentlyLaunched: Boolean
+  GlassSizeCategory: String
+  DefaultSidelite: String
+  DefaultTransom: String
+  DefaultGlassWidth: String
+  AbstractPrice: String
+  SOSPrice: Int
+  MDSPrice: Int
+  LowesStocked: Boolean
+  GlassType: String
+  GlassDesign: String
+  DefaultImageName: String
+  ImageUrl: String
+  Ordinal: Int
+  IsLimitedAvailability: Boolean
+  ProductTrends: String
+  DefaultDoorSurroundStyleNumber: String
+  GrainProfile: String
+  LydDisplay: Boolean
+  LydDefaultFinishId: String
+  LydGlassCategory: String
+  LydDisplayOrder: Int
+  LydDisplayCaming: String
+  FacetMaterial: String
+  FacetRecentlyLaunched: String
+  RelatedStyleID: String
+  AllowsHandlesets: Boolean
+  IsFlushGlazed: Boolean
+  ArchitecturalStyle: TransomCreateArchitecturalStyleInput
+  AvailableSizeDetails: TransomCreateAvailableSizeDetailsInput
+  AvailableSizes: TransomCreateAvailableSizesInput
+  DefaultSize: TransomCreateDefaultSizeInput
+  StyleGroups: TransomCreateStyleGroupsInput
+  RatingEligibility: TransomCreateRatingEligibilityInput
+  SupportedAccessories: TransomCreateSupportedAccessoriesInput
+  AllowedSidelites: TransomCreateAllowedSidelitesInput
+  AllowedTransoms: TransomCreateAllowedTransomsInput
+  GlassFeatures: TransomCreateGlassFeaturesInput
+  Sidelites: TransomCreateSidelitesInput
+  Transoms: TransomCreateTransomsInput
+  LimitedAvailabilityCategories: TransomCreateLimitedAvailabilityCategoriesInput
+  CurrentYearTrends: TransomCreateCurrentYearTrendsInput
+  LydAvailableFinishIds: TransomCreateLydAvailableFinishIdsInput
+  DoorCollection: DoorCollectionCreateOneWithoutTransomsInput
+  DoorLine: DoorLineCreateOneWithoutTransomsInput
+  FrameProfiles: FrameProfileCreateManyWithoutTransomsInput
+  DefaultFrameProfile: FrameProfileCreateOneInput
+  ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutTransomsInput
+  GlassFamilyAbbreviation: GlassCreateOneWithoutTransomsInput
   StyleShape: StyleShapeCreateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationCreateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutTransomsInput
@@ -18699,7 +19688,6 @@ input TransomCreateWithoutParentGlassFamilyAbbreviationInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomCreateArchitecturalStyleInput
-  LocationOnHouse: TransomCreateLocationOnHouseInput
   AvailableSizeDetails: TransomCreateAvailableSizeDetailsInput
   AvailableSizes: TransomCreateAvailableSizesInput
   DefaultSize: TransomCreateDefaultSizeInput
@@ -18719,6 +19707,7 @@ input TransomCreateWithoutParentGlassFamilyAbbreviationInput {
   FrameProfiles: FrameProfileCreateManyWithoutTransomsInput
   DefaultFrameProfile: FrameProfileCreateOneInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutTransomsInput
   StyleShape: StyleShapeCreateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationCreateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutTransomsInput
@@ -18764,7 +19753,6 @@ input TransomCreateWithoutStyleLayoutPairsInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomCreateArchitecturalStyleInput
-  LocationOnHouse: TransomCreateLocationOnHouseInput
   AvailableSizeDetails: TransomCreateAvailableSizeDetailsInput
   AvailableSizes: TransomCreateAvailableSizesInput
   DefaultSize: TransomCreateDefaultSizeInput
@@ -18785,6 +19773,7 @@ input TransomCreateWithoutStyleLayoutPairsInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutTransomsInput
   StyleShape: StyleShapeCreateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationCreateOneWithoutTransomsInput
   Doors: DoorCreateManyWithoutTransomsInput
@@ -18829,7 +19818,6 @@ input TransomCreateWithoutStyleShapeInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomCreateArchitecturalStyleInput
-  LocationOnHouse: TransomCreateLocationOnHouseInput
   AvailableSizeDetails: TransomCreateAvailableSizeDetailsInput
   AvailableSizes: TransomCreateAvailableSizesInput
   DefaultSize: TransomCreateDefaultSizeInput
@@ -18850,6 +19838,7 @@ input TransomCreateWithoutStyleShapeInput {
   DefaultFrameProfile: FrameProfileCreateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutTransomsInput
   GlassAssociation: GlassAssociationCreateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutTransomsInput
   Doors: DoorCreateManyWithoutTransomsInput
@@ -18949,7 +19938,6 @@ type TransomPreviousValues {
   ProductLine: String
   DoorType: String
   LiteQuantity: Int
-  LocationOnHouse: [String!]!
   AvailableSizeDetails: [String!]!
   AvailableSizes: [String!]!
   DefaultSize: [String!]!
@@ -20235,7 +21223,6 @@ input TransomUpdateInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
-  LocationOnHouse: TransomUpdateLocationOnHouseInput
   AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
   AvailableSizes: TransomUpdateAvailableSizesInput
   DefaultSize: TransomUpdateDefaultSizeInput
@@ -20256,6 +21243,7 @@ input TransomUpdateInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutTransomsInput
   StyleShape: StyleShapeUpdateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutTransomsInput
@@ -20263,10 +21251,6 @@ input TransomUpdateInput {
 }
 
 input TransomUpdateLimitedAvailabilityCategoriesInput {
-  set: [String!]
-}
-
-input TransomUpdateLocationOnHouseInput {
   set: [String!]
 }
 
@@ -20312,7 +21296,6 @@ input TransomUpdateManyDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
-  LocationOnHouse: TransomUpdateLocationOnHouseInput
   AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
   AvailableSizes: TransomUpdateAvailableSizesInput
   DefaultSize: TransomUpdateDefaultSizeInput
@@ -20367,7 +21350,6 @@ input TransomUpdateManyMutationInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
-  LocationOnHouse: TransomUpdateLocationOnHouseInput
   AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
   AvailableSizes: TransomUpdateAvailableSizesInput
   DefaultSize: TransomUpdateDefaultSizeInput
@@ -20454,6 +21436,18 @@ input TransomUpdateManyWithoutGlassFamilyAbbreviationInput {
   updateMany: [TransomUpdateManyWithWhereNestedInput!]
   deleteMany: [TransomScalarWhereInput!]
   upsert: [TransomUpsertWithWhereUniqueWithoutGlassFamilyAbbreviationInput!]
+}
+
+input TransomUpdateManyWithoutLocationOnHouseInput {
+  create: [TransomCreateWithoutLocationOnHouseInput!]
+  connect: [TransomWhereUniqueInput!]
+  set: [TransomWhereUniqueInput!]
+  disconnect: [TransomWhereUniqueInput!]
+  delete: [TransomWhereUniqueInput!]
+  update: [TransomUpdateWithWhereUniqueWithoutLocationOnHouseInput!]
+  updateMany: [TransomUpdateManyWithWhereNestedInput!]
+  deleteMany: [TransomScalarWhereInput!]
+  upsert: [TransomUpsertWithWhereUniqueWithoutLocationOnHouseInput!]
 }
 
 input TransomUpdateManyWithoutParentGlassFamilyAbbreviationInput {
@@ -20555,7 +21549,6 @@ input TransomUpdateWithoutDoorCollectionDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
-  LocationOnHouse: TransomUpdateLocationOnHouseInput
   AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
   AvailableSizes: TransomUpdateAvailableSizesInput
   DefaultSize: TransomUpdateDefaultSizeInput
@@ -20575,6 +21568,7 @@ input TransomUpdateWithoutDoorCollectionDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutTransomsInput
   StyleShape: StyleShapeUpdateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutTransomsInput
@@ -20619,7 +21613,6 @@ input TransomUpdateWithoutDoorLineDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
-  LocationOnHouse: TransomUpdateLocationOnHouseInput
   AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
   AvailableSizes: TransomUpdateAvailableSizesInput
   DefaultSize: TransomUpdateDefaultSizeInput
@@ -20639,6 +21632,7 @@ input TransomUpdateWithoutDoorLineDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutTransomsInput
   StyleShape: StyleShapeUpdateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutTransomsInput
@@ -20683,7 +21677,6 @@ input TransomUpdateWithoutDoorsDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
-  LocationOnHouse: TransomUpdateLocationOnHouseInput
   AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
   AvailableSizes: TransomUpdateAvailableSizesInput
   DefaultSize: TransomUpdateDefaultSizeInput
@@ -20704,6 +21697,7 @@ input TransomUpdateWithoutDoorsDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutTransomsInput
   StyleShape: StyleShapeUpdateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutTransomsInput
@@ -20747,7 +21741,6 @@ input TransomUpdateWithoutFrameProfilesDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
-  LocationOnHouse: TransomUpdateLocationOnHouseInput
   AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
   AvailableSizes: TransomUpdateAvailableSizesInput
   DefaultSize: TransomUpdateDefaultSizeInput
@@ -20767,6 +21760,7 @@ input TransomUpdateWithoutFrameProfilesDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutTransomsInput
   StyleShape: StyleShapeUpdateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutTransomsInput
@@ -20811,7 +21805,6 @@ input TransomUpdateWithoutGlassAssociationDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
-  LocationOnHouse: TransomUpdateLocationOnHouseInput
   AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
   AvailableSizes: TransomUpdateAvailableSizesInput
   DefaultSize: TransomUpdateDefaultSizeInput
@@ -20832,6 +21825,7 @@ input TransomUpdateWithoutGlassAssociationDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutTransomsInput
   StyleShape: StyleShapeUpdateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutTransomsInput
   Doors: DoorUpdateManyWithoutTransomsInput
@@ -20875,7 +21869,6 @@ input TransomUpdateWithoutGlassFamilyAbbreviationDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
-  LocationOnHouse: TransomUpdateLocationOnHouseInput
   AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
   AvailableSizes: TransomUpdateAvailableSizesInput
   DefaultSize: TransomUpdateDefaultSizeInput
@@ -20895,6 +21888,71 @@ input TransomUpdateWithoutGlassFamilyAbbreviationDataInput {
   FrameProfiles: FrameProfileUpdateManyWithoutTransomsInput
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutTransomsInput
+  StyleShape: StyleShapeUpdateOneWithoutTransomsInput
+  GlassAssociation: GlassAssociationUpdateOneWithoutTransomsInput
+  StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutTransomsInput
+  Doors: DoorUpdateManyWithoutTransomsInput
+}
+
+input TransomUpdateWithoutLocationOnHouseDataInput {
+  Brand: String
+  StyleNumber: String
+  ProductLine: String
+  DoorType: String
+  LiteQuantity: Int
+  VisualizedHeight: Int
+  VisualizedWidth: Int
+  LaunchYear: Int
+  RecentlyLaunched: Boolean
+  GlassSizeCategory: String
+  DefaultSidelite: String
+  DefaultTransom: String
+  DefaultGlassWidth: String
+  AbstractPrice: String
+  SOSPrice: Int
+  MDSPrice: Int
+  LowesStocked: Boolean
+  GlassType: String
+  GlassDesign: String
+  DefaultImageName: String
+  ImageUrl: String
+  Ordinal: Int
+  IsLimitedAvailability: Boolean
+  ProductTrends: String
+  DefaultDoorSurroundStyleNumber: String
+  GrainProfile: String
+  LydDisplay: Boolean
+  LydDefaultFinishId: String
+  LydGlassCategory: String
+  LydDisplayOrder: Int
+  LydDisplayCaming: String
+  FacetMaterial: String
+  FacetRecentlyLaunched: String
+  RelatedStyleID: String
+  AllowsHandlesets: Boolean
+  IsFlushGlazed: Boolean
+  ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
+  AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
+  AvailableSizes: TransomUpdateAvailableSizesInput
+  DefaultSize: TransomUpdateDefaultSizeInput
+  StyleGroups: TransomUpdateStyleGroupsInput
+  RatingEligibility: TransomUpdateRatingEligibilityInput
+  SupportedAccessories: TransomUpdateSupportedAccessoriesInput
+  AllowedSidelites: TransomUpdateAllowedSidelitesInput
+  AllowedTransoms: TransomUpdateAllowedTransomsInput
+  GlassFeatures: TransomUpdateGlassFeaturesInput
+  Sidelites: TransomUpdateSidelitesInput
+  Transoms: TransomUpdateTransomsInput
+  LimitedAvailabilityCategories: TransomUpdateLimitedAvailabilityCategoriesInput
+  CurrentYearTrends: TransomUpdateCurrentYearTrendsInput
+  LydAvailableFinishIds: TransomUpdateLydAvailableFinishIdsInput
+  DoorCollection: DoorCollectionUpdateOneWithoutTransomsInput
+  DoorLine: DoorLineUpdateOneWithoutTransomsInput
+  FrameProfiles: FrameProfileUpdateManyWithoutTransomsInput
+  DefaultFrameProfile: FrameProfileUpdateOneInput
+  ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutTransomsInput
+  GlassFamilyAbbreviation: GlassUpdateOneWithoutTransomsInput
   StyleShape: StyleShapeUpdateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutTransomsInput
@@ -20939,7 +21997,6 @@ input TransomUpdateWithoutParentGlassFamilyAbbreviationDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
-  LocationOnHouse: TransomUpdateLocationOnHouseInput
   AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
   AvailableSizes: TransomUpdateAvailableSizesInput
   DefaultSize: TransomUpdateDefaultSizeInput
@@ -20959,6 +22016,7 @@ input TransomUpdateWithoutParentGlassFamilyAbbreviationDataInput {
   FrameProfiles: FrameProfileUpdateManyWithoutTransomsInput
   DefaultFrameProfile: FrameProfileUpdateOneInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutTransomsInput
   StyleShape: StyleShapeUpdateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutTransomsInput
@@ -21003,7 +22061,6 @@ input TransomUpdateWithoutStyleLayoutPairsDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
-  LocationOnHouse: TransomUpdateLocationOnHouseInput
   AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
   AvailableSizes: TransomUpdateAvailableSizesInput
   DefaultSize: TransomUpdateDefaultSizeInput
@@ -21024,6 +22081,7 @@ input TransomUpdateWithoutStyleLayoutPairsDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutTransomsInput
   StyleShape: StyleShapeUpdateOneWithoutTransomsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutTransomsInput
   Doors: DoorUpdateManyWithoutTransomsInput
@@ -21067,7 +22125,6 @@ input TransomUpdateWithoutStyleShapeDataInput {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   ArchitecturalStyle: TransomUpdateArchitecturalStyleInput
-  LocationOnHouse: TransomUpdateLocationOnHouseInput
   AvailableSizeDetails: TransomUpdateAvailableSizeDetailsInput
   AvailableSizes: TransomUpdateAvailableSizesInput
   DefaultSize: TransomUpdateDefaultSizeInput
@@ -21088,6 +22145,7 @@ input TransomUpdateWithoutStyleShapeDataInput {
   DefaultFrameProfile: FrameProfileUpdateOneInput
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutTransomsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutTransomsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutTransomsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutTransomsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutTransomsInput
   Doors: DoorUpdateManyWithoutTransomsInput
@@ -21121,6 +22179,11 @@ input TransomUpdateWithWhereUniqueWithoutGlassAssociationInput {
 input TransomUpdateWithWhereUniqueWithoutGlassFamilyAbbreviationInput {
   where: TransomWhereUniqueInput!
   data: TransomUpdateWithoutGlassFamilyAbbreviationDataInput!
+}
+
+input TransomUpdateWithWhereUniqueWithoutLocationOnHouseInput {
+  where: TransomWhereUniqueInput!
+  data: TransomUpdateWithoutLocationOnHouseDataInput!
 }
 
 input TransomUpdateWithWhereUniqueWithoutParentGlassFamilyAbbreviationInput {
@@ -21172,6 +22235,12 @@ input TransomUpsertWithWhereUniqueWithoutGlassFamilyAbbreviationInput {
   where: TransomWhereUniqueInput!
   update: TransomUpdateWithoutGlassFamilyAbbreviationDataInput!
   create: TransomCreateWithoutGlassFamilyAbbreviationInput!
+}
+
+input TransomUpsertWithWhereUniqueWithoutLocationOnHouseInput {
+  where: TransomWhereUniqueInput!
+  update: TransomUpdateWithoutLocationOnHouseDataInput!
+  create: TransomCreateWithoutLocationOnHouseInput!
 }
 
 input TransomUpsertWithWhereUniqueWithoutParentGlassFamilyAbbreviationInput {
@@ -22329,6 +23398,9 @@ input TransomWhereInput {
   DefaultFrameProfile: FrameProfileWhereInput
   ParentGlassFamilyAbbreviation: GlassFamilyWhereInput
   GlassFamilyAbbreviation: GlassWhereInput
+  LocationOnHouse_every: LocationOnHouseWhereInput
+  LocationOnHouse_some: LocationOnHouseWhereInput
+  LocationOnHouse_none: LocationOnHouseWhereInput
   StyleShape: StyleShapeWhereInput
   GlassAssociation: GlassAssociationWhereInput
   StyleLayoutPairs: StyleLayoutPairWhereInput

@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 
-const Header = props => {
+import appContext from "../../context/context";
+import Search from "../Search";
+
+const Header = (props) => {
+  const { store, dispatch } = useContext(appContext);
+
   return (
     <Container>
       <p>Header</p>
+
+      <Search />
     </Container>
   );
 };

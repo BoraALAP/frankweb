@@ -5,7 +5,6 @@ const Mutation = {
         data: {
           ...args,
           ArchitecturalStyle: { set: args.ArchitecturalStyle },
-          LocationOnHouse: { set: args.LocationOnHouse },
           AvailableSizeDetails: { set: args.AvailableSizeDetails },
           AvailableSizes: { set: args.AvailableSizes },
           StyleGroups: { set: args.StyleGroups },
@@ -22,6 +21,7 @@ const Mutation = {
           DoorCollection: args.DoorCollection,
           DoorLine: args.DoorLine,
           StyleShape: args.StyleShape,
+          LocationOnHouse: args.LocationOnHouse,
           StyleLayoutPairs: args.StyleLayoutPairs,
           Sidelites: args.Sidelites,
           FrameProfiles: args.FrameProfiles,
@@ -46,6 +46,17 @@ const Mutation = {
   async deleteManyGlassFamilies(parent, args, ctx, info) {
     const where = { Id: args.Id };
     const door = await ctx.db.mutation.deleteManyGlassFamilies({ where }, info);
+    return door;
+  },
+
+  async deleteManyTransoms(parent, args, ctx, info) {
+    const where = { Id: args.Id };
+    const door = await ctx.db.mutation.deleteManyTransoms({ where }, info);
+    return door;
+  },
+  async deleteManyHandleSets(parent, args, ctx, info) {
+    const where = { Id: args.Id };
+    const door = await ctx.db.mutation.deleteManyHandleSets({ where }, info);
     return door;
   },
   async createDoorCollection(parent, args, ctx, info) {
@@ -112,7 +123,6 @@ const Mutation = {
         data: {
           ...args,
           ArchitecturalStyle: { set: args.ArchitecturalStyle },
-          LocationOnHouse: { set: args.LocationOnHouse },
           AvailableSizeDetails: { set: args.AvailableSizeDetails },
           AvailableSizes: { set: args.AvailableSizes },
           StyleGroups: { set: args.StyleGroups },
@@ -128,6 +138,7 @@ const Mutation = {
           CurrentYearTrends: { set: args.CurrentYearTrends },
           LydAvailableFinishIds: { set: args.LydAvailableFinishIds },
           DoorCollection: args.DoorCollection,
+          LocationOnHouse: args.LocationOnHouse,
           DoorLine: args.DoorLine,
           StyleShape: args.StyleShape,
           StyleLayoutPairs: args.StyleLayoutPairs,
@@ -140,12 +151,13 @@ const Mutation = {
     return sidelite;
   },
   async createTransom(parent, args, ctx, info) {
+    console.log(args);
+
     const transom = await ctx.db.mutation.createTransom(
       {
         data: {
           ...args,
           ArchitecturalStyle: { set: args.ArchitecturalStyle },
-          LocationOnHouse: { set: args.LocationOnHouse },
           AvailableSizeDetails: { set: args.AvailableSizeDetails },
           AvailableSizes: { set: args.AvailableSizes },
           StyleGroups: { set: args.StyleGroups },
@@ -161,6 +173,7 @@ const Mutation = {
           CurrentYearTrends: { set: args.CurrentYearTrends },
           LydAvailableFinishIds: { set: args.LydAvailableFinishIds },
           DoorCollection: args.DoorCollection,
+          LocationOnHouse: args.LocationOnHouse,
           DoorLine: args.DoorLine,
           StyleShape: args.StyleShape,
           StyleLayoutPairs: args.StyleLayoutPairs,
@@ -226,6 +239,14 @@ const Mutation = {
       }
     });
     return glassAssociation;
+  },
+  async createLocationOnHouse(parent, args, ctx, info) {
+    const location = await ctx.db.mutation.createLocationOnHouse({
+      data: {
+        ...args
+      }
+    });
+    return location;
   }
 };
 

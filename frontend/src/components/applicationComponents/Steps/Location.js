@@ -7,22 +7,22 @@ import appContext from "../../../context/context";
 const Location = ({ nextStep, prevStep }, props) => {
   const { dispatch } = useContext(appContext);
 
-  const handleClick = text => {
+  const handleClick = (text) => {
     dispatch({
       type: "UPDATE_STEP",
       step: "location",
-      payload: text
+      payload: text,
     });
     nextStep();
   };
 
   const options = [
-    { name: "Entry" },
+    { name: { Name: "Entry" } },
     { name: "Patio" },
     { name: "House of Garage" },
     { name: "Side of House" },
     { name: "Back of House" },
-    { name: "Side of Garage" }
+    { name: "Side of Garage" },
   ];
 
   return (

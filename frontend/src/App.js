@@ -9,9 +9,11 @@ import { primaryTheme, secondaryTheme } from "./styles/theme";
 import GlobalStyle from "./styles/global";
 
 import Layout from "./components/global/Layout";
+import SearchResult from "./pages/SearchResult";
 import DoorApplication from "./pages/DoorApplication";
 
-import DisplayAll from "./components/applicationComponents/DisplayAll";
+import DisplayAll from "./pages/DisplayAll";
+import Push from "./pages/Push";
 
 const App = () => {
   const [store, dispatch] = useReducer(appReducer, initialState);
@@ -24,6 +26,8 @@ const App = () => {
           <Layout>
             <Switch>
               <Route path="/application" component={DoorApplication} />
+              <Route path="/search" component={SearchResult} />
+              <Route path="/push" component={Push} />
               <Route path="/" exact>
                 <DisplayAll />
               </Route>

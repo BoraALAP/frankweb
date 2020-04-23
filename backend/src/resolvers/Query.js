@@ -17,6 +17,7 @@ const Query = {
   dividedLiteTypes: forwardTo("db"),
   grilleColors: forwardTo("db"),
   transoms: forwardTo("db"),
+  locationOnHouse: forwardTo("db"),
   glassAssociations: forwardTo("db"),
   doorsConnection: forwardTo("db"),
   doorCollectionsConnection: forwardTo("db"),
@@ -35,6 +36,7 @@ const Query = {
   glassAssociationsConnection: forwardTo("db"),
   glassesConnection: forwardTo("db"),
   frameProfilesConnection: forwardTo("db"),
+  locationOnHousesConnection: forwardTo("db")
 };
 
 module.exports = Query;

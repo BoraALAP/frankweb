@@ -10,7 +10,8 @@
     "deployForce": "prisma deploy --env-file variables.env --force",
     "playground": "graphql playground --dotenv variables.env",
     "reset": "prisma reset --env-file variables.env",
-    "dev": "npm-run-all --parallel debug playground"
+    "dev": "npm-run-all --parallel debug playground",
+    "export": "prisma export --env-file variables.env"
   },
   "author": "",
   "license": "ISC",
