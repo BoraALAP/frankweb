@@ -24,6 +24,7 @@ const Customer = ({ nextStep, prevStep }, props) => {
 
   return (
     <Container>
+      <h3>Who are you?</h3>
       <SelectorContainer>
         {options.map((selector, index) => (
           <Selector key={index} onClick={() => handleClick(`${selector.name}`)}>
@@ -37,6 +38,7 @@ const Customer = ({ nextStep, prevStep }, props) => {
 
 const Container = styled.div`
   display: grid;
+  grid-gap: 80px;
 `;
 
 const SelectorContainer = styled.div`

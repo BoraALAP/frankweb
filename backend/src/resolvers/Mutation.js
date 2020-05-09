@@ -4,17 +4,18 @@ const Mutation = {
       {
         data: {
           ...args,
-          ArchitecturalStyle: { set: args.ArchitecturalStyle },
+          ArchitecturalStyle: args.ArchitecturalStyle,
           AvailableSizeDetails: { set: args.AvailableSizeDetails },
-          AvailableSizes: { set: args.AvailableSizes },
+          AvailableSizes: args.AvailableSizes,
+          DefaultSize: args.DefaultSize,
           StyleGroups: { set: args.StyleGroups },
-          RatingEligibility: { set: args.RatingEligibility },
+          RatingEligibility: args.RatingEligibility,
           SupportedAccessories: { set: args.SupportedAccessories },
           AllowedSidelites: { set: args.AllowedSidelites },
           AllowedTransoms: { set: args.AllowedTransoms },
           GlassFeatures: { set: args.GlassFeatures },
           LimitedAvailabilityCategories: {
-            set: args.LimitedAvailabilityCategories
+            set: args.LimitedAvailabilityCategories,
           },
           CurrentYearTrends: { set: args.CurrentYearTrends },
           LydAvailableFinishIds: { set: args.LydAvailableFinishIds },
@@ -25,8 +26,11 @@ const Mutation = {
           StyleLayoutPairs: args.StyleLayoutPairs,
           Sidelites: args.Sidelites,
           FrameProfiles: args.FrameProfiles,
-          DefaultFrameProfile: args.DefaultFrameProfile
-        }
+          DefaultFrameProfile: args.DefaultFrameProfile,
+          RelatedGlasses: args.RelatedGlasses,
+          Finishes: args.Finishes,
+          // RelatedDoors: args.RelatedDoors,
+        },
       },
       info
     );
@@ -37,21 +41,30 @@ const Mutation = {
     const door = await ctx.db.mutation.deleteDoor({ where }, info);
     return door;
   },
-  async deleteGlassAssociation(parent, args, ctx, info) {
-    const where = { GlassAssociation: args.GlassAssociation };
-    const door = await ctx.db.mutation.deleteGlassAssociation({ where }, info);
-    return door;
-  },
-
-  async deleteManyGlassFamilies(parent, args, ctx, info) {
+  async deleteManyDoors(parent, args, ctx, info) {
     const where = { Id: args.Id };
-    const door = await ctx.db.mutation.deleteManyGlassFamilies({ where }, info);
+    const door = await ctx.db.mutation.deleteManyDoors({ where }, info);
     return door;
   },
-
+  async updateDoor(parent, args, ctx, info) {
+    console.log(args);
+    const door = await ctx.db.mutation.updateDoor(
+      {
+        ...args,
+      },
+      info
+    );
+    return door;
+  },
   async deleteManyTransoms(parent, args, ctx, info) {
     const where = { Id: args.Id };
     const door = await ctx.db.mutation.deleteManyTransoms({ where }, info);
+    return door;
+  },
+
+  async deleteManySidelites(parent, args, ctx, info) {
+    const where = { Id: args.Id };
+    const door = await ctx.db.mutation.deleteManySidelites({ where }, info);
     return door;
   },
   async deleteManyHandleSets(parent, args, ctx, info) {
@@ -62,16 +75,16 @@ const Mutation = {
   async createDoorCollection(parent, args, ctx, info) {
     const doorCollection = await ctx.db.mutation.createDoorCollection({
       data: {
-        ...args
-      }
+        ...args,
+      },
     });
     return doorCollection;
   },
   async createDoorLine(parent, args, ctx, info) {
     const doorLine = await ctx.db.mutation.createDoorLine({
       data: {
-        ...args
-      }
+        ...args,
+      },
     });
     return doorLine;
   },
@@ -80,40 +93,45 @@ const Mutation = {
       data: {
         ...args,
         AvailableFeatures: { set: args.AvailableFeatures },
-        AvailableDividedLiteTypes: { set: args.AvailableDividedLiteTypes }
-      }
+        AvailableDividedLiteTypes: { set: args.AvailableDividedLiteTypes },
+      },
     });
     return glassFamily;
+  },
+  async deleteManyGlassFamilies(parent, args, ctx, info) {
+    const where = { Id: args.Id };
+    const door = await ctx.db.mutation.deleteManyGlassFamilies({ where }, info);
+    return door;
   },
   async createStyleShape(parent, args, ctx, info) {
     const styleShape = await ctx.db.mutation.createStyleShape({
       data: {
-        ...args
-      }
+        ...args,
+      },
     });
     return styleShape;
   },
   async createFrameProfile(parent, args, ctx, info) {
     const frameProfile = await ctx.db.mutation.createFrameProfile({
       data: {
-        ...args
-      }
+        ...args,
+      },
     });
     return frameProfile;
   },
   async createHandleSet(parent, args, ctx, info) {
     const handleSet = await ctx.db.mutation.createHandleSet({
       data: {
-        ...args
-      }
+        ...args,
+      },
     });
     return handleSet;
   },
   async createFinish(parent, args, ctx, info) {
     const finish = await ctx.db.mutation.createFinish({
       data: {
-        ...args
-      }
+        ...args,
+      },
     });
     return finish;
   },
@@ -122,18 +140,19 @@ const Mutation = {
       {
         data: {
           ...args,
-          ArchitecturalStyle: { set: args.ArchitecturalStyle },
+          ArchitecturalStyle: args.ArchitecturalStyle,
           AvailableSizeDetails: { set: args.AvailableSizeDetails },
-          AvailableSizes: { set: args.AvailableSizes },
+          AvailableSizes: args.AvailableSizes,
+          DefaultSize: args.DefaultSize,
           StyleGroups: { set: args.StyleGroups },
-          RatingEligibility: { set: args.RatingEligibility },
+          RatingEligibility: args.RatingEligibility,
           SupportedAccessories: { set: args.SupportedAccessories },
           AllowedSidelites: { set: args.AllowedSidelites },
           AllowedTransoms: { set: args.AllowedTransoms },
           GlassFeatures: { set: args.GlassFeatures },
-          DefaultSize: { set: args.DefaultSize },
+
           LimitedAvailabilityCategories: {
-            set: args.LimitedAvailabilityCategories
+            set: args.LimitedAvailabilityCategories,
           },
           CurrentYearTrends: { set: args.CurrentYearTrends },
           LydAvailableFinishIds: { set: args.LydAvailableFinishIds },
@@ -143,8 +162,8 @@ const Mutation = {
           StyleShape: args.StyleShape,
           StyleLayoutPairs: args.StyleLayoutPairs,
           FrameProfiles: args.FrameProfiles,
-          DefaultFrameProfile: args.DefaultFrameProfile
-        }
+          DefaultFrameProfile: args.DefaultFrameProfile,
+        },
       },
       info
     );
@@ -157,18 +176,19 @@ const Mutation = {
       {
         data: {
           ...args,
-          ArchitecturalStyle: { set: args.ArchitecturalStyle },
+          ArchitecturalStyle: args.ArchitecturalStyle,
           AvailableSizeDetails: { set: args.AvailableSizeDetails },
-          AvailableSizes: { set: args.AvailableSizes },
+          AvailableSizes: args.AvailableSizes,
+          DefaultSize: args.DefaultSize,
           StyleGroups: { set: args.StyleGroups },
-          RatingEligibility: { set: args.RatingEligibility },
+          RatingEligibility: args.RatingEligibility,
           SupportedAccessories: { set: args.SupportedAccessories },
           AllowedSidelites: { set: args.AllowedSidelites },
           AllowedTransoms: { set: args.AllowedTransoms },
           GlassFeatures: { set: args.GlassFeatures },
-          DefaultSize: { set: args.DefaultSize },
+
           LimitedAvailabilityCategories: {
-            set: args.LimitedAvailabilityCategories
+            set: args.LimitedAvailabilityCategories,
           },
           CurrentYearTrends: { set: args.CurrentYearTrends },
           LydAvailableFinishIds: { set: args.LydAvailableFinishIds },
@@ -178,8 +198,8 @@ const Mutation = {
           StyleShape: args.StyleShape,
           StyleLayoutPairs: args.StyleLayoutPairs,
           FrameProfiles: args.FrameProfiles,
-          DefaultFrameProfile: args.DefaultFrameProfile
-        }
+          DefaultFrameProfile: args.DefaultFrameProfile,
+        },
       },
       info
     );
@@ -188,32 +208,32 @@ const Mutation = {
   async createGrilleColor(parent, args, ctx, info) {
     const grilleColor = await ctx.db.mutation.createGrilleColor({
       data: {
-        ...args
-      }
+        ...args,
+      },
     });
     return grilleColor;
   },
   async createDividedLiteType(parent, args, ctx, info) {
     const dividedLiteType = await ctx.db.mutation.createDividedLiteType({
       data: {
-        ...args
-      }
+        ...args,
+      },
     });
     return dividedLiteType;
   },
   async createCamingOption(parent, args, ctx, info) {
     const camingOption = await ctx.db.mutation.createCamingOption({
       data: {
-        ...args
-      }
+        ...args,
+      },
     });
     return camingOption;
   },
   async createGlassFeature(parent, args, ctx, info) {
     const glassFeature = await ctx.db.mutation.createGlassFeature({
       data: {
-        ...args
-      }
+        ...args,
+      },
     });
     return glassFeature;
   },
@@ -227,27 +247,76 @@ const Mutation = {
         CamingOptionsByFrameProfile: args.CamingOptionsByFrameProfile,
         AllCamingOptions: args.AllCamingOptions,
         GrilleColors: args.GrilleColors,
-        GlassFeatures: args.GlassFeatures
-      }
+        GlassFeatures: args.GlassFeatures,
+      },
     });
     return glass;
   },
   async createGlassAssociation(parent, args, ctx, info) {
     const glassAssociation = await ctx.db.mutation.createGlassAssociation({
       data: {
-        ...args
-      }
+        ...args,
+      },
     });
     return glassAssociation;
+  },
+  async createRatingEligibility(parent, args, ctx, info) {
+    const ratingEligibility = await ctx.db.mutation.createRatingEligibility({
+      data: {
+        ...args,
+      },
+    });
+    return ratingEligibility;
+  },
+  async createArchitecturalStyle(parent, args, ctx, info) {
+    const architecturalStyle = await ctx.db.mutation.createArchitecturalStyle({
+      data: {
+        ...args,
+      },
+    });
+    return architecturalStyle;
+  },
+  async createAvailableSizes(parent, args, ctx, info) {
+    console.log(args);
+
+    const availableSizes = await ctx.db.mutation.createAvailableSizes({
+      data: {
+        ...args,
+      },
+    });
+    return availableSizes;
+  },
+  async updateAvailableSizes(parent, args, ctx, info) {
+    console.log(args);
+    const availableSizes = await ctx.db.mutation.updateAvailableSizes(
+      {
+        ...args,
+      },
+      info
+    );
+    return availableSizes;
+  },
+  async deleteGlassAssociation(parent, args, ctx, info) {
+    const where = { GlassAssociation: args.GlassAssociation };
+    const door = await ctx.db.mutation.deleteGlassAssociation({ where }, info);
+    return door;
   },
   async createLocationOnHouse(parent, args, ctx, info) {
     const location = await ctx.db.mutation.createLocationOnHouse({
       data: {
-        ...args
-      }
+        ...args,
+      },
     });
     return location;
-  }
+  },
+  async deleteManyStyleLayoutPairs(parent, args, ctx, info) {
+    const where = { Id: args.Id };
+    const door = await ctx.db.mutation.deleteManyStyleLayoutPairs(
+      { where },
+      info
+    );
+    return door;
+  },
 };
 
 module.exports = Mutation;

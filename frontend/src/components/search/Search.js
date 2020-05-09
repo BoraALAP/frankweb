@@ -1,13 +1,15 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-import appContext from "../context/context";
+import appContext from "../../context/context";
+import Button from "../applicationComponents/UI/Button";
 
 const Search = (props) => {
+  let history = useHistory();
   const [search, setSearch] = useState("");
-  const { store, dispatch } = useContext(appContext);
+  const { dispatch } = useContext(appContext);
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
@@ -16,6 +18,7 @@ const Search = (props) => {
   const handleSearchForm = (e) => {
     e.preventDefault();
     dispatch({ type: "UPDATE_SEARCH", payload: search });
+    history.push("/search");
   };
 
   return (
@@ -23,11 +26,16 @@ const Search = (props) => {
       <label>search:</label>
       <input type="text" onChange={handleSearchChange} value={search} />
 
-      <button type="submit">Search</button>
+      <Button type="submit">Search</Button>
     </Container>
   );
 };
 
-const Container = styled.form``;
+const Container = styled.form`
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  grid-gap: 16px;
+`;
 
 export default Search;

@@ -17,9 +17,8 @@ const client = new ApolloClient({
     },
   }),
 });
-console.log(process.env.NODE_ENV);
+
 const Layout = (props) => {
-  console.log(process.env.NODE_ENV);
   return (
     <ApolloProvider client={client}>
       <Container>

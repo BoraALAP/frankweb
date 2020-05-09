@@ -1,8 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { gql, useQuery } from "@apollo/client";
 
 import styled from "styled-components";
-import appContext from "../context/context";
+// import appContext from "../context/context";
+import ProductItem from "../components/applicationComponents/UI/ProductItem";
+import Button from "../components/applicationComponents/UI/Button";
+import Spinner from "../components/applicationComponents/UI/Spinner";
 
 const DOOR_QUERY = gql`
   query DOOR_QUERY($first: Int, $after: String) {
@@ -16,6 +19,7 @@ const DOOR_QUERY = gql`
           Id
           ImageUrl
           StyleNumber
+          __typename
         }
       }
     }
@@ -23,22 +27,14 @@ const DOOR_QUERY = gql`
 `;
 
 const DisplayAll = ({ nextStep, prevStep }, props) => {
-  const { store, dispatch } = useContext(appContext);
+  // const { store } = useContext(appContext);
 
-  const { data, loading, error, fetchMore, networkStatus } = useQuery(
-    DOOR_QUERY,
-    {
-      variables: {
-        first: 12,
-      },
-      notifyOnNetworkStatusChange: true,
-    }
-  );
-
-  if (!loading) {
-    console.log(data.doorsConnection.edges.length);
-    console.log(data, networkStatus);
-  }
+  const { data, loading, fetchMore, networkStatus } = useQuery(DOOR_QUERY, {
+    variables: {
+      first: 12,
+    },
+    notifyOnNetworkStatusChange: true,
+  });
 
   const handleMore = (e) => {
     fetchMore({
@@ -67,32 +63,43 @@ const DisplayAll = ({ nextStep, prevStep }, props) => {
   };
 
   if (!data) {
-    return <h2>Loading!</h2>;
+    return <Spinner />;
   }
 
   return (
     <Container>
       <ProductContainer>
         {data.doorsConnection.edges.map(({ node }, index) => (
-          <div key={index}>
-            <img src={`${store.imgSrc}${node.ImageUrl.split(".com").pop()}`} />
-            <h5>{node.StyleNumber}</h5>
-          </div>
+          <ProductItem
+            key={index}
+            StyleNumber={node.StyleNumber}
+            Name={node.Name}
+            ImageUrl={node.ImageUrl}
+            Id={node.Id}
+            Type={node.__typename}
+          />
         ))}
       </ProductContainer>
 
-      <button onClick={handleMore}>More</button>
+      <Button
+        onClick={handleMore}
+        disabled={!data.doorsConnection.pageInfo.hasNextPage}
+      >
+        More
+      </Button>
     </Container>
   );
 };
 
 const Container = styled.div`
   display: grid;
+  grid-gap: 2em;
 `;
 
 const ProductContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, auto);
+  grid-gap: 2vw;
 
   img {
     max-height: 238px;

@@ -14,6 +14,10 @@ import DoorApplication from "./pages/DoorApplication";
 
 import DisplayAll from "./pages/DisplayAll";
 import Push from "./pages/Push";
+import TemplateDoor from "./template/TemplateDoor";
+import TemplateSidelite from "./template/TemplateSidelite";
+import TemplateTransom from "./template/TemplateTransom";
+import TemplateGlass from "./template/TemplateGlass";
 
 const App = () => {
   const [store, dispatch] = useReducer(appReducer, initialState);
@@ -28,6 +32,13 @@ const App = () => {
               <Route path="/application" component={DoorApplication} />
               <Route path="/search" component={SearchResult} />
               <Route path="/push" component={Push} />
+              <Route path="/product/door/:id" component={TemplateDoor} />
+              <Route
+                path="/product/sidelite/:id"
+                component={TemplateSidelite}
+              />
+              <Route path="/product/transom/:id" component={TemplateTransom} />
+              <Route path="/product/glass/:id" component={TemplateGlass} />
               <Route path="/" exact>
                 <DisplayAll />
               </Route>

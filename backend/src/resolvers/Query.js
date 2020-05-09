@@ -36,7 +36,11 @@ const Query = {
   glassAssociationsConnection: forwardTo("db"),
   glassesConnection: forwardTo("db"),
   frameProfilesConnection: forwardTo("db"),
-  locationOnHousesConnection: forwardTo("db")
+  locationOnHousesConnection: forwardTo("db"),
+  availableSizesesConnection: forwardTo("db"),
+  availableSizes: forwardTo("db"),
+  architecturalStyle: forwardTo("db"),
+  ratingEligibility: forwardTo("db"),
 };
 
 module.exports = Query;

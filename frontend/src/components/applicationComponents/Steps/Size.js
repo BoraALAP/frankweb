@@ -1,68 +1,138 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import styled from "styled-components";
 import Selector from "../UI/Selector";
-import Spinner from "../UI/Spinner";
+
+import Spinner from "../../applicationComponents/UI/Spinner";
 import appContext from "../../../context/context";
 
-const DOOR_COLLECTIONS_QUERY = gql`
-  {
-    doorCollections {
-      Id
-      Name
+const SIZE_QUERY = gql`
+  query SIZE_QUERY {
+    availableSizesesConnection(orderBy: Size_DESC) {
+      edges {
+        node {
+          __typename
+          Id
+          Size
+          Width
+          Height
+          Place
+          Doors {
+            StyleNumber
+          }
+        }
+      }
     }
   }
 `;
 
 const Size = ({ nextStep, prevStep }, props) => {
-  const { measurement, setMeasurement } = useState({
-    width: { value: "", added: false },
-    height: { value: "", added: false }
-  });
   const { dispatch } = useContext(appContext);
+  const [select, setSelect] = useState({ Width: "", Height: "" });
+  const [widths, setWidths] = useState([]);
+  const [heights, setHeights] = useState([]);
+  const { data, loading } = useQuery(SIZE_QUERY);
 
-  const { loading } = useQuery(DOOR_COLLECTIONS_QUERY);
+  const findHeights = (width) => {
+    const array = data.availableSizesesConnection.edges.map((items) => {
+      if (items.node.Width === width && items.node.Place === "Door") {
+        return items.node.Height;
+      }
+    });
 
-  const handleClick = text => {
+    const newArray = array.filter((value, index, self) => {
+      if (value !== undefined) {
+        return array.indexOf(value) === index;
+      }
+    });
+
+    setHeights([...newArray]);
+  };
+
+  useEffect(() => {
+    if (!loading && data.availableSizesesConnection !== undefined) {
+      const array = data.availableSizesesConnection.edges.map((items) => {
+        if (items.node.Place === "Door") {
+          return items.node.Width;
+        }
+      });
+
+      const newArray = array.filter((value, index, self) => {
+        if (value !== undefined) {
+          return array.indexOf(value) === index;
+        }
+      });
+      setWidths([...newArray]);
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    if (select.Width !== "") {
+      findHeights(select.Width);
+    }
+  }, [select]);
+
+  if (
+    data === undefined ||
+    data.availableSizesesConnection === undefined ||
+    data.availableSizesesConnection.edges === undefined
+  ) {
+    return <Spinner />;
+  }
+
+  const handleClick = (text) => {
     dispatch({
       type: "UPDATE_STEP",
       step: "size",
-      payload: text
+      payload: text,
     });
     nextStep();
   };
 
-  const options = {
-    width: [{ name: '2.10"' }, { name: '3.0"' }, { name: '3.6"' }],
-    height: [{ name: '6.8"' }, { name: "7'" }, , { name: "8'" }]
-  };
-
   return (
     <Container>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <h3>What are the measurement?</h3>
+      <h3>What are the measurement?</h3>
+
+      <h5>Width</h5>
+      <SelectorContainer>
+        <Selector skip onClick={() => nextStep()}>
+          Skip
+        </Selector>
+        {widths.map((selector, index) => (
+          <Selector
+            key={index}
+            onClick={() => {
+              setSelect({ Width: `${selector}` });
+            }}
+          >
+            {selector}
+          </Selector>
+        ))}
+      </SelectorContainer>
+
+      {select.Width !== "" && (
+        <div>
+          <h5>Height</h5>
           <SelectorContainer>
-            <Selector skip onClick={() => nextStep()}>
-              Skip
-            </Selector>
-            {options.width.map((selector, index) => (
+            {heights.map((selector, index) => (
               <Selector
                 key={index}
-                onClick={() => handleClick(`${selector.name}`)}
+                onClick={() => {
+                  handleClick(`${select.Width} x ${selector}`);
+                }}
               >
-                {selector.name}
+                {selector}
               </Selector>
             ))}
           </SelectorContainer>
-          <Selector back onClick={() => prevStep()}>
-            Back
-          </Selector>
-        </>
+        </div>
       )}
+
+      <Selector back onClick={() => prevStep()}>
+        Back
+      </Selector>
     </Container>
   );
 };

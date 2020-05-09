@@ -1,8 +1,11 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 
 import appContext from "../context/context";
+import Spinner from "../components/applicationComponents/UI/Spinner";
+import ProductItem from "../components/applicationComponents/UI/ProductItem";
+import Button from "../components/applicationComponents/UI/Button";
 
 const DOOR_QUERY = gql`
   query DOOR_QUERY(
@@ -20,6 +23,7 @@ const DOOR_QUERY = gql`
     ) {
       pageInfo {
         endCursor
+        hasNextPage
       }
       edges {
         cursor
@@ -38,6 +42,7 @@ const DOOR_QUERY = gql`
     ) {
       pageInfo {
         endCursor
+        hasNextPage
       }
       edges {
         cursor
@@ -56,6 +61,7 @@ const DOOR_QUERY = gql`
     ) {
       pageInfo {
         endCursor
+        hasNextPage
       }
       edges {
         cursor
@@ -74,6 +80,7 @@ const DOOR_QUERY = gql`
     ) {
       pageInfo {
         endCursor
+        hasNextPage
       }
       edges {
         cursor
@@ -89,21 +96,24 @@ const DOOR_QUERY = gql`
 `;
 
 const SearchResult = (props) => {
-  const { store, dispatch } = useContext(appContext);
+  const tabs = [
+    { name: "Doors", collection: "doorsConnection" },
+    { name: "Transoms", collection: "transomsConnection" },
+    { name: "Sidelites", collection: "sidelitesConnection" },
+    { name: "Glasses", collection: "glassesConnection" },
+  ];
 
-  const { data, loading, error, fetchMore, networkStatus } = useQuery(
-    DOOR_QUERY,
-    {
-      variables: {
-        searchQuery: store.search,
-        first: 12,
-      },
-      notifyOnNetworkStatusChange: true,
-    }
-  );
+  const [active, setActive] = useState(tabs[0].name);
 
-  console.log(error);
-  console.log(data);
+  const { store } = useContext(appContext);
+
+  const { data, loading, fetchMore } = useQuery(DOOR_QUERY, {
+    variables: {
+      searchQuery: store.search,
+      first: 12,
+    },
+    notifyOnNetworkStatusChange: true,
+  });
 
   const handleMore = (e) => {
     fetchMore({
@@ -158,65 +168,93 @@ const SearchResult = (props) => {
     });
   };
 
+  const handleDisplay = (target) => {
+    setActive(target);
+  };
+
   if (!data) {
-    return <h2>Loading!</h2>;
+    return <Spinner />;
   }
 
   return (
-    <Container>
-      <ProductContainer>
-        {data.doorsConnection.edges.map(({ node }, index) => (
-          <div key={index}>
-            <img src={`${store.imgSrc}${node.ImageUrl.split(".com").pop()}`} />
-            <h5>{node.StyleNumber}</h5>
-          </div>
-        ))}
-      </ProductContainer>
+    <Container loading={loading}>
+      <Tabs>
+        {tabs.map((item, index) => {
+          if (data[item.collection].edges.length > 0) {
+            return (
+              <Button
+                key={index}
+                onClick={() => handleDisplay(item.name)}
+                display={active === item.name}
+                disabled={active === item.name}
+              >
+                {item.name}
+              </Button>
+            );
+          }
+        })}
+      </Tabs>
 
-      <ProductContainer>
-        {data.glassesConnection.edges.map(({ node }, index) => (
-          <div key={index}>
-            <img src={`${store.imgSrc}${node.ImageUrl.split(".com").pop()}`} />
-            <h5>{node.Name}</h5>
-          </div>
-        ))}
-      </ProductContainer>
+      {tabs.map((collection, index) => {
+        if (
+          data[collection.collection].edges.length > 0 &&
+          active === collection.name
+        ) {
+          return (
+            <ResultContainer key={index}>
+              <Title>{collection.name}</Title>
+              <ProductContainer>
+                {data[collection.collection].edges.map(({ node }, index) => (
+                  <ProductItem
+                    key={node.Id}
+                    StyleNumber={node.StyleNumber}
+                    Name={node.Name}
+                    ImageUrl={node.ImageUrl}
+                    Id={node.Id}
+                    Type={node.__typename}
+                  />
+                ))}
+              </ProductContainer>
+            </ResultContainer>
+          );
+        }
+      })}
 
-      <ProductContainer>
-        {data.transomsConnection.edges.map(({ node }, index) => (
-          <div key={index}>
-            <img src={`${store.imgSrc}${node.ImageUrl.split(".com").pop()}`} />
-            <h5>{node.StyleNumber}</h5>
-          </div>
-        ))}
-      </ProductContainer>
-
-      <ProductContainer>
-        {data.sidelitesConnection.edges.map(({ node }, index) => (
-          <div key={index}>
-            <img src={`${store.imgSrc}${node.ImageUrl.split(".com").pop()}`} />
-            <h5>{node.StyleNumber}</h5>
-          </div>
-        ))}
-      </ProductContainer>
-
-      <button onClick={handleMore}>More</button>
+      <Fixed>
+        <Button onClick={handleMore}>More</Button>
+      </Fixed>
     </Container>
   );
 };
 
 const Container = styled.div`
   display: grid;
+  opacity: ${(props) => (props.loading ? 0.5 : 1)};
 `;
+
+const Tabs = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 2.5vw;
+`;
+const ResultContainer = styled.div``;
+const Title = styled.h2``;
 
 const ProductContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(4, 20vw);
+  grid-gap: 2.5vw;
 
   img {
     max-height: 238px;
-    max-width: 200px;
+    max-width: 100%;
   }
+`;
+
+const Fixed = styled.div`
+  position: fixed;
+  bottom: 20px;
+  padding: 20px;
 `;
 
 export default SearchResult;

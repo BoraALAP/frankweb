@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import Customer from "../components/applicationComponents/Steps/Customer";
@@ -8,10 +8,9 @@ import Size from "../components/applicationComponents/Steps/Size";
 import GlassSize from "../components/applicationComponents/Steps/GlassSize";
 import Success from "../components/applicationComponents/Steps/Success";
 import Wrong from "../components/applicationComponents/Steps/Wrong";
-import appContext from "../context/context";
+// import appContext from "../context/context";
 
 const DoorApplication = ({ match }) => {
-  const { dispatch } = useContext(appContext);
   const [step, setStep] = useState(1);
 
   const nextStep = () => {

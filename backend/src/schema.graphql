@@ -34,8 +34,11 @@ type Query {
   grilleColor(where: GrilleColorWhereUniqueInput!): GrilleColor
   transom(where: TransomWhereUniqueInput!): Transom
   glassAssociation(where: GlassAssociationWhereUniqueInput!): GlassAssociation
-  glass(where: GlassWhereUniqueInput!): Glass
+  glass(where: GlassWhereUniqueInput!): Glass 
   frameProfile(where: FrameProfileWhereUniqueInput!): FrameProfile
+  architecturalStyle(where: ArchitecturalStyleWhereUniqueInput!): ArchitecturalStyle
+  ratingEligibility(where: RatingEligibilityWhereUniqueInput!): RatingEligibility
+  availableSizes(where: AvailableSizesWhereUniqueInput!): AvailableSizes
   doorsConnection(where: DoorWhereInput, orderBy: DoorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorConnection
   doorCollectionsConnection(where: DoorCollectionWhereInput, orderBy: DoorCollectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorCollectionConnection
   doorLinesConnection(where: DoorLineWhereInput, orderBy: DoorLineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorLineConnection
@@ -54,6 +57,9 @@ type Query {
   glassAssociationsConnection(where: GlassAssociationWhereInput, orderBy: GlassAssociationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassAssociationConnection
   glassesConnection(where: GlassWhereInput, orderBy: GlassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassConnection
   frameProfilesConnection(where: FrameProfileWhereInput, orderBy: FrameProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FrameProfileConnection
+  architecturalStylesConnection(where: ArchitecturalStyleWhereInput, orderBy: ArchitecturalStyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ArchitecturalStyleConnection!
+  ratingEligibilitiesConnection(where: RatingEligibilityWhereInput, orderBy: RatingEligibilityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RatingEligibilityConnection!
+  availableSizesesConnection(where: AvailableSizesWhereInput, orderBy: AvailableSizesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AvailableSizesConnection!
 }
 
 type Mutation {
@@ -61,7 +67,7 @@ type Mutation {
     Id: ID
     Brand: String
     StyleNumber: String
-    ArchitecturalStyle: [String]
+    ArchitecturalStyle: ArchitecturalStyleUpdateManyWithoutDoorsInput
     DoorCollection: DoorCollectionUpdateOneWithoutDoorsInput
     DoorLine: DoorLineUpdateOneWithoutDoorsInput
     FrameProfiles: FrameProfileUpdateManyWithoutDoorsInput
@@ -77,12 +83,12 @@ type Mutation {
     LiteQuantity: Int
     LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
     AvailableSizeDetails: [String]
-    AvailableSizes: [String]
-    DefaultSize: String
+    AvailableSizes: AvailableSizesUpdateManyWithoutDoorsInput
+    DefaultSize: AvailableSizesUpdateOneInput
     VisualizedHeight: Int
     VisualizedWidth: Int
     StyleGroups: [String]
-    RatingEligibility: [String]
+    RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
     LaunchYear: Int
     RecentlyLaunched: Boolean
     GlassSizeCategory: String
@@ -121,6 +127,8 @@ type Mutation {
     AllowsHandlesets: Boolean
     IsFlushGlazed: Boolean
     RelatedGlasses: GlassUpdateManyInput
+    RelatedDoors: DoorUpdateManyInput
+    Finishes: FinishUpdateManyWithoutDoorsInput
   ): Door!
   createDoorCollection(
     Id: ID
@@ -217,11 +225,12 @@ type Mutation {
     ImageUrl: String
     FinishTypeSelection: Int
     Selected: Boolean
+    Doors: DoorUpdateManyWithoutFinishesInput
   ): Finish!
   createSidelite(
     Brand: String
     StyleNumber: String
-    ArchitecturalStyle: [String]
+    ArchitecturalStyle: ArchitecturalStyleUpdateManyWithoutSidelitesInput
     DoorCollection: DoorCollectionUpdateOneWithoutSidelitesInput
     DoorLine: DoorLineUpdateOneWithoutSidelitesInput
     FrameProfiles: FrameProfileUpdateManyWithoutSidelitesInput
@@ -235,12 +244,12 @@ type Mutation {
     LiteQuantity: Int
     LocationOnHouse: LocationOnHouseUpdateManyWithoutSidelitesInput
     AvailableSizeDetails: [String]
-    AvailableSizes: [String]
-    DefaultSize: String
+    AvailableSizes: AvailableSizesUpdateManyWithoutSidelitesInput
+    DefaultSize: AvailableSizesUpdateOneInput
     VisualizedHeight: Int
     VisualizedWidth: Int
     StyleGroups: [String]
-    RatingEligibility: [String]
+    RatingEligibility: RatingEligibilityUpdateManyWithoutSidelitesInput
     LaunchYear: Int
     RecentlyLaunched: Boolean
     GlassSizeCategory: String
@@ -333,7 +342,7 @@ type Mutation {
     Id: ID
     Brand: String
     StyleNumber: String
-    ArchitecturalStyle: [String]
+    ArchitecturalStyle: ArchitecturalStyleUpdateManyWithoutTransomsInput
     DoorCollection: DoorCollectionUpdateOneWithoutTransomsInput
     DoorLine: DoorLineUpdateOneWithoutTransomsInput
     ProductLine: String
@@ -345,13 +354,13 @@ type Mutation {
     LiteQuantity: Int
     LocationOnHouse: LocationOnHouseUpdateManyWithoutTransomsInput
     AvailableSizeDetails: [String]
-    AvailableSizes: [String]
-    DefaultSize: String
+    AvailableSizes: AvailableSizesUpdateManyWithoutTransomsInput
+    DefaultSize: AvailableSizesUpdateOneInput
     VisualizedHeight: Int
     VisualizedWidth: Int
     StyleGroups: [String]
     StyleShape: StyleShapeUpdateOneWithoutTransomsInput
-    RatingEligibility: [String]
+    RatingEligibility: RatingEligibilityUpdateManyWithoutTransomsInput
     LaunchYear: Int
     RecentlyLaunched: Boolean
     GlassSizeCategory: String
@@ -396,22 +405,53 @@ type Mutation {
   ): Transom!
   createGlassAssociation(
     Id: ID
-    GlassAssociation: String
+    Association: String
+    Doors: DoorUpdateManyWithoutGlassAssociationInput
+  Sidelites: SideliteUpdateManyWithoutGlassAssociationInput
+  Transoms: TransomUpdateManyWithoutGlassAssociationInput
+  Glasses: GlassUpdateManyWithoutGlassAssociationInput
   ): GlassAssociation!
+  createAvailableSizes(
+    Id: ID
+    Size: String
+    Doors: DoorUpdateManyWithoutAvailableSizesInput
+  Sidelites: SideliteUpdateManyWithoutAvailableSizesInput
+  Transoms: TransomUpdateManyWithoutAvailableSizesInput
+  ): AvailableSizes!
+  createArchitecturalStyle(
+    Id: ID
+    Style: String
+    Doors: DoorUpdateManyWithoutArchitecturalStyleInput
+  Sidelites: SideliteUpdateManyWithoutArchitecturalStyleInput
+  Transoms: TransomUpdateManyWithoutArchitecturalStyleInput
+  ): ArchitecturalStyle!
+  createRatingEligibility( 
+    Id: ID
+    Name: String
+    Doors: DoorUpdateManyWithoutRatingEligibilityInput
+  Sidelites: SideliteUpdateManyWithoutRatingEligibilityInput
+  Transoms: TransomUpdateManyWithoutRatingEligibilityInput
+  ): RatingEligibility!
 
   createLocationOnHouse(
     Id:ID
     Name: String
     ImageUrl: String
     IconUrl: String
-    Doors: LocationOnHouseUpdateManyWithoutDoorsInput
-    Sidelites: LocationOnHouseUpdateManyWithoutSidelitesInput
-    Transoms: LocationOnHouseUpdateManyWithoutTransomsInput
+    Doors: DoorUpdateManyWithoutLocationOnHouseInput
+  Sidelites: SideliteUpdateManyWithoutLocationOnHouseInput
+  Transoms: TransomUpdateManyWithoutLocationOnHouseInput
   ): LocationOnHouse!
 
   deleteDoor(Id: ID!): Door
   deleteGlassAssociation(GlassAssociation: String): GlassAssociation
   deleteManyGlassFamilies(where: GlassFamilyWhereInput): BatchPayload!
   deleteManyTransoms(where: TransomWhereInput): BatchPayload!
+  deleteManySidelites(where: SideliteWhereInput): BatchPayload!
   deleteManyHandleSets(where: HandleSetWhereInput): BatchPayload!
+  deleteManyDoors(where: DoorWhereInput): BatchPayload!
+  deleteManyStyleLayoutPairs(where: StyleLayoutPairWhereInput): BatchPayload!
+  
+  updateDoor(data: DoorUpdateInput!, where: DoorWhereUniqueInput!): Door
+  updateAvailableSizes(data: AvailableSizesUpdateInput!, where: AvailableSizesWhereUniqueInput!): AvailableSizes
 }

@@ -1,27 +1,29 @@
-
 type Door {
   Id: ID! @id
   Brand: String!
-  StyleNumber: String !@unique
-  ArchitecturalStyle: [String] @scalarList(strategy: RELATION)
+  StyleNumber: String! @unique
+  ArchitecturalStyle: [ArchitecturalStyle]
+    @relation(name: "ArchitecturalStyleDoor")
   DoorCollection: DoorCollection @relation(name: "DoorCollection")
   DoorLine: DoorLine @relation(name: "DoorLine")
   ProductLine: String
   DoorType: String
   FrameProfiles: [FrameProfile] @relation(name: "FrameProfiles")
   DefaultFrameProfile: FrameProfile @relation(name: "DefaultFrameProfiles")
-  ParentGlassFamilyAbbreviation: GlassFamily @relation(name: "ParentGlassFamilyAbbreviation")
+  ParentGlassFamilyAbbreviation: GlassFamily
+    @relation(name: "ParentGlassFamilyAbbreviation")
   GlassFamilyAbbreviation: Glass @relation(name: "GlassFamilyAbbreviation")
   LiteQuantity: Int
-  LocationOnHouse: [LocationOnHouse] @relation(name:"LocationOnHouseDoor")
+  LocationOnHouse: [LocationOnHouse] @relation(name: "LocationOnHouseDoor")
   AvailableSizeDetails: [String] @scalarList(strategy: RELATION)
-  AvailableSizes: [String] @scalarList(strategy: RELATION)
-  DefaultSize: String
+  AvailableSizes: [AvailableSizes] @relation(name: "AvailableSizesDoor")
+  DefaultSize: AvailableSizes @relation(name: "DefaultSizesDoor")
   VisualizedHeight: Int
   VisualizedWidth: Int
   StyleGroups: [String] @scalarList(strategy: RELATION)
   StyleShape: StyleShape @relation(name: "StyleShape")
-  RatingEligibility: [String] @scalarList(strategy: RELATION)
+  RatingEligibility: [RatingEligibility]
+    @relation(name: "RatingEligibilityDoor")
   LaunchYear: Int
   RecentlyLaunched: Boolean
   GlassSizeCategory: String
@@ -62,7 +64,151 @@ type Door {
   IsFlushGlazed: Boolean
   Sidelites: [Sidelite] @relation(name: "Sidelites")
   Transoms: [Transom] @relation(name: "Transoms")
-  RelatedGlasses:[Glass] @relation(name:"RelatedGlasses")
+  RelatedGlasses: [Glass] @relation(name: "RelatedGlasses")
+  RelatedDoors: [Door] @relation(name: "RelatedDoors")
+  Finishes: [Finish] @relation(name: "FinishesDoors")
+}
+
+type Sidelite {
+  Id: ID! @id
+  Brand: String
+  StyleNumber: String @unique
+  ArchitecturalStyle: [ArchitecturalStyle]
+    @relation(name: "ArchitecturalStyleSidelite")
+  DoorCollection: DoorCollection @relation(name: "DoorCollectionSidelite")
+  DoorLine: DoorLine @relation(name: "DoorLineSidelite")
+  ProductLine: String
+  DoorType: String
+  FrameProfiles: [FrameProfile] @relation(name: "FrameProfilesSidelite")
+  DefaultFrameProfile: FrameProfile
+    @relation(name: "DefaultFrameProfilesSidelite")
+  ParentGlassFamilyAbbreviation: GlassFamily
+    @relation(name: "ParentGlassFamilyAbbreviationSidelite")
+  GlassFamilyAbbreviation: Glass
+    @relation(name: "GlassFamilyAbbreviationSidelite")
+  LiteQuantity: Int
+  LocationOnHouse: [LocationOnHouse] @relation(name: "LocationOnHouseSidelite")
+  AvailableSizeDetails: [String] @scalarList(strategy: RELATION)
+  AvailableSizes: [AvailableSizes] @relation(name: "AvailableSizesSidelite")
+  DefaultSize: AvailableSizes @relation(name: "DefaultSizesSidelite")
+  VisualizedHeight: Int
+  VisualizedWidth: Int
+  StyleGroups: [String] @scalarList(strategy: RELATION)
+  StyleShape: StyleShape @relation(name: "StyleShapeSidelite")
+  RatingEligibility: [RatingEligibility]
+    @relation(name: "RatingEligibilitySidelite")
+  LaunchYear: Int
+  RecentlyLaunched: Boolean
+  GlassSizeCategory: String
+  SupportedAccessories: [String] @scalarList(strategy: RELATION)
+  AllowedSidelites: [String] @scalarList(strategy: RELATION)
+  AllowedTransoms: [String] @scalarList(strategy: RELATION)
+  DefaultSidelite: String
+  DefaultTransom: String
+  DefaultGlassWidth: String
+  AbstractPrice: String
+  SOSPrice: Int
+  MDSPrice: Int
+  LowesStocked: Boolean
+  GlassType: String
+  GlassDesign: String
+  GlassFeatures: [String] @scalarList(strategy: RELATION)
+  DefaultImageName: String
+  Sidelites: [Sidelite] @relation(name: "SelfSidelite")
+  Transoms: [Transom] @relation(name: "TransomSidelite")
+  ImageUrl: String
+  Ordinal: Int
+  GlassAssociation: GlassAssociation @relation(name: "GlassAssociationSidelite")
+  IsLimitedAvailability: Boolean
+  LimitedAvailabilityCategories: [String] @scalarList(strategy: RELATION)
+  ProductTrends: String
+  DefaultDoorSurroundStyleNumber: String
+  StyleLayoutPairs: StyleLayoutPair @relation(name: "StyleLayoutPairsSidelite")
+  GrainProfile: String
+  CurrentYearTrends: [String] @scalarList(strategy: RELATION)
+  LydDisplay: Boolean
+  LydDefaultFinishId: String
+  LydAvailableFinishIds: [String] @scalarList(strategy: RELATION)
+  LydGlassCategory: String
+  LydDisplayOrder: Int
+  LydDisplayCaming: String
+  FacetMaterial: String
+  FacetRecentlyLaunched: String
+  RelatedStyleID: String
+  AllowsHandlesets: Boolean
+  IsFlushGlazed: Boolean
+  Doors: [Door] @relation(name: "Sidelites")
+}
+
+type Transom {
+  Id: ID! @id
+  Brand: String
+  StyleNumber: String @unique
+  ArchitecturalStyle: [ArchitecturalStyle]
+    @relation(name: "ArchitecturalStyleTransom")
+  DoorCollection: DoorCollection @relation(name: "DoorCollectionTransom")
+  DoorLine: DoorLine @relation(name: "DoorLineTransom")
+  ProductLine: String
+  DoorType: String
+  FrameProfiles: [FrameProfile] @relation(name: "FrameProfilesTransom")
+  DefaultFrameProfile: FrameProfile
+    @relation(name: "DefaultFrameProfilesTransom")
+  ParentGlassFamilyAbbreviation: GlassFamily
+    @relation(name: "ParentGlassFamilyAbbreviationTransom")
+  GlassFamilyAbbreviation: Glass
+    @relation(name: "GlassFamilyAbbreviationTransom")
+  LiteQuantity: Int
+  LocationOnHouse: [LocationOnHouse] @relation(name: "LocationOnHouseTransom")
+  AvailableSizeDetails: [String] @scalarList(strategy: RELATION)
+  AvailableSizes: [AvailableSizes] @relation(name: "AvailableSizesTransom")
+  DefaultSize: AvailableSizes @relation(name: "DefaultSizesTransom")
+  VisualizedHeight: Int
+  VisualizedWidth: Int
+  StyleGroups: [String] @scalarList(strategy: RELATION)
+  StyleShape: StyleShape @relation(name: "StyleShapeTransom")
+  RatingEligibility: [RatingEligibility]
+    @relation(name: "RatingEligibilityTransom")
+  LaunchYear: Int
+  RecentlyLaunched: Boolean
+  GlassSizeCategory: String
+  SupportedAccessories: [String] @scalarList(strategy: RELATION)
+  AllowedSidelites: [String] @scalarList(strategy: RELATION)
+  AllowedTransoms: [String] @scalarList(strategy: RELATION)
+  DefaultSidelite: String
+  DefaultTransom: String
+  DefaultGlassWidth: String
+  AbstractPrice: String
+  SOSPrice: Int
+  MDSPrice: Int
+  LowesStocked: Boolean
+  GlassType: String
+  GlassDesign: String
+  GlassFeatures: [String] @scalarList(strategy: RELATION)
+  DefaultImageName: String
+  Sidelites: [Sidelite] @relation(name: "TransomSidelite")
+  Transoms: [Transom] @relation(name: "SelfTransom")
+  ImageUrl: String
+  Ordinal: Int
+  GlassAssociation: GlassAssociation @relation(name: "GlassAssociationTransom")
+  IsLimitedAvailability: Boolean
+  LimitedAvailabilityCategories: [String] @scalarList(strategy: RELATION)
+  ProductTrends: String
+  DefaultDoorSurroundStyleNumber: String
+  StyleLayoutPairs: StyleLayoutPair @relation(name: "StyleLayoutPairsTransom")
+  GrainProfile: String
+  CurrentYearTrends: [String] @scalarList(strategy: RELATION)
+  LydDisplay: Boolean
+  LydDefaultFinishId: String
+  LydAvailableFinishIds: [String] @scalarList(strategy: RELATION)
+  LydGlassCategory: String
+  LydDisplayOrder: Int
+  LydDisplayCaming: String
+  FacetMaterial: String
+  FacetRecentlyLaunched: String
+  RelatedStyleID: String
+  AllowsHandlesets: Boolean
+  IsFlushGlazed: Boolean
+  Doors: [Door] @relation(name: "Transoms")
 }
 
 type DoorCollection {
@@ -104,73 +250,6 @@ type StyleShape {
   Doors: [Door] @relation(name: "StyleShape")
   Sidelites: [Sidelite] @relation(name: "StyleShapeSidelite")
   Transoms: [Transom] @relation(name: "StyleShapeTransom")
-}
-
-type Sidelite {
-  Id: ID! @id
-  Brand: String
-  StyleNumber: String @unique
-  ArchitecturalStyle: [String] @scalarList(strategy: RELATION)
-  DoorCollection: DoorCollection @relation(name: "DoorCollectionSidelite")
-  DoorLine: DoorLine @relation(name: "DoorLineSidelite")
-  ProductLine: String
-  DoorType: String
-  FrameProfiles: [FrameProfile] @relation(name: "FrameProfilesSidelite")
-  DefaultFrameProfile: FrameProfile
-    @relation(name: "DefaultFrameProfilesSidelite")
-  ParentGlassFamilyAbbreviation: GlassFamily @relation(name: "ParentGlassFamilyAbbreviationSidelite")
-  GlassFamilyAbbreviation: Glass @relation(name: "GlassFamilyAbbreviationSidelite")
-  LiteQuantity: Int
-  LocationOnHouse: [LocationOnHouse] @relation(name:"LocationOnHouseSidelite")
-  AvailableSizeDetails: [String] @scalarList(strategy: RELATION)
-  AvailableSizes: [String] @scalarList(strategy: RELATION)
-  DefaultSize: [String] @scalarList(strategy: RELATION)
-  VisualizedHeight: Int
-  VisualizedWidth: Int
-  StyleGroups: [String] @scalarList(strategy: RELATION)
-  StyleShape: StyleShape @relation(name: "StyleShapeSidelite")
-  RatingEligibility: [String] @scalarList(strategy: RELATION)
-  LaunchYear: Int
-  RecentlyLaunched: Boolean
-  GlassSizeCategory: String
-  SupportedAccessories: [String] @scalarList(strategy: RELATION)
-  AllowedSidelites: [String] @scalarList(strategy: RELATION)
-  AllowedTransoms: [String] @scalarList(strategy: RELATION)
-  DefaultSidelite: String
-  DefaultTransom: String
-  DefaultGlassWidth: String
-  AbstractPrice: String
-  SOSPrice: Int
-  MDSPrice: Int
-  LowesStocked: Boolean
-  GlassType: String
-  GlassDesign: String
-  GlassFeatures: [String] @scalarList(strategy: RELATION)
-  DefaultImageName: String
-  Sidelites: [String] @scalarList(strategy: RELATION)
-  Transoms: [String] @scalarList(strategy: RELATION)
-  ImageUrl: String
-  Ordinal: Int
-  GlassAssociation: GlassAssociation @relation(name: "GlassAssociationSidelite")
-  IsLimitedAvailability: Boolean
-  LimitedAvailabilityCategories: [String] @scalarList(strategy: RELATION)
-  ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
-  StyleLayoutPairs: StyleLayoutPair @relation(name: "StyleLayoutPairsSidelite")
-  GrainProfile: String
-  CurrentYearTrends: [String] @scalarList(strategy: RELATION)
-  LydDisplay: Boolean
-  LydDefaultFinishId: String
-  LydAvailableFinishIds: [String] @scalarList(strategy: RELATION)
-  LydGlassCategory: String
-  LydDisplayOrder: Int
-  LydDisplayCaming: String
-  FacetMaterial: String
-  FacetRecentlyLaunched: String
-  RelatedStyleID: String
-  AllowsHandlesets: Boolean
-  IsFlushGlazed: Boolean
-  Doors: [Door] @relation(name: "Sidelites")
 }
 
 type StyleLayoutPair {
@@ -235,6 +314,7 @@ type Finish {
   ImageUrl: String
   FinishTypeSelection: Int
   Selected: Boolean
+  Doors: [Door] @relation(name: "FinishesDoors")
 }
 
 type FrameProfile {
@@ -244,7 +324,8 @@ type FrameProfile {
   ImageUrl: String
   DoorCollectionAbbreviation: String
   StyleShapeAbbreviation: String
-  CamingOptionsByFrameProfiles: [Glass] @relation(name: "CamingOptionsByFrameProfile")
+  CamingOptionsByFrameProfiles: [Glass]
+    @relation(name: "CamingOptionsByFrameProfile")
   CamingOptions: [CamingOption] @relation(name: "CamingOptions")
   Doors: [Door] @relation(name: "FrameProfiles")
   Sidelites: [Sidelite] @relation(name: "FrameProfilesSidelite")
@@ -308,88 +389,48 @@ type GrilleColor {
   Glasses: [Glass] @relation(name: "GrilleColors")
 }
 
-type Transom {
+type LocationOnHouse {
   Id: ID! @id
-  Brand: String
-  StyleNumber: String @unique
-  ArchitecturalStyle: [String] @scalarList(strategy: RELATION)
-  DoorCollection: DoorCollection @relation(name: "DoorCollectionTransom")
-  DoorLine: DoorLine @relation(name: "DoorLineTransom")
-  ProductLine: String
-  DoorType: String
-  FrameProfiles: [FrameProfile] @relation(name: "FrameProfilesTransom")
-  DefaultFrameProfile: FrameProfile
-    @relation(name: "DefaultFrameProfilesTransom")
-  ParentGlassFamilyAbbreviation: GlassFamily @relation(name: "ParentGlassFamilyAbbreviationTransom")
-  GlassFamilyAbbreviation: Glass @relation(name: "GlassFamilyAbbreviationTransom")
-  LiteQuantity: Int
-  LocationOnHouse: [LocationOnHouse] @relation(name:"LocationOnHouseTransom")
-  AvailableSizeDetails: [String] @scalarList(strategy: RELATION)
-  AvailableSizes: [String] @scalarList(strategy: RELATION)
-  DefaultSize: [String] @scalarList(strategy: RELATION)
-  VisualizedHeight: Int
-  VisualizedWidth: Int
-  StyleGroups: [String] @scalarList(strategy: RELATION)
-  StyleShape: StyleShape @relation(name: "StyleShapeTransom")
-  RatingEligibility: [String] @scalarList(strategy: RELATION)
-  LaunchYear: Int
-  RecentlyLaunched: Boolean
-  GlassSizeCategory: String
-  SupportedAccessories: [String] @scalarList(strategy: RELATION)
-  AllowedSidelites: [String] @scalarList(strategy: RELATION)
-  AllowedTransoms: [String] @scalarList(strategy: RELATION)
-  DefaultSidelite: String
-  DefaultTransom: String
-  DefaultGlassWidth: String
-  AbstractPrice: String
-  SOSPrice: Int
-  MDSPrice: Int
-  LowesStocked: Boolean
-  GlassType: String
-  GlassDesign: String
-  GlassFeatures: [String] @scalarList(strategy: RELATION)
-  DefaultImageName: String
-  Sidelites: [String] @scalarList(strategy: RELATION)
-  Transoms: [String] @scalarList(strategy: RELATION)
+  Name: String @unique
   ImageUrl: String
-  Ordinal: Int
-  GlassAssociation: GlassAssociation @relation(name: "GlassAssociationTransom")
-  IsLimitedAvailability: Boolean
-  LimitedAvailabilityCategories: [String] @scalarList(strategy: RELATION)
-  ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
-  StyleLayoutPairs: StyleLayoutPair @relation(name: "StyleLayoutPairsTransom")
-  GrainProfile: String
-  CurrentYearTrends: [String] @scalarList(strategy: RELATION)
-  LydDisplay: Boolean
-  LydDefaultFinishId: String
-  LydAvailableFinishIds: [String] @scalarList(strategy: RELATION)
-  LydGlassCategory: String
-  LydDisplayOrder: Int
-  LydDisplayCaming: String
-  FacetMaterial: String
-  FacetRecentlyLaunched: String
-  RelatedStyleID: String
-  AllowsHandlesets: Boolean
-  IsFlushGlazed: Boolean
-  Doors: [Door] @relation(name: "Transoms")
+  IconUrl: String
+  Doors: [Door] @relation(name: "LocationOnHouseDoor")
+  Sidelites: [Sidelite] @relation(name: "LocationOnHouseSidelite")
+  Transoms: [Transom] @relation(name: "LocationOnHouseTransom")
 }
 
-type LocationOnHouse{
-  Id:ID! @id
-    Name: String @unique
-    ImageUrl: String
-    IconUrl: String
-    Doors: [Door] @relation(name:"LocationOnHouseDoor")
-    Sidelites: [Sidelite] @relation(name:"LocationOnHouseSidelite")
-    Transoms: [Transom] @relation(name:"LocationOnHouseTransom")
+type GlassAssociation {
+  Id: ID! @id
+  Association: String @unique
+  Doors: [Door] @relation(name: "GlassAssociationDoor")
+  Sidelites: [Sidelite] @relation(name: "GlassAssociationSidelite")
+  Transoms: [Transom] @relation(name: "GlassAssociationTransom")
+  Glasses: [Glass] @relation(name: "GlassAssociationGlass")
 }
 
-type GlassAssociation{
-    Id: ID! @id
-    GlassAssociation: String @unique
-    Doors: [Door] @relation(name: "GlassAssociationDoor")
-    Sidelites: [Sidelite] @relation(name: "GlassAssociationSidelite")
-    Transoms: [Transom] @relation(name: "GlassAssociationTransom")
-    Glasses: [Glass] @relation(name: "GlassAssociationGlass")
+type AvailableSizes {
+  Id: ID! @id
+  Width: String
+  Height: String
+  Place: String
+  Size: String @unique
+  Doors: [Door] @relation(name: "AvailableSizesDoor")
+  Sidelites: [Sidelite] @relation(name: "AvailableSizesSidelite")
+  Transoms: [Transom] @relation(name: "AvailableSizesTransom")
+}
+
+type ArchitecturalStyle {
+  Id: ID! @id
+  Style: String @unique
+  Doors: [Door] @relation(name: "ArchitecturalStyleDoor")
+  Sidelites: [Sidelite] @relation(name: "ArchitecturalStyleSidelite")
+  Transoms: [Transom] @relation(name: "ArchitecturalStyleTransom")
+}
+
+type RatingEligibility {
+  Id: ID! @id
+  Name: String @unique
+  Doors: [Door] @relation(name: "RatingEligibilityDoor")
+  Sidelites: [Sidelite] @relation(name: "RatingEligibilitySidelite")
+  Transoms: [Transom] @relation(name: "RatingEligibilityTransom")
 }

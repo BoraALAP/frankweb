@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
+// import Transoms from "../dbComponents/Transoms";
+// import Sidelites from "../dbComponents/Sidelites";
+import Doors from "../dbComponents/Doors";
 import Transoms from "../dbComponents/Transoms";
 import Sidelites from "../dbComponents/Sidelites";
-import Doors from "../dbComponents/Doors";
 
 import DoorCollections from "../dbComponents/DoorCollections";
 import DoorLine from "../dbComponents/DoorLine";
@@ -21,6 +23,9 @@ import GlassFeature from "../dbComponents/GlassFeature";
 import FrameProfile from "../dbComponents/FrameProfile";
 import GlassAssociation from "../dbComponents/GlassAssociation";
 import LocationOnHouse from "../dbComponents/LocationOnHouse";
+import AvailableSizes from "../dbComponents/AvailableSizes";
+import ArchitecturalStyle from "../dbComponents/ArchitecturalStyle";
+import RatingEligibility from "../dbComponents/RatingEligibility";
 
 const Push = (props) => {
   return (
@@ -47,6 +52,9 @@ const Push = (props) => {
       {/* <FrameProfile /> */}
       {/* <GlassAssociation /> */}
       {/* <LocationOnHouse /> */}
+      <AvailableSizes />
+      {/* <ArchitecturalStyle /> */}
+      {/* <RatingEligibility /> */}
     </Container>
   );
 };
