@@ -3,8 +3,9 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import Selector from "../UI/Selector";
 import appContext from "../../../context/context";
+import Layout from "./Layout";
 
-const Customer = ({ nextStep, prevStep }, props) => {
+const Customer = (props) => {
   const { dispatch } = useContext(appContext);
 
   const options = [
@@ -13,38 +14,23 @@ const Customer = ({ nextStep, prevStep }, props) => {
     { name: "Dealer" },
   ];
 
-  const handleClick = (text) => {
+  const handleClick = (value) => {
     dispatch({
       type: "UPDATE_STEP",
       step: "person",
-      payload: text,
+      value,
     });
-    nextStep();
   };
 
   return (
-    <Container>
-      <h3>Who are you?</h3>
-      <SelectorContainer>
-        {options.map((selector, index) => (
-          <Selector key={index} onClick={() => handleClick(`${selector.name}`)}>
-            {selector.name}
-          </Selector>
-        ))}
-      </SelectorContainer>
-    </Container>
+    <Layout title="Are You a ....?" component="customer">
+      {options.map((selector, index) => (
+        <Selector key={index} onClick={() => handleClick(selector.name)}>
+          {selector.name}
+        </Selector>
+      ))}
+    </Layout>
   );
 };
-
-const Container = styled.div`
-  display: grid;
-  grid-gap: 80px;
-`;
-
-const SelectorContainer = styled.div`
-  display: grid;
-  grid-gap: 32px;
-  grid-template-columns: repeat(3, 1fr);
-`;
 
 export default Customer;

@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 
 import appContext from "../context/context";
-import Spinner from "../components/applicationComponents/UI/Spinner";
-import ProductItem from "../components/applicationComponents/UI/ProductItem";
-import Button from "../components/applicationComponents/UI/Button";
+import Spinner from "../components/UI/Spinner";
+import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
+import Button from "../components/UI/Button";
 
 const DOOR_QUERY = gql`
   query DOOR_QUERY(
@@ -115,7 +115,7 @@ const SearchResult = (props) => {
     notifyOnNetworkStatusChange: true,
   });
 
-  const handleMore = (e) => {
+  const handleMore = (collection) => {
     fetchMore({
       query: DOOR_QUERY,
       variables: {
@@ -205,7 +205,7 @@ const SearchResult = (props) => {
               <Title>{collection.name}</Title>
               <ProductContainer>
                 {data[collection.collection].edges.map(({ node }, index) => (
-                  <ProductItem
+                  <RelatedItem
                     key={node.Id}
                     StyleNumber={node.StyleNumber}
                     Name={node.Name}
@@ -215,14 +215,13 @@ const SearchResult = (props) => {
                   />
                 ))}
               </ProductContainer>
+              <Button onClick={() => handleMore(collection.collection)}>
+                More
+              </Button>
             </ResultContainer>
           );
         }
       })}
-
-      <Fixed>
-        <Button onClick={handleMore}>More</Button>
-      </Fixed>
     </Container>
   );
 };
@@ -237,18 +236,16 @@ const Tabs = styled.div`
   grid-auto-flow: column;
   grid-gap: 2.5vw;
 `;
-const ResultContainer = styled.div``;
+const ResultContainer = styled.div`
+  display: grid;
+  grid-gap: 2em;
+`;
 const Title = styled.h2``;
 
 const ProductContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 20vw);
   grid-gap: 2.5vw;
-
-  img {
-    max-height: 238px;
-    max-width: 100%;
-  }
 `;
 
 const Fixed = styled.div`

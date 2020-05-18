@@ -19,6 +19,7 @@ import GrilleColor from "../dbComponents/GrilleColor";
 import DividedLiteType from "../dbComponents/DividedLiteType";
 import CamingOption from "../dbComponents/CamingOption";
 import GlassFamily from "../dbComponents/GlassFamily";
+import GlassSize from "../dbComponents/GlassSize";
 import GlassFeature from "../dbComponents/GlassFeature";
 import FrameProfile from "../dbComponents/FrameProfile";
 import GlassAssociation from "../dbComponents/GlassAssociation";
@@ -47,12 +48,13 @@ const Push = (props) => {
       {/* <GrilleColor /> */}
       {/* <DividedLiteType /> */}
       {/* <CamingOption /> */}
+      {/* <GlassSize /> */}
       {/* <GlassFamily /> */}
       {/* <GlassFeature /> */}
       {/* <FrameProfile /> */}
       {/* <GlassAssociation /> */}
       {/* <LocationOnHouse /> */}
-      <AvailableSizes />
+      {/* <AvailableSizes /> */}
       {/* <ArchitecturalStyle /> */}
       {/* <RatingEligibility /> */}
     </Container>

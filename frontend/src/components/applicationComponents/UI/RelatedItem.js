@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import ImageContainer from "./ImageContainer";
 
 import appContext from "../../../context/context";
 import Box from "./Box";
 
-const ProductItem = ({ Id, ImageUrl, StyleNumber, Name, Type }) => {
+const RelatedItem = ({ Id, ImageUrl, StyleNumber, Name, Type }) => {
   const { store } = useContext(appContext);
 
   return (
@@ -18,10 +18,7 @@ const ProductItem = ({ Id, ImageUrl, StyleNumber, Name, Type }) => {
             pathname: `/product/${Type.toLowerCase()}/${Id}`,
           }}
         >
-          <LazyLoadImage
-            alt={Name}
-            src={`${store.imgSrc}${ImageUrl.split(".com").pop()}`}
-          />
+          <ImageContainer alt={Name} src={ImageUrl} big />
 
           {StyleNumber && <h5>{StyleNumber}</h5>}
           {Name && <h5>{Name}</h5>}
@@ -32,7 +29,9 @@ const ProductItem = ({ Id, ImageUrl, StyleNumber, Name, Type }) => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: grid;
+`;
 const LinkS = styled(Link)`
   display: grid;
   grid-gap: 2px;
@@ -42,4 +41,4 @@ const LinkS = styled(Link)`
   }
 `;
 
-export default ProductItem;
+export default RelatedItem;

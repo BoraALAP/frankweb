@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 import appContext from "../../context/context";
-import Button from "../applicationComponents/UI/Button";
+import Button from "../UI/Button";
 
 const Search = (props) => {
   let history = useHistory();

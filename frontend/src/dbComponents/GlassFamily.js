@@ -16,6 +16,7 @@ const CREATE_GLASS_FAMILY_MUTATION = gql`
     $Description: String
     $ImageUrl: String
     $DetailUrl: String
+    $BigImageUrl: String
   ) {
     createGlassFamily(
       Brand: $Brand
@@ -29,6 +30,7 @@ const CREATE_GLASS_FAMILY_MUTATION = gql`
       Description: $Description
       ImageUrl: $ImageUrl
       DetailUrl: $DetailUrl
+      BigImageUrl: $BigImageUrl
     ) {
       Brand
       Name
@@ -41,26 +43,57 @@ const CREATE_GLASS_FAMILY_MUTATION = gql`
       Description
       ImageUrl
       DetailUrl
+      BigImageUrl
+    }
+  }
+`;
+
+const UPDATE_GLASS_FAMILY_MUTATION = gql`
+  mutation UPDATE_GLASS_FAMILY_MUTATION(
+    $Abbreviation: String
+    $BigImageUrl: String
+  ) {
+    updateGlassFamily(
+      where: { Abbreviation: $Abbreviation }
+      data: { BigImageUrl: $BigImageUrl }
+    ) {
+      Abbreviation
+      BigImageUrl
     }
   }
 `;
 
 const GlassFamily = (props) => {
-  const [createGlassFamily, { data, loading, error }] = useMutation(
-    CREATE_GLASS_FAMILY_MUTATION
-  );
+  const [createGlassFamily] = useMutation(CREATE_GLASS_FAMILY_MUTATION);
+
+  const [updateGlassFamily] = useMutation(UPDATE_GLASS_FAMILY_MUTATION);
   // const { data, loading, error } = useQuery(USERS_QUERY);
 
   const fetchData = async () => {
     try {
       const { data } = await axios.get("./data/dbGlassFamilies.json");
       data.glassFamilies.map(async (item, index) => {
-        const res = await createGlassFamily({
-          variables: {
-            ...item,
-          },
-        });
-        console.log(index, data.glassFamilies.length, res);
+        const create = async () => {
+          const res = await createGlassFamily({
+            variables: {
+              ...item,
+            },
+          });
+          console.log(index, data.glassFamilies.length, res);
+        };
+
+        const update = async () => {
+          const res = await updateGlassFamily({
+            variables: {
+              Abbreviation: item.Abbreviation,
+              BigImageUrl: item.BigImageUrl,
+            },
+          });
+          console.log(index, data.glassFamilies.length, res);
+        };
+
+        // create();
+        update();
       });
     } catch (error) {
       console.log(error);

@@ -133,10 +133,35 @@ const CREATE_SIDELITES_MUTATION = gql`
   }
 `;
 
+const UPDATE_SIDELITE_MUTATION = gql`
+  mutation UPDATE_SIDELITE_MUTATION(
+    $StyleNumber: String
+    # $RelatedFamily: GlassFamilyUpdateManyInput
+    # $RelatedDoors: DoorUpdateManyInput
+    # $ImageUrl: String
+    $GlassSizeCategory: GlassSizeUpdateOneWithoutSidelitesInput
+  ) {
+    updateSidelite(
+      where: { StyleNumber: $StyleNumber }
+      data: {
+        # RelatedFamily: $RelatedFamily,
+        # RelatedDoors: $RelatedDoors
+        # ImageUrl: $ImageUrl
+        GlassSizeCategory: $GlassSizeCategory
+      }
+    ) {
+      StyleNumber
+      # ImageUrl
+      GlassSizeCategory {
+        Name
+      }
+    }
+  }
+`;
+
 const Sidelites = (props) => {
-  const [createSidelite, { data, loading, error }] = useMutation(
-    CREATE_SIDELITES_MUTATION
-  );
+  const [createSidelite] = useMutation(CREATE_SIDELITES_MUTATION);
+  const [updateSidelite] = useMutation(UPDATE_SIDELITE_MUTATION);
   // const { data, loading, error } = useQuery(USERS_QUERY);
 
   const fetchData = async () => {
@@ -150,96 +175,117 @@ const Sidelites = (props) => {
         const item = data.doorStyles[num];
         console.log(num, item.DoorCollection.Abbreviation);
         num++;
-        const res = await createSidelite({
-          variables: {
-            ...item,
-            DoorCollection: {
-              connect: {
-                Abbreviation: item.DoorCollection.Abbreviation,
-              },
-            },
-            DoorLine: {
-              connect: {
-                Abbreviation: item.DoorLine.Abbreviation,
-              },
-            },
-            StyleShape: {
-              connect: {
-                Abbreviation: item.StyleShape.Abbreviation,
-              },
-            },
-            ParentGlassFamilyAbbreviation: {
-              connect: {
-                Abbreviation: item.ParentGlassFamilyAbbreviation,
-              },
-            },
-            LocationOnHouse: {
-              connect: item.LocationOnHouse.map((it) => ({ Name: it })),
-            },
-            AvailableSizes: {
-              connect: item.AvailableSizes.map((it) => ({
-                Size: it,
-              })),
-            },
-            DefaultSize: {
-              connect: {
-                Size: item.DefaultSize,
-              },
-            },
 
-            ArchitecturalStyle: {
-              connect: item.ArchitecturalStyle.map((it) => ({
-                Style: it,
-              })),
-            },
-            RatingEligibility: {
-              connect: item.RatingEligibility.map((it) => ({
-                Name: it,
-              })),
-            },
-            GlassFamilyAbbreviation: {
-              connect: {
-                Abbreviation: item.GlassFamilyAbbreviation,
+        const update = async () => {
+          const res2 = await updateSidelite({
+            variables: {
+              StyleNumber: item.StyleNumber,
+              // ImageUrl: item.ImageUrl,
+              GlassSizeCategory: {
+                connect: {
+                  Name: item.GlassSizeCategory,
+                },
               },
             },
-            GlassAssociation: {
-              connect: {
-                Association: item.GlassAssociation,
-              },
-            },
-            StyleLayoutPairs: {
-              create: { ...item.StyleLayoutPairs },
-            },
-            DefaultFrameProfile: {
-              connect: {
-                Abbreviation: item.DefaultFrameProfile.Abbreviation,
-              },
-            },
-            FrameProfiles: {
-              connect: item.FrameProfiles.map((item) => ({
-                Abbreviation: item.Abbreviation,
-              })),
-            },
-            Sidelites: {
-              connect: item.Sidelites.map((item) => ({
-                StyleNumber: item.StyleNumber,
-              })),
-            },
-            Transoms: {
-              connect: item.Transoms.map((item) => ({
-                StyleNumber: item.StyleNumber,
-              })),
-            },
-          },
-        });
+          });
+          console.log(res2);
+        };
 
-        console.log(res);
+        const create = async () => {
+          const res = await createSidelite({
+            variables: {
+              ...item,
+              DoorCollection: {
+                connect: {
+                  Abbreviation: item.DoorCollection.Abbreviation,
+                },
+              },
+              DoorLine: {
+                connect: {
+                  Abbreviation: item.DoorLine.Abbreviation,
+                },
+              },
+              StyleShape: {
+                connect: {
+                  Abbreviation: item.StyleShape.Abbreviation,
+                },
+              },
+              ParentGlassFamilyAbbreviation: {
+                connect: {
+                  Abbreviation: item.ParentGlassFamilyAbbreviation,
+                },
+              },
+              LocationOnHouse: {
+                connect: item.LocationOnHouse.map((it) => ({ Name: it })),
+              },
+              AvailableSizes: {
+                connect: item.AvailableSizes.map((it) => ({
+                  Size: it,
+                })),
+              },
+              DefaultSize: {
+                connect: {
+                  Size: item.DefaultSize,
+                },
+              },
+
+              ArchitecturalStyle: {
+                connect: item.ArchitecturalStyle.map((it) => ({
+                  Style: it,
+                })),
+              },
+              RatingEligibility: {
+                connect: item.RatingEligibility.map((it) => ({
+                  Name: it,
+                })),
+              },
+              GlassFamilyAbbreviation: {
+                connect: {
+                  Abbreviation: item.GlassFamilyAbbreviation,
+                },
+              },
+              GlassAssociation: {
+                connect: {
+                  Association: item.GlassAssociation,
+                },
+              },
+              StyleLayoutPairs: {
+                create: { ...item.StyleLayoutPairs },
+              },
+              DefaultFrameProfile: {
+                connect: {
+                  Abbreviation: item.DefaultFrameProfile.Abbreviation,
+                },
+              },
+              FrameProfiles: {
+                connect: item.FrameProfiles.map((item) => ({
+                  Abbreviation: item.Abbreviation,
+                })),
+              },
+              Sidelites: {
+                connect: item.Sidelites.map((item) => ({
+                  StyleNumber: item.StyleNumber,
+                })),
+              },
+              Transoms: {
+                connect: item.Transoms.map((item) => ({
+                  StyleNumber: item.StyleNumber,
+                })),
+              },
+            },
+          });
+
+          console.log(res);
+        };
+
+        // create()
+        update();
 
         if (num >= data.doorStyles.length) {
           console.log("Done!");
           clearInterval(timer);
         }
-      }, 200);
+      }, 750);
     } catch (error) {
       console.log(error, num);
     }

@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import ImageContainer from "../components/applicationComponents/UI/ImageContainer";
 
-import ProductItem from "../components/applicationComponents/UI/ProductItem";
+import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
 import appContext from "../context/context";
-import Spinner from "../components/applicationComponents/UI/Spinner";
+import Spinner from "../components/UI/Spinner";
 
 const PRODUCT_QUERY = gql`
   query PRODUCT_QUERY($productid: ID) {
@@ -58,6 +58,7 @@ const PRODUCT_QUERY = gql`
             AvailableDividedLiteTypes
             Description
             ImageUrl
+            BigImageUrl
           }
           GlassFamilyAbbreviation {
             Id
@@ -210,10 +211,7 @@ const TemplateSidelite = ({ match, location }, props) => {
     <Container>
       <TopBar />
       <Information>
-        <LazyLoadImage
-          alt={info.Name}
-          src={`${store.imgSrc}${info.ImageUrl.split(".com").pop()}`}
-        />
+        <ImageContainer alt={info.Name} src={info.ImageUrl} big />
 
         <h4>Style Number: {info.StyleNumber}</h4>
         {info.ArchitecturalStyle.length > 0 && (
@@ -321,14 +319,16 @@ const TemplateSidelite = ({ match, location }, props) => {
 
         <Section>
           <h4>Glass Parent</h4>
-          {info.ParentGlassFamilyAbbreviation.ImageUrl && (
-            <SmallImage
+          {info.ParentGlassFamilyAbbreviation.BigImageUrl ? (
+            <ImageContainer
               alt={info.Name}
-              src={`${
-                store.imgSrc
-              }${info.ParentGlassFamilyAbbreviation.ImageUrl.split(
-                ".com"
-              ).pop()}`}
+              src={info.ParentGlassFamilyAbbreviation.BigImageUrl}
+              med
+            />
+          ) : (
+            <ImageContainer
+              alt={info.Name}
+              src={info.ParentGlassFamilyAbbreviation.ImageUrl}
             />
           )}
           {show("Glass Family", info.ParentGlassFamilyAbbreviation.Name)}
@@ -342,11 +342,9 @@ const TemplateSidelite = ({ match, location }, props) => {
         <Section>
           <h4>Glass</h4>
           {info.GlassFamilyAbbreviation.ImageUrl && (
-            <SmallImage
+            <ImageContainer
               alt={info.Name}
-              src={`${
-                store.imgSrc
-              }${info.GlassFamilyAbbreviation.ImageUrl.split(".com").pop()}`}
+              src={info.GlassFamilyAbbreviation.ImageUrl}
             />
           )}
           {show("Name", info.GlassFamilyAbbreviation.Name)}
@@ -385,12 +383,7 @@ const TemplateSidelite = ({ match, location }, props) => {
                 {info.GlassFamilyAbbreviation.AllCamingOptions.map(
                   (item, index) => (
                     <div key={index}>
-                      <SmallImage
-                        alt={item.Name}
-                        src={`${store.imgSrc}${item.ImageUrl.split(
-                          ".com"
-                        ).pop()}`}
-                      />
+                      <ImageContainer alt={item.Name} src={item.ImageUrl} />
 
                       {show("Name", item.Name)}
                     </div>
@@ -404,13 +397,9 @@ const TemplateSidelite = ({ match, location }, props) => {
               <h5>Grille Colors</h5>
               {show("Name", info.GlassFamilyAbbreviation.GrilleColors.Name)}
               {info.GlassFamilyAbbreviation.GrilleColors.ImageUrl && (
-                <SmallImage
+                <ImageContainer
                   alt={info.Name}
-                  src={`${
-                    store.imgSrc
-                  }${info.GlassFamilyAbbreviation.GrilleColors.ImageUrl.split(
-                    ".com"
-                  ).pop()}`}
+                  src={info.GlassFamilyAbbreviation.GrilleColors.ImageUrl}
                 />
               )}
             </SubLevel>
@@ -487,7 +476,7 @@ const TemplateSidelite = ({ match, location }, props) => {
             <h5>Related Doors</h5>
             <Related>
               {info.Doors.map((item) => (
-                <ProductItem
+                <RelatedItem
                   key={item.Id}
                   StyleNumber={item.StyleNumber}
                   ImageUrl={item.ImageUrl}
@@ -504,7 +493,7 @@ const TemplateSidelite = ({ match, location }, props) => {
 
             <Related>
               {info.Sidelites.map((item, index) => (
-                <ProductItem
+                <RelatedItem
                   key={item.Id}
                   StyleNumber={item.StyleNumber}
                   ImageUrl={item.ImageUrl}
@@ -521,7 +510,7 @@ const TemplateSidelite = ({ match, location }, props) => {
 
             <Related>
               {info.Transoms.map((item, index) => (
-                <ProductItem
+                <RelatedItem
                   key={item.Id}
                   StyleNumber={item.StyleNumber}
                   ImageUrl={item.ImageUrl}
@@ -576,12 +565,6 @@ const SubLevel = styled.div`
   margin-top: 2.5em;
   display: grid;
   grid-gap: 8px;
-`;
-
-const SmallImage = styled(LazyLoadImage)`
-  display: grid;
-  width: 3.5em;
-  height: 3.5em;
 `;
 
 export default TemplateSidelite;

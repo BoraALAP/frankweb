@@ -3,9 +3,9 @@ import { gql, useQuery } from "@apollo/client";
 
 import styled from "styled-components";
 // import appContext from "../context/context";
-import ProductItem from "../components/applicationComponents/UI/ProductItem";
-import Button from "../components/applicationComponents/UI/Button";
-import Spinner from "../components/applicationComponents/UI/Spinner";
+import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
+import Button from "../components/UI/Button";
+import Spinner from "../components/UI/Spinner";
 
 const DOOR_QUERY = gql`
   query DOOR_QUERY($first: Int, $after: String) {
@@ -26,7 +26,7 @@ const DOOR_QUERY = gql`
   }
 `;
 
-const DisplayAll = ({ nextStep, prevStep }, props) => {
+const DisplayAll = (props) => {
   // const { store } = useContext(appContext);
 
   const { data, loading, fetchMore, networkStatus } = useQuery(DOOR_QUERY, {
@@ -70,7 +70,7 @@ const DisplayAll = ({ nextStep, prevStep }, props) => {
     <Container>
       <ProductContainer>
         {data.doorsConnection.edges.map(({ node }, index) => (
-          <ProductItem
+          <RelatedItem
             key={index}
             StyleNumber={node.StyleNumber}
             Name={node.Name}
@@ -100,10 +100,6 @@ const ProductContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, auto);
   grid-gap: 2vw;
-
-  img {
-    max-height: 238px;
-  }
 `;
 
 export default DisplayAll;

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import appContext from "../../../context/context";
 import Box from "./Box";
+import ImageContainer from "./ImageContainer";
 
 const RelatedGlassItem = ({ item, Type = "glass" }) => {
   const { store } = useContext(appContext);
@@ -12,10 +12,7 @@ const RelatedGlassItem = ({ item, Type = "glass" }) => {
     <Box>
       <Container>
         <Link to={`/product/${Type}/${item.Id}`}>
-          <SmallImage
-            alt={item.Name}
-            src={`${store.imgSrc}${item.ImageUrl.split(".com").pop()}`}
-          />
+          <ImageContainer alt={item.Name} src={item.ImageUrl} />
 
           <h4>{item.Name}</h4>
           <SubLevel>
@@ -75,12 +72,7 @@ const RelatedGlassItem = ({ item, Type = "glass" }) => {
                 {item.AllCamingOptions.map((item, index) => (
                   <div key={index}>
                     {item.ImageUrl && (
-                      <SmallImage
-                        alt={item.Name}
-                        src={`${store.imgSrc}${item.ImageUrl.split(
-                          ".com"
-                        ).pop()}`}
-                      />
+                      <ImageContainer alt={item.Name} src={item.ImageUrl} />
                     )}
                     <h6>
                       Name: <span> {item.Name}</span>
@@ -98,12 +90,7 @@ const RelatedGlassItem = ({ item, Type = "glass" }) => {
                 {item.GrilleColors.map((item, index) => (
                   <div key={index}>
                     {item.ImageUrl && (
-                      <SmallImage
-                        alt={item.Name}
-                        src={`${store.imgSrc}${item.ImageUrl.split(
-                          ".com"
-                        ).pop()}`}
-                      />
+                      <ImageContainer alt={item.Name} src={item.ImageUrl} />
                     )}
                     <h6>
                       Name: <span> {item.Name}</span>
@@ -124,12 +111,6 @@ const RelatedGlassItem = ({ item, Type = "glass" }) => {
 };
 
 const Container = styled.div``;
-
-const SmallImage = styled(LazyLoadImage)`
-  display: grid;
-  width: 3.5em;
-  height: 3.5em;
-`;
 
 const Horizontal = styled.ul`
   display: grid;

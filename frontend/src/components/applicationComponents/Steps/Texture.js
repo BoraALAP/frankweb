@@ -3,17 +3,17 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import Selector from "../UI/Selector";
 import appContext from "../../../context/context";
+import Layout from "./Layout";
 
-const Texture = ({ nextStep, prevStep }, props) => {
-  const { dispatch } = useContext(appContext);
+const Texture = (props) => {
+  const { store, dispatch } = useContext(appContext);
 
-  const handleClick = (text) => {
+  const handleClick = (value) => {
     dispatch({
       type: "UPDATE_STEP",
       step: "texture",
-      payload: text,
+      value,
     });
-    nextStep();
   };
 
   const options = [
@@ -22,37 +22,22 @@ const Texture = ({ nextStep, prevStep }, props) => {
   ];
 
   return (
-    <Container>
-      <h3>What kind of texture?</h3>
-      <SelectorContainer>
-        <Selector skip onClick={() => nextStep()}>
-          Skip
+    <Layout
+      title="What kind of texture you would like your door to be?"
+      gridSize={2}
+      component="texture"
+    >
+      {options.map((selector, index) => (
+        <Selector
+          key={index}
+          onClick={() => handleClick(selector.value)}
+          select={selector.value === store.steps.texture.value}
+        >
+          {selector.name}
         </Selector>
-        {options.map((selector, index) => (
-          <Selector
-            key={index}
-            onClick={() => handleClick(`${selector.value}`)}
-          >
-            {selector.name}
-          </Selector>
-        ))}
-      </SelectorContainer>
-      <Selector back onClick={() => prevStep()}>
-        Back
-      </Selector>
-    </Container>
+      ))}
+    </Layout>
   );
 };
-
-const Container = styled.div`
-  display: grid;
-  grid-gap: 80px;
-`;
-
-const SelectorContainer = styled.div`
-  display: grid;
-  grid-gap: 32px;
-  grid-template-columns: repeat(3, 1fr);
-`;
 
 export default Texture;

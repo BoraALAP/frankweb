@@ -12,7 +12,7 @@ const Container = styled.button`
     props.display ? props.theme.color.white : props.theme.color.primary};
   color: ${(props) =>
     props.display ? props.theme.color.primary : props.theme.color.white};
-  padding: ${({ theme }) => theme.boxPadding};
+  padding: ${({ theme }) => theme.buttonPadding};
   width: 100%;
   border-radius: ${({ theme }) => theme.boxRadius};
   margin: auto;

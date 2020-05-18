@@ -1,59 +1,69 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { gql, useQuery } from "@apollo/client";
+import ImageContainer from "../UI/ImageContainer";
 
-import styled from "styled-components";
 import Selector from "../UI/Selector";
-
+import Spinner from "../../UI/Spinner";
 import appContext from "../../../context/context";
+import Layout from "./Layout";
 
-const GlassSize = ({ nextStep, prevStep }, props) => {
-  const { dispatch } = useContext(appContext);
+const GLASS_SIZE_QUERY = gql`
+  query GLASS_SIZE_QUERY {
+    glassSizesConnection(orderBy: Name_ASC) {
+      edges {
+        node {
+          __typename
+          Id
+          Name
+        }
+      }
+    }
+  }
+`;
 
-  const handleClick = (text) => {
+const GlassSize = (props) => {
+  const { store, dispatch } = useContext(appContext);
+  const [options, setOptions] = useState([]);
+  const { data, loading } = useQuery(GLASS_SIZE_QUERY);
+
+  useEffect(() => {
+    if (!loading && data.glassSizesConnection !== undefined) {
+      setOptions(data.glassSizesConnection.edges);
+    }
+  }, [loading]);
+
+  if (options === undefined) {
+    return <Spinner />;
+  }
+
+  const handleClick = (value, id) => {
     dispatch({
       type: "UPDATE_STEP",
       step: "glassSize",
-      payload: text,
+      value,
+      id,
     });
-    nextStep();
   };
 
-  const options = [
-    { name: "Opaque" },
-    { name: "1/4 Lite" },
-    { name: "1/2 Lite" },
-    { name: "3/4 Lite" },
-    { name: "Full Lite" },
-  ];
-
   return (
-    <Container>
-      <h3>How much glass would you like to have on the door?</h3>
-      <SelectorContainer>
-        <Selector skip onClick={() => nextStep()}>
-          Skip
-        </Selector>
-        {options.map((selector, index) => (
-          <Selector key={index} onClick={() => handleClick(`${selector.name}`)}>
-            {selector.name}
-          </Selector>
-        ))}
-      </SelectorContainer>
-      <Selector back onClick={() => prevStep()}>
-        Back
-      </Selector>
-    </Container>
+    <Layout
+      title="How much glass would you like to have on the door?"
+      component="glassSize"
+    >
+      {options.map(({ node }, index) => {
+        if (node.Name !== "Transom")
+          return (
+            <Selector
+              key={index}
+              onClick={() => handleClick(node.Name, node.Id)}
+              select={node.Name === store.steps.glassSize.value}
+            >
+              {node.Name}
+            </Selector>
+          );
+      })}
+    </Layout>
   );
 };
-
-const Container = styled.div`
-  display: grid;
-  grid-gap: 80px;
-`;
-
-const SelectorContainer = styled.div`
-  display: grid;
-  grid-gap: 32px;
-  grid-template-columns: repeat(3, 1fr);
-`;
 
 export default GlassSize;

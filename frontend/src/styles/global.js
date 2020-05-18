@@ -55,6 +55,7 @@ const GlobalStyle = createGlobalStyle`
   button:disabled{
     background-color: ${({ theme }) => theme.color.grey};
     border: none;
+    color: ${({ theme }) => theme.color.lightGrey};
   }
 
   

@@ -1,12 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import ImageContainer from "../UI/ImageContainer";
 
 import styled from "styled-components";
 import Selector from "../UI/Selector";
 
-import Spinner from "../../applicationComponents/UI/Spinner";
+import Spinner from "../../UI/Spinner";
 import appContext from "../../../context/context";
+import Layout from "./Layout";
+import Button from "../../UI/Button";
 
 const SIZE_QUERY = gql`
   query SIZE_QUERY {
@@ -19,133 +21,128 @@ const SIZE_QUERY = gql`
           Width
           Height
           Place
-          Doors {
-            StyleNumber
-          }
         }
       }
     }
   }
 `;
 
-const Size = ({ nextStep, prevStep }, props) => {
+const Size = (props) => {
   const { dispatch } = useContext(appContext);
-  const [select, setSelect] = useState({ Width: "", Height: "" });
-  const [widths, setWidths] = useState([]);
-  const [heights, setHeights] = useState([]);
+  const [width, setWidth] = useState([]);
+  const [height, setHeight] = useState([]);
+  const [select, setSelect] = useState({ width: undefined, height: undefined });
   const { data, loading } = useQuery(SIZE_QUERY);
 
+  // finds available heights
   const findHeights = (width) => {
-    const array = data.availableSizesesConnection.edges.map((items) => {
-      if (items.node.Width === width && items.node.Place === "Door") {
-        return items.node.Height;
-      }
-    });
+    const array = data.availableSizesesConnection.edges
+      .map((items) => {
+        if (items.node.Width === width && items.node.Place === "Door") {
+          return items.node.Height;
+        }
+      })
+      .filter((value, index, self) => {
+        if (value !== undefined) {
+          return self.indexOf(value) === index;
+        }
+      });
 
-    const newArray = array.filter((value, index, self) => {
-      if (value !== undefined) {
-        return array.indexOf(value) === index;
-      }
-    });
-
-    setHeights([...newArray]);
+    setHeight([...array]);
   };
 
+  //gets the data and gives a widths list
   useEffect(() => {
     if (!loading && data.availableSizesesConnection !== undefined) {
-      const array = data.availableSizesesConnection.edges.map((items) => {
-        if (items.node.Place === "Door") {
-          return items.node.Width;
-        }
-      });
+      const arr = data.availableSizesesConnection.edges
+        .map((item) => {
+          if (item.node.Place === "Door") {
+            return item.node.Width;
+          }
+        })
+        .filter((v, i, a) => {
+          if (v !== undefined) {
+            return a.indexOf(v) === i;
+          }
+        });
 
-      const newArray = array.filter((value, index, self) => {
-        if (value !== undefined) {
-          return array.indexOf(value) === index;
-        }
-      });
-      setWidths([...newArray]);
+      setWidth(arr);
     }
   }, [loading]);
 
+  //finds the height list
   useEffect(() => {
-    if (select.Width !== "") {
-      findHeights(select.Width);
+    if (select.width !== undefined) {
+      findHeights(select.width);
     }
   }, [select]);
 
-  if (
-    data === undefined ||
-    data.availableSizesesConnection === undefined ||
-    data.availableSizesesConnection.edges === undefined
-  ) {
+  if (data === undefined) {
     return <Spinner />;
   }
 
-  const handleClick = (text) => {
-    dispatch({
-      type: "UPDATE_STEP",
-      step: "size",
-      payload: text,
+  //when both values are put, finds the id and pushes to the context
+  if (select.width !== undefined && select.height !== undefined) {
+    data.availableSizesesConnection.edges.filter((v, i, a) => {
+      if (v.node.Width === select.width && v.node.Height === select.height) {
+        // this is causing the problem on the console
+        dispatch({
+          type: "UPDATE_STEP",
+          step: "size",
+          value: v.node.Size,
+          id: v.node.Id,
+        });
+      }
     });
-    nextStep();
-  };
+  }
 
   return (
-    <Container>
-      <h3>What are the measurement?</h3>
-
-      <h5>Width</h5>
-      <SelectorContainer>
-        <Selector skip onClick={() => nextStep()}>
-          Skip
+    <Layout title="What are the measurement?" component="size">
+      <Title>Width</Title>
+      {width.map((item, index) => (
+        <Selector
+          key={index}
+          select={item === select.width}
+          onClick={() => setSelect({ ...select, width: item })}
+        >
+          {item}
         </Selector>
-        {widths.map((selector, index) => (
-          <Selector
-            key={index}
-            onClick={() => {
-              setSelect({ Width: `${selector}` });
-            }}
-          >
-            {selector}
-          </Selector>
-        ))}
-      </SelectorContainer>
+      ))}
 
-      {select.Width !== "" && (
-        <div>
-          <h5>Height</h5>
-          <SelectorContainer>
-            {heights.map((selector, index) => (
-              <Selector
-                key={index}
-                onClick={() => {
-                  handleClick(`${select.Width} x ${selector}`);
-                }}
-              >
-                {selector}
-              </Selector>
-            ))}
-          </SelectorContainer>
-        </div>
+      {height.length > 0 && (
+        <>
+          <Title>Height</Title>
+          {height.map((item, index) => (
+            <Selector
+              key={index}
+              select={item === select.height}
+              onClick={() => setSelect({ ...select, height: item })}
+            >
+              {item}
+            </Selector>
+          ))}
+        </>
       )}
-
-      <Selector back onClick={() => prevStep()}>
-        Back
-      </Selector>
-    </Container>
+      {/* 
+      <Next
+        disabled={select.width === undefined || select.height === undefined}
+        onClick={handleClick}
+      >
+        Next
+      </Next> */}
+    </Layout>
   );
 };
 
-const Container = styled.div`
+const Next = styled(Button)`
   display: grid;
-  grid-gap: 80px;
+  grid-column: span 3;
 `;
 
-const SelectorContainer = styled.div`
+const Title = styled.h5`
   display: grid;
-  grid-gap: 32px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-column: span 3;
+  justify-content: center;
 `;
 
 export default Size;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 
 import Customer from "../components/applicationComponents/Steps/Customer";
@@ -8,37 +8,33 @@ import Size from "../components/applicationComponents/Steps/Size";
 import GlassSize from "../components/applicationComponents/Steps/GlassSize";
 import Success from "../components/applicationComponents/Steps/Success";
 import Wrong from "../components/applicationComponents/Steps/Wrong";
+import appContext from "../context/context";
+import GlassFamily from "../components/applicationComponents/Steps/GlassFamily";
+import SidePanel from "../components/applicationComponents/Steps/SidePanel";
+
 // import appContext from "../context/context";
 
 const DoorApplication = ({ match }) => {
-  const [step, setStep] = useState(1);
+  const { store } = useContext(appContext);
 
-  const nextStep = () => {
-    setStep(step + 1);
-  };
-
-  const prevStep = () => {
-    setStep(step - 1);
-  };
-
-  const beginning = () => {
-    setStep(1);
-  };
+  console.log(store.steps.step);
 
   const Switch = (prop) => {
-    switch (step) {
+    switch (store.steps.step) {
       case 1:
-        return <Customer nextStep={nextStep} prevStep={prevStep} />;
+        return <Customer />;
       case 2:
-        return <Location nextStep={nextStep} prevStep={prevStep} />;
+        return <Location />;
       case 3:
-        return <Texture nextStep={nextStep} prevStep={prevStep} />;
+        return <Texture />;
       case 4:
-        return <Size nextStep={nextStep} prevStep={prevStep} />;
+        return <Size />;
       case 5:
-        return <GlassSize nextStep={nextStep} prevStep={prevStep} />;
+        return <GlassSize />;
       case 6:
-        return <Success beginning={beginning} prevStep={prevStep} />;
+        return <GlassFamily />;
+      case 7:
+        return <Success />;
       default:
         return <Wrong />;
     }
@@ -49,7 +45,9 @@ const DoorApplication = ({ match }) => {
       <Left>
         <Switch />
       </Left>
-      <Right />
+      <Right>
+        <SidePanel />
+      </Right>
     </Container>
   );
 };
@@ -58,8 +56,12 @@ const Container = styled.div`
   display: grid;
 `;
 
-const Left = styled.div``;
+const Left = styled.div`
+  width: 80%;
+`;
 
-const Right = styled.div``;
+const Right = styled.div`
+  width: 20%;
+`;
 
 export default DoorApplication;

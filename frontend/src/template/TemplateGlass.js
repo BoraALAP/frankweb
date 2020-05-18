@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import ImageContainer from "../components/applicationComponents/UI/ImageContainer";
 import appContext from "../context/context";
-import ProductItem from "../components/applicationComponents/UI/ProductItem";
-import Spinner from "../components/applicationComponents/UI/Spinner";
+import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
+import Spinner from "../components/UI/Spinner";
 
 const GLASS_QUERY = gql`
   query GLASS_QUERY($product: ID) {
@@ -101,7 +101,7 @@ const ProductGlass = ({ match }) => {
     <Container>
       <TopBar />
       <Information>
-        <SmallImage alt={info.Name} src={`${store.imgSrc}${info.ImageUrl}`} />
+        <ImageContainer alt={info.Name} src={info.ImageUrl} big />
         <h4>Name: {info.Name}</h4>
         <h6>
           GlassAssociation: <span>{info.GlassAssociation.Association}</span>
@@ -182,12 +182,7 @@ const ProductGlass = ({ match }) => {
               {info.AllCamingOptions.map((item, index) => (
                 <div key={index}>
                   {item.ImageUrl && (
-                    <SmallImage
-                      alt={item.Name}
-                      src={`${store.imgSrc}${item.ImageUrl.split(
-                        ".com"
-                      ).pop()}`}
-                    />
+                    <ImageContainer alt={item.Name} src={item.ImageUrl} />
                   )}
                   <h6>
                     Name: <span> {item.Name}</span>
@@ -205,12 +200,7 @@ const ProductGlass = ({ match }) => {
               {info.GrilleColors.map((item, index) => (
                 <div key={index}>
                   {item.ImageUrl && (
-                    <SmallImage
-                      alt={item.Name}
-                      src={`${store.imgSrc}${item.ImageUrl.split(
-                        ".com"
-                      ).pop()}`}
-                    />
+                    <ImageContainer alt={item.Name} src={item.ImageUrl} />
                   )}
                   <h6>
                     Name: <span> {item.Name}</span>
@@ -227,7 +217,7 @@ const ProductGlass = ({ match }) => {
             <h5>Related Doors</h5>
             <Related>
               {info.Doors.map((item) => (
-                <ProductItem
+                <RelatedItem
                   key={item.Id}
                   StyleNumber={item.StyleNumber}
                   ImageUrl={item.ImageUrl}
@@ -244,7 +234,7 @@ const ProductGlass = ({ match }) => {
 
             <Related>
               {info.Sidelites.map((item, index) => (
-                <ProductItem
+                <RelatedItem
                   key={item.Id}
                   StyleNumber={item.StyleNumber}
                   ImageUrl={item.ImageUrl}
@@ -261,7 +251,7 @@ const ProductGlass = ({ match }) => {
 
             <Related>
               {info.Transoms.map((item, index) => (
-                <ProductItem
+                <RelatedItem
                   key={item.Id}
                   StyleNumber={item.StyleNumber}
                   ImageUrl={item.ImageUrl}
@@ -297,12 +287,6 @@ const SubLevel = styled.div`
   h5 {
     margin-bottom: 16px;
   }
-`;
-
-const SmallImage = styled(LazyLoadImage)`
-  display: grid;
-  width: 3.5em;
-  height: 3.5em;
 `;
 
 const Horizontal = styled.ul`

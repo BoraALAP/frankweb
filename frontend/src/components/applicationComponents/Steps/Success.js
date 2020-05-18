@@ -1,30 +1,46 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 
-import ProductItem from "../UI/ProductItem";
+import RelatedItem from "../UI/RelatedItem";
 import appContext from "../../../context/context";
 import Selector from "../UI/Selector";
-import Spinner from "../UI/Spinner";
-import Button from "../UI/Button";
+import Spinner from "../../UI/Spinner";
+import Button from "../../UI/Button";
 
 const PRODUCT_QUERY = gql`
   query door(
     $location: ID
-    $size: String
-    $sizeCategory: String
+    $size: ID
+    $glassSize: ID
     $texture: String
+    $glassFamily: ID
     $first: Int
     $after: String
   ) {
+    fullCount: doorsConnection(
+      where: {
+        OR: {
+          AvailableSizes_some: { Id_contains: $size }
+          LocationOnHouse_some: { Id_contains: $location }
+          DoorCollection: { Surface_contains: $texture }
+          ParentGlassFamilyAbbreviation: { Id_contains: $glassFamily }
+          GlassSizeCategory: { Id_contains: $glassSize }
+        }
+      }
+    ) {
+      aggregate {
+        count
+      }
+    }
     doorsConnection(
       where: {
         OR: {
-          AvailableSizes_some: { Size_contains: $size }
+          AvailableSizes_some: { Id_contains: $size }
           LocationOnHouse_some: { Id_contains: $location }
-          GlassSizeCategory_contains: $sizeCategory
           DoorCollection: { Surface_contains: $texture }
+          ParentGlassFamilyAbbreviation: { Id_contains: $glassFamily }
+          GlassSizeCategory: { Id_contains: $glassSize }
         }
       }
       first: $first
@@ -46,33 +62,19 @@ const PRODUCT_QUERY = gql`
         }
       }
     }
-
-    fullCount: doorsConnection(
-      where: {
-        OR: {
-          AvailableSizes_some: { Size_contains: $size }
-          LocationOnHouse_some: { Id_contains: $location }
-          GlassSizeCategory_contains: $sizeCategory
-          DoorCollection: { Surface_contains: $texture }
-        }
-      }
-    ) {
-      aggregate {
-        count
-      }
-    }
   }
 `;
 
-const Success = ({ nextStep, prevStep, beginning }, props) => {
+const Success = (props) => {
   const { store, dispatch } = useContext(appContext);
 
   const { data, loading, fetchMore } = useQuery(PRODUCT_QUERY, {
     variables: {
-      location: store.steps.location.value,
-      size: store.steps.size.value,
-      sizeCategory: store.steps.glassSize.value,
+      location: store.steps.location.id,
+      size: store.steps.size.id,
+      glassSize: store.steps.glassSize.id,
       texture: store.steps.texture.value,
+      glassFamily: store.steps.glassFamily.id,
       first: 12,
     },
     notifyOnNetworkStatusChange: true,
@@ -82,16 +84,23 @@ const Success = ({ nextStep, prevStep, beginning }, props) => {
     return <Spinner />;
   }
 
+  const resetStep = (props) => {
+    dispatch({
+      type: "RESET_STEP",
+    });
+  };
+
   const handleMore = (e) => {
     fetchMore({
       query: PRODUCT_QUERY,
       variables: {
         first: 12,
         after: data.doorsConnection.pageInfo.endCursor,
-        location: store.steps.location.value,
-        size: store.steps.size.value,
-        sizeCategory: store.steps.glassSize.value,
+        location: store.steps.location.id,
+        size: store.steps.size.id,
+        glassSize: store.steps.glassSize.id,
         texture: store.steps.texture.value,
+        glassFamily: store.steps.glassFamily.id,
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) {
@@ -127,7 +136,7 @@ const Success = ({ nextStep, prevStep, beginning }, props) => {
         </h2>
         <Related>
           {data.doorsConnection.edges.map(({ node }) => (
-            <ProductItem
+            <RelatedItem
               key={node.Id}
               StyleNumber={node.StyleNumber}
               ImageUrl={node.ImageUrl}
@@ -143,7 +152,7 @@ const Success = ({ nextStep, prevStep, beginning }, props) => {
       >
         More
       </Button>
-      <Selector onClick={beginning}>Start Over</Selector>
+      <Selector onClick={resetStep}>Start Over</Selector>
     </Container>
   );
 };
@@ -157,13 +166,8 @@ const Container = styled.div`
 const Related = styled.div`
   display: grid;
   grid-gap: 2vw;
-  width: fit-content;
   grid-template-columns: repeat(4, auto);
   grid-gap: 2vw;
-
-  img {
-    max-height: 238px;
-  }
 `;
 
 const SubLevel = styled.div`

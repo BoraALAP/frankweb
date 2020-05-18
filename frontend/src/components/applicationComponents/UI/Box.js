@@ -9,8 +9,8 @@ const Container = styled.div`
   box-shadow: ${({ theme }) => theme.boxShadow};
   padding: ${({ theme }) => theme.boxPadding};
   border-radius: ${({ theme }) => theme.boxRadius};
-  width: fit-content;
-  height: fit-content;
+  width: auto;
+  height: auto;
 `;
 
 export default Box;

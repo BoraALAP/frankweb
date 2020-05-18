@@ -133,100 +133,144 @@ const CREATE_TRANSOMS_MUTATION = gql`
   }
 `;
 
+const UPDATE_TRANSOM_MUTATION = gql`
+  mutation UPDATE_TRANSOM_MUTATION(
+    $StyleNumber: String
+    # $RelatedFamily: GlassFamilyUpdateManyInput
+    # $RelatedDoors: DoorUpdateManyInput
+    # $ImageUrl: String
+    $GlassSizeCategory: GlassSizeUpdateOneWithoutTransomsInput
+  ) {
+    updateTransom(
+      where: { StyleNumber: $StyleNumber }
+      data: {
+        # RelatedFamily: $RelatedFamily,
+        # RelatedDoors: $RelatedDoors
+        # ImageUrl: $ImageUrl
+        GlassSizeCategory: $GlassSizeCategory
+      }
+    ) {
+      StyleNumber
+      ImageUrl
+    }
+  }
+`;
+
 const Transoms = (props) => {
-  const [createTransom, { data, loading, error }] = useMutation(
-    CREATE_TRANSOMS_MUTATION
-  );
+  const [createTransom] = useMutation(CREATE_TRANSOMS_MUTATION);
+
+  const [updateTransom] = useMutation(UPDATE_TRANSOM_MUTATION);
   // const { data, loading, error } = useQuery(USERS_QUERY);
 
   const fetchData = async () => {
     try {
       const { data } = await axios.get("./data/dbTransoms.json");
+
       data.transoms.map(async (item, index) => {
-        const res = await createTransom({
-          variables: {
-            ...item,
-            DoorCollection: {
-              connect: {
-                Abbreviation: item.DoorCollection.Abbreviation,
+        const update = async () => {
+          const res2 = await updateTransom({
+            variables: {
+              StyleNumber: item.StyleNumber,
+              // ImageUrl: item.ImageUrl,
+              GlassSizeCategory: {
+                connect: {
+                  Name: item.GlassSizeCategory,
+                },
               },
             },
-            DoorLine: {
-              connect: {
-                Abbreviation: item.DoorLine.Abbreviation,
-              },
-            },
+          });
+          console.log(res2);
+        };
 
-            StyleShape: {
-              connect: {
-                Abbreviation: item.StyleShape.Abbreviation,
+        const create = async () => {
+          const res = await createTransom({
+            variables: {
+              ...item,
+              DoorCollection: {
+                connect: {
+                  Abbreviation: item.DoorCollection.Abbreviation,
+                },
               },
-            },
-            ParentGlassFamilyAbbreviation: {
-              connect: {
-                Abbreviation: item.ParentGlassFamilyAbbreviation,
+              DoorLine: {
+                connect: {
+                  Abbreviation: item.DoorLine.Abbreviation,
+                },
               },
-            },
-            GlassFamilyAbbreviation: {
-              connect: {
-                Abbreviation: item.GlassFamilyAbbreviation,
-              },
-            },
-            GlassAssociation: {
-              connect: {
-                Association: item.GlassAssociation,
-              },
-            },
-            StyleLayoutPairs: {
-              create: { ...item.StyleLayoutPairs },
-            },
-            DefaultFrameProfile: {
-              connect: {
-                Abbreviation: item.DefaultFrameProfile.Abbreviation,
-              },
-            },
-            FrameProfiles: {
-              connect: item.FrameProfiles.map((item) => ({
-                Abbreviation: item.Abbreviation,
-              })),
-            },
-            Sidelites: {
-              connect: item.Sidelites.map((item) => ({
-                StyleNumber: item.StyleNumber,
-              })),
-            },
-            Transoms: {
-              connect: item.Transoms.map((item) => ({
-                StyleNumber: item.StyleNumber,
-              })),
-            },
-            LocationOnHouse: {
-              connect: item.LocationOnHouse.map((it) => ({ Name: it })),
-            },
-            AvailableSizes: {
-              connect: item.AvailableSizes.map((it) => ({
-                Size: it,
-              })),
-            },
-            DefaultSize: {
-              connect: {
-                Size: item.DefaultSize,
-              },
-            },
 
-            ArchitecturalStyle: {
-              connect: item.ArchitecturalStyle.map((it) => ({
-                Style: it,
-              })),
+              StyleShape: {
+                connect: {
+                  Abbreviation: item.StyleShape.Abbreviation,
+                },
+              },
+              ParentGlassFamilyAbbreviation: {
+                connect: {
+                  Abbreviation: item.ParentGlassFamilyAbbreviation,
+                },
+              },
+              GlassFamilyAbbreviation: {
+                connect: {
+                  Abbreviation: item.GlassFamilyAbbreviation,
+                },
+              },
+              GlassAssociation: {
+                connect: {
+                  Association: item.GlassAssociation,
+                },
+              },
+              StyleLayoutPairs: {
+                create: { ...item.StyleLayoutPairs },
+              },
+              DefaultFrameProfile: {
+                connect: {
+                  Abbreviation: item.DefaultFrameProfile.Abbreviation,
+                },
+              },
+              FrameProfiles: {
+                connect: item.FrameProfiles.map((item) => ({
+                  Abbreviation: item.Abbreviation,
+                })),
+              },
+              Sidelites: {
+                connect: item.Sidelites.map((item) => ({
+                  StyleNumber: item.StyleNumber,
+                })),
+              },
+              Transoms: {
+                connect: item.Transoms.map((item) => ({
+                  StyleNumber: item.StyleNumber,
+                })),
+              },
+              LocationOnHouse: {
+                connect: item.LocationOnHouse.map((it) => ({ Name: it })),
+              },
+              AvailableSizes: {
+                connect: item.AvailableSizes.map((it) => ({
+                  Size: it,
+                })),
+              },
+              DefaultSize: {
+                connect: {
+                  Size: item.DefaultSize,
+                },
+              },
+
+              ArchitecturalStyle: {
+                connect: item.ArchitecturalStyle.map((it) => ({
+                  Style: it,
+                })),
+              },
+              RatingEligibility: {
+                connect: item.RatingEligibility.map((it) => ({
+                  Name: it,
+                })),
+              },
             },
-            RatingEligibility: {
-              connect: item.RatingEligibility.map((it) => ({
-                Name: it,
-              })),
-            },
-          },
-        });
-        console.log(index, data.transoms.length, res);
+          });
+        };
+
+        // create()
+        update();
+        console.log(index, data.transoms.length);
       });
     } catch (error) {
       console.log(error);

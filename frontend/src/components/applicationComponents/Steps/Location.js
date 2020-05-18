@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import ImageContainer from "../UI/ImageContainer";
 
-import styled from "styled-components";
 import Selector from "../UI/Selector";
-import Spinner from "../../applicationComponents/UI/Spinner";
+import Spinner from "../../UI/Spinner";
 import appContext from "../../../context/context";
+import Layout from "./Layout";
 
 const LOCATION_QUERY = gql`
   query LOCATION_QUERY {
@@ -21,8 +21,8 @@ const LOCATION_QUERY = gql`
   }
 `;
 
-const Location = ({ nextStep, prevStep }, props) => {
-  const { dispatch } = useContext(appContext);
+const Location = (props) => {
+  const { store, dispatch } = useContext(appContext);
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(LOCATION_QUERY);
 
@@ -36,47 +36,29 @@ const Location = ({ nextStep, prevStep }, props) => {
     return <Spinner />;
   }
 
-  const handleClick = (text) => {
+  const handleClick = (value, id) => {
+    console.log(value, id);
     dispatch({
       type: "UPDATE_STEP",
       step: "location",
-      payload: text,
+      value,
+      id,
     });
-    nextStep();
   };
 
   return (
-    <Container>
-      <h3>Where are you going to use this door?</h3>
-      <SelectorContainer>
-        <Selector skip onClick={() => nextStep()}>
-          Skip
+    <Layout title="Where are you going to use this door?" component="location">
+      {options.map((selector, index) => (
+        <Selector
+          key={index}
+          select={selector.node.Name === store.steps.location.value}
+          onClick={() => handleClick(selector.node.Name, selector.node.Id)}
+        >
+          {selector.node.Name}
         </Selector>
-        {options.map((selector, index) => (
-          <Selector
-            key={index}
-            onClick={() => handleClick(`${selector.node.Id}`)}
-          >
-            {selector.node.Name}
-          </Selector>
-        ))}
-      </SelectorContainer>
-      <Selector back onClick={() => prevStep()}>
-        Back
-      </Selector>
-    </Container>
+      ))}
+    </Layout>
   );
 };
-
-const Container = styled.div`
-  display: grid;
-  grid-gap: 80px;
-`;
-
-const SelectorContainer = styled.div`
-  display: grid;
-  grid-gap: 32px;
-  grid-template-columns: repeat(3, 1fr);
-`;
 
 export default Location;

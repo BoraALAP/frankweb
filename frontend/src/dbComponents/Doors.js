@@ -142,13 +142,22 @@ const CREATE_DOOR_MUTATION = gql`
 const UPDATE_DOOR_MUTATION = gql`
   mutation UPDATE_DOOR_MUTATION(
     $StyleNumber: String
-    $RelatedDoors: DoorUpdateManyInput
+    # $RelatedFamily: GlassFamilyUpdateManyInput
+    # $RelatedDoors: DoorUpdateManyInput
+    # $ImageUrl: String
+    $GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   ) {
     updateDoor(
       where: { StyleNumber: $StyleNumber }
-      data: { RelatedDoors: $RelatedDoors }
+      data: {
+        # RelatedFamily: $RelatedFamily,
+        # RelatedDoors: $RelatedDoors
+        # ImageUrl: $ImageUrl
+        GlassSizeCategory: $GlassSizeCategory
+      }
     ) {
       StyleNumber
+      ImageUrl
     }
   }
 `;
@@ -161,27 +170,39 @@ const Doors = (props) => {
   const fetchData = async () => {
     let num = 0;
     try {
-      const { data } = await axios.get("./data/dbDoor.json");
+      const { data } = await axios.get("./data/dbMissing.json");
 
       const timer = setInterval(async () => {
         console.log(num, data.doorStyles.length);
         const item = data.doorStyles[num];
         num++;
+
         const update = async () => {
           const res2 = await updateDoor({
             variables: {
               StyleNumber: item.StyleNumber,
+              // ImageUrl: item.ImageUrl,
+              GlassSizeCategory: {
+                connect: {
+                  Name: item.GlassSizeCategory,
+                },
+              },
 
               // Transoms: {
               //   connect: item.Transoms.map((item) => ({
               //     StyleNumber: item.StyleNumber,
               //   })),
               // },
-              RelatedDoors: {
-                connect: item.RelatedDoors.map((item) => ({
-                  StyleNumber: item.StyleNumber,
-                })),
-              },
+              // RelatedDoors: {
+              //   connect: item.RelatedDoors.map((item) => ({
+              //     StyleNumber: item.StyleNumber,
+              //   })),
+              // },
+              // RelatedFamily: {
+              //   connect: item.RelatedFamily.map((item) => ({
+              //     Abbreviation: item.Abbreviation,
+              //   })),
+              // },
             },
           });
           console.log(res2);
@@ -278,6 +299,11 @@ const Doors = (props) => {
                   Abbreviation: item.Abbreviation,
                 })),
               },
+              RelatedFamily: {
+                connect: item.RelatedFamily.map((item) => ({
+                  Abbreviation: item.Abbreviation,
+                })),
+              },
               // RelatedDoors: {
               //   connect: item.RelatedDoors.map((item) => ({
               //     StyleNumber: item.StyleNumber,
@@ -297,7 +323,7 @@ const Doors = (props) => {
           console.log("Done!");
           clearInterval(timer);
         }
-      }, 1000);
+      }, 500);
     } catch (error) {
       console.log(error, num);
     }
