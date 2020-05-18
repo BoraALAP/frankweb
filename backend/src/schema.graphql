@@ -18,6 +18,7 @@ type Query {
   glassAssociations(where: GlassAssociationWhereInput, orderBy: GlassAssociationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GlassAssociation]
   glasses(where: GlassWhereInput, orderBy: GlassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Glass]
   frameProfiles(where: FrameProfileWhereInput, orderBy: FrameProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FrameProfile]
+  glassSizes(where: GlassSizeWhereInput, orderBy: GlassSizeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GlassSize]!
   door(where: DoorWhereUniqueInput!): Door
   doorCollection(where: DoorCollectionWhereUniqueInput!): DoorCollection
   doorLine(where: DoorLineWhereUniqueInput!): DoorLine
@@ -39,6 +40,7 @@ type Query {
   architecturalStyle(where: ArchitecturalStyleWhereUniqueInput!): ArchitecturalStyle
   ratingEligibility(where: RatingEligibilityWhereUniqueInput!): RatingEligibility
   availableSizes(where: AvailableSizesWhereUniqueInput!): AvailableSizes
+  glassSizesConnection(where: GlassSizeWhereInput, orderBy: GlassSizeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassSizeConnection!
   doorsConnection(where: DoorWhereInput, orderBy: DoorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorConnection
   doorCollectionsConnection(where: DoorCollectionWhereInput, orderBy: DoorCollectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorCollectionConnection
   doorLinesConnection(where: DoorLineWhereInput, orderBy: DoorLineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorLineConnection
@@ -91,7 +93,7 @@ type Mutation {
     RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
     LaunchYear: Int
     RecentlyLaunched: Boolean
-    GlassSizeCategory: String
+    GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
     SupportedAccessories: [String]
     AllowedSidelites: [String]
     AllowedTransoms: [String]
@@ -126,6 +128,7 @@ type Mutation {
     RelatedStyleID: String
     AllowsHandlesets: Boolean
     IsFlushGlazed: Boolean
+    RelatedFamily: GlassFamilyUpdateManyInput
     RelatedGlasses: GlassUpdateManyInput
     RelatedDoors: DoorUpdateManyInput
     Finishes: FinishUpdateManyWithoutDoorsInput
@@ -198,6 +201,7 @@ type Mutation {
     Description: String
     ImageUrl: String
     DetailUrl: String
+    BigImageUrl: String
     Doors: DoorCreateManyWithoutGlassFamilyAbbreviationInput
   ): GlassFamily!
   createHandleSet(
@@ -252,7 +256,7 @@ type Mutation {
     RatingEligibility: RatingEligibilityUpdateManyWithoutSidelitesInput
     LaunchYear: Int
     RecentlyLaunched: Boolean
-    GlassSizeCategory: String
+    GlassSizeCategory: GlassSizeUpdateOneWithoutSidelitesInput
     SupportedAccessories: [String]
     AllowedSidelites: [String]
     AllowedTransoms: [String]
@@ -363,7 +367,7 @@ type Mutation {
     RatingEligibility: RatingEligibilityUpdateManyWithoutTransomsInput
     LaunchYear: Int
     RecentlyLaunched: Boolean
-    GlassSizeCategory: String
+    GlassSizeCategory: GlassSizeUpdateOneWithoutTransomsInput
     SupportedAccessories: [String]
     AllowedSidelites: [String]
     AllowedTransoms: [String]
@@ -443,6 +447,15 @@ type Mutation {
   Transoms: TransomUpdateManyWithoutLocationOnHouseInput
   ): LocationOnHouse!
 
+  createGlassSize(
+    Id: ID
+    Name: String
+    Abbreviation: String
+    Doors: DoorUpdateManyWithoutGlassSizeCategoryInput
+  Sidelites: SideliteUpdateManyInput
+  Transoms: TransomUpdateManyWithoutGlassSizeCategoryInput
+  ): GlassFeature!
+
   deleteDoor(Id: ID!): Door
   deleteGlassAssociation(GlassAssociation: String): GlassAssociation
   deleteManyGlassFamilies(where: GlassFamilyWhereInput): BatchPayload!
@@ -454,4 +467,7 @@ type Mutation {
   
   updateDoor(data: DoorUpdateInput!, where: DoorWhereUniqueInput!): Door
   updateAvailableSizes(data: AvailableSizesUpdateInput!, where: AvailableSizesWhereUniqueInput!): AvailableSizes
+  updateGlassFamily(data: GlassFamilyUpdateInput!, where: GlassFamilyWhereUniqueInput!): GlassFamily
+  updateSidelite(data: SideliteUpdateInput!, where: SideliteWhereUniqueInput!): Sidelite
+  updateTransom(data: TransomUpdateInput!, where: TransomWhereUniqueInput!): Transom
 }

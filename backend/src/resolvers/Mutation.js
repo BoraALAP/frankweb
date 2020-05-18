@@ -27,6 +27,7 @@ const Mutation = {
           Sidelites: args.Sidelites,
           FrameProfiles: args.FrameProfiles,
           DefaultFrameProfile: args.DefaultFrameProfile,
+          RelatedFamily: args.RelatedFamily,
           RelatedGlasses: args.RelatedGlasses,
           Finishes: args.Finishes,
           // RelatedDoors: args.RelatedDoors,
@@ -61,7 +62,6 @@ const Mutation = {
     const door = await ctx.db.mutation.deleteManyTransoms({ where }, info);
     return door;
   },
-
   async deleteManySidelites(parent, args, ctx, info) {
     const where = { Id: args.Id };
     const door = await ctx.db.mutation.deleteManySidelites({ where }, info);
@@ -98,6 +98,16 @@ const Mutation = {
     });
     return glassFamily;
   },
+  async updateGlassFamily(parent, args, ctx, info) {
+    console.log(args);
+    const glassFamily = await ctx.db.mutation.updateGlassFamily(
+      {
+        ...args,
+      },
+      info
+    );
+    return glassFamily;
+  },
   async deleteManyGlassFamilies(parent, args, ctx, info) {
     const where = { Id: args.Id };
     const door = await ctx.db.mutation.deleteManyGlassFamilies({ where }, info);
@@ -118,6 +128,14 @@ const Mutation = {
       },
     });
     return frameProfile;
+  },
+  async createGlassSize(parent, args, ctx, info) {
+    const glassSize = await ctx.db.mutation.createGlassSize({
+      data: {
+        ...args,
+      },
+    });
+    return glassSize;
   },
   async createHandleSet(parent, args, ctx, info) {
     const handleSet = await ctx.db.mutation.createHandleSet({
@@ -169,6 +187,16 @@ const Mutation = {
     );
     return sidelite;
   },
+  async updateSidelite(parent, args, ctx, info) {
+    console.log(args);
+    const sidelite = await ctx.db.mutation.updateSidelite(
+      {
+        ...args,
+      },
+      info
+    );
+    return sidelite;
+  },
   async createTransom(parent, args, ctx, info) {
     console.log(args);
 
@@ -200,6 +228,16 @@ const Mutation = {
           FrameProfiles: args.FrameProfiles,
           DefaultFrameProfile: args.DefaultFrameProfile,
         },
+      },
+      info
+    );
+    return transom;
+  },
+  async updateTransom(parent, args, ctx, info) {
+    console.log(args);
+    const transom = await ctx.db.mutation.updateTransom(
+      {
+        ...args,
       },
       info
     );

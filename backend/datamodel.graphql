@@ -26,7 +26,7 @@ type Door {
     @relation(name: "RatingEligibilityDoor")
   LaunchYear: Int
   RecentlyLaunched: Boolean
-  GlassSizeCategory: String
+  GlassSizeCategory: GlassSize @relation(name: "GlassSizeDoor")
   SupportedAccessories: [String] @scalarList(strategy: RELATION)
   AllowedSidelites: [String] @scalarList(strategy: RELATION)
   AllowedTransoms: [String] @scalarList(strategy: RELATION)
@@ -64,9 +64,20 @@ type Door {
   IsFlushGlazed: Boolean
   Sidelites: [Sidelite] @relation(name: "Sidelites")
   Transoms: [Transom] @relation(name: "Transoms")
+  RelatedFamily: [GlassFamily] @relation(name: "RelatedFamily")
   RelatedGlasses: [Glass] @relation(name: "RelatedGlasses")
   RelatedDoors: [Door] @relation(name: "RelatedDoors")
   Finishes: [Finish] @relation(name: "FinishesDoors")
+}
+
+type GlassSize { 
+  Id: ID! @id
+  Name: String @unique
+  Abbreviation: String @unique
+  Doors: [Door] @relation( name: "GlassSizeDoor")
+  Sidelites: [Sidelite] @relation( name: "GlassSizeSidelite")
+  Transoms: [Transom] @relation( name: "GlassSizeTransom")
+
 }
 
 type Sidelite {
@@ -99,7 +110,7 @@ type Sidelite {
     @relation(name: "RatingEligibilitySidelite")
   LaunchYear: Int
   RecentlyLaunched: Boolean
-  GlassSizeCategory: String
+  GlassSizeCategory: GlassSize @relation(name: "GlassSizeSidelite")
   SupportedAccessories: [String] @scalarList(strategy: RELATION)
   AllowedSidelites: [String] @scalarList(strategy: RELATION)
   AllowedTransoms: [String] @scalarList(strategy: RELATION)
@@ -170,7 +181,7 @@ type Transom {
     @relation(name: "RatingEligibilityTransom")
   LaunchYear: Int
   RecentlyLaunched: Boolean
-  GlassSizeCategory: String
+  GlassSizeCategory: GlassSize @relation(name: "GlassSizeTransom")
   SupportedAccessories: [String] @scalarList(strategy: RELATION)
   AllowedSidelites: [String] @scalarList(strategy: RELATION)
   AllowedTransoms: [String] @scalarList(strategy: RELATION)
@@ -282,6 +293,7 @@ type GlassFamily {
   Description: String
   ImageUrl: String
   DetailUrl: String
+  BigImageUrl: String
   Doors: [Door] @relation(name: "ParentGlassFamilyAbbreviation")
   Sidelites: [Sidelite] @relation(name: "ParentGlassFamilyAbbreviationSidelite")
   Transoms: [Transom] @relation(name: "ParentGlassFamilyAbbreviationTransom")
