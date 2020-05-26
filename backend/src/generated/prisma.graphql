@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/bora-alap-3bfda9/dev/dev
-# timestamp: Sun May 17 2020 15:51:29 GMT-0400 (Eastern Daylight Time)
+# timestamp: Mon May 18 2020 20:08:20 GMT-0400 (Eastern Daylight Time)
 
 type AggregateArchitecturalStyle {
   count: Int!
@@ -26,6 +26,10 @@ type AggregateDoorCollection {
 }
 
 type AggregateDoorLine {
+  count: Int!
+}
+
+type AggregateDoorSurround {
   count: Int!
 }
 
@@ -2315,7 +2319,7 @@ type Door {
   IsLimitedAvailability: Boolean
   LimitedAvailabilityCategories: [String!]!
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
+  DefaultDoorSurroundStyleNumber: DoorSurround
   StyleLayoutPairs: StyleLayoutPair
   GrainProfile: String
   CurrentYearTrends: [String!]!
@@ -3005,7 +3009,6 @@ input DoorCreateInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3040,6 +3043,7 @@ input DoorCreateInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -3069,6 +3073,11 @@ input DoorCreateManyWithoutArchitecturalStyleInput {
 
 input DoorCreateManyWithoutAvailableSizesInput {
   create: [DoorCreateWithoutAvailableSizesInput!]
+  connect: [DoorWhereUniqueInput!]
+}
+
+input DoorCreateManyWithoutDefaultDoorSurroundStyleNumberInput {
+  create: [DoorCreateWithoutDefaultDoorSurroundStyleNumberInput!]
   connect: [DoorWhereUniqueInput!]
 }
 
@@ -3175,7 +3184,6 @@ input DoorCreateWithoutArchitecturalStyleInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3209,6 +3217,7 @@ input DoorCreateWithoutArchitecturalStyleInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -3243,7 +3252,6 @@ input DoorCreateWithoutAvailableSizesInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3272,6 +3280,75 @@ input DoorCreateWithoutAvailableSizesInput {
   ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
   LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
+  DefaultSize: AvailableSizesCreateOneInput
+  StyleShape: StyleShapeCreateOneWithoutDoorsInput
+  RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
+  GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
+  GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
+  StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
+  Sidelites: SideliteCreateManyWithoutDoorsInput
+  Transoms: TransomCreateManyWithoutDoorsInput
+  RelatedFamily: GlassFamilyCreateManyInput
+  RelatedGlasses: GlassCreateManyInput
+  RelatedDoors: DoorCreateManyInput
+  Finishes: FinishCreateManyWithoutDoorsInput
+}
+
+input DoorCreateWithoutDefaultDoorSurroundStyleNumberInput {
+  Id: ID
+  Brand: String!
+  StyleNumber: String!
+  ProductLine: String
+  DoorType: String
+  LiteQuantity: Int
+  VisualizedHeight: Int
+  VisualizedWidth: Int
+  LaunchYear: Int
+  RecentlyLaunched: Boolean
+  DefaultSidelite: String
+  DefaultTransom: String
+  DefaultGlassWidth: String
+  AbstractPrice: Int
+  SOSPrice: Float
+  MDSPrice: Float
+  LowesStocked: Boolean
+  GlassType: String
+  GlassDesign: String
+  DefaultImageName: String
+  ImageUrl: String
+  Ordinal: Int
+  IsLimitedAvailability: Boolean
+  ProductTrends: String
+  GrainProfile: String
+  LydDisplay: Boolean
+  LydDefaultFinishId: String
+  LydGlassCategory: String
+  LydDisplayOrder: Int
+  LydDisplayCaming: String
+  FacetMaterial: String
+  FacetRecentlyLaunched: String
+  RelatedStyleID: String
+  AllowsHandlesets: Boolean
+  IsFlushGlazed: Boolean
+  AvailableSizeDetails: DoorCreateAvailableSizeDetailsInput
+  StyleGroups: DoorCreateStyleGroupsInput
+  SupportedAccessories: DoorCreateSupportedAccessoriesInput
+  AllowedSidelites: DoorCreateAllowedSidelitesInput
+  AllowedTransoms: DoorCreateAllowedTransomsInput
+  GlassFeatures: DoorCreateGlassFeaturesInput
+  LimitedAvailabilityCategories: DoorCreateLimitedAvailabilityCategoriesInput
+  CurrentYearTrends: DoorCreateCurrentYearTrendsInput
+  LydAvailableFinishIds: DoorCreateLydAvailableFinishIdsInput
+  ArchitecturalStyle: ArchitecturalStyleCreateManyWithoutDoorsInput
+  DoorCollection: DoorCollectionCreateOneWithoutDoorsInput
+  DoorLine: DoorLineCreateOneWithoutDoorsInput
+  FrameProfiles: FrameProfileCreateManyWithoutDoorsInput
+  DefaultFrameProfile: FrameProfileCreateOneInput
+  ParentGlassFamilyAbbreviation: GlassFamilyCreateOneWithoutDoorsInput
+  GlassFamilyAbbreviation: GlassCreateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseCreateManyWithoutDoorsInput
+  AvailableSizes: AvailableSizesCreateManyWithoutDoorsInput
   DefaultSize: AvailableSizesCreateOneInput
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
@@ -3311,7 +3388,6 @@ input DoorCreateWithoutDoorCollectionInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3345,6 +3421,7 @@ input DoorCreateWithoutDoorCollectionInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -3379,7 +3456,6 @@ input DoorCreateWithoutDoorLineInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3413,6 +3489,7 @@ input DoorCreateWithoutDoorLineInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -3447,7 +3524,6 @@ input DoorCreateWithoutFinishesInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3482,6 +3558,7 @@ input DoorCreateWithoutFinishesInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -3515,7 +3592,6 @@ input DoorCreateWithoutFrameProfilesInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3549,6 +3625,7 @@ input DoorCreateWithoutFrameProfilesInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -3583,7 +3660,6 @@ input DoorCreateWithoutGlassAssociationInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3617,6 +3693,7 @@ input DoorCreateWithoutGlassAssociationInput {
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -3651,7 +3728,6 @@ input DoorCreateWithoutGlassFamilyAbbreviationInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3685,6 +3761,7 @@ input DoorCreateWithoutGlassFamilyAbbreviationInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -3719,7 +3796,6 @@ input DoorCreateWithoutGlassSizeCategoryInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3753,6 +3829,7 @@ input DoorCreateWithoutGlassSizeCategoryInput {
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -3787,7 +3864,6 @@ input DoorCreateWithoutLocationOnHouseInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3821,6 +3897,7 @@ input DoorCreateWithoutLocationOnHouseInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -3855,7 +3932,6 @@ input DoorCreateWithoutParentGlassFamilyAbbreviationInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3889,6 +3965,7 @@ input DoorCreateWithoutParentGlassFamilyAbbreviationInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -3923,7 +4000,6 @@ input DoorCreateWithoutRatingEligibilityInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -3957,6 +4033,7 @@ input DoorCreateWithoutRatingEligibilityInput {
   StyleShape: StyleShapeCreateOneWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -3991,7 +4068,6 @@ input DoorCreateWithoutSidelitesInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -4026,6 +4102,7 @@ input DoorCreateWithoutSidelitesInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
   RelatedFamily: GlassFamilyCreateManyInput
@@ -4059,7 +4136,6 @@ input DoorCreateWithoutStyleLayoutPairsInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -4094,6 +4170,7 @@ input DoorCreateWithoutStyleLayoutPairsInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
   RelatedFamily: GlassFamilyCreateManyInput
@@ -4127,7 +4204,6 @@ input DoorCreateWithoutStyleShapeInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -4161,6 +4237,7 @@ input DoorCreateWithoutStyleShapeInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   Transoms: TransomCreateManyWithoutDoorsInput
@@ -4195,7 +4272,6 @@ input DoorCreateWithoutTransomsInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -4230,6 +4306,7 @@ input DoorCreateWithoutTransomsInput {
   RatingEligibility: RatingEligibilityCreateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeCreateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationCreateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundCreateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
   Sidelites: SideliteCreateManyWithoutDoorsInput
   RelatedFamily: GlassFamilyCreateManyInput
@@ -4874,8 +4951,6 @@ enum DoorOrderByInput {
   IsLimitedAvailability_DESC
   ProductTrends_ASC
   ProductTrends_DESC
-  DefaultDoorSurroundStyleNumber_ASC
-  DefaultDoorSurroundStyleNumber_DESC
   GrainProfile_ASC
   GrainProfile_DESC
   LydDisplay_ASC
@@ -4932,7 +5007,6 @@ type DoorPreviousValues {
   IsLimitedAvailability: Boolean
   LimitedAvailabilityCategories: [String!]!
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   CurrentYearTrends: [String!]!
   LydDisplay: Boolean
@@ -5665,46 +5739,6 @@ input DoorScalarWhereInput {
 
   """All values not ending with the given string."""
   ProductTrends_not_ends_with: String
-  DefaultDoorSurroundStyleNumber: String
-
-  """All values that are not equal to given value."""
-  DefaultDoorSurroundStyleNumber_not: String
-
-  """All values that are contained in given list."""
-  DefaultDoorSurroundStyleNumber_in: [String!]
-
-  """All values that are not contained in given list."""
-  DefaultDoorSurroundStyleNumber_not_in: [String!]
-
-  """All values less than the given value."""
-  DefaultDoorSurroundStyleNumber_lt: String
-
-  """All values less than or equal the given value."""
-  DefaultDoorSurroundStyleNumber_lte: String
-
-  """All values greater than the given value."""
-  DefaultDoorSurroundStyleNumber_gt: String
-
-  """All values greater than or equal the given value."""
-  DefaultDoorSurroundStyleNumber_gte: String
-
-  """All values containing the given string."""
-  DefaultDoorSurroundStyleNumber_contains: String
-
-  """All values not containing the given string."""
-  DefaultDoorSurroundStyleNumber_not_contains: String
-
-  """All values starting with the given string."""
-  DefaultDoorSurroundStyleNumber_starts_with: String
-
-  """All values not starting with the given string."""
-  DefaultDoorSurroundStyleNumber_not_starts_with: String
-
-  """All values ending with the given string."""
-  DefaultDoorSurroundStyleNumber_ends_with: String
-
-  """All values not ending with the given string."""
-  DefaultDoorSurroundStyleNumber_not_ends_with: String
   GrainProfile: String
 
   """All values that are not equal to given value."""
@@ -6058,6 +6092,320 @@ input DoorSubscriptionWhereInput {
   node: DoorWhereInput
 }
 
+type DoorSurround {
+  Id: ID!
+  StyleNumber: String
+  Surface: String
+  ImageUrl: String
+  Doors(where: DoorWhereInput, orderBy: DoorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Door!]
+}
+
+"""A connection to a list of items."""
+type DoorSurroundConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [DoorSurroundEdge]!
+  aggregate: AggregateDoorSurround!
+}
+
+input DoorSurroundCreateInput {
+  Id: ID
+  StyleNumber: String
+  Surface: String
+  ImageUrl: String
+  Doors: DoorCreateManyWithoutDefaultDoorSurroundStyleNumberInput
+}
+
+input DoorSurroundCreateOneWithoutDoorsInput {
+  create: DoorSurroundCreateWithoutDoorsInput
+  connect: DoorSurroundWhereUniqueInput
+}
+
+input DoorSurroundCreateWithoutDoorsInput {
+  Id: ID
+  StyleNumber: String
+  Surface: String
+  ImageUrl: String
+}
+
+"""An edge in a connection."""
+type DoorSurroundEdge {
+  """The item at the end of the edge."""
+  node: DoorSurround!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum DoorSurroundOrderByInput {
+  Id_ASC
+  Id_DESC
+  StyleNumber_ASC
+  StyleNumber_DESC
+  Surface_ASC
+  Surface_DESC
+  ImageUrl_ASC
+  ImageUrl_DESC
+}
+
+type DoorSurroundPreviousValues {
+  Id: ID!
+  StyleNumber: String
+  Surface: String
+  ImageUrl: String
+}
+
+type DoorSurroundSubscriptionPayload {
+  mutation: MutationType!
+  node: DoorSurround
+  updatedFields: [String!]
+  previousValues: DoorSurroundPreviousValues
+}
+
+input DoorSurroundSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DoorSurroundSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DoorSurroundSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DoorSurroundSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: DoorSurroundWhereInput
+}
+
+input DoorSurroundUpdateInput {
+  StyleNumber: String
+  Surface: String
+  ImageUrl: String
+  Doors: DoorUpdateManyWithoutDefaultDoorSurroundStyleNumberInput
+}
+
+input DoorSurroundUpdateManyMutationInput {
+  StyleNumber: String
+  Surface: String
+  ImageUrl: String
+}
+
+input DoorSurroundUpdateOneWithoutDoorsInput {
+  create: DoorSurroundCreateWithoutDoorsInput
+  connect: DoorSurroundWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: DoorSurroundUpdateWithoutDoorsDataInput
+  upsert: DoorSurroundUpsertWithoutDoorsInput
+}
+
+input DoorSurroundUpdateWithoutDoorsDataInput {
+  StyleNumber: String
+  Surface: String
+  ImageUrl: String
+}
+
+input DoorSurroundUpsertWithoutDoorsInput {
+  update: DoorSurroundUpdateWithoutDoorsDataInput!
+  create: DoorSurroundCreateWithoutDoorsInput!
+}
+
+input DoorSurroundWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DoorSurroundWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DoorSurroundWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DoorSurroundWhereInput!]
+  Id: ID
+
+  """All values that are not equal to given value."""
+  Id_not: ID
+
+  """All values that are contained in given list."""
+  Id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  Id_not_in: [ID!]
+
+  """All values less than the given value."""
+  Id_lt: ID
+
+  """All values less than or equal the given value."""
+  Id_lte: ID
+
+  """All values greater than the given value."""
+  Id_gt: ID
+
+  """All values greater than or equal the given value."""
+  Id_gte: ID
+
+  """All values containing the given string."""
+  Id_contains: ID
+
+  """All values not containing the given string."""
+  Id_not_contains: ID
+
+  """All values starting with the given string."""
+  Id_starts_with: ID
+
+  """All values not starting with the given string."""
+  Id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  Id_ends_with: ID
+
+  """All values not ending with the given string."""
+  Id_not_ends_with: ID
+  StyleNumber: String
+
+  """All values that are not equal to given value."""
+  StyleNumber_not: String
+
+  """All values that are contained in given list."""
+  StyleNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  StyleNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  StyleNumber_lt: String
+
+  """All values less than or equal the given value."""
+  StyleNumber_lte: String
+
+  """All values greater than the given value."""
+  StyleNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  StyleNumber_gte: String
+
+  """All values containing the given string."""
+  StyleNumber_contains: String
+
+  """All values not containing the given string."""
+  StyleNumber_not_contains: String
+
+  """All values starting with the given string."""
+  StyleNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  StyleNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  StyleNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  StyleNumber_not_ends_with: String
+  Surface: String
+
+  """All values that are not equal to given value."""
+  Surface_not: String
+
+  """All values that are contained in given list."""
+  Surface_in: [String!]
+
+  """All values that are not contained in given list."""
+  Surface_not_in: [String!]
+
+  """All values less than the given value."""
+  Surface_lt: String
+
+  """All values less than or equal the given value."""
+  Surface_lte: String
+
+  """All values greater than the given value."""
+  Surface_gt: String
+
+  """All values greater than or equal the given value."""
+  Surface_gte: String
+
+  """All values containing the given string."""
+  Surface_contains: String
+
+  """All values not containing the given string."""
+  Surface_not_contains: String
+
+  """All values starting with the given string."""
+  Surface_starts_with: String
+
+  """All values not starting with the given string."""
+  Surface_not_starts_with: String
+
+  """All values ending with the given string."""
+  Surface_ends_with: String
+
+  """All values not ending with the given string."""
+  Surface_not_ends_with: String
+  ImageUrl: String
+
+  """All values that are not equal to given value."""
+  ImageUrl_not: String
+
+  """All values that are contained in given list."""
+  ImageUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  ImageUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  ImageUrl_lt: String
+
+  """All values less than or equal the given value."""
+  ImageUrl_lte: String
+
+  """All values greater than the given value."""
+  ImageUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  ImageUrl_gte: String
+
+  """All values containing the given string."""
+  ImageUrl_contains: String
+
+  """All values not containing the given string."""
+  ImageUrl_not_contains: String
+
+  """All values starting with the given string."""
+  ImageUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  ImageUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  ImageUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  ImageUrl_not_ends_with: String
+  Doors_every: DoorWhereInput
+  Doors_some: DoorWhereInput
+  Doors_none: DoorWhereInput
+}
+
+input DoorSurroundWhereUniqueInput {
+  Id: ID
+  StyleNumber: String
+}
+
 input DoorUpdateAllowedSidelitesInput {
   set: [String!]
 }
@@ -6098,7 +6446,6 @@ input DoorUpdateDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -6133,6 +6480,7 @@ input DoorUpdateDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -6170,7 +6518,6 @@ input DoorUpdateInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -6205,6 +6552,7 @@ input DoorUpdateInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -6246,7 +6594,6 @@ input DoorUpdateManyDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -6305,7 +6652,6 @@ input DoorUpdateManyMutationInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -6350,6 +6696,18 @@ input DoorUpdateManyWithoutAvailableSizesInput {
   updateMany: [DoorUpdateManyWithWhereNestedInput!]
   deleteMany: [DoorScalarWhereInput!]
   upsert: [DoorUpsertWithWhereUniqueWithoutAvailableSizesInput!]
+}
+
+input DoorUpdateManyWithoutDefaultDoorSurroundStyleNumberInput {
+  create: [DoorCreateWithoutDefaultDoorSurroundStyleNumberInput!]
+  connect: [DoorWhereUniqueInput!]
+  set: [DoorWhereUniqueInput!]
+  disconnect: [DoorWhereUniqueInput!]
+  delete: [DoorWhereUniqueInput!]
+  update: [DoorUpdateWithWhereUniqueWithoutDefaultDoorSurroundStyleNumberInput!]
+  updateMany: [DoorUpdateManyWithWhereNestedInput!]
+  deleteMany: [DoorScalarWhereInput!]
+  upsert: [DoorUpsertWithWhereUniqueWithoutDefaultDoorSurroundStyleNumberInput!]
 }
 
 input DoorUpdateManyWithoutDoorCollectionInput {
@@ -6557,7 +6915,6 @@ input DoorUpdateWithoutArchitecturalStyleDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -6591,6 +6948,7 @@ input DoorUpdateWithoutArchitecturalStyleDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -6624,7 +6982,6 @@ input DoorUpdateWithoutAvailableSizesDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -6653,6 +7010,74 @@ input DoorUpdateWithoutAvailableSizesDataInput {
   ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
   GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
   LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
+  DefaultSize: AvailableSizesUpdateOneInput
+  StyleShape: StyleShapeUpdateOneWithoutDoorsInput
+  RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
+  GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
+  GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
+  StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
+  Sidelites: SideliteUpdateManyWithoutDoorsInput
+  Transoms: TransomUpdateManyWithoutDoorsInput
+  RelatedFamily: GlassFamilyUpdateManyInput
+  RelatedGlasses: GlassUpdateManyInput
+  RelatedDoors: DoorUpdateManyInput
+  Finishes: FinishUpdateManyWithoutDoorsInput
+}
+
+input DoorUpdateWithoutDefaultDoorSurroundStyleNumberDataInput {
+  Brand: String
+  StyleNumber: String
+  ProductLine: String
+  DoorType: String
+  LiteQuantity: Int
+  VisualizedHeight: Int
+  VisualizedWidth: Int
+  LaunchYear: Int
+  RecentlyLaunched: Boolean
+  DefaultSidelite: String
+  DefaultTransom: String
+  DefaultGlassWidth: String
+  AbstractPrice: Int
+  SOSPrice: Float
+  MDSPrice: Float
+  LowesStocked: Boolean
+  GlassType: String
+  GlassDesign: String
+  DefaultImageName: String
+  ImageUrl: String
+  Ordinal: Int
+  IsLimitedAvailability: Boolean
+  ProductTrends: String
+  GrainProfile: String
+  LydDisplay: Boolean
+  LydDefaultFinishId: String
+  LydGlassCategory: String
+  LydDisplayOrder: Int
+  LydDisplayCaming: String
+  FacetMaterial: String
+  FacetRecentlyLaunched: String
+  RelatedStyleID: String
+  AllowsHandlesets: Boolean
+  IsFlushGlazed: Boolean
+  AvailableSizeDetails: DoorUpdateAvailableSizeDetailsInput
+  StyleGroups: DoorUpdateStyleGroupsInput
+  SupportedAccessories: DoorUpdateSupportedAccessoriesInput
+  AllowedSidelites: DoorUpdateAllowedSidelitesInput
+  AllowedTransoms: DoorUpdateAllowedTransomsInput
+  GlassFeatures: DoorUpdateGlassFeaturesInput
+  LimitedAvailabilityCategories: DoorUpdateLimitedAvailabilityCategoriesInput
+  CurrentYearTrends: DoorUpdateCurrentYearTrendsInput
+  LydAvailableFinishIds: DoorUpdateLydAvailableFinishIdsInput
+  ArchitecturalStyle: ArchitecturalStyleUpdateManyWithoutDoorsInput
+  DoorCollection: DoorCollectionUpdateOneWithoutDoorsInput
+  DoorLine: DoorLineUpdateOneWithoutDoorsInput
+  FrameProfiles: FrameProfileUpdateManyWithoutDoorsInput
+  DefaultFrameProfile: FrameProfileUpdateOneInput
+  ParentGlassFamilyAbbreviation: GlassFamilyUpdateOneWithoutDoorsInput
+  GlassFamilyAbbreviation: GlassUpdateOneWithoutDoorsInput
+  LocationOnHouse: LocationOnHouseUpdateManyWithoutDoorsInput
+  AvailableSizes: AvailableSizesUpdateManyWithoutDoorsInput
   DefaultSize: AvailableSizesUpdateOneInput
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
@@ -6691,7 +7116,6 @@ input DoorUpdateWithoutDoorCollectionDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -6725,6 +7149,7 @@ input DoorUpdateWithoutDoorCollectionDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -6758,7 +7183,6 @@ input DoorUpdateWithoutDoorLineDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -6792,6 +7216,7 @@ input DoorUpdateWithoutDoorLineDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -6825,7 +7250,6 @@ input DoorUpdateWithoutFinishesDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -6860,6 +7284,7 @@ input DoorUpdateWithoutFinishesDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -6892,7 +7317,6 @@ input DoorUpdateWithoutFrameProfilesDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -6926,6 +7350,7 @@ input DoorUpdateWithoutFrameProfilesDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -6959,7 +7384,6 @@ input DoorUpdateWithoutGlassAssociationDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -6993,6 +7417,7 @@ input DoorUpdateWithoutGlassAssociationDataInput {
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -7026,7 +7451,6 @@ input DoorUpdateWithoutGlassFamilyAbbreviationDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -7060,6 +7484,7 @@ input DoorUpdateWithoutGlassFamilyAbbreviationDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -7093,7 +7518,6 @@ input DoorUpdateWithoutGlassSizeCategoryDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -7127,6 +7551,7 @@ input DoorUpdateWithoutGlassSizeCategoryDataInput {
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -7160,7 +7585,6 @@ input DoorUpdateWithoutLocationOnHouseDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -7194,6 +7618,7 @@ input DoorUpdateWithoutLocationOnHouseDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -7227,7 +7652,6 @@ input DoorUpdateWithoutParentGlassFamilyAbbreviationDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -7261,6 +7685,7 @@ input DoorUpdateWithoutParentGlassFamilyAbbreviationDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -7294,7 +7719,6 @@ input DoorUpdateWithoutRatingEligibilityDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -7328,6 +7752,7 @@ input DoorUpdateWithoutRatingEligibilityDataInput {
   StyleShape: StyleShapeUpdateOneWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -7361,7 +7786,6 @@ input DoorUpdateWithoutSidelitesDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -7396,6 +7820,7 @@ input DoorUpdateWithoutSidelitesDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
   RelatedFamily: GlassFamilyUpdateManyInput
@@ -7428,7 +7853,6 @@ input DoorUpdateWithoutStyleLayoutPairsDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -7463,6 +7887,7 @@ input DoorUpdateWithoutStyleLayoutPairsDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
   RelatedFamily: GlassFamilyUpdateManyInput
@@ -7495,7 +7920,6 @@ input DoorUpdateWithoutStyleShapeDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -7529,6 +7953,7 @@ input DoorUpdateWithoutStyleShapeDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   Transoms: TransomUpdateManyWithoutDoorsInput
@@ -7562,7 +7987,6 @@ input DoorUpdateWithoutTransomsDataInput {
   Ordinal: Int
   IsLimitedAvailability: Boolean
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
   GrainProfile: String
   LydDisplay: Boolean
   LydDefaultFinishId: String
@@ -7597,6 +8021,7 @@ input DoorUpdateWithoutTransomsDataInput {
   RatingEligibility: RatingEligibilityUpdateManyWithoutDoorsInput
   GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
   GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   StyleLayoutPairs: StyleLayoutPairUpdateOneWithoutDoorsInput
   Sidelites: SideliteUpdateManyWithoutDoorsInput
   RelatedFamily: GlassFamilyUpdateManyInput
@@ -7618,6 +8043,11 @@ input DoorUpdateWithWhereUniqueWithoutArchitecturalStyleInput {
 input DoorUpdateWithWhereUniqueWithoutAvailableSizesInput {
   where: DoorWhereUniqueInput!
   data: DoorUpdateWithoutAvailableSizesDataInput!
+}
+
+input DoorUpdateWithWhereUniqueWithoutDefaultDoorSurroundStyleNumberInput {
+  where: DoorWhereUniqueInput!
+  data: DoorUpdateWithoutDefaultDoorSurroundStyleNumberDataInput!
 }
 
 input DoorUpdateWithWhereUniqueWithoutDoorCollectionInput {
@@ -7706,6 +8136,12 @@ input DoorUpsertWithWhereUniqueWithoutAvailableSizesInput {
   where: DoorWhereUniqueInput!
   update: DoorUpdateWithoutAvailableSizesDataInput!
   create: DoorCreateWithoutAvailableSizesInput!
+}
+
+input DoorUpsertWithWhereUniqueWithoutDefaultDoorSurroundStyleNumberInput {
+  where: DoorWhereUniqueInput!
+  update: DoorUpdateWithoutDefaultDoorSurroundStyleNumberDataInput!
+  create: DoorCreateWithoutDefaultDoorSurroundStyleNumberInput!
 }
 
 input DoorUpsertWithWhereUniqueWithoutDoorCollectionInput {
@@ -8509,46 +8945,6 @@ input DoorWhereInput {
 
   """All values not ending with the given string."""
   ProductTrends_not_ends_with: String
-  DefaultDoorSurroundStyleNumber: String
-
-  """All values that are not equal to given value."""
-  DefaultDoorSurroundStyleNumber_not: String
-
-  """All values that are contained in given list."""
-  DefaultDoorSurroundStyleNumber_in: [String!]
-
-  """All values that are not contained in given list."""
-  DefaultDoorSurroundStyleNumber_not_in: [String!]
-
-  """All values less than the given value."""
-  DefaultDoorSurroundStyleNumber_lt: String
-
-  """All values less than or equal the given value."""
-  DefaultDoorSurroundStyleNumber_lte: String
-
-  """All values greater than the given value."""
-  DefaultDoorSurroundStyleNumber_gt: String
-
-  """All values greater than or equal the given value."""
-  DefaultDoorSurroundStyleNumber_gte: String
-
-  """All values containing the given string."""
-  DefaultDoorSurroundStyleNumber_contains: String
-
-  """All values not containing the given string."""
-  DefaultDoorSurroundStyleNumber_not_contains: String
-
-  """All values starting with the given string."""
-  DefaultDoorSurroundStyleNumber_starts_with: String
-
-  """All values not starting with the given string."""
-  DefaultDoorSurroundStyleNumber_not_starts_with: String
-
-  """All values ending with the given string."""
-  DefaultDoorSurroundStyleNumber_ends_with: String
-
-  """All values not ending with the given string."""
-  DefaultDoorSurroundStyleNumber_not_ends_with: String
   GrainProfile: String
 
   """All values that are not equal to given value."""
@@ -8887,6 +9283,7 @@ input DoorWhereInput {
   RatingEligibility_none: RatingEligibilityWhereInput
   GlassSizeCategory: GlassSizeWhereInput
   GlassAssociation: GlassAssociationWhereInput
+  DefaultDoorSurroundStyleNumber: DoorSurroundWhereInput
   StyleLayoutPairs: StyleLayoutPairWhereInput
   Sidelites_every: SideliteWhereInput
   Sidelites_some: SideliteWhereInput
@@ -16184,6 +16581,7 @@ scalar Long
 
 type Mutation {
   createGlassSize(data: GlassSizeCreateInput!): GlassSize!
+  createDoorSurround(data: DoorSurroundCreateInput!): DoorSurround!
   createDoorCollection(data: DoorCollectionCreateInput!): DoorCollection!
   createDoorLine(data: DoorLineCreateInput!): DoorLine!
   createStyleShape(data: StyleShapeCreateInput!): StyleShape!
@@ -16206,6 +16604,7 @@ type Mutation {
   createTransom(data: TransomCreateInput!): Transom!
   createFrameProfile(data: FrameProfileCreateInput!): FrameProfile!
   updateGlassSize(data: GlassSizeUpdateInput!, where: GlassSizeWhereUniqueInput!): GlassSize
+  updateDoorSurround(data: DoorSurroundUpdateInput!, where: DoorSurroundWhereUniqueInput!): DoorSurround
   updateDoorCollection(data: DoorCollectionUpdateInput!, where: DoorCollectionWhereUniqueInput!): DoorCollection
   updateDoorLine(data: DoorLineUpdateInput!, where: DoorLineWhereUniqueInput!): DoorLine
   updateStyleShape(data: StyleShapeUpdateInput!, where: StyleShapeWhereUniqueInput!): StyleShape
@@ -16228,6 +16627,7 @@ type Mutation {
   updateTransom(data: TransomUpdateInput!, where: TransomWhereUniqueInput!): Transom
   updateFrameProfile(data: FrameProfileUpdateInput!, where: FrameProfileWhereUniqueInput!): FrameProfile
   deleteGlassSize(where: GlassSizeWhereUniqueInput!): GlassSize
+  deleteDoorSurround(where: DoorSurroundWhereUniqueInput!): DoorSurround
   deleteDoorCollection(where: DoorCollectionWhereUniqueInput!): DoorCollection
   deleteDoorLine(where: DoorLineWhereUniqueInput!): DoorLine
   deleteStyleShape(where: StyleShapeWhereUniqueInput!): StyleShape
@@ -16250,6 +16650,7 @@ type Mutation {
   deleteTransom(where: TransomWhereUniqueInput!): Transom
   deleteFrameProfile(where: FrameProfileWhereUniqueInput!): FrameProfile
   upsertGlassSize(where: GlassSizeWhereUniqueInput!, create: GlassSizeCreateInput!, update: GlassSizeUpdateInput!): GlassSize!
+  upsertDoorSurround(where: DoorSurroundWhereUniqueInput!, create: DoorSurroundCreateInput!, update: DoorSurroundUpdateInput!): DoorSurround!
   upsertDoorCollection(where: DoorCollectionWhereUniqueInput!, create: DoorCollectionCreateInput!, update: DoorCollectionUpdateInput!): DoorCollection!
   upsertDoorLine(where: DoorLineWhereUniqueInput!, create: DoorLineCreateInput!, update: DoorLineUpdateInput!): DoorLine!
   upsertStyleShape(where: StyleShapeWhereUniqueInput!, create: StyleShapeCreateInput!, update: StyleShapeUpdateInput!): StyleShape!
@@ -16272,6 +16673,7 @@ type Mutation {
   upsertTransom(where: TransomWhereUniqueInput!, create: TransomCreateInput!, update: TransomUpdateInput!): Transom!
   upsertFrameProfile(where: FrameProfileWhereUniqueInput!, create: FrameProfileCreateInput!, update: FrameProfileUpdateInput!): FrameProfile!
   updateManyGlassSizes(data: GlassSizeUpdateManyMutationInput!, where: GlassSizeWhereInput): BatchPayload!
+  updateManyDoorSurrounds(data: DoorSurroundUpdateManyMutationInput!, where: DoorSurroundWhereInput): BatchPayload!
   updateManyDoorCollections(data: DoorCollectionUpdateManyMutationInput!, where: DoorCollectionWhereInput): BatchPayload!
   updateManyDoorLines(data: DoorLineUpdateManyMutationInput!, where: DoorLineWhereInput): BatchPayload!
   updateManyStyleShapes(data: StyleShapeUpdateManyMutationInput!, where: StyleShapeWhereInput): BatchPayload!
@@ -16294,6 +16696,7 @@ type Mutation {
   updateManyTransoms(data: TransomUpdateManyMutationInput!, where: TransomWhereInput): BatchPayload!
   updateManyFrameProfiles(data: FrameProfileUpdateManyMutationInput!, where: FrameProfileWhereInput): BatchPayload!
   deleteManyGlassSizes(where: GlassSizeWhereInput): BatchPayload!
+  deleteManyDoorSurrounds(where: DoorSurroundWhereInput): BatchPayload!
   deleteManyDoorCollections(where: DoorCollectionWhereInput): BatchPayload!
   deleteManyDoorLines(where: DoorLineWhereInput): BatchPayload!
   deleteManyStyleShapes(where: StyleShapeWhereInput): BatchPayload!
@@ -16346,6 +16749,7 @@ type PageInfo {
 
 type Query {
   glassSizes(where: GlassSizeWhereInput, orderBy: GlassSizeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GlassSize]!
+  doorSurrounds(where: DoorSurroundWhereInput, orderBy: DoorSurroundOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DoorSurround]!
   doorCollections(where: DoorCollectionWhereInput, orderBy: DoorCollectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DoorCollection]!
   doorLines(where: DoorLineWhereInput, orderBy: DoorLineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DoorLine]!
   styleShapes(where: StyleShapeWhereInput, orderBy: StyleShapeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [StyleShape]!
@@ -16368,6 +16772,7 @@ type Query {
   transoms(where: TransomWhereInput, orderBy: TransomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transom]!
   frameProfiles(where: FrameProfileWhereInput, orderBy: FrameProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FrameProfile]!
   glassSize(where: GlassSizeWhereUniqueInput!): GlassSize
+  doorSurround(where: DoorSurroundWhereUniqueInput!): DoorSurround
   doorCollection(where: DoorCollectionWhereUniqueInput!): DoorCollection
   doorLine(where: DoorLineWhereUniqueInput!): DoorLine
   styleShape(where: StyleShapeWhereUniqueInput!): StyleShape
@@ -16390,6 +16795,7 @@ type Query {
   transom(where: TransomWhereUniqueInput!): Transom
   frameProfile(where: FrameProfileWhereUniqueInput!): FrameProfile
   glassSizesConnection(where: GlassSizeWhereInput, orderBy: GlassSizeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassSizeConnection!
+  doorSurroundsConnection(where: DoorSurroundWhereInput, orderBy: DoorSurroundOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorSurroundConnection!
   doorCollectionsConnection(where: DoorCollectionWhereInput, orderBy: DoorCollectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorCollectionConnection!
   doorLinesConnection(where: DoorLineWhereInput, orderBy: DoorLineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorLineConnection!
   styleShapesConnection(where: StyleShapeWhereInput, orderBy: StyleShapeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StyleShapeConnection!
@@ -23233,6 +23639,7 @@ input StyleShapeWhereUniqueInput {
 
 type Subscription {
   glassSize(where: GlassSizeSubscriptionWhereInput): GlassSizeSubscriptionPayload
+  doorSurround(where: DoorSurroundSubscriptionWhereInput): DoorSurroundSubscriptionPayload
   doorCollection(where: DoorCollectionSubscriptionWhereInput): DoorCollectionSubscriptionPayload
   doorLine(where: DoorLineSubscriptionWhereInput): DoorLineSubscriptionPayload
   styleShape(where: StyleShapeSubscriptionWhereInput): StyleShapeSubscriptionPayload

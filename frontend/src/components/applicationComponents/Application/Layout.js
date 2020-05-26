@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 
 import Selector from "../UI/Selector";
-import appContext from "../../../context/context";
+import { appContext } from "../../../context/context";
 
 const Layout = ({ title, gridSize = 3, children, component }, props) => {
   const { store, dispatch } = useContext(appContext);

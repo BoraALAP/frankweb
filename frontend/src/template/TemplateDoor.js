@@ -5,7 +5,7 @@ import ImageContainer from "../components/applicationComponents/UI/ImageContaine
 
 import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
 import RelatedGlassItem from "../components/applicationComponents/UI/RelatedGlassItem";
-import appContext from "../context/context";
+import { appContext } from "../context/context";
 import Spinner from "../components/UI/Spinner";
 
 const PRODUCT_QUERY = gql`
@@ -140,7 +140,9 @@ const PRODUCT_QUERY = gql`
           IsLimitedAvailability
           LimitedAvailabilityCategories
           ProductTrends
-          DefaultDoorSurroundStyleNumber
+          DefaultDoorSurroundStyleNumber {
+            StyleNumber
+          }
           GrainProfile
           CurrentYearTrends
           LydDisplay
@@ -255,7 +257,7 @@ const TemplateDoor = ({ match }) => {
     <Container>
       <TopBar />
       <Information>
-        <ImageContainer alt={info.Name} src={info.ImageUrl} big />
+        <ImageContainer alt={info.StyleNumber} src={info.ImageUrl} big />
 
         <h4>Style Number: {info.StyleNumber}</h4>
         {info.ArchitecturalStyle.length > 0 && (
@@ -319,7 +321,7 @@ const TemplateDoor = ({ match }) => {
 
         {show(
           "Default Door Surround Style Number",
-          info.DefaultDoorSurroundStyleNumber
+          info.DefaultDoorSurroundStyleNumber.StyleNumber
         )}
 
         {show("Grain Profile", info.GrainProfile)}
@@ -363,18 +365,17 @@ const TemplateDoor = ({ match }) => {
 
         <Section>
           <h4>Glass Parent</h4>
-          {info.ParentGlassFamilyAbbreviation.BigImageUrl ? (
-            <ImageContainer
-              alt={info.Name}
-              src={info.ParentGlassFamilyAbbreviation.BigImageUrl}
-              med
-            />
-          ) : (
-            <ImageContainer
-              alt={info.Name}
-              src={info.ParentGlassFamilyAbbreviation.ImageUrl}
-            />
-          )}
+
+          <ImageContainer
+            alt={info.ParentGlassFamilyAbbreviation.Name}
+            src={
+              info.ParentGlassFamilyAbbreviation.BigImageUrl
+                ? info.ParentGlassFamilyAbbreviation.BigImageUrl
+                : info.ParentGlassFamilyAbbreviation.ImageUrl
+            }
+            med={info.ParentGlassFamilyAbbreviation.BigImageUrl}
+          />
+
           {show("Glass Family", info.ParentGlassFamilyAbbreviation.Name)}
           {show("Glass Type", info.ParentGlassFamilyAbbreviation.GlassType)}
           {show(
@@ -517,7 +518,7 @@ const TemplateDoor = ({ match }) => {
       <Listing>
         {info.RelatedGlasses.length > 0 && (
           <SubLevel>
-            <h5>Related Glasses</h5>
+            <h5>Divided Lites</h5>
             <Related>
               {info.RelatedGlasses.map((item, index) => (
                 <RelatedGlassItem item={item} key={index} />

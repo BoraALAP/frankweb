@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import appContext from "../../../context/context";
+import { appContext } from "../../../context/context";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ImageContainer = ({ src, alt = "image", big, small, med }) => {

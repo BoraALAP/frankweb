@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 
-import appContext from "../context/context";
+import { appContext } from "../context/context";
 import Spinner from "../components/UI/Spinner";
 import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
 import Button from "../components/UI/Button";

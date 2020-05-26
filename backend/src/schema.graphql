@@ -1,24 +1,177 @@
 # import * from './generated/prisma.graphql'
 
 type Query {
-  doors(where: DoorWhereInput, orderBy: DoorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Door]
-  doorCollections(where: DoorCollectionWhereInput, orderBy: DoorCollectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DoorCollection]
-  doorLines(where: DoorLineWhereInput, orderBy: DoorLineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DoorLine]
-  styleShapes(where: StyleShapeWhereInput, orderBy: StyleShapeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [StyleShape]
-  sidelites(where: SideliteWhereInput, orderBy: SideliteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sidelite]
-  styleLayoutPairs(where: StyleLayoutPairWhereInput, orderBy: StyleLayoutPairOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [StyleLayoutPair]
-  glassFamilies(where: GlassFamilyWhereInput, orderBy: GlassFamilyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GlassFamily]
-  handleSets(where: HandleSetWhereInput, orderBy: HandleSetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HandleSet]
-  finishes(where: FinishWhereInput, orderBy: FinishOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Finish]
-  camingOptions(where: CamingOptionWhereInput, orderBy: CamingOptionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CamingOption]
-  glassFeatures(where: GlassFeatureWhereInput, orderBy: GlassFeatureOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GlassFeature]
-  dividedLiteTypes(where: DividedLiteTypeWhereInput, orderBy: DividedLiteTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DividedLiteType]
-  grilleColors(where: GrilleColorWhereInput, orderBy: GrilleColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GrilleColor]
-  transoms(where: TransomWhereInput, orderBy: TransomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transom]
-  glassAssociations(where: GlassAssociationWhereInput, orderBy: GlassAssociationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GlassAssociation]
-  glasses(where: GlassWhereInput, orderBy: GlassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Glass]
-  frameProfiles(where: FrameProfileWhereInput, orderBy: FrameProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FrameProfile]
-  glassSizes(where: GlassSizeWhereInput, orderBy: GlassSizeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GlassSize]!
+  doors(
+    where: DoorWhereInput
+    orderBy: DoorOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Door]
+  doorCollections(
+    where: DoorCollectionWhereInput
+    orderBy: DoorCollectionOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [DoorCollection]
+  doorLines(
+    where: DoorLineWhereInput
+    orderBy: DoorLineOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [DoorLine]
+  styleShapes(
+    where: StyleShapeWhereInput
+    orderBy: StyleShapeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [StyleShape]
+  sidelites(
+    where: SideliteWhereInput
+    orderBy: SideliteOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Sidelite]
+  styleLayoutPairs(
+    where: StyleLayoutPairWhereInput
+    orderBy: StyleLayoutPairOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [StyleLayoutPair]
+  glassFamilies(
+    where: GlassFamilyWhereInput
+    orderBy: GlassFamilyOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [GlassFamily]
+  handleSets(
+    where: HandleSetWhereInput
+    orderBy: HandleSetOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [HandleSet]
+  finishes(
+    where: FinishWhereInput
+    orderBy: FinishOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Finish]
+  camingOptions(
+    where: CamingOptionWhereInput
+    orderBy: CamingOptionOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [CamingOption]
+  glassFeatures(
+    where: GlassFeatureWhereInput
+    orderBy: GlassFeatureOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [GlassFeature]
+  dividedLiteTypes(
+    where: DividedLiteTypeWhereInput
+    orderBy: DividedLiteTypeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [DividedLiteType]
+  grilleColors(
+    where: GrilleColorWhereInput
+    orderBy: GrilleColorOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [GrilleColor]
+  transoms(
+    where: TransomWhereInput
+    orderBy: TransomOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Transom]
+  glassAssociations(
+    where: GlassAssociationWhereInput
+    orderBy: GlassAssociationOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [GlassAssociation]
+  glasses(
+    where: GlassWhereInput
+    orderBy: GlassOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Glass]
+  frameProfiles(
+    where: FrameProfileWhereInput
+    orderBy: FrameProfileOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [FrameProfile]
+  glassSizes(
+    where: GlassSizeWhereInput
+    orderBy: GlassSizeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [GlassSize]!
+  doorSurrounds(
+    where: DoorSurroundWhereInput
+    orderBy: DoorSurroundOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [DoorSurround]!
   door(where: DoorWhereUniqueInput!): Door
   doorCollection(where: DoorCollectionWhereUniqueInput!): DoorCollection
   doorLine(where: DoorLineWhereUniqueInput!): DoorLine
@@ -35,33 +188,222 @@ type Query {
   grilleColor(where: GrilleColorWhereUniqueInput!): GrilleColor
   transom(where: TransomWhereUniqueInput!): Transom
   glassAssociation(where: GlassAssociationWhereUniqueInput!): GlassAssociation
-  glass(where: GlassWhereUniqueInput!): Glass 
+  glass(where: GlassWhereUniqueInput!): Glass
   frameProfile(where: FrameProfileWhereUniqueInput!): FrameProfile
-  architecturalStyle(where: ArchitecturalStyleWhereUniqueInput!): ArchitecturalStyle
-  ratingEligibility(where: RatingEligibilityWhereUniqueInput!): RatingEligibility
+  architecturalStyle(
+    where: ArchitecturalStyleWhereUniqueInput!
+  ): ArchitecturalStyle
+  ratingEligibility(
+    where: RatingEligibilityWhereUniqueInput!
+  ): RatingEligibility
   availableSizes(where: AvailableSizesWhereUniqueInput!): AvailableSizes
-  glassSizesConnection(where: GlassSizeWhereInput, orderBy: GlassSizeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassSizeConnection!
-  doorsConnection(where: DoorWhereInput, orderBy: DoorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorConnection
-  doorCollectionsConnection(where: DoorCollectionWhereInput, orderBy: DoorCollectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorCollectionConnection
-  doorLinesConnection(where: DoorLineWhereInput, orderBy: DoorLineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorLineConnection
-  styleShapesConnection(where: StyleShapeWhereInput, orderBy: StyleShapeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StyleShapeConnection
-  sidelitesConnection(where: SideliteWhereInput, orderBy: SideliteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SideliteConnection
-  styleLayoutPairsConnection(where: StyleLayoutPairWhereInput, orderBy: StyleLayoutPairOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StyleLayoutPairConnection
-  glassFamiliesConnection(where: GlassFamilyWhereInput, orderBy: GlassFamilyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassFamilyConnection
-  handleSetsConnection(where: HandleSetWhereInput, orderBy: HandleSetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HandleSetConnection
-  finishesConnection(where: FinishWhereInput, orderBy: FinishOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FinishConnection
-  camingOptionsConnection(where: CamingOptionWhereInput, orderBy: CamingOptionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CamingOptionConnection
-  glassFeaturesConnection(where: GlassFeatureWhereInput, orderBy: GlassFeatureOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassFeatureConnection
-  dividedLiteTypesConnection(where: DividedLiteTypeWhereInput, orderBy: DividedLiteTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DividedLiteTypeConnection
-  locationOnHousesConnection(where: LocationOnHouseWhereInput, orderBy: LocationOnHouseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationOnHouseConnection!
-  grilleColorsConnection(where: GrilleColorWhereInput, orderBy: GrilleColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GrilleColorConnection
-  transomsConnection(where: TransomWhereInput, orderBy: TransomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransomConnection
-  glassAssociationsConnection(where: GlassAssociationWhereInput, orderBy: GlassAssociationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassAssociationConnection
-  glassesConnection(where: GlassWhereInput, orderBy: GlassOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassConnection
-  frameProfilesConnection(where: FrameProfileWhereInput, orderBy: FrameProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FrameProfileConnection
-  architecturalStylesConnection(where: ArchitecturalStyleWhereInput, orderBy: ArchitecturalStyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ArchitecturalStyleConnection!
-  ratingEligibilitiesConnection(where: RatingEligibilityWhereInput, orderBy: RatingEligibilityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RatingEligibilityConnection!
-  availableSizesesConnection(where: AvailableSizesWhereInput, orderBy: AvailableSizesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AvailableSizesConnection!
+  glassSizesConnection(
+    where: GlassSizeWhereInput
+    orderBy: GlassSizeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): GlassSizeConnection!
+  doorsConnection(
+    where: DoorWhereInput
+    orderBy: DoorOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): DoorConnection
+  doorCollectionsConnection(
+    where: DoorCollectionWhereInput
+    orderBy: DoorCollectionOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): DoorCollectionConnection
+  doorLinesConnection(
+    where: DoorLineWhereInput
+    orderBy: DoorLineOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): DoorLineConnection
+  styleShapesConnection(
+    where: StyleShapeWhereInput
+    orderBy: StyleShapeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): StyleShapeConnection
+  sidelitesConnection(
+    where: SideliteWhereInput
+    orderBy: SideliteOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): SideliteConnection
+  styleLayoutPairsConnection(
+    where: StyleLayoutPairWhereInput
+    orderBy: StyleLayoutPairOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): StyleLayoutPairConnection
+  glassFamiliesConnection(
+    where: GlassFamilyWhereInput
+    orderBy: GlassFamilyOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): GlassFamilyConnection
+  handleSetsConnection(
+    where: HandleSetWhereInput
+    orderBy: HandleSetOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): HandleSetConnection
+  finishesConnection(
+    where: FinishWhereInput
+    orderBy: FinishOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): FinishConnection
+  camingOptionsConnection(
+    where: CamingOptionWhereInput
+    orderBy: CamingOptionOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): CamingOptionConnection
+  glassFeaturesConnection(
+    where: GlassFeatureWhereInput
+    orderBy: GlassFeatureOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): GlassFeatureConnection
+  dividedLiteTypesConnection(
+    where: DividedLiteTypeWhereInput
+    orderBy: DividedLiteTypeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): DividedLiteTypeConnection
+  locationOnHousesConnection(
+    where: LocationOnHouseWhereInput
+    orderBy: LocationOnHouseOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): LocationOnHouseConnection!
+  grilleColorsConnection(
+    where: GrilleColorWhereInput
+    orderBy: GrilleColorOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): GrilleColorConnection
+  transomsConnection(
+    where: TransomWhereInput
+    orderBy: TransomOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): TransomConnection
+  glassAssociationsConnection(
+    where: GlassAssociationWhereInput
+    orderBy: GlassAssociationOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): GlassAssociationConnection
+  glassesConnection(
+    where: GlassWhereInput
+    orderBy: GlassOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): GlassConnection
+  frameProfilesConnection(
+    where: FrameProfileWhereInput
+    orderBy: FrameProfileOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): FrameProfileConnection
+  architecturalStylesConnection(
+    where: ArchitecturalStyleWhereInput
+    orderBy: ArchitecturalStyleOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ArchitecturalStyleConnection!
+  ratingEligibilitiesConnection(
+    where: RatingEligibilityWhereInput
+    orderBy: RatingEligibilityOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): RatingEligibilityConnection!
+  availableSizesesConnection(
+    where: AvailableSizesWhereInput
+    orderBy: AvailableSizesOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): AvailableSizesConnection!
+  doorSurroundsConnection(
+    where: DoorSurroundWhereInput
+    orderBy: DoorSurroundOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): DoorSurroundConnection!
 }
 
 type Mutation {
@@ -114,7 +456,7 @@ type Mutation {
     IsLimitedAvailability: Boolean
     LimitedAvailabilityCategories: [String]
     ProductTrends: String
-    DefaultDoorSurroundStyleNumber: String
+    DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
     GrainProfile: String
     CurrentYearTrends: [String]
     LydDisplay: Boolean
@@ -411,40 +753,40 @@ type Mutation {
     Id: ID
     Association: String
     Doors: DoorUpdateManyWithoutGlassAssociationInput
-  Sidelites: SideliteUpdateManyWithoutGlassAssociationInput
-  Transoms: TransomUpdateManyWithoutGlassAssociationInput
-  Glasses: GlassUpdateManyWithoutGlassAssociationInput
+    Sidelites: SideliteUpdateManyWithoutGlassAssociationInput
+    Transoms: TransomUpdateManyWithoutGlassAssociationInput
+    Glasses: GlassUpdateManyWithoutGlassAssociationInput
   ): GlassAssociation!
   createAvailableSizes(
     Id: ID
     Size: String
     Doors: DoorUpdateManyWithoutAvailableSizesInput
-  Sidelites: SideliteUpdateManyWithoutAvailableSizesInput
-  Transoms: TransomUpdateManyWithoutAvailableSizesInput
+    Sidelites: SideliteUpdateManyWithoutAvailableSizesInput
+    Transoms: TransomUpdateManyWithoutAvailableSizesInput
   ): AvailableSizes!
   createArchitecturalStyle(
     Id: ID
     Style: String
     Doors: DoorUpdateManyWithoutArchitecturalStyleInput
-  Sidelites: SideliteUpdateManyWithoutArchitecturalStyleInput
-  Transoms: TransomUpdateManyWithoutArchitecturalStyleInput
+    Sidelites: SideliteUpdateManyWithoutArchitecturalStyleInput
+    Transoms: TransomUpdateManyWithoutArchitecturalStyleInput
   ): ArchitecturalStyle!
-  createRatingEligibility( 
+  createRatingEligibility(
     Id: ID
     Name: String
     Doors: DoorUpdateManyWithoutRatingEligibilityInput
-  Sidelites: SideliteUpdateManyWithoutRatingEligibilityInput
-  Transoms: TransomUpdateManyWithoutRatingEligibilityInput
+    Sidelites: SideliteUpdateManyWithoutRatingEligibilityInput
+    Transoms: TransomUpdateManyWithoutRatingEligibilityInput
   ): RatingEligibility!
 
   createLocationOnHouse(
-    Id:ID
+    Id: ID
     Name: String
     ImageUrl: String
     IconUrl: String
     Doors: DoorUpdateManyWithoutLocationOnHouseInput
-  Sidelites: SideliteUpdateManyWithoutLocationOnHouseInput
-  Transoms: TransomUpdateManyWithoutLocationOnHouseInput
+    Sidelites: SideliteUpdateManyWithoutLocationOnHouseInput
+    Transoms: TransomUpdateManyWithoutLocationOnHouseInput
   ): LocationOnHouse!
 
   createGlassSize(
@@ -452,9 +794,17 @@ type Mutation {
     Name: String
     Abbreviation: String
     Doors: DoorUpdateManyWithoutGlassSizeCategoryInput
-  Sidelites: SideliteUpdateManyInput
-  Transoms: TransomUpdateManyWithoutGlassSizeCategoryInput
+    Sidelites: SideliteUpdateManyInput
+    Transoms: TransomUpdateManyWithoutGlassSizeCategoryInput
   ): GlassFeature!
+
+  createDoorSurround(
+    Id: ID
+    StyleNumber: String
+    Surface: String
+    ImageUrl: String
+    Doors: DoorUpdateManyWithoutDefaultDoorSurroundStyleNumberInput
+  ): DoorSurround!
 
   deleteDoor(Id: ID!): Door
   deleteGlassAssociation(GlassAssociation: String): GlassAssociation
@@ -464,10 +814,22 @@ type Mutation {
   deleteManyHandleSets(where: HandleSetWhereInput): BatchPayload!
   deleteManyDoors(where: DoorWhereInput): BatchPayload!
   deleteManyStyleLayoutPairs(where: StyleLayoutPairWhereInput): BatchPayload!
-  
+
   updateDoor(data: DoorUpdateInput!, where: DoorWhereUniqueInput!): Door
-  updateAvailableSizes(data: AvailableSizesUpdateInput!, where: AvailableSizesWhereUniqueInput!): AvailableSizes
-  updateGlassFamily(data: GlassFamilyUpdateInput!, where: GlassFamilyWhereUniqueInput!): GlassFamily
-  updateSidelite(data: SideliteUpdateInput!, where: SideliteWhereUniqueInput!): Sidelite
-  updateTransom(data: TransomUpdateInput!, where: TransomWhereUniqueInput!): Transom
+  updateAvailableSizes(
+    data: AvailableSizesUpdateInput!
+    where: AvailableSizesWhereUniqueInput!
+  ): AvailableSizes
+  updateGlassFamily(
+    data: GlassFamilyUpdateInput!
+    where: GlassFamilyWhereUniqueInput!
+  ): GlassFamily
+  updateSidelite(
+    data: SideliteUpdateInput!
+    where: SideliteWhereUniqueInput!
+  ): Sidelite
+  updateTransom(
+    data: TransomUpdateInput!
+    where: TransomWhereUniqueInput!
+  ): Transom
 }

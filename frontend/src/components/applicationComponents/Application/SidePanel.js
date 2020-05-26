@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 
-import appContext from "../../../context/context";
+import { appContext } from "../../../context/context";
 import Spinner from "../../UI/Spinner";
 
 const PRODUCT_QUERY = gql`
@@ -36,7 +36,10 @@ const SidePanel = (props) => {
   const { data, loading } = useQuery(PRODUCT_QUERY, {
     variables: {
       location: store.steps.location.id,
-      texture: store.steps.texture.value,
+      texture:
+        store.steps.texture.value === "skipped"
+          ? ""
+          : store.steps.texture.value,
       size: store.steps.size.id,
       sizeCategory: store.steps.glassSize.id,
       glassFamily: store.steps.glassFamily.id,

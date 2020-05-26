@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-// import appContext from "../../context/context";
+// import { appContext } from "../../context/context";
 import Search from "../search/Search";
 
 const Header = (props) => {

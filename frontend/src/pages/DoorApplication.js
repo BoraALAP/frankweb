@@ -1,23 +1,21 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 
-import Customer from "../components/applicationComponents/Steps/Customer";
-import Location from "../components/applicationComponents/Steps/Location";
-import Texture from "../components/applicationComponents/Steps/Texture";
-import Size from "../components/applicationComponents/Steps/Size";
-import GlassSize from "../components/applicationComponents/Steps/GlassSize";
-import Success from "../components/applicationComponents/Steps/Success";
-import Wrong from "../components/applicationComponents/Steps/Wrong";
-import appContext from "../context/context";
-import GlassFamily from "../components/applicationComponents/Steps/GlassFamily";
-import SidePanel from "../components/applicationComponents/Steps/SidePanel";
+import Customer from "../components/applicationComponents/Application/Customer";
+import Location from "../components/applicationComponents/Application/Location";
+import Texture from "../components/applicationComponents/Application/Texture";
+import Size from "../components/applicationComponents/Application/Size";
+import GlassSize from "../components/applicationComponents/Application/GlassSize";
+import Success from "../components/applicationComponents/Application/Success";
+import Wrong from "../components/applicationComponents/Application/Wrong";
+import { appContext } from "../context/context";
+import GlassFamily from "../components/applicationComponents/Application/GlassFamily";
+import SidePanel from "../components/applicationComponents/Application/SidePanel";
 
-// import appContext from "../context/context";
+// import { appContext } from "../context/context";
 
 const DoorApplication = ({ match }) => {
   const { store } = useContext(appContext);
-
-  console.log(store.steps.step);
 
   const Switch = (prop) => {
     switch (store.steps.step) {

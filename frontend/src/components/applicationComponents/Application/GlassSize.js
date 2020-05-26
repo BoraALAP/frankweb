@@ -1,10 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
-import ImageContainer from "../UI/ImageContainer";
 
 import Selector from "../UI/Selector";
 import Spinner from "../../UI/Spinner";
-import appContext from "../../../context/context";
+import { appContext } from "../../../context/context";
 import Layout from "./Layout";
 
 const GLASS_SIZE_QUERY = gql`

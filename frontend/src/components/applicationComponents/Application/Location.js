@@ -4,7 +4,7 @@ import ImageContainer from "../UI/ImageContainer";
 
 import Selector from "../UI/Selector";
 import Spinner from "../../UI/Spinner";
-import appContext from "../../../context/context";
+import { appContext } from "../../../context/context";
 import Layout from "./Layout";
 
 const LOCATION_QUERY = gql`

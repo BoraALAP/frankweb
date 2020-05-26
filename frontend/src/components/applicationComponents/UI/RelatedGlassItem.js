@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import appContext from "../../../context/context";
+import { appContext } from "../../../context/context";
 import Box from "./Box";
 import ImageContainer from "./ImageContainer";
 
@@ -12,98 +12,13 @@ const RelatedGlassItem = ({ item, Type = "glass" }) => {
     <Box>
       <Container>
         <Link to={`/product/${Type}/${item.Id}`}>
-          <ImageContainer alt={item.Name} src={item.ImageUrl} />
+          <ImageContainer
+            alt={item.Name}
+            src={item.BigImageUrl ? item.BigImageUrl : item.ImageUrl}
+            med={item.BigImageUrl}
+          />
 
           <h4>{item.Name}</h4>
-          <SubLevel>
-            <h5>Glass Family</h5>
-            <h6>
-              Name: <span> {item.ParentGlassFamilyAbbreviation.Name}</span>
-            </h6>
-            <h6>
-              Glass Type:{" "}
-              <span> {item.ParentGlassFamilyAbbreviation.GlassType}</span>
-            </h6>
-            <h6>
-              Privacy Rating:{" "}
-              <span> {item.ParentGlassFamilyAbbreviation.PrivacyRating}</span>
-            </h6>
-            <h6>
-              Glass Type:{" "}
-              <span> {item.ParentGlassFamilyAbbreviation.GlassType}</span>
-            </h6>
-          </SubLevel>
-
-          <SubLevel>
-            <h5>Divided Lite Type</h5>
-            <h6>
-              Name: <span> {item.DividedLiteType.Name}</span>
-            </h6>
-            <h6>
-              Grille Color Can Be Visualized:{" "}
-              <span>
-                {" "}
-                {JSON.stringify(
-                  item.DividedLiteType.GrilleColorCanBeVisualized
-                )}
-              </span>
-            </h6>
-          </SubLevel>
-
-          {item.GlassFeatures.length > 0 && (
-            <SubLevel>
-              <h5>Glass Features</h5>
-              <Horizontal>
-                {item.GlassFeatures.map((item, index) => (
-                  <div key={index}>
-                    <h6>
-                      Name: <span> {item.Name}</span>
-                    </h6>
-                  </div>
-                ))}
-              </Horizontal>
-            </SubLevel>
-          )}
-
-          {item.AllCamingOptions.length > 0 && (
-            <SubLevel>
-              <h5>All Caming Options</h5>
-              <Horizontal>
-                {item.AllCamingOptions.map((item, index) => (
-                  <div key={index}>
-                    {item.ImageUrl && (
-                      <ImageContainer alt={item.Name} src={item.ImageUrl} />
-                    )}
-                    <h6>
-                      Name: <span> {item.Name}</span>
-                    </h6>
-                  </div>
-                ))}
-              </Horizontal>
-            </SubLevel>
-          )}
-
-          {item.GrilleColors.length > 0 && (
-            <SubLevel>
-              <h5>Grille Colors</h5>
-              <Horizontal>
-                {item.GrilleColors.map((item, index) => (
-                  <div key={index}>
-                    {item.ImageUrl && (
-                      <ImageContainer alt={item.Name} src={item.ImageUrl} />
-                    )}
-                    <h6>
-                      Name: <span> {item.Name}</span>
-                    </h6>
-                  </div>
-                ))}
-              </Horizontal>
-            </SubLevel>
-          )}
-
-          <h6>
-            GlassAssociation: <span>{item.GlassAssociation.Association}</span>
-          </h6>
         </Link>
       </Container>
     </Box>

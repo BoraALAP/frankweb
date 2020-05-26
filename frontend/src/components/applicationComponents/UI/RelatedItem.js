@@ -3,10 +3,17 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ImageContainer from "./ImageContainer";
 
-import appContext from "../../../context/context";
+import { appContext } from "../../../context/context";
 import Box from "./Box";
 
-const RelatedItem = ({ Id, ImageUrl, StyleNumber, Name, Type }) => {
+const RelatedItem = ({
+  Id,
+  ImageUrl,
+  StyleNumber,
+  Name,
+  Type = "Door",
+  Link = "product",
+}) => {
   const { store } = useContext(appContext);
 
   return (
@@ -15,7 +22,7 @@ const RelatedItem = ({ Id, ImageUrl, StyleNumber, Name, Type }) => {
         <LinkS
           to={{
             state: { type: Type },
-            pathname: `/product/${Type.toLowerCase()}/${Id}`,
+            pathname: `/${Link}/${Type.toLowerCase()}/${Id}`,
           }}
         >
           <ImageContainer alt={Name} src={ImageUrl} big />

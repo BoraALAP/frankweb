@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Selector from "../UI/Selector";
 
 import Spinner from "../../UI/Spinner";
-import appContext from "../../../context/context";
+import { appContext } from "../../../context/context";
 import Layout from "./Layout";
 
 const FAMILY_QUERY = gql`
@@ -78,11 +78,11 @@ const GlassFamily = (props) => {
               onClick={() => handleClick(node.Name, node.Id)}
               select={node.Name === store.steps.glassFamily.value}
             >
-              {node.BigImageUrl ? (
-                <ImageContainer alt={node.Name} src={node.BigImageUrl} med />
-              ) : (
-                <ImageContainer alt={node.Name} src={node.ImageUrl} />
-              )}
+              <ImageContainer
+                alt={node.Name}
+                src={node.BigImageUrl ? node.BigImageUrl : node.ImageUrl}
+                med={node.BigImageUrl}
+              />
 
               <p>{node.Name}</p>
               <h6>

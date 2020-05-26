@@ -23,6 +23,7 @@ const Query = {
   architecturalStyle: forwardTo("db"),
   ratingEligibility: forwardTo("db"),
   glassSizes: forwardTo("db"),
+  doorSurrounds: forwardTo("db"),
   doorsConnection: forwardTo("db"),
   doorCollectionsConnection: forwardTo("db"),
   doorLinesConnection: forwardTo("db"),
@@ -43,6 +44,7 @@ const Query = {
   locationOnHousesConnection: forwardTo("db"),
   availableSizesesConnection: forwardTo("db"),
   glassSizesConnection: forwardTo("db"),
+  doorSurroundsConnection: forwardTo("db"),
 };
 
 module.exports = Query;

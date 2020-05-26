@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Selector from "../UI/Selector";
 
 import Spinner from "../../UI/Spinner";
-import appContext from "../../../context/context";
+import { appContext } from "../../../context/context";
 import Layout from "./Layout";
 import Button from "../../UI/Button";
 

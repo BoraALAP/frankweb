@@ -4,7 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 import ImageContainer from "../components/applicationComponents/UI/ImageContainer";
 
 import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
-import appContext from "../context/context";
+import { appContext } from "../context/context";
 import Spinner from "../components/UI/Spinner";
 
 const PRODUCT_QUERY = gql`
@@ -321,18 +321,15 @@ const TemplateTransom = ({ match }) => {
 
         <Section>
           <h4>Glass Parent</h4>
-          {info.ParentGlassFamilyAbbreviation.BigImageUrl ? (
-            <ImageContainer
-              alt={info.Name}
-              src={info.ParentGlassFamilyAbbreviation.BigImageUrl}
-              med
-            />
-          ) : (
-            <ImageContainer
-              alt={info.Name}
-              src={info.ParentGlassFamilyAbbreviation.ImageUrl}
-            />
-          )}
+          <ImageContainer
+            alt={info.ParentGlassFamilyAbbreviation.Name}
+            src={
+              info.ParentGlassFamilyAbbreviation.BigImageUrl
+                ? info.ParentGlassFamilyAbbreviation.BigImageUrl
+                : info.ParentGlassFamilyAbbreviation.ImageUrl
+            }
+            med={info.ParentGlassFamilyAbbreviation.BigImageUrl}
+          />
           {show("Glass Family", info.ParentGlassFamilyAbbreviation.Name)}
           {show("Glass Type", info.ParentGlassFamilyAbbreviation.GlassType)}
           {show(

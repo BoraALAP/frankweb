@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 
 import RelatedItem from "../UI/RelatedItem";
-import appContext from "../../../context/context";
+import { appContext } from "../../../context/context";
 import Selector from "../UI/Selector";
 import Spinner from "../../UI/Spinner";
 import Button from "../../UI/Button";
@@ -73,7 +73,10 @@ const Success = (props) => {
       location: store.steps.location.id,
       size: store.steps.size.id,
       glassSize: store.steps.glassSize.id,
-      texture: store.steps.texture.value,
+      texture:
+        store.steps.texture.value === "skipped"
+          ? ""
+          : store.steps.texture.value,
       glassFamily: store.steps.glassFamily.id,
       first: 12,
     },
@@ -99,7 +102,10 @@ const Success = (props) => {
         location: store.steps.location.id,
         size: store.steps.size.id,
         glassSize: store.steps.glassSize.id,
-        texture: store.steps.texture.value,
+        texture:
+          store.steps.texture.value === "skipped"
+            ? ""
+            : store.steps.texture.value,
         glassFamily: store.steps.glassFamily.id,
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
@@ -142,6 +148,7 @@ const Success = (props) => {
               ImageUrl={node.ImageUrl}
               Id={node.Id}
               Type={node.__typename}
+              Link="selected"
             />
           ))}
         </Related>

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import styled from "styled-components";
 import Selector from "../UI/Selector";
-import appContext from "../../../context/context";
+import { appContext } from "../../../context/context";
 import Layout from "./Layout";
 
 const Texture = (props) => {

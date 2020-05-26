@@ -7,10 +7,10 @@ export const primaryTheme = {
   boxShadow: "0px 4px 35px 6px rgba(0,0,0,0.15)",
   buttonPadding: "8px 16px",
   boxPadding: " 16px",
-  boxRadius: "6px",
+  boxRadius: "0px",
   color: {
-    primary: "hsl(210,100%,10%)",
-    secondary: "hsl(0, 100%, 20%)",
+    primary: "hsl(195,30%,26%)",
+    secondary: "hsl(33, 94%, 54%)",
     grey: "hsl(0, 0%, 50%)",
     lightGrey: "hsl(0, 0%, 85%)",
     black: "hsl(0, 0%, 0%)",

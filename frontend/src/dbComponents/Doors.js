@@ -145,7 +145,8 @@ const UPDATE_DOOR_MUTATION = gql`
     # $RelatedFamily: GlassFamilyUpdateManyInput
     # $RelatedDoors: DoorUpdateManyInput
     # $ImageUrl: String
-    $GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
+    # $GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
+    $DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
   ) {
     updateDoor(
       where: { StyleNumber: $StyleNumber }
@@ -153,11 +154,14 @@ const UPDATE_DOOR_MUTATION = gql`
         # RelatedFamily: $RelatedFamily,
         # RelatedDoors: $RelatedDoors
         # ImageUrl: $ImageUrl
-        GlassSizeCategory: $GlassSizeCategory
+        # GlassSizeCategory: $GlassSizeCategory
+        DefaultDoorSurroundStyleNumber: $DefaultDoorSurroundStyleNumber
       }
     ) {
       StyleNumber
-      ImageUrl
+      DefaultDoorSurroundStyleNumber {
+        StyleNumber
+      }
     }
   }
 `;
@@ -170,7 +174,7 @@ const Doors = (props) => {
   const fetchData = async () => {
     let num = 0;
     try {
-      const { data } = await axios.get("./data/dbMissing.json");
+      const { data } = await axios.get("./data/dbDoor_Big.json");
 
       const timer = setInterval(async () => {
         console.log(num, data.doorStyles.length);
@@ -182,9 +186,14 @@ const Doors = (props) => {
             variables: {
               StyleNumber: item.StyleNumber,
               // ImageUrl: item.ImageUrl,
-              GlassSizeCategory: {
+              // GlassSizeCategory: {
+              //   connect: {
+              //     Name: item.GlassSizeCategory,
+              //   },
+              // },
+              DefaultDoorSurroundStyleNumber: {
                 connect: {
-                  Name: item.GlassSizeCategory,
+                  StyleNumber: item.DefaultDoorSurroundStyleNumber,
                 },
               },
 
@@ -272,6 +281,11 @@ const Doors = (props) => {
               DefaultFrameProfile: {
                 connect: {
                   Abbreviation: item.DefaultFrameProfile.Abbreviation,
+                },
+              },
+              DefaultDoorSurroundStyleNumber: {
+                connect: {
+                  StyleNumber: item.DefaultDoorSurroundStyleNumber,
                 },
               },
               Finishes: {

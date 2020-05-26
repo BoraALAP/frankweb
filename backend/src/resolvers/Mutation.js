@@ -30,6 +30,8 @@ const Mutation = {
           RelatedFamily: args.RelatedFamily,
           RelatedGlasses: args.RelatedGlasses,
           Finishes: args.Finishes,
+          GlassSizeCategory: args.GlassSizeCategory,
+          DefaultDoorSurroundStyleNumber: args.DefaultDoorSurroundStyleNumber,
           // RelatedDoors: args.RelatedDoors,
         },
       },
@@ -136,6 +138,14 @@ const Mutation = {
       },
     });
     return glassSize;
+  },
+  async createDoorSurround(parent, args, ctx, info) {
+    const doorSurround = await ctx.db.mutation.createDoorSurround({
+      data: {
+        ...args,
+      },
+    });
+    return doorSurround;
   },
   async createHandleSet(parent, args, ctx, info) {
     const handleSet = await ctx.db.mutation.createHandleSet({

@@ -2,7 +2,7 @@ export const initialState = {
   theme: true,
   steps: {
     step: 1,
-    person: {
+    customer: {
       id: "",
       value: "",
       completed: false,
@@ -32,29 +32,74 @@ export const initialState = {
       value: "",
       completed: false,
     },
-    doorConfiguration: {
-      id: "",
-      value: "",
-      completed: false,
-    },
-    doorFinishes: {
-      id: "",
-      value: "",
-      completed: false,
-    },
-    glassType: { value: "", completed: false },
-    handle: { value: "", completed: false },
-    doorSurrenders: { value: "", completed: false },
-    sideliteStyle: { value: "", completed: false },
-    sideliteFinish: { value: "", completed: false },
-    sideliteGlass: { value: "", completed: false },
-    transomStyle: { value: "", completed: false },
   },
   imgSrc: "http://frank.com.s3-website-us-east-1.amazonaws.com",
   search: "",
 };
 
-const appReducer = (state = initialState, actions) => {
+export const editState = {
+  productId: "",
+  dooredit: {
+    step: 0,
+    dividedLites: {
+      id: "",
+      value: "",
+      completed: false,
+    },
+    doorConfiguration: {
+      sideliteLeft: false,
+      sideliteRight: false,
+      transom: false,
+      double: false,
+      triple: false,
+      quadruple: false,
+      value: "",
+      completed: false,
+    },
+    doorStyles: {
+      id: "",
+      value: "",
+      completed: false,
+    },
+    doorSurround: {
+      id: "",
+      value: "",
+      completed: false,
+    },
+    finishes: {
+      id: "",
+      value: "",
+      completed: false,
+    },
+    frameFinishes: {
+      id: "",
+      value: "",
+      completed: false,
+    },
+    glass: {
+      id: "",
+      value: "",
+      completed: false,
+    },
+    handleSets: {
+      id: "",
+      value: "",
+      completed: false,
+    },
+    sidelite: {
+      id: "",
+      value: "",
+      completed: false,
+    },
+    transom: {
+      id: "",
+      value: "",
+      completed: false,
+    },
+  },
+};
+
+export const appReducer = (state = initialState, actions) => {
   switch (actions.type) {
     case "UPDATE_STEP":
       console.log(actions.id, actions.value);
@@ -82,8 +127,9 @@ const appReducer = (state = initialState, actions) => {
         steps: {
           ...state.steps,
           [actions.step]: {
-            ...state[actions.step],
+            id: "",
             value: "skipped",
+            completed: true,
           },
           step: state.steps.step + 1,
         },
@@ -120,4 +166,45 @@ const appReducer = (state = initialState, actions) => {
   }
 };
 
-export default appReducer;
+export const editReducer = (state = editState, actions) => {
+  switch (actions.type) {
+    case "UPDATE_STEP":
+      return {
+        ...state,
+        dooredit: {
+          ...state.dooredit,
+          [actions.step]: {
+            value: actions.value,
+            id: actions.id,
+            completed: true,
+          },
+        },
+      };
+    case "UPDATE_DOOR_CONFIGURATION":
+      return {
+        ...state,
+        dooredit: {
+          ...state.dooredit,
+          [actions.step]: {
+            ...actions.payload,
+            completed: true,
+          },
+        },
+      };
+    case "UPDATE_EDIT_STEP":
+      return {
+        ...state,
+        dooredit: {
+          ...state.dooredit,
+          step: actions.step,
+        },
+      };
+    case "GET_PRODUCT_ID":
+      return {
+        ...state,
+        productId: actions.productId,
+      };
+    default:
+      return state;
+  }
+};

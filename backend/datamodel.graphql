@@ -47,7 +47,7 @@ type Door {
   IsLimitedAvailability: Boolean
   LimitedAvailabilityCategories: [String] @scalarList(strategy: RELATION)
   ProductTrends: String
-  DefaultDoorSurroundStyleNumber: String
+  DefaultDoorSurroundStyleNumber: DoorSurround @relation( name: "Surrounds")
   StyleLayoutPairs: StyleLayoutPair @relation(name: "StyleLayoutPairs")
   GrainProfile: String
   CurrentYearTrends: [String] @scalarList(strategy: RELATION)
@@ -78,6 +78,14 @@ type GlassSize {
   Sidelites: [Sidelite] @relation( name: "GlassSizeSidelite")
   Transoms: [Transom] @relation( name: "GlassSizeTransom")
 
+}
+
+type DoorSurround { 
+  Id: ID! @id
+  StyleNumber: String @unique
+  Surface: String
+  ImageUrl: String
+  Doors: [Door] @relation( name: "Surrounds")
 }
 
 type Sidelite {
