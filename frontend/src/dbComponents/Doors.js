@@ -27,8 +27,8 @@ const CREATE_DOOR_MUTATION = gql`
     $SupportedAccessories: [String]
     $AllowedSidelites: [String]
     $AllowedTransoms: [String]
-    $DefaultSidelite: String
-    $DefaultTransom: String
+    $DefaultSidelite: SideliteUpdateOneWithoutDefaultDoorInput
+    $DefaultTransom: TransomUpdateOneWithoutDefaultDoorInput
     $DefaultGlassWidth: String
     $AbstractPrice: Int
     $SOSPrice: Float
@@ -68,6 +68,8 @@ const CREATE_DOOR_MUTATION = gql`
     $StyleLayoutPairs: StyleLayoutPairCreateOneWithoutDoorsInput
     $RelatedGlasses: GlassUpdateManyInput # $RelatedDoors: DoorUpdateManyInput
     $Finishes: FinishUpdateManyWithoutDoorsInput
+    $Finish: FinishUpdateOneWithoutDoorActiveInput
+    $FrameFinish: FinishUpdateOneWithoutDoorFrameActiveInput
   ) {
     createDoor(
       Brand: $Brand
@@ -133,6 +135,8 @@ const CREATE_DOOR_MUTATION = gql`
       StyleLayoutPairs: $StyleLayoutPairs
       RelatedGlasses: $RelatedGlasses # RelatedDoors: $RelatedDoors
       Finishes: $Finishes
+      Finish: $Finish
+      FrameFinish: $FrameFinish
     ) {
       StyleNumber
     }
@@ -142,26 +146,36 @@ const CREATE_DOOR_MUTATION = gql`
 const UPDATE_DOOR_MUTATION = gql`
   mutation UPDATE_DOOR_MUTATION(
     $StyleNumber: String
-    # $RelatedFamily: GlassFamilyUpdateManyInput
-    # $RelatedDoors: DoorUpdateManyInput
-    # $ImageUrl: String
-    # $GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
-    $DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
-  ) {
+    $DefaultSidelite: SideliteUpdateOneWithoutDefaultDoorInput
+  ) # $GlassSizeCategory: GlassSizeUpdateOneWithoutDoorsInput
+  # $DefaultTransom: TransomUpdateOneWithoutDefaultDoorInput
+  # $RelatedFamily: GlassFamilyUpdateManyInput # $RelatedDoors: DoorUpdateManyInput
+  # $ImageUrl: String
+  # $DefaultDoorSurroundStyleNumber: DoorSurroundUpdateOneWithoutDoorsInput
+  # $Finish: FinishUpdateOneWithoutDoorActiveInput
+  # $FrameFinish: FinishUpdateOneWithoutDoorFrameActiveInput
+  {
     updateDoor(
       where: { StyleNumber: $StyleNumber }
       data: {
+        DefaultSidelite: $DefaultSidelite
+        # DefaultTransom: $DefaultTransom
         # RelatedFamily: $RelatedFamily,
         # RelatedDoors: $RelatedDoors
         # ImageUrl: $ImageUrl
         # GlassSizeCategory: $GlassSizeCategory
-        DefaultDoorSurroundStyleNumber: $DefaultDoorSurroundStyleNumber
+        # DefaultDoorSurroundStyleNumber: $DefaultDoorSurroundStyleNumber
+        # Finish: $Finish
+        # FrameFinish: $FrameFinish
       }
     ) {
       StyleNumber
-      DefaultDoorSurroundStyleNumber {
-        StyleNumber
-      }
+      # Finish {
+      #   Name
+      # }
+      # FrameFinish {
+      #   Name
+      # }
     }
   }
 `;
@@ -174,10 +188,18 @@ const Doors = (props) => {
   const fetchData = async () => {
     let num = 0;
     try {
-      const { data } = await axios.get("./data/dbDoor_Big.json");
+      const { data } = await axios.get("./data/dbDoor_new.json");
+      console.log(data);
 
       const timer = setInterval(async () => {
         console.log(num, data.doorStyles.length);
+
+        // Single Item Find Index and Update
+        // const index = data.doorStyles.findIndex(
+        //   (x) => x.StyleNumber === "CCV820530"
+        // );
+        // console.log(index);
+
         const item = data.doorStyles[num];
         num++;
 
@@ -191,9 +213,25 @@ const Doors = (props) => {
               //     Name: item.GlassSizeCategory,
               //   },
               // },
-              DefaultDoorSurroundStyleNumber: {
+              // DefaultDoorSurroundStyleNumber: {
+              //   connect: {
+              //     StyleNumber: item.DefaultDoorSurroundStyleNumber,
+              //   },
+              // },
+              Finish: {
                 connect: {
-                  StyleNumber: item.DefaultDoorSurroundStyleNumber,
+                  Name: item.Finish,
+                },
+              },
+              DefaultSidelite: {
+                connect: {
+                  StyleNumber: item.DefaultSidelite,
+                },
+              },
+
+              FrameFinish: {
+                connect: {
+                  Name: item.FrameFinish,
                 },
               },
 
@@ -234,6 +272,16 @@ const Doors = (props) => {
               StyleShape: {
                 connect: {
                   Abbreviation: item.StyleShape.Abbreviation,
+                },
+              },
+              Finish: {
+                connect: {
+                  Name: item.Finish,
+                },
+              },
+              FrameFinish: {
+                connect: {
+                  Name: item.FrameFinish,
                 },
               },
               LocationOnHouse: {
@@ -339,7 +387,7 @@ const Doors = (props) => {
         }
       }, 500);
     } catch (error) {
-      console.log(error, num);
+      console.log(error);
     }
   };
 

@@ -120,8 +120,12 @@ const PRODUCT_QUERY = gql`
             Name
           }
           SupportedAccessories
-          DefaultSidelite
-          DefaultTransom
+          DefaultSidelite {
+            StyleNumber
+          }
+          DefaultTransom {
+            StyleNumber
+          }
           DefaultGlassWidth
           AbstractPrice
           SOSPrice
@@ -298,7 +302,7 @@ const TemplateDoor = ({ match }) => {
         {show("Launch Year", JSON.stringify(info.LaunchYear))}
 
         {show("Glass Size Category", info.GlassSizeCategory.Name)}
-        {show("Default Sidelite", info.DefaultSidelite)}
+        {show("Default Sidelite", info.DefaultSidelite.StyleNumber)}
 
         {show("Default Transom", info.DefaultTransom)}
 

@@ -38,9 +38,15 @@ export const initialState = {
 };
 
 export const editState = {
-  productId: "",
-  dooredit: {
+  productId: undefined,
+  newId: undefined,
+  doorEdit: {
     step: 0,
+    glassAssociation: {
+      id: "",
+      value: "",
+      completed: false,
+    },
     dividedLites: {
       id: "",
       value: "",
@@ -66,22 +72,32 @@ export const editState = {
       value: "",
       completed: false,
     },
-    finishes: {
+    finish: {
       id: "",
       value: "",
       completed: false,
     },
-    frameFinishes: {
+    frameFinish: {
       id: "",
       value: "",
       completed: false,
     },
-    glass: {
+    glassFamily: {
       id: "",
       value: "",
       completed: false,
     },
     handleSets: {
+      id: "",
+      value: "",
+      completed: false,
+    },
+    defaultSize: {
+      id: "",
+      value: "",
+      completed: false,
+    },
+    glassSize: {
       id: "",
       value: "",
       completed: false,
@@ -102,8 +118,6 @@ export const editState = {
 export const appReducer = (state = initialState, actions) => {
   switch (actions.type) {
     case "UPDATE_STEP":
-      console.log(actions.id, actions.value);
-
       return {
         ...state,
         steps: {
@@ -152,6 +166,18 @@ export const appReducer = (state = initialState, actions) => {
           step: actions.step,
         },
       };
+    case "FIX_STEP":
+      return {
+        ...state,
+        steps: {
+          ...state.steps,
+          [actions.step]: {
+            value: actions.value,
+            id: actions.id,
+            completed: actions.completed,
+          },
+        },
+      };
 
     case "RESET_STEP":
       return {
@@ -171,8 +197,8 @@ export const editReducer = (state = editState, actions) => {
     case "UPDATE_STEP":
       return {
         ...state,
-        dooredit: {
-          ...state.dooredit,
+        doorEdit: {
+          ...state.doorEdit,
           [actions.step]: {
             value: actions.value,
             id: actions.id,
@@ -183,8 +209,8 @@ export const editReducer = (state = editState, actions) => {
     case "UPDATE_DOOR_CONFIGURATION":
       return {
         ...state,
-        dooredit: {
-          ...state.dooredit,
+        doorEdit: {
+          ...state.doorEdit,
           [actions.step]: {
             ...actions.payload,
             completed: true,
@@ -194,8 +220,8 @@ export const editReducer = (state = editState, actions) => {
     case "UPDATE_EDIT_STEP":
       return {
         ...state,
-        dooredit: {
-          ...state.dooredit,
+        doorEdit: {
+          ...state.doorEdit,
           step: actions.step,
         },
       };
@@ -203,6 +229,15 @@ export const editReducer = (state = editState, actions) => {
       return {
         ...state,
         productId: actions.productId,
+      };
+    case "NEW_PRODUCT_ID":
+      return {
+        ...state,
+        newId: actions.newId,
+      };
+    case "RESET":
+      return {
+        ...editState,
       };
     default:
       return state;

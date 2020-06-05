@@ -23,11 +23,11 @@ import TemplateDoor from "./template/TemplateDoor";
 import TemplateDoorEditable from "./template/TemplateDoorEditable";
 import TemplateSidelite from "./template/TemplateSidelite";
 import TemplateTransom from "./template/TemplateTransom";
-import TemplateGlass from "./template/TemplateGlass";
+import TemplateDividedLites from "./template/TemplateDividedLites";
+import TemplateGlassFamily from "./template/TemplateGlassFamily";
 
 const App = () => {
   const [store, dispatch] = useReducer(appReducer, initialState);
-
   const [editStore, editDispatch] = useReducer(editReducer, editState);
 
   return (
@@ -54,7 +54,14 @@ const App = () => {
                   path="/product/transom/:id"
                   component={TemplateTransom}
                 />
-                <Route path="/product/glass/:id" component={TemplateGlass} />
+                <Route
+                  path="/product/dividedlites/:id"
+                  component={TemplateDividedLites}
+                />
+                <Route
+                  path="/product/glassfamily/:id"
+                  component={TemplateGlassFamily}
+                />
                 <Route path="/" exact>
                   <DisplayAll />
                 </Route>

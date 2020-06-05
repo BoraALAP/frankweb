@@ -7,7 +7,6 @@ import Box from "./Box";
 import ImageContainer from "./ImageContainer";
 
 const RelatedGlassItem = ({ item, Type = "glass" }) => {
-  const { store } = useContext(appContext);
   return (
     <Box>
       <Container>
@@ -26,24 +25,5 @@ const RelatedGlassItem = ({ item, Type = "glass" }) => {
 };
 
 const Container = styled.div``;
-
-const Horizontal = styled.ul`
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(3, auto);
-  padding-inline-start: 1em;
-  justify-content: start;
-  grid-gap: 24px;
-  li {
-    list-style: none;
-  }
-`;
-
-const SubLevel = styled.div`
-  margin-top: 2.5em;
-  h5 {
-    margin-bottom: 16px;
-  }
-`;
 
 export default RelatedGlassItem;

@@ -14,7 +14,8 @@ const DOOR_QUERY = gql`
     $afterDoor: String
     $afterTransom: String
     $afterSidelite: String
-    $afterGlass: String
+    $afterDividedLites: String
+    $afterGlassFamily: String
   ) {
     doorsConnection(
       where: { StyleNumber_contains: $searchQuery }
@@ -38,7 +39,7 @@ const DOOR_QUERY = gql`
     glassesConnection(
       where: { Name_contains: $searchQuery }
       first: $first
-      after: $afterGlass
+      after: $afterDividedLites
     ) {
       pageInfo {
         endCursor
@@ -92,6 +93,26 @@ const DOOR_QUERY = gql`
         }
       }
     }
+    glassFamiliesConnection(
+      where: { Name_contains: $searchQuery }
+      first: $first
+      after: $afterGlassFamily
+    ) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        cursor
+        node {
+          __typename
+          Id
+          Name
+          BigImageUrl
+          ImageUrl
+        }
+      }
+    }
   }
 `;
 
@@ -100,7 +121,8 @@ const SearchResult = (props) => {
     { name: "Doors", collection: "doorsConnection" },
     { name: "Transoms", collection: "transomsConnection" },
     { name: "Sidelites", collection: "sidelitesConnection" },
-    { name: "Glasses", collection: "glassesConnection" },
+    { name: "DividedLites", collection: "glassesConnection" },
+    { name: "Glass", collection: "glassFamiliesConnection" },
   ];
 
   const [active, setActive] = useState(tabs[0].name);
@@ -114,16 +136,17 @@ const SearchResult = (props) => {
     },
     notifyOnNetworkStatusChange: true,
   });
-
+  console.log(data);
   const handleMore = (collection) => {
     fetchMore({
       query: DOOR_QUERY,
       variables: {
         first: 12,
         afterDoor: data.doorsConnection.pageInfo.endCursor,
-        afterGlass: data.glassesConnection.pageInfo.endCursor,
+        afterDividedLites: data.glassesConnection.pageInfo.endCursor,
         afterSidelite: data.sidelitesConnection.pageInfo.endCursor,
         afterTransom: data.transomsConnection.pageInfo.endCursor,
+        afterGlassFamily: data.glassFamiliesConnection.pageInfo.endCursor,
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) {
@@ -162,6 +185,14 @@ const SearchResult = (props) => {
             ],
             pageInfo: fetchMoreResult.transomsConnection.pageInfo,
             __typename: "TransomConnection",
+          },
+          glassFamiliesConnection: {
+            edges: [
+              ...previousResult.glassFamiliesConnection.edges,
+              ...fetchMoreResult.glassFamiliesConnection.edges,
+            ],
+            pageInfo: fetchMoreResult.glassFamiliesConnection.pageInfo,
+            __typename: "GlassFamilyConnection",
           },
         };
       },
@@ -209,6 +240,7 @@ const SearchResult = (props) => {
                     key={node.Id}
                     StyleNumber={node.StyleNumber}
                     Name={node.Name}
+                    BigImageUrl={node.BigImageUrl}
                     ImageUrl={node.ImageUrl}
                     Id={node.Id}
                     Type={node.__typename}

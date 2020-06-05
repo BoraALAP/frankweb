@@ -20,12 +20,6 @@ const Layout = ({ title, gridSize = 3, children, component }, props) => {
     });
   };
 
-  const resetStep = (props) => {
-    dispatch({
-      type: "RESET_STEP",
-    });
-  };
-
   return (
     <Container>
       <h2>{title}</h2>
@@ -36,7 +30,6 @@ const Layout = ({ title, gridSize = 3, children, component }, props) => {
       <Selector back onClick={prevStep}>
         Back
       </Selector>
-      <Selector onClick={resetStep}>Start Over</Selector>
     </Container>
   );
 };

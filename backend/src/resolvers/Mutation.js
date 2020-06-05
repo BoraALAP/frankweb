@@ -32,6 +32,8 @@ const Mutation = {
           Finishes: args.Finishes,
           GlassSizeCategory: args.GlassSizeCategory,
           DefaultDoorSurroundStyleNumber: args.DefaultDoorSurroundStyleNumber,
+          Finish: args.Finish,
+          FrameFinish: args.FrameFinish,
           // RelatedDoors: args.RelatedDoors,
         },
       },

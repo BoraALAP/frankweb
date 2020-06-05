@@ -439,8 +439,8 @@ type Mutation {
     SupportedAccessories: [String]
     AllowedSidelites: [String]
     AllowedTransoms: [String]
-    DefaultSidelite: String
-    DefaultTransom: String
+    DefaultSidelite: SideliteUpdateOneWithoutDefaultDoorInput
+    DefaultTransom: TransomUpdateOneWithoutDefaultDoorInput
     DefaultGlassWidth: String
     AbstractPrice: Int
     SOSPrice: Float
@@ -451,6 +451,8 @@ type Mutation {
     GlassFeatures: [String]
     DefaultImageName: String
     ImageUrl: String
+    Finish: FinishUpdateOneWithoutDoorActiveInput
+    FrameFinish: FinishUpdateOneWithoutDoorFrameActiveInput
     Ordinal: Int
     GlassAssociation: GlassAssociationUpdateOneWithoutDoorsInput
     IsLimitedAvailability: Boolean
@@ -572,6 +574,10 @@ type Mutation {
     FinishTypeSelection: Int
     Selected: Boolean
     Doors: DoorUpdateManyWithoutFinishesInput
+    DoorActive: DoorUpdateManyWithoutFinishInput
+    DoorFrameActive: DoorUpdateManyWithoutFrameFinishInput
+    SideliteActive: SideliteUpdateManyWithoutFinishInput
+    SideliteFrameActive: SideliteUpdateManyWithoutFrameFinishInput
   ): Finish!
   createSidelite(
     Brand: String
@@ -614,6 +620,8 @@ type Mutation {
     GlassFeatures: [String]
     DefaultImageName: String
     ImageUrl: String
+    Finish: FinishUpdateOneWithoutSideliteActiveInput
+    FrameFinish: FinishUpdateOneWithoutSideliteFrameActiveInput
     Ordinal: Int
     GlassAssociation: GlassAssociationUpdateOneWithoutSidelitesInput
     IsLimitedAvailability: Boolean
@@ -634,6 +642,7 @@ type Mutation {
     AllowsHandlesets: Boolean
     IsFlushGlazed: Boolean
     Doors: DoorCreateManyWithoutSidelitesInput
+    DefaultDoor: DoorUpdateManyWithoutDefaultSideliteInput
   ): Sidelite!
   createGlass(
     Id: ID
@@ -748,6 +757,7 @@ type Mutation {
     AllowsHandlesets: Boolean
     IsFlushGlazed: Boolean
     Doors: DoorUpdateManyWithoutTransomsInput
+    DefaultDoor: DoorUpdateManyWithoutDefaultTransomInput
   ): Transom!
   createGlassAssociation(
     Id: ID

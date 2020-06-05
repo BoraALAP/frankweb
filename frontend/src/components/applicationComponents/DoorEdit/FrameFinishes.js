@@ -29,24 +29,18 @@ const FrameFinishes = (props) => {
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(FINISHES_QUERY, {
     variables: {
-      id: editStore.productId,
+      id: props.id,
     },
   });
 
   useEffect(() => {
-    if (!loading && data.doorsConnection !== undefined) {
-      setOptions(data.doorsConnection.edges[0].node.Finishes);
-    }
+    !loading && setOptions(data.doorsConnection.edges[0].node.Finishes);
   }, [loading]);
-
-  if (options === undefined) {
-    return <Spinner />;
-  }
 
   const handleClick = (value, id) => {
     editDispatch({
       type: "UPDATE_STEP",
-      step: "frameFinishes",
+      step: "frameFinish",
       value,
       id,
     });
@@ -62,10 +56,9 @@ const FrameFinishes = (props) => {
         <Selector
           key={index}
           onClick={() => handleClick(selector.Name, selector.Id)}
-          select={selector.Name === editStore.dooredit.frameFinishes.value}
+          select={selector.Name === editStore.doorEdit.frameFinish.value}
         >
           <ImageContainer alt={selector.StyleNumber} src={selector.ImageUrl} />
-
           <p>{selector.Name}</p>
         </Selector>
       ))}

@@ -115,7 +115,9 @@ const PRODUCT_QUERY = gql`
           }
           LaunchYear
           RecentlyLaunched
-          GlassSizeCategory
+          GlassSizeCategory {
+            Name
+          }
           SupportedAccessories
           DefaultSidelite
           DefaultTransom
@@ -177,7 +179,6 @@ const PRODUCT_QUERY = gql`
 `;
 
 const TemplateSidelite = ({ match, location }, props) => {
-  const { store } = useContext(appContext);
   const [info, setInfo] = useState();
 
   const { data, loading } = useQuery(PRODUCT_QUERY, {
@@ -251,7 +252,7 @@ const TemplateSidelite = ({ match, location }, props) => {
         {show("Visualized Width", info.VisualizedWidth)}
         {show("Launch Year", JSON.stringify(info.LaunchYear))}
 
-        {show("Glass Size Category", info.GlassSizeCategory)}
+        {show("Glass Size Category", info.GlassSizeCategory.Name)}
         {show("Default Sidelite", info.DefaultSidelite)}
 
         {show("Default Transom", info.DefaultTransom)}

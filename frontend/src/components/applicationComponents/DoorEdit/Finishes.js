@@ -7,7 +7,6 @@ import Selector from "../UI/Selector";
 import { editContext } from "../../../context/context";
 import Spinner from "../../UI/Spinner";
 import ImageContainer from "../UI/ImageContainer";
-import DoorCollections from "../../../dbComponents/DoorCollections";
 
 const FINISHES_QUERY = gql`
   query FINISHES_QUERY($id: ID) {
@@ -30,28 +29,26 @@ const Finishes = (props) => {
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(FINISHES_QUERY, {
     variables: {
-      id: editStore.productId,
+      id: props.id,
     },
   });
-
-  useEffect(() => {
-    if (!loading && data.doorsConnection !== undefined) {
-      setOptions(data.doorsConnection.edges[0].node.Finishes);
-    }
-  }, [loading]);
-
-  if (options === undefined) {
-    return <Spinner />;
-  }
 
   const handleClick = (value, id) => {
     editDispatch({
       type: "UPDATE_STEP",
-      step: "finishes",
+      step: "finish",
       value,
       id,
     });
   };
+
+  useEffect(() => {
+    !loading && setOptions(data.doorsConnection.edges[0].node.Finishes);
+  }, [loading]);
+
+  if (options === undefined || options === []) {
+    return <Spinner />;
+  }
 
   return (
     <Layout
@@ -63,10 +60,9 @@ const Finishes = (props) => {
         <Selector
           key={index}
           onClick={() => handleClick(selector.Name, selector.Id)}
-          select={selector.Name === editStore.dooredit.finishes.value}
+          select={selector.Name === editStore.doorEdit.finish.value}
         >
           <ImageContainer alt={selector.StyleNumber} src={selector.ImageUrl} />
-
           <p>{selector.Name}</p>
         </Selector>
       ))}

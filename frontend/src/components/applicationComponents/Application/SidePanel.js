@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 
 import { appContext } from "../../../context/context";
 import Spinner from "../../UI/Spinner";
+import Selector from "../UI/Selector";
+import Button from "../../UI/Button";
 
 const PRODUCT_QUERY = gql`
   query door(
@@ -47,23 +49,47 @@ const SidePanel = (props) => {
     notifyOnNetworkStatusChange: true,
   });
 
+  useEffect(() => {
+    if (
+      store.steps.glassFamily.id === "ck9ncvpcyt5hr0940wanncthp" &&
+      store.steps.glassSize.id !== "ckabh7fc39qje09114kvnjwtv"
+    ) {
+      dispatch({
+        type: "FIX_STEP",
+        step: "glassFamily",
+        value: "",
+        id: "",
+        completed: false,
+      });
+    }
+  }, [store.steps]);
+
   const fields = (field, text, step) => {
     if (store.steps[field].value) {
       return (
-        <h6>
-          {text}: <span>{store.steps[field].value}</span>
-          <button onClick={() => dispatch({ type: "SET_STEP", step })}>
+        <li>
+          <h6>
+            {text}: <span>{store.steps[field].value}</span>
+          </h6>
+          <Button onClick={() => dispatch({ type: "SET_STEP", step })}>
             edit
-          </button>
-        </h6>
+          </Button>
+        </li>
       );
     } else {
       return (
-        <h6>
-          {text}: <span>{store.steps[field].value}</span>
-        </h6>
+        <li>
+          <h6>
+            {text}: <span>{store.steps[field].value}</span>
+          </h6>
+        </li>
       );
     }
+  };
+  const resetStep = (props) => {
+    dispatch({
+      type: "RESET_STEP",
+    });
   };
 
   return (
@@ -87,6 +113,7 @@ const SidePanel = (props) => {
         {fields("glassSize", "Window Size", 5)}
         {fields("glassFamily", "Glass Family", 6)}
       </Bottom>
+      {store.steps.step > 1 && <Button onClick={resetStep}>Start Over</Button>}
     </Container>
   );
 };
@@ -105,6 +132,15 @@ const Container = styled.div`
 
 const Top = styled.div``;
 
-const Bottom = styled.div``;
+const Bottom = styled.ul`
+  list-style: none;
+  text-indent: 0;
+  margin-left: 0;
+  padding-inline-start: 0;
+  li {
+    display: grid;
+    grid-auto-flow: column;
+  }
+`;
 
 export default SidePanel;

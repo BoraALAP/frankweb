@@ -71,7 +71,10 @@ const GlassFamily = (props) => {
       component="glassFamily"
     >
       {options.map(({ node }, index) => {
-        if (node.Name !== "Opaque" || node.Name !== "Hammered") {
+        if (
+          (node.Name !== "Opaque" && node.Name !== "Hammered") ||
+          store.steps.glassSize.value === "skipped"
+        ) {
           return (
             <SelectorS
               key={index}

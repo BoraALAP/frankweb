@@ -30,28 +30,13 @@ const DoorStyles = (props) => {
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(DOOR_STYLES_QUERY, {
     variables: {
-      id: editStore.productId,
+      id: props.id,
     },
   });
 
   useEffect(() => {
-    if (!loading && data.doorsConnection !== undefined) {
-      setOptions(data.doorsConnection.edges[0].node.RelatedDoors);
-    }
+    !loading && setOptions(data.doorsConnection.edges[0].node.RelatedDoors);
   }, [loading]);
-
-  if (options === undefined) {
-    return <Spinner />;
-  }
-
-  const handleClick = (value, id) => {
-    editDispatch({
-      type: "UPDATE_STEP",
-      step: "doorStyles",
-      value,
-      id,
-    });
-  };
 
   return (
     <Layout

@@ -24,20 +24,14 @@ const DOORSURROND_QUERY = gql`
   }
 `;
 
-const DoorSurround = (props) => {
+const DoorSurround = () => {
   const { editStore, editDispatch } = useContext(editContext);
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(DOORSURROND_QUERY);
 
   useEffect(() => {
-    if (!loading && data.doorSurroundsConnection !== undefined) {
-      setOptions(data.doorSurroundsConnection.edges);
-    }
+    !loading && setOptions(data.doorSurroundsConnection.edges);
   }, [loading]);
-
-  if (options === undefined) {
-    return <Spinner />;
-  }
 
   const handleClick = (value, id) => {
     editDispatch({
@@ -58,7 +52,7 @@ const DoorSurround = (props) => {
         <Selector
           key={index}
           onClick={() => handleClick(node.StyleNumber, node.Id)}
-          select={node.StyleNumber === editStore.dooredit.doorSurround.value}
+          select={node.StyleNumber === editStore.doorEdit.doorSurround.value}
         >
           <ImageContainer alt={node.StyleNumber} src={node.ImageUrl} big />
           <p>{node.StyleNumber}</p>

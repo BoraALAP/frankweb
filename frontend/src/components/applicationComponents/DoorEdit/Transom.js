@@ -31,19 +31,13 @@ const Transom = (props) => {
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(TRANSOM_QUERY, {
     variables: {
-      id: editStore.productId,
+      id: props.id,
     },
   });
 
   useEffect(() => {
-    if (!loading && data.doorsConnection !== undefined) {
-      setOptions(data.doorsConnection.edges[0].node.Transoms);
-    }
+    !loading && setOptions(data.doorsConnection.edges[0].node.Transoms);
   }, [loading]);
-
-  if (options === undefined) {
-    return <Spinner />;
-  }
 
   const handleClick = (value, id) => {
     editDispatch({
@@ -64,7 +58,7 @@ const Transom = (props) => {
         <Selector
           key={index}
           onClick={() => handleClick(item.StyleNumber, item.Id)}
-          select={item.StyleNumber === editStore.dooredit.transom.value}
+          select={item.StyleNumber === editStore.doorEdit.transom.value}
         >
           <ImageContainer
             alt={item.StyleNumber}

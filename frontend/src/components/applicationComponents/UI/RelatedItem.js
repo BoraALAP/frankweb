@@ -9,13 +9,12 @@ import Box from "./Box";
 const RelatedItem = ({
   Id,
   ImageUrl,
+  BigImageUrl,
   StyleNumber,
   Name,
   Type = "Door",
   Link = "product",
 }) => {
-  const { store } = useContext(appContext);
-
   return (
     <Box>
       <Container>
@@ -25,7 +24,11 @@ const RelatedItem = ({
             pathname: `/${Link}/${Type.toLowerCase()}/${Id}`,
           }}
         >
-          <ImageContainer alt={Name} src={ImageUrl} big />
+          <ImageContainer
+            alt={Name}
+            src={BigImageUrl ? BigImageUrl : ImageUrl}
+            big
+          />
 
           {StyleNumber && <h5>{StyleNumber}</h5>}
           {Name && <h5>{Name}</h5>}

@@ -27,47 +27,39 @@ const RELATED_GLASS_PARENT_QUERY = gql`
   }
 `;
 
-const Glass = (props) => {
+const GlassFamily = (props) => {
   const { editStore, editDispatch } = useContext(editContext);
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(RELATED_GLASS_PARENT_QUERY, {
     variables: {
-      id: editStore.productId,
+      id: props.id,
     },
   });
 
   useEffect(() => {
-    if (!loading && data.doorsConnection !== undefined) {
-      setOptions(data.doorsConnection.edges[0].node.RelatedFamily);
-    }
+    !loading && setOptions(data.doorsConnection.edges[0].node.RelatedFamily);
   }, [loading]);
-
-  if (options === undefined) {
-    return <Spinner />;
-  }
 
   const handleClick = (value, id) => {
     editDispatch({
       type: "UPDATE_STEP",
-      step: "glass",
+      step: "glassFamily",
       value,
       id,
     });
   };
 
-  console.log(options);
-
   return (
     <Layout
       title="Other Glass families works with this door"
       gridSize={3}
-      component="Glass"
+      component="GlassFamily"
     >
       {options.map((item, index) => (
         <Selector
           key={index}
           onClick={() => handleClick(item.Name, item.Id)}
-          select={item.Name === editStore.dooredit.glass.value}
+          select={item.Name === editStore.doorEdit.glassFamily.value}
         >
           <ImageContainer
             alt={item.StyleNumber}
@@ -81,4 +73,4 @@ const Glass = (props) => {
   );
 };
 
-export default Glass;
+export default GlassFamily;

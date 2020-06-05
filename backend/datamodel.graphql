@@ -30,8 +30,8 @@ type Door {
   SupportedAccessories: [String] @scalarList(strategy: RELATION)
   AllowedSidelites: [String] @scalarList(strategy: RELATION)
   AllowedTransoms: [String] @scalarList(strategy: RELATION)
-  DefaultSidelite: String
-  DefaultTransom: String
+  DefaultSidelite: Sidelite @relation(name: "DefaultSidelite")
+  DefaultTransom: Transom @relation(name: "DefaultTransom")
   DefaultGlassWidth: String
   AbstractPrice: Int
   SOSPrice: Float
@@ -42,6 +42,8 @@ type Door {
   GlassFeatures: [String] @scalarList(strategy: RELATION)
   DefaultImageName: String
   ImageUrl: String
+  Finish: Finish @relation(name: "FinishDoor")
+  FrameFinish: Finish @relation(name: "FrameFinishDoor")
   Ordinal: Int
   GlassAssociation: GlassAssociation @relation(name: "GlassAssociationDoor")
   IsLimitedAvailability: Boolean
@@ -136,6 +138,8 @@ type Sidelite {
   Sidelites: [Sidelite] @relation(name: "SelfSidelite")
   Transoms: [Transom] @relation(name: "TransomSidelite")
   ImageUrl: String
+  Finish: Finish @relation(name: "FinishSidelite")
+  FrameFinish: Finish @relation(name: "FrameFinishSidelite")
   Ordinal: Int
   GlassAssociation: GlassAssociation @relation(name: "GlassAssociationSidelite")
   IsLimitedAvailability: Boolean
@@ -157,6 +161,7 @@ type Sidelite {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   Doors: [Door] @relation(name: "Sidelites")
+  DefaultDoor: [Door] @relation(name: "DefaultSidelite")
 }
 
 type Transom {
@@ -228,6 +233,7 @@ type Transom {
   AllowsHandlesets: Boolean
   IsFlushGlazed: Boolean
   Doors: [Door] @relation(name: "Transoms")
+  DefaultDoor: [Door] @relation(name: "DefaultTransom")
 }
 
 type DoorCollection {
@@ -335,6 +341,10 @@ type Finish {
   FinishTypeSelection: Int
   Selected: Boolean
   Doors: [Door] @relation(name: "FinishesDoors")
+  DoorActive: [Door] @relation(name: "FinishDoor")
+  DoorFrameActive: [Door] @relation(name: "FrameFinishDoor")
+  SideliteActive: [Sidelite] @relation(name: "FinishSidelite")
+  SideliteFrameActive: [Sidelite] @relation(name: "FrameFinishSidelite")
 }
 
 type FrameProfile {

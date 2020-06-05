@@ -77,7 +77,7 @@ const GLASS_QUERY = gql`
   }
 `;
 
-const ProductGlass = ({ match }) => {
+const ProductDividedLites = ({ match }) => {
   const { store } = useContext(appContext);
   const [info, setInfo] = useState();
   const { data, loading } = useQuery(GLASS_QUERY, {
@@ -301,4 +301,4 @@ const Horizontal = styled.ul`
   }
 `;
 
-export default ProductGlass;
+export default ProductDividedLites;

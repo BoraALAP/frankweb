@@ -4,7 +4,7 @@ import { editContext } from "../../../context/context";
 import Selector from "../UI/Selector";
 import Layout from "./Layout";
 
-const DoorConfiguration = ({ match }, props) => {
+const DoorConfiguration = () => {
   const { editStore, editDispatch } = useContext(editContext);
 
   const handleClick = (item) => {
@@ -118,7 +118,7 @@ const DoorConfiguration = ({ match }, props) => {
         <Selector
           key={index}
           onClick={() => handleClick(selector)}
-          select={selector.value === editStore.dooredit.doorConfiguration.value}
+          select={selector.value === editStore.doorEdit.doorConfiguration.value}
         >
           {selector.value}
         </Selector>

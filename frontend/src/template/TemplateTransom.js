@@ -4,7 +4,6 @@ import { gql, useQuery } from "@apollo/client";
 import ImageContainer from "../components/applicationComponents/UI/ImageContainer";
 
 import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
-import { appContext } from "../context/context";
 import Spinner from "../components/UI/Spinner";
 
 const PRODUCT_QUERY = gql`
@@ -115,7 +114,9 @@ const PRODUCT_QUERY = gql`
           }
           LaunchYear
           RecentlyLaunched
-          GlassSizeCategory
+          GlassSizeCategory {
+            Name
+          }
           SupportedAccessories
           DefaultSidelite
           DefaultTransom
@@ -177,7 +178,6 @@ const PRODUCT_QUERY = gql`
 `;
 
 const TemplateTransom = ({ match }) => {
-  const { store } = useContext(appContext);
   const [info, setInfo] = useState();
 
   console.log(info);
@@ -253,7 +253,7 @@ const TemplateTransom = ({ match }) => {
         {show("Visualized Width", info.VisualizedWidth)}
         {show("Launch Year", JSON.stringify(info.LaunchYear))}
 
-        {show("Glass Size Category", info.GlassSizeCategory)}
+        {show("Glass Size Category", info.GlassSizeCategory.Name)}
         {show("Default Sidelite", info.DefaultSidelite)}
 
         {show("Default Transom", info.DefaultTransom)}

@@ -3,103 +3,91 @@ import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 import ImageContainer from "../components/applicationComponents/UI/ImageContainer";
 
-import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
-import RelatedGlassItem from "../components/applicationComponents/UI/RelatedGlassItem";
 import { editContext } from "../context/context";
 import Spinner from "../components/UI/Spinner";
+import Button from "../components/UI/Button";
 
 import DoorConfiguration from "../components/applicationComponents/DoorEdit/DoorConfiguration";
 import Finishes from "../components/applicationComponents/DoorEdit/Finishes";
 import FrameFinishes from "../components/applicationComponents/DoorEdit/FrameFinishes";
 import DoorStyles from "../components/applicationComponents/DoorEdit/DoorStyles";
-import Glass from "../components/applicationComponents/DoorEdit/Glass";
+import GlassFamily from "../components/applicationComponents/DoorEdit/GlassFamily";
 import DividedLites from "../components/applicationComponents/DoorEdit/DividedLites";
 import HandleSets from "../components/applicationComponents/DoorEdit/HandleSets";
 import DoorSurround from "../components/applicationComponents/DoorEdit/DoorSurround";
 import Wrong from "../components/applicationComponents/Application/Wrong";
-import Button from "../components/UI/Button";
 import Sidelite from "../components/applicationComponents/DoorEdit/Sidelite";
 import Transom from "../components/applicationComponents/DoorEdit/Transom";
+import ImgContainer from "../components/applicationComponents/DoorEdit/ImageContainer";
 
 const PRODUCT_QUERY = gql`
   query PRODUCT_QUERY($productid: ID) {
     doorsConnection(where: { Id: $productid }) {
-      aggregate {
-        count
-      }
       edges {
-        cursor
         node {
           __typename
           Id
           StyleNumber
           ImageUrl
+          DefaultSize {
+            Id
+            Size
+          }
+          Finish {
+            Name
+            Id
+          }
+          FrameFinish {
+            Name
+            Id
+          }
           AllowsHandlesets
           DefaultDoorSurroundStyleNumber {
             Id
             StyleNumber
-            Surface
-            ImageUrl
           }
           Finishes {
             Id
             Name
             ImageUrl
           }
-          FrameProfiles {
-            DoorCollectionAbbreviation
-            Abbreviation
-            Name
-            ImageUrl
-            StyleShapeAbbreviation
-            CamingOptionsByFrameProfiles {
-              Name
-              Id
-              ImageUrl
-              ImpactAvailable
-            }
-            CamingOptions {
-              Name
-              Id
-              ImageUrl
-            }
+          DefaultSidelite {
+            StyleNumber
+          }
+          DefaultTransom {
+            StyleNumber
           }
           RelatedDoors {
-            StyleNumber
             Id
-            ImageUrl
           }
           ParentGlassFamilyAbbreviation {
             Name
             Id
-            PrivacyRating
-            ImageUrl
-            BigImageUrl
           }
           RelatedFamily {
-            Name
-            PrivacyRating
-            BigImageUrl
-            ImageUrl
+            Id
           }
           GlassFamilyAbbreviation {
             Id
             Name
           }
+          GlassSizeCategory {
+            Id
+            Abbreviation
+          }
+          GlassAssociation {
+            Id
+            Association
+          }
           RelatedGlasses {
             Name
             Id
-            ImageUrl
           }
           Sidelites {
-            StyleNumber
             Id
-            ImageUrl
           }
           Transoms {
             Id
-            StyleNumber
-            ImageUrl
           }
         }
       }
@@ -107,21 +95,47 @@ const PRODUCT_QUERY = gql`
   }
 `;
 
-const TemplateDoorEditable = ({ match }) => {
+const CHECK_ID_QUERY = gql`
+  query CHECK_ID_QUERY(
+    $finish: ID
+    $glassFamily: ID
+    $glassAssociation: ID
+    $defaultSize: ID
+    $glassSize: ID
+  ) {
+    doorsConnection(
+      where: {
+        AND: {
+          Finish: { Id_contains: $finish }
+          ParentGlassFamilyAbbreviation: { Id_contains: $glassFamily }
+          GlassAssociation: { Id_contains: $glassAssociation }
+          DefaultSize: { Id_contains: $defaultSize }
+          GlassSizeCategory: { Id_contains: $glassSize }
+        }
+      }
+    ) {
+      aggregate {
+        count
+      }
+      edges {
+        node {
+          Id
+        }
+      }
+    }
+  }
+`;
+
+const TemplateDoorEditable = ({ match, history }) => {
   const { editStore, editDispatch } = useContext(editContext);
-  const [info, setInfo] = useState();
-  const { data, loading } = useQuery(PRODUCT_QUERY, {
-    variables: {
-      productid: match.params.id,
-    },
-    notifyOnNetworkStatusChange: true,
-  });
+  const [info, setInfo] = useState(undefined);
+  const [check, setCheck] = useState(false);
 
   const tabs = [
     { name: "DoorConfiguration", check: false, lookFor: "", index: 0 },
     { name: "Finishes", check: true, lookFor: "Finishes", index: 1 },
     { name: "FrameFinishes", check: true, lookFor: "Finishes", index: 2 },
-    { name: "Glass", check: true, lookFor: "RelatedFamily", index: 3 },
+    { name: "GlassFamily", check: true, lookFor: "RelatedFamily", index: 3 },
     { name: "DividedLites", check: true, lookFor: "RelatedGlasses", index: 4 },
     { name: "Sidelites", check: true, lookFor: "Sidelites", index: 5 },
     { name: "Transoms", check: true, lookFor: "Transoms", index: 6 },
@@ -130,52 +144,163 @@ const TemplateDoorEditable = ({ match }) => {
     { name: "HandleSets", check: false, lookFor: "", index: 9 },
   ];
 
+  const { data: product, loading } = useQuery(PRODUCT_QUERY, {
+    variables: {
+      productid: match.params.id,
+    },
+    notifyOnNetworkStatusChange: true,
+  });
+
   useEffect(() => {
-    if (!loading && data.doorsConnection !== undefined) {
-      setInfo({ ...data.doorsConnection.edges[0].node });
+    if (!loading && product.doorsConnection !== undefined) {
+      const item = product.doorsConnection.edges[0].node;
+      setInfo({ ...item });
+
       editDispatch({
         type: "UPDATE_STEP",
-        step: "glass",
-        value:
-          data.doorsConnection.edges[0].node.ParentGlassFamilyAbbreviation.Name,
-        id: data.doorsConnection.edges[0].node.ParentGlassFamilyAbbreviation.Id,
+        step: "glassFamily",
+        value: item.ParentGlassFamilyAbbreviation.Name,
+        id: item.ParentGlassFamilyAbbreviation.Id,
+      });
+      editDispatch({
+        type: "UPDATE_STEP",
+        step: "glassAssociation",
+        value: item.GlassAssociation.Association,
+        id: item.GlassAssociation.Id,
       });
       editDispatch({
         type: "UPDATE_STEP",
         step: "dividedLites",
-        value: data.doorsConnection.edges[0].node.GlassFamilyAbbreviation.Name,
-        id: data.doorsConnection.edges[0].node.GlassFamilyAbbreviation.Id,
+        value: item.GlassFamilyAbbreviation.Name,
+        id: item.GlassFamilyAbbreviation.Id,
+      });
+      editDispatch({
+        type: "UPDATE_STEP",
+        step: "finish",
+        value: item.Finish.Name,
+        id: item.Finish.Id,
+      });
+      editDispatch({
+        type: "UPDATE_STEP",
+        step: "frameFinish",
+        value: item.FrameFinish.Name,
+        id: item.FrameFinish.Id,
+      });
+      editDispatch({
+        type: "UPDATE_STEP",
+        step: "defaultSize",
+        value: item.DefaultSize.Size,
+        id: item.DefaultSize.Id,
+      });
+      editDispatch({
+        type: "UPDATE_STEP",
+        step: "glassSize",
+        value: item.GlassSizeCategory.Abbreviation,
+        id: item.GlassSizeCategory.Id,
+      });
+      editDispatch({
+        type: "UPDATE_STEP",
+        step: "doorSurround",
+        value: item.DefaultDoorSurroundStyleNumber.StyleNumber,
+        id: item.DefaultDoorSurroundStyleNumber.Id,
       });
     }
-    editDispatch({ type: "GET_PRODUCT_ID", productId: match.params.id });
-  }, [loading, match.params.id]);
+
+    editDispatch({
+      type: "GET_PRODUCT_ID",
+      productId: match.params.id,
+    });
+  }, [loading]);
+
+  const { data: checkedProduct, loading: checkedLoading } = useQuery(
+    CHECK_ID_QUERY,
+    {
+      skip: !check,
+      variables: {
+        finish: editStore.doorEdit.finish.id,
+        glassFamily: editStore.doorEdit.glassFamily.id,
+        glassAssociation: editStore.doorEdit.glassAssociation.id,
+        defaultSize: editStore.doorEdit.defaultSize.id,
+        glassSize: editStore.doorEdit.glassSize.id,
+      },
+      notifyOnNetworkStatusChange: true,
+      onCompleted: (checkedProduct) => {
+        if (checkedProduct?.doorsConnection?.edges[0] === undefined) {
+          editDispatch({
+            type: "UPDATE_STEP",
+            step: "glassAssociation",
+            value: "",
+            id: "ck9nctkrdokca09231h31vznl",
+          });
+        } else {
+          editDispatch({
+            type: "NEW_PRODUCT_ID",
+            newId: checkedProduct?.doorsConnection?.edges[0].node?.Id,
+          });
+        }
+      },
+    }
+  );
+
+  useEffect(() => {
+    editDispatch({
+      type: "NEW_PRODUCT_ID",
+      newId: match.params.id,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (
+      editStore.newId !== undefined &&
+      editStore.newId !== editStore.productId
+    ) {
+      history.push(`/selected/door/${editStore.newId}`);
+    }
+  }, [editStore.newId]);
+
+  useEffect(() => {
+    if (editStore.doorEdit.finish.id !== "") {
+      setCheck(true);
+    }
+  }, [editStore.doorEdit]);
+
+  useEffect(() => {
+    return () => editDispatch({ type: "RESET" });
+  }, []);
+
+  console.log(checkedProduct, checkedLoading);
+  console.log(check);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   const handleDisplay = (target) => {
     editDispatch({ type: "UPDATE_EDIT_STEP", step: target });
   };
 
   const Switch = (prop) => {
-    switch (editStore.dooredit.step) {
+    switch (editStore.doorEdit.step) {
       case 0:
-        return <DoorConfiguration />;
+        return <DoorConfiguration id={match.params.id} />;
       case 1:
-        return <Finishes />;
+        return <Finishes id={match.params.id} />;
       case 2:
-        return <FrameFinishes />;
+        return <FrameFinishes id={match.params.id} />;
       case 3:
-        return <Glass />;
+        return <GlassFamily id={match.params.id} />;
       case 4:
-        return <DividedLites />;
+        return <DividedLites id={match.params.id} />;
       case 5:
-        return <Sidelite />;
+        return <Sidelite id={match.params.id} />;
       case 6:
-        return <Transom />;
+        return <Transom id={match.params.id} />;
       case 7:
-        return <DoorStyles />;
+        return <DoorStyles id={match.params.id} />;
       case 8:
-        return <DoorSurround />;
+        return <DoorSurround id={match.params.id} />;
       case 9:
-        return <HandleSets />;
+        return <HandleSets id={match.params.id} />;
       default:
         return <Wrong />;
     }
@@ -185,34 +310,38 @@ const TemplateDoorEditable = ({ match }) => {
     return <Spinner />;
   }
 
-  console.log(info);
-
   return (
     <Container>
       <Left>
-        <ImageContainer alt={info.StyleNumber} src={info.ImageUrl} big />
-        <h4>Style Number: {info.StyleNumber}</h4>
+        <ImgContainer
+          alt={info.StyleNumber}
+          door={info.ImageUrl}
+          sidelite={info.ImageUrl}
+          transom={info.ImageUrl}
+          name={info.StyleNumber}
+          big
+        />
       </Left>
       <Right>
         <Tabs>
-          {tabs.map((item, index) => {
+          {tabs.map((item) => {
             if (item.check) {
               if (
                 Array.isArray(info[item.lookFor]) &&
                 info[item.lookFor].length > 1
               ) {
                 if (
-                  !editStore.dooredit.doorConfiguration.sideliteLeft &&
+                  !editStore.doorEdit.doorConfiguration.sideliteLeft &&
                   item.lookFor === "Sidelites"
                 ) {
                   return;
                 } else if (
-                  !editStore.dooredit.doorConfiguration.sideliteRight &&
+                  !editStore.doorEdit.doorConfiguration.sideliteRight &&
                   item.lookFor === "Sidelites"
                 ) {
                   return;
                 } else if (
-                  !editStore.dooredit.doorConfiguration.transom &&
+                  !editStore.doorEdit.doorConfiguration.transom &&
                   item.lookFor === "Transoms"
                 ) {
                   return;
@@ -221,8 +350,8 @@ const TemplateDoorEditable = ({ match }) => {
                     <Button
                       key={item.index}
                       onClick={() => handleDisplay(item.index)}
-                      display={item.index === editStore.dooredit.step}
-                      disabled={item.index === editStore.dooredit.step}
+                      display={item.index === editStore.doorEdit.step}
+                      disabled={item.index === editStore.doorEdit.step}
                     >
                       {item.name}
                     </Button>
@@ -233,9 +362,11 @@ const TemplateDoorEditable = ({ match }) => {
               return (
                 <Button
                   key={item.index}
-                  onClick={() => handleDisplay(item.index)}
-                  display={item.index === editStore.dooredit.step}
-                  disabled={item.index === editStore.dooredit.step}
+                  onClick={() => {
+                    handleDisplay(item.index);
+                  }}
+                  display={item.index === editStore.doorEdit.step}
+                  disabled={item.index === editStore.doorEdit.step}
                 >
                   {item.name}
                 </Button>
@@ -243,6 +374,7 @@ const TemplateDoorEditable = ({ match }) => {
             }
           })}
         </Tabs>
+
         <Switch />
       </Right>
     </Container>
@@ -267,26 +399,8 @@ const Right = styled.div`
 
 const Tabs = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, auto));
+  grid-template-columns: repeat(auto-fit, minmax(120px, auto));
   grid-gap: 2.5vw;
-`;
-
-const Listing = styled.div`
-  display: grid;
-  grid-gap: 16px;
-`;
-
-const Related = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 2vw;
-  width: fit-content;
-`;
-
-const SubLevel = styled.div`
-  margin-top: 2.5em;
-  display: grid;
-  grid-gap: 8px;
 `;
 
 export default TemplateDoorEditable;

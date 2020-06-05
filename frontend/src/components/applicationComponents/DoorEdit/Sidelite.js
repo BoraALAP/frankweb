@@ -31,19 +31,13 @@ const Sidelite = (props) => {
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(SIDELITE_QUERY, {
     variables: {
-      id: editStore.productId,
+      id: props.id,
     },
   });
 
   useEffect(() => {
-    if (!loading && data.doorsConnection !== undefined) {
-      setOptions(data.doorsConnection.edges[0].node.Sidelites);
-    }
+    !loading && setOptions(data.doorsConnection.edges[0].node.Sidelites);
   }, [loading]);
-
-  if (options === undefined) {
-    return <Spinner />;
-  }
 
   const handleClick = (value, id) => {
     editDispatch({
@@ -53,8 +47,6 @@ const Sidelite = (props) => {
       id,
     });
   };
-
-  console.log(options);
 
   return (
     <Layout
@@ -66,7 +58,7 @@ const Sidelite = (props) => {
         <Selector
           key={index}
           onClick={() => handleClick(item.StyleNumber, item.Id)}
-          select={item.StyleNumber === editStore.dooredit.sidelite.value}
+          select={item.StyleNumber === editStore.doorEdit.sidelite.value}
         >
           <ImageContainer
             alt={item.StyleNumber}

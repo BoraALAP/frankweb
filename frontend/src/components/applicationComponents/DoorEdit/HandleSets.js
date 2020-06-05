@@ -36,20 +36,14 @@ const HANDLESETS_QUERY = gql`
   }
 `;
 
-const HandleSets = (props) => {
+const HandleSets = () => {
   const { editStore, editDispatch } = useContext(editContext);
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(HANDLESETS_QUERY);
 
   useEffect(() => {
-    if (!loading && data.handleSetsConnection !== undefined) {
-      setOptions(data.handleSetsConnection.edges);
-    }
+    !loading && setOptions(data.handleSetsConnection.edges);
   }, [loading]);
-
-  if (options === undefined) {
-    return <Spinner />;
-  }
 
   const handleClick = (value, id) => {
     editDispatch({
@@ -70,7 +64,7 @@ const HandleSets = (props) => {
         <Selector
           key={index}
           onClick={() => handleClick(node.PartCode, node.Id)}
-          select={node.PartCode === editStore.dooredit.handleSets.value}
+          select={node.PartCode === editStore.doorEdit.handleSets.value}
         >
           <ImageContainer alt={node.StyleNumber} src={node.ImageUrl} big />
           <p>{node.PartCode}</p>

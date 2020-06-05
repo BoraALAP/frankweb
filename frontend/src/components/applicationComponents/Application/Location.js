@@ -21,7 +21,7 @@ const LOCATION_QUERY = gql`
   }
 `;
 
-const Location = (props) => {
+const Location = () => {
   const { store, dispatch } = useContext(appContext);
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(LOCATION_QUERY);
@@ -37,7 +37,6 @@ const Location = (props) => {
   }
 
   const handleClick = (value, id) => {
-    console.log(value, id);
     dispatch({
       type: "UPDATE_STEP",
       step: "location",

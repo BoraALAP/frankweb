@@ -33,7 +33,7 @@ const Push = (props) => {
   return (
     <Container>
       {/* 1. **Level 1** */}
-      {/* <Doors /> */}
+      <Doors />
       {/* <Sidelites /> */}
       {/* <Transoms /> */}
 
