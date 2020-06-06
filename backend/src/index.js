@@ -12,10 +12,10 @@ server.start(
   {
     cors: {
       credentials: true,
-      origin: process.env.FRONTEND_DEV
-    }
+      origin: process.env.FRONTEND_URL,
+    },
   },
-  deets => {
+  (deets) => {
     console.log(`server is running on port http://localhost:${deets.port}`);
   }
 );
