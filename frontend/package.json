@@ -28,7 +28,6 @@
     "eject": "react-scripts eject",
     "start": "react-scripts start -p $PORT",
     "heroku-postbuild": "npm run build"
-    
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -47,8 +46,6 @@
   },
   "devDependencies": {
     "@react-google-maps/api": "^1.9.5",
-    "google-maps-react": "^2.0.6",
-    "react-geolocated": "^3.0.1",
     "react-helmet": "^6.0.0",
     "react-lazy-load-image-component": "^1.4.3",
     "react-loading-skeleton": "^2.0.1",
