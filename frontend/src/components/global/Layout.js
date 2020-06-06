@@ -11,7 +11,7 @@ import { endpoint, prodEndpoint } from "../../config.js";
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
-    uri: prodEndpoint,
+    uri: endpoint,
     fetchOptions: {
       credentials: "include",
     },
@@ -30,11 +30,12 @@ const Layout = (props) => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: grid;
+`;
 
 const Content = styled.div`
-  padding: 5%;
-  width: 100%;
+  padding: 2.5vh 5%;
 `;
 
 export default Layout;

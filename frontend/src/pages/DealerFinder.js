@@ -30,7 +30,8 @@ const DealerFinder = (props) => {
 
   const containerStyle = {
     width: "100%",
-    height: "90vw",
+    height: "90vh",
+    maxHeight: "50vh",
   };
 
   const locations = [

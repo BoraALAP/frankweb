@@ -45,6 +45,7 @@ const Container = styled.div`
   grid-auto-flow: column;
   align-items: center;
   justify-content: space-between;
+  padding: 2.5vh 5%;
 `;
 
 const Nav = styled.nav``;
