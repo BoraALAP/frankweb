@@ -25,6 +25,21 @@ const Header = (props) => {
   );
 };
 
+export const SimpleHeader = () => {
+  return (
+    <Container>
+      <Link to="/">
+        <LogoS />
+      </Link>
+      <Nav>
+        <Link to="/application">
+          <p>App</p>
+        </Link>
+      </Nav>
+    </Container>
+  );
+};
+
 const Container = styled.div`
   display: grid;
   grid-auto-flow: column;

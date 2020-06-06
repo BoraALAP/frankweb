@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "./Header";
+import Header, { SimpleHeader } from "./Header";
 import Footer from "./Footer";
 
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
@@ -22,7 +22,7 @@ const Layout = (props) => {
   return (
     <ApolloProvider client={client}>
       <Container>
-        <Header />
+        <SimpleHeader />
         <Content>{props.children}</Content>
         <Footer />
       </Container>
@@ -34,6 +34,7 @@ const Container = styled.div``;
 
 const Content = styled.div`
   padding: 5%;
+  width: 100%;
 `;
 
 export default Layout;

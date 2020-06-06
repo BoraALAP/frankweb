@@ -25,6 +25,7 @@ import TemplateSidelite from "./template/TemplateSidelite";
 import TemplateTransom from "./template/TemplateTransom";
 import TemplateDividedLites from "./template/TemplateDividedLites";
 import TemplateGlassFamily from "./template/TemplateGlassFamily";
+import DealerFinder from "./pages/DealerFinder";
 
 const App = () => {
   const [store, dispatch] = useReducer(appReducer, initialState);
@@ -40,6 +41,7 @@ const App = () => {
               <Switch>
                 <Route path="/application" component={DoorApplication} />
                 <Route path="/search" component={SearchResult} />
+                <Route path="/dealerFinder" component={DealerFinder} />
                 <Route path="/push" component={Push} />
                 <Route path="/product/door/:id" component={TemplateDoor} />
                 <Route

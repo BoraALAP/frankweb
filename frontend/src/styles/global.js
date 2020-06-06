@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
   body{
     font-family: ${({ theme }) => theme.font.family.main};
     font-weight: 600;
+    margin: 0;
   }
 
   small{
