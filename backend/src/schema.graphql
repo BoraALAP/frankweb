@@ -1,5 +1,9 @@
 # import * from './generated/prisma.graphql'
 
+type SuccessMessage{
+  message: String
+}
+
 type Query {
   doors(
     where: DoorWhereInput
@@ -404,6 +408,18 @@ type Query {
     first: Int
     last: Int
   ): DoorSurroundConnection!
+
+  user(where: UserWhereUniqueInput!): User
+  usersConnection(
+    where: UserWhereInput
+    orderBy: UserOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): UserConnection!
+  me: User
 }
 
 type Mutation {
@@ -788,7 +804,6 @@ type Mutation {
     Sidelites: SideliteUpdateManyWithoutRatingEligibilityInput
     Transoms: TransomUpdateManyWithoutRatingEligibilityInput
   ): RatingEligibility!
-
   createLocationOnHouse(
     Id: ID
     Name: String
@@ -798,7 +813,6 @@ type Mutation {
     Sidelites: SideliteUpdateManyWithoutLocationOnHouseInput
     Transoms: TransomUpdateManyWithoutLocationOnHouseInput
   ): LocationOnHouse!
-
   createGlassSize(
     Id: ID
     Name: String
@@ -807,7 +821,6 @@ type Mutation {
     Sidelites: SideliteUpdateManyInput
     Transoms: TransomUpdateManyWithoutGlassSizeCategoryInput
   ): GlassFeature!
-
   createDoorSurround(
     Id: ID
     StyleNumber: String
@@ -842,4 +855,17 @@ type Mutation {
     data: TransomUpdateInput!
     where: TransomWhereUniqueInput!
   ): Transom
+
+  createUser(email: String!, password: String!, name: String!): User!
+  signIn(email: String!, password: String!): User!
+  signOut: SuccessMessage
+  requestReset(email: String!): SuccessMessage 
+  resetPassword(resetToken: String!, confirmPassword:String!, password:String!):User!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  permissions: [Permission!]!
 }

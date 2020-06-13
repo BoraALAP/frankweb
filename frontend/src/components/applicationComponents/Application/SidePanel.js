@@ -34,27 +34,27 @@ const PRODUCT_QUERY = gql`
 `;
 
 const SidePanel = (props) => {
-  const { store, dispatch } = useContext(appContext);
+  const { appStore, appDispatch } = useContext(appContext);
   const { data, loading } = useQuery(PRODUCT_QUERY, {
     variables: {
-      location: store.steps.location.id,
+      location: appStore.location.id,
       texture:
-        store.steps.texture.value === "skipped"
-          ? ""
-          : store.steps.texture.value,
-      size: store.steps.size.id,
-      sizeCategory: store.steps.glassSize.id,
-      glassFamily: store.steps.glassFamily.id,
+        appStore.texture.value === "skipped" ? "" : appStore.texture.value,
+      size: appStore.size.id,
+      sizeCategory: appStore.glassSize.id,
+      glassFamily: appStore.glassFamily.id,
     },
     notifyOnNetworkStatusChange: true,
   });
 
+  console.log(appStore);
+
   useEffect(() => {
     if (
-      store.steps.glassFamily.id === "ck9ncvpcyt5hr0940wanncthp" &&
-      store.steps.glassSize.id !== "ckabh7fc39qje09114kvnjwtv"
+      appStore.glassFamily.id === "ck9ncvpcyt5hr0940wanncthp" &&
+      appStore.glassSize.id !== "ckabh7fc39qje09114kvnjwtv"
     ) {
-      dispatch({
+      appDispatch({
         type: "FIX_STEP",
         step: "glassFamily",
         value: "",
@@ -62,16 +62,16 @@ const SidePanel = (props) => {
         completed: false,
       });
     }
-  }, [store.steps]);
+  }, [appStore.steps]);
 
   const fields = (field, text, step) => {
-    if (store.steps[field].value) {
+    if (appStore[field].value) {
       return (
         <li>
           <h6>
-            {text}: <span>{store.steps[field].value}</span>
+            {text}: <span>{appStore[field].value}</span>
           </h6>
-          <Button onClick={() => dispatch({ type: "SET_STEP", step })}>
+          <Button onClick={() => appDispatch({ type: "SET_STEP", step })}>
             edit
           </Button>
         </li>
@@ -80,14 +80,14 @@ const SidePanel = (props) => {
       return (
         <li>
           <h6>
-            {text}: <span>{store.steps[field].value}</span>
+            {text}: <span>{appStore[field].value}</span>
           </h6>
         </li>
       );
     }
   };
   const resetStep = (props) => {
-    dispatch({
+    appDispatch({
       type: "RESET_STEP",
     });
   };
@@ -113,7 +113,7 @@ const SidePanel = (props) => {
         {fields("glassSize", "Window Size", 5)}
         {fields("glassFamily", "Glass Family", 6)}
       </Bottom>
-      {store.steps.step > 1 && <Button onClick={resetStep}>Start Over</Button>}
+      {appStore.step > 1 && <Button onClick={resetStep}>Start Over</Button>}
     </Container>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
-import ImageContainer from "../components/applicationComponents/UI/ImageContainer";
 
 import { editContext } from "../context/context";
 import Spinner from "../components/UI/Spinner";
@@ -36,10 +35,12 @@ const PRODUCT_QUERY = gql`
           Finish {
             Name
             Id
+            ImageUrl
           }
           FrameFinish {
             Name
             Id
+            ImageUrl
           }
           AllowsHandlesets
           DefaultDoorSurroundStyleNumber {
@@ -63,10 +64,9 @@ const PRODUCT_QUERY = gql`
           ParentGlassFamilyAbbreviation {
             Name
             Id
+            ImageUrl
           }
-          RelatedFamily {
-            Id
-          }
+
           GlassFamilyAbbreviation {
             Id
             Name
@@ -82,12 +82,28 @@ const PRODUCT_QUERY = gql`
           RelatedGlasses {
             Name
             Id
+            ImageUrl
+          }
+          RelatedDoors {
+            Id
+            StyleNumber
+            ImageUrl
+          }
+          RelatedFamily {
+            Id
+            Name
+            ImageUrl
+            BigImageUrl
           }
           Sidelites {
             Id
+            StyleNumber
+            ImageUrl
           }
           Transoms {
             Id
+            StyleNumber
+            ImageUrl
           }
         }
       }
@@ -148,7 +164,6 @@ const TemplateDoorEditable = ({ match, history }) => {
     variables: {
       productid: match.params.id,
     },
-    notifyOnNetworkStatusChange: true,
   });
 
   useEffect(() => {
@@ -247,6 +262,7 @@ const TemplateDoorEditable = ({ match, history }) => {
       type: "NEW_PRODUCT_ID",
       newId: match.params.id,
     });
+    return () => editDispatch({ type: "RESET" });
   }, []);
 
   useEffect(() => {
@@ -264,13 +280,6 @@ const TemplateDoorEditable = ({ match, history }) => {
     }
   }, [editStore.doorEdit]);
 
-  useEffect(() => {
-    return () => editDispatch({ type: "RESET" });
-  }, []);
-
-  console.log(checkedProduct, checkedLoading);
-  console.log(check);
-
   if (loading) {
     return <Spinner />;
   }
@@ -282,21 +291,21 @@ const TemplateDoorEditable = ({ match, history }) => {
   const Switch = (prop) => {
     switch (editStore.doorEdit.step) {
       case 0:
-        return <DoorConfiguration id={match.params.id} />;
+        return <DoorConfiguration />;
       case 1:
-        return <Finishes id={match.params.id} />;
+        return <Finishes data={info.Finishes} />;
       case 2:
-        return <FrameFinishes id={match.params.id} />;
+        return <FrameFinishes data={info.Finishes} />;
       case 3:
-        return <GlassFamily id={match.params.id} />;
+        return <GlassFamily data={info.RelatedFamily} />;
       case 4:
-        return <DividedLites id={match.params.id} />;
+        return <DividedLites data={info.RelatedGlasses} />;
       case 5:
-        return <Sidelite id={match.params.id} />;
+        return <Sidelite data={info.Sidelites} />;
       case 6:
-        return <Transom id={match.params.id} />;
+        return <Transom data={info.Transoms} />;
       case 7:
-        return <DoorStyles id={match.params.id} />;
+        return <DoorStyles data={info.RelatedDoors} />;
       case 8:
         return <DoorSurround id={match.params.id} />;
       case 9:
@@ -315,9 +324,7 @@ const TemplateDoorEditable = ({ match, history }) => {
       <Left>
         <ImgContainer
           alt={info.StyleNumber}
-          door={info.ImageUrl}
-          sidelite={info.ImageUrl}
-          transom={info.ImageUrl}
+          src={info.ImageUrl}
           name={info.StyleNumber}
           big
         />

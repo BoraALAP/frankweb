@@ -219,6 +219,12 @@ const PRODUCT_QUERY = gql`
             ImageUrl
             __typename
           }
+          RelatedFamily {
+            Name
+            Id
+            ImageUrl
+            BigImageUrl
+          }
         }
       }
     }
@@ -254,8 +260,6 @@ const TemplateDoor = ({ match }) => {
       )
     );
   };
-
-  console.log(info);
 
   return (
     <Container>
@@ -520,6 +524,25 @@ const TemplateDoor = ({ match }) => {
         {show("GlassAssociation Name", info.GlassAssociation.GlassAssociation)}
       </Information>
       <Listing>
+        {info.RelatedFamily.length > 0 && (
+          <SubLevel>
+            <h5>Related Family</h5>
+
+            <Related>
+              {info.RelatedFamily.map((item, index) => (
+                <RelatedItem
+                  key={item.Id}
+                  Name={item.Name}
+                  ImageUrl={item.ImageUrl}
+                  BigImageUrl={item.BigImageUrl}
+                  Id={item.Id}
+                  Type={item.__typename}
+                />
+              ))}
+            </Related>
+          </SubLevel>
+        )}
+
         {info.RelatedGlasses.length > 0 && (
           <SubLevel>
             <h5>Divided Lites</h5>

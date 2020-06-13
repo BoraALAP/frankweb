@@ -28,17 +28,17 @@ const FAMILY_QUERY = gql`
 `;
 
 const GlassFamily = (props) => {
-  const { store, dispatch } = useContext(appContext);
+  const { appStore, appDispatch } = useContext(appContext);
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(FAMILY_QUERY);
 
   useEffect(() => {
     if (!loading && data.glassFamiliesConnection !== undefined) {
-      if (store.steps.glassSize.value === "Opaque") {
+      if (appStore.glassSize.value === "Opaque") {
         data.glassFamiliesConnection.edges.find((element) => {
           // this is causing the problem on the console
           if (element.node.Name === "Opaque") {
-            dispatch({
+            appDispatch({
               type: "UPDATE_STEP",
               step: "glassFamily",
               value: element.node.Name,
@@ -56,7 +56,7 @@ const GlassFamily = (props) => {
   }
 
   const handleClick = (value, id) => {
-    dispatch({
+    appDispatch({
       type: "UPDATE_STEP",
       step: "glassFamily",
       value,
@@ -73,13 +73,13 @@ const GlassFamily = (props) => {
       {options.map(({ node }, index) => {
         if (
           (node.Name !== "Opaque" && node.Name !== "Hammered") ||
-          store.steps.glassSize.value === "skipped"
+          appStore.glassSize.value === "skipped"
         ) {
           return (
             <SelectorS
               key={index}
               onClick={() => handleClick(node.Name, node.Id)}
-              select={node.Name === store.steps.glassFamily.value}
+              select={node.Name === appStore.glassFamily.value}
             >
               <ImageContainer
                 alt={node.Name}

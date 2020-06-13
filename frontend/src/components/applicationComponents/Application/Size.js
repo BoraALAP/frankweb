@@ -28,7 +28,7 @@ const SIZE_QUERY = gql`
 `;
 
 const Size = (props) => {
-  const { dispatch } = useContext(appContext);
+  const { appDispatch } = useContext(appContext);
   const [width, setWidth] = useState([]);
   const [height, setHeight] = useState([]);
   const [select, setSelect] = useState({ width: undefined, height: undefined });
@@ -86,7 +86,7 @@ const Size = (props) => {
     data.availableSizesesConnection.edges.filter((v, i, a) => {
       if (v.node.Width === select.width && v.node.Height === select.height) {
         // this is causing the problem on the console
-        dispatch({
+        appDispatch({
           type: "UPDATE_STEP",
           step: "size",
           value: v.node.Size,

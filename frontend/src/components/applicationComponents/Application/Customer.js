@@ -6,7 +6,7 @@ import { appContext } from "../../../context/context";
 import Layout from "./Layout";
 
 const Customer = (props) => {
-  const { dispatch } = useContext(appContext);
+  const { appDispatch } = useContext(appContext);
 
   const options = [
     { name: "Homeowner" },
@@ -15,7 +15,7 @@ const Customer = (props) => {
   ];
 
   const handleClick = (value) => {
-    dispatch({
+    appDispatch({
       type: "UPDATE_STEP",
       step: "customer",
       value,

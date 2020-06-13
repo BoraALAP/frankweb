@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { appContext } from "../../../context/context";
+import { globalContext } from "../../../context/context";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ImageContainer = ({ src, alt = "image", big, small, med }) => {
-  const { store } = useContext(appContext);
+  const { store } = useContext(globalContext);
 
   if (big) {
     return <BigContainer alt={alt} src={`${store.imgSrc}${src}`} />;

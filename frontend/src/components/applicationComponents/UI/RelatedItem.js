@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ImageContainer from "./ImageContainer";
 
-import { appContext } from "../../../context/context";
 import Box from "./Box";
 
 const RelatedItem = ({

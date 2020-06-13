@@ -1,40 +1,45 @@
 export const initialState = {
   theme: true,
-  steps: {
-    step: 1,
-    customer: {
-      id: "",
-      value: "",
-      completed: false,
-    },
-    location: {
-      id: "",
-      value: "",
-      completed: false,
-    },
-    texture: {
-      id: "",
-      value: "",
-      completed: false,
-    },
-    size: {
-      id: "",
-      value: "",
-      completed: false,
-    },
-    glassSize: {
-      id: "",
-      value: "",
-      completed: false,
-    },
-    glassFamily: {
-      id: "",
-      value: "",
-      completed: false,
-    },
-  },
   imgSrc: "http://frank.com.s3-website-us-east-1.amazonaws.com",
   search: "",
+  user: {
+    id: undefined,
+    name: undefined,
+  },
+};
+
+export const appState = {
+  step: 1,
+  customer: {
+    id: "",
+    value: "",
+    completed: false,
+  },
+  location: {
+    id: "",
+    value: "",
+    completed: false,
+  },
+  texture: {
+    id: "",
+    value: "",
+    completed: false,
+  },
+  size: {
+    id: "",
+    value: "",
+    completed: false,
+  },
+  glassSize: {
+    id: "",
+    value: "",
+    completed: false,
+  },
+  glassFamily: {
+    id: "",
+    value: "",
+    completed: false,
+  },
 };
 
 export const editState = {
@@ -115,77 +120,67 @@ export const editState = {
   },
 };
 
-export const appReducer = (state = initialState, actions) => {
+export const globalReducer = (state = initialState, actions) => {
   switch (actions.type) {
-    case "UPDATE_STEP":
-      return {
-        ...state,
-        steps: {
-          ...state.steps,
-          [actions.step]: {
-            value: actions.value,
-            id: actions.id,
-            completed: true,
-          },
-          step: state.steps.step + 1,
-        },
-      };
     case "UPDATE_SEARCH":
       return {
         ...state,
         search: actions.payload,
       };
+
+    default:
+      return state;
+  }
+};
+
+export const appReducer = (state = appState, actions) => {
+  switch (actions.type) {
+    case "UPDATE_STEP":
+      return {
+        ...state,
+        [actions.step]: {
+          value: actions.value,
+          id: actions.id,
+          completed: true,
+        },
+        step: state.step + 1,
+      };
     case "NEXT_STEP":
       return {
         ...state,
-        steps: {
-          ...state.steps,
-          [actions.step]: {
-            id: "",
-            value: "skipped",
-            completed: true,
-          },
-          step: state.steps.step + 1,
+        [actions.step]: {
+          id: "",
+          value: "skipped",
+          completed: true,
         },
+        step: state.step + 1,
       };
 
     case "PREV_STEP":
       return {
         ...state,
-        steps: {
-          ...state.steps,
-          step: state.steps.step - 1,
-        },
+        step: state.step - 1,
       };
 
     case "SET_STEP":
       return {
         ...state,
-        steps: {
-          ...state.steps,
-          step: actions.step,
-        },
+        step: actions.step,
       };
     case "FIX_STEP":
       return {
         ...state,
-        steps: {
-          ...state.steps,
-          [actions.step]: {
-            value: actions.value,
-            id: actions.id,
-            completed: actions.completed,
-          },
+        [actions.step]: {
+          value: actions.value,
+          id: actions.id,
+          completed: actions.completed,
         },
       };
 
     case "RESET_STEP":
       return {
-        ...state,
-        steps: {
-          ...initialState.steps,
-          step: 1,
-        },
+        ...appState,
+        step: 1,
       };
     default:
       return state;

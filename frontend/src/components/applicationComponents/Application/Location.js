@@ -22,7 +22,7 @@ const LOCATION_QUERY = gql`
 `;
 
 const Location = () => {
-  const { store, dispatch } = useContext(appContext);
+  const { appStore, appDispatch } = useContext(appContext);
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(LOCATION_QUERY);
 
@@ -37,7 +37,7 @@ const Location = () => {
   }
 
   const handleClick = (value, id) => {
-    dispatch({
+    appDispatch({
       type: "UPDATE_STEP",
       step: "location",
       value,
@@ -50,7 +50,7 @@ const Location = () => {
       {options.map((selector, index) => (
         <Selector
           key={index}
-          select={selector.node.Name === store.steps.location.value}
+          select={selector.node.Name === appStore.location.value}
           onClick={() => handleClick(selector.node.Name, selector.node.Id)}
         >
           {selector.node.Name}

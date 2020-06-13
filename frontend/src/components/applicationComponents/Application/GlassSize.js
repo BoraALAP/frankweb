@@ -21,7 +21,7 @@ const GLASS_SIZE_QUERY = gql`
 `;
 
 const GlassSize = (props) => {
-  const { store, dispatch } = useContext(appContext);
+  const { appStore, appDispatch } = useContext(appContext);
   const [options, setOptions] = useState([]);
   const { data, loading } = useQuery(GLASS_SIZE_QUERY);
 
@@ -36,7 +36,7 @@ const GlassSize = (props) => {
   }
 
   const handleClick = (value, id) => {
-    dispatch({
+    appDispatch({
       type: "UPDATE_STEP",
       step: "glassSize",
       value,
@@ -55,7 +55,7 @@ const GlassSize = (props) => {
             <Selector
               key={index}
               onClick={() => handleClick(node.Name, node.Id)}
-              select={node.Name === store.steps.glassSize.value}
+              select={node.Name === appStore.glassSize.value}
             >
               {node.Name}
             </Selector>

@@ -66,18 +66,16 @@ const PRODUCT_QUERY = gql`
 `;
 
 const Success = (props) => {
-  const { store, dispatch } = useContext(appContext);
+  const { appStore, appDispatch } = useContext(appContext);
 
   const { data, loading, fetchMore } = useQuery(PRODUCT_QUERY, {
     variables: {
-      location: store.steps.location.id,
-      size: store.steps.size.id,
-      glassSize: store.steps.glassSize.id,
+      location: appStore.location.id,
+      size: appStore.size.id,
+      glassSize: appStore.glassSize.id,
       texture:
-        store.steps.texture.value === "skipped"
-          ? ""
-          : store.steps.texture.value,
-      glassFamily: store.steps.glassFamily.id,
+        appStore.texture.value === "skipped" ? "" : appStore.texture.value,
+      glassFamily: appStore.glassFamily.id,
       first: 12,
     },
     notifyOnNetworkStatusChange: true,
@@ -88,7 +86,7 @@ const Success = (props) => {
   }
 
   const resetStep = (props) => {
-    dispatch({
+    appDispatch({
       type: "RESET_STEP",
     });
   };
@@ -99,14 +97,12 @@ const Success = (props) => {
       variables: {
         first: 12,
         after: data.doorsConnection.pageInfo.endCursor,
-        location: store.steps.location.id,
-        size: store.steps.size.id,
-        glassSize: store.steps.glassSize.id,
+        location: appStore.location.id,
+        size: appStore.size.id,
+        glassSize: appStore.glassSize.id,
         texture:
-          store.steps.texture.value === "skipped"
-            ? ""
-            : store.steps.texture.value,
-        glassFamily: store.steps.glassFamily.id,
+          appStore.texture.value === "skipped" ? "" : appStore.texture.value,
+        glassFamily: appStore.glassFamily.id,
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) {
@@ -132,6 +128,17 @@ const Success = (props) => {
       },
     });
   };
+
+  if (data.doorsConnection.aggregate.count === 0) {
+    return (
+      <Container>
+        <h2>
+          Unfortunatly there is no door with your inqures. Please change some of
+          the attributes
+        </h2>
+      </Container>
+    );
+  }
 
   return (
     <Container>

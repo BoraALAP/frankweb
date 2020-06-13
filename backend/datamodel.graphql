@@ -1,3 +1,4 @@
+############ DOOR BUILDER
 type Door {
   Id: ID! @id
   Brand: String!
@@ -463,4 +464,23 @@ type RatingEligibility {
   Doors: [Door] @relation(name: "RatingEligibilityDoor")
   Sidelites: [Sidelite] @relation(name: "RatingEligibilitySidelite")
   Transoms: [Transom] @relation(name: "RatingEligibilityTransom")
+}
+
+############################## USER DATA
+enum Permission {
+  ADMIN
+  MANAGER
+  DEALER
+  USER
+  PERMISSIONUPDATE
+}
+
+type User {
+  id: ID! @id
+  name: String!
+  email: String! @unique
+  password: String! 
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission!]! @scalarList(strategy: RELATION)
 }

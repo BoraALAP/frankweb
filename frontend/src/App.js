@@ -1,11 +1,13 @@
 import React, { useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { appContext, editContext } from "./context/context";
+import { appContext, editContext, globalContext } from "./context/context";
 import {
   appReducer,
   editReducer,
+  globalReducer,
   initialState,
+  appState,
   editState,
 } from "./context/reducer";
 
@@ -27,52 +29,71 @@ import TemplateDividedLites from "./template/TemplateDividedLites";
 import TemplateGlassFamily from "./template/TemplateGlassFamily";
 import DealerFinder from "./pages/DealerFinder";
 
+import SignUp from "./pages/user/SignUp";
+import RequestReset from "./pages/user/RequestReset";
+import Account from "./pages/user/Account";
+import SignIn from "./pages/user/SignIn";
+import SignOut from "./pages/user/SignOut";
+import ResetPassword from "./pages/user/ResetPassword";
+
 const App = () => {
-  const [store, dispatch] = useReducer(appReducer, initialState);
+  const [store, dispatch] = useReducer(globalReducer, initialState);
+  const [appStore, appDispatch] = useReducer(appReducer, appState);
   const [editStore, editDispatch] = useReducer(editReducer, editState);
 
   return (
-    <appContext.Provider value={{ store, dispatch }}>
-      <editContext.Provider value={{ editStore, editDispatch }}>
-        <ThemeProvider theme={store.theme ? primaryTheme : secondaryTheme}>
-          <GlobalStyle />
-          <Router>
-            <Layout>
-              <Switch>
-                <Route path="/application" component={DoorApplication} />
-                <Route path="/search" component={SearchResult} />
-                <Route path="/dealerFinder" component={DealerFinder} />
-                <Route path="/push" component={Push} />
-                <Route path="/product/door/:id" component={TemplateDoor} />
-                <Route
-                  path="/selected/Door/:id"
-                  component={TemplateDoorEditable}
-                />
-                <Route
-                  path="/product/sidelite/:id"
-                  component={TemplateSidelite}
-                />
-                <Route
-                  path="/product/transom/:id"
-                  component={TemplateTransom}
-                />
-                <Route
-                  path="/product/dividedlites/:id"
-                  component={TemplateDividedLites}
-                />
-                <Route
-                  path="/product/glassfamily/:id"
-                  component={TemplateGlassFamily}
-                />
-                <Route path="/" exact>
-                  <DisplayAll />
-                </Route>
-              </Switch>
-            </Layout>
-          </Router>
-        </ThemeProvider>
-      </editContext.Provider>
-    </appContext.Provider>
+    <globalContext.Provider value={{ store, dispatch }}>
+      <appContext.Provider value={{ appStore, appDispatch }}>
+        <editContext.Provider value={{ editStore, editDispatch }}>
+          <ThemeProvider theme={store.theme ? primaryTheme : secondaryTheme}>
+            <GlobalStyle />
+
+            <Router>
+              <Layout>
+                <Switch>
+                  <Route path="/application" component={DoorApplication} />
+                  <Route path="/search" component={SearchResult} />
+                  <Route path="/dealerFinder" component={DealerFinder} />
+                  <Route path="/push" component={Push} />
+                  <Route path="/product/door/:id" component={TemplateDoor} />
+                  <Route
+                    path="/selected/Door/:id"
+                    component={TemplateDoorEditable}
+                  />
+                  <Route
+                    path="/product/sidelite/:id"
+                    component={TemplateSidelite}
+                  />
+                  <Route
+                    path="/product/transom/:id"
+                    component={TemplateTransom}
+                  />
+                  <Route
+                    path="/product/dividedlites/:id"
+                    component={TemplateDividedLites}
+                  />
+                  <Route
+                    path="/product/glassfamily/:id"
+                    component={TemplateGlassFamily}
+                  />
+
+                  <Route path="/user/account" component={Account} />
+                  <Route path="/user/signIn" component={SignIn} />
+                  <Route path="/user/signUp" component={SignUp} />
+                  <Route path="/user/signOut" component={SignOut} />
+                  <Route path="/user/requestReset" component={RequestReset} />
+                  <Route path="/user/resetPassword" component={ResetPassword} />
+
+                  <Route path="/" exact>
+                    <DisplayAll />
+                  </Route>
+                </Switch>
+              </Layout>
+            </Router>
+          </ThemeProvider>
+        </editContext.Provider>
+      </appContext.Provider>
+    </globalContext.Provider>
   );
 };
 

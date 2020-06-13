@@ -6,7 +6,6 @@ import Layout from "./Layout";
 
 import { editContext } from "../../../context/context";
 import Selector from "../UI/Selector";
-import Spinner from "../../UI/Spinner";
 import ImageContainer from "../UI/ImageContainer";
 
 const DOORSURROND_QUERY = gql`

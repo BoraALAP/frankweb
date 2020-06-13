@@ -12,13 +12,11 @@ import { appContext } from "../context/context";
 import GlassFamily from "../components/applicationComponents/Application/GlassFamily";
 import SidePanel from "../components/applicationComponents/Application/SidePanel";
 
-// import { appContext } from "../context/context";
-
 const DoorApplication = ({ match }) => {
-  const { store } = useContext(appContext);
+  const { appStore } = useContext(appContext);
 
   const Switch = (prop) => {
-    switch (store.steps.step) {
+    switch (appStore.step) {
       case 1:
         return <Customer />;
       case 2:

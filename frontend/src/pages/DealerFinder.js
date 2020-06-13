@@ -6,27 +6,25 @@ import {
   LoadScript,
   MarkerClusterer,
   Marker,
-  InfoWindow,
-  Autocomplete,
 } from "@react-google-maps/api";
 
 const DealerFinder = (props) => {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState({
+    lat: 43.6539697,
+    lng: -79.4338794,
+  });
   const [activeLocation, setActiveLocation] = useState(undefined);
   const [info, setInfo] = useState(undefined);
   const [zoom, setZoom] = useState(10);
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
+  navigator.geolocation.getCurrentPosition((position) => {
+    if (position) {
       setLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       });
-    });
-  }, []);
-
-  // console.log(GoogleMap);
-  // const autocomplete = new window.google.maps.places.Autocomplete();
+    }
+  });
 
   const containerStyle = {
     width: "100%",

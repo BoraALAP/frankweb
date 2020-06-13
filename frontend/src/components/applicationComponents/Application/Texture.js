@@ -6,10 +6,10 @@ import { appContext } from "../../../context/context";
 import Layout from "./Layout";
 
 const Texture = (props) => {
-  const { store, dispatch } = useContext(appContext);
+  const { appStore, appDispatch } = useContext(appContext);
 
   const handleClick = (value) => {
-    dispatch({
+    appDispatch({
       type: "UPDATE_STEP",
       step: "texture",
       value,
@@ -31,7 +31,7 @@ const Texture = (props) => {
         <Selector
           key={index}
           onClick={() => handleClick(selector.value)}
-          select={selector.value === store.steps.texture.value}
+          select={selector.value === appStore.texture.value}
         >
           {selector.name}
         </Selector>
