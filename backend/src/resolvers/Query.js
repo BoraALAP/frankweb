@@ -50,8 +50,6 @@ const Query = {
   usersConnection: forwardTo("db"),
   me(parent, args, ctx, info) {
     //check if there is a current user id
-    console.log(ctx.request.userId);
-
     if (!ctx.request.userId) {
       return null;
     }

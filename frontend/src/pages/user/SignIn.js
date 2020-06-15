@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { gql, useMutation, useQuery } from "@apollo/client";
+
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import { CURRENT_USER_QUERY } from "../../queries/User";
 
 import DisplayError from "../../components/UI/ErrorMessage";
+import FieldSet from "../../components/user/FieldSet";
+import { Primary, Tertiary } from "../../components/UI/Button";
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -20,70 +25,81 @@ const SIGNIN_MUTATION = gql`
 const SignIn = (props) => {
   const history = useHistory();
 
-  const [formValue, setFormValue] = useState({
-    email: "",
-    password: "",
-  });
-
   const { data } = useQuery(CURRENT_USER_QUERY);
   const [signIn, { error, loading }] = useMutation(SIGNIN_MUTATION, {
-    variables: {
-      ...formValue,
-    },
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Required"),
+      password: Yup.string()
+        .min(8, "Password is too short - should be 8 chars minimum.")
+        .matches(/[a-zA-Z]/, "Password can only contain Latin letters.")
+        .required("Required"),
+    }),
+    onSubmit: async (values, actions) => {
+      await signIn({ variables: { ...values } });
+      actions.resetForm({ values: { email: "", password: "" } });
+      actions.setSubmitting(false);
+    },
   });
 
   useEffect(() => {
     if (data?.me) {
-      history.push("/account");
+      history.push("/user/account");
     }
   });
 
-  const handleChange = (e) => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await signIn();
-
-    setFormValue({ email: "", password: "" });
-  };
-
   return (
     <Container>
-      <h1>Sign In</h1>
-
-      <Form onSubmit={handleSubmit}>
-        <fieldset disabled={loading} area-busy={loading.toString()}>
-          <h2>Sign in for an Account</h2>
-          <DisplayError error={error} />
-          <label htmlFor="email">
-            Email
+      <Form onSubmit={formik.handleSubmit}>
+        <FieldSet disabled={loading} area-busy={loading.toString()}>
+          <h2>Sign In</h2>
+          <DisplayError formikError={formik.errors} error={error} />
+          <div>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               name="email"
               placeholder="Email"
-              value={formValue.email}
-              onChange={handleChange}
+              value={formik.values.email}
+              onChange={formik.handleChange}
             />
-          </label>
+          </div>
 
-          <label htmlFor="password">
-            Password
+          <div>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               name="password"
               placeholder="Password"
-              value={formValue.password}
-              onChange={handleChange}
+              value={formik.values.password}
+              onChange={formik.handleChange}
             />
-          </label>
-          <button type="submit">Sign me In</button>
-        </fieldset>
+          </div>
+
+          <Primary
+            type="submit"
+            disabled={formik.isSubmitting || !formik.isValid}
+          >
+            {" "}
+            {formik.isSubmitting ? "Checking..." : "Sign Me In"}
+          </Primary>
+        </FieldSet>
       </Form>
-      <Link to="/user/signUp">No Account</Link>
-      <Link to="/user/requestReset">Don't remember Password</Link>
+      <Tertiary link to="/user/signUp">
+        No Account
+      </Tertiary>
+      <Tertiary link to="/user/requestReset">
+        Don't Remember Password
+      </Tertiary>
     </Container>
   );
 };

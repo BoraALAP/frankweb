@@ -371,10 +371,23 @@ const Mutation = {
   async createUser(parent, args, ctx, info) {
     // lowercase the email
     args.email = args.email.toLowerCase();
+    const [user] = await ctx.db.query.users({
+      where: {
+        email: args.email,
+      },
+    });
+    if (user) {
+      throw new Error("User is already exists");
+    }
+    args.name = args.name
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
     // hash their password
     const password = await bcrypt.hash(args.password, 10);
     // create the user in DB
-    const user = await ctx.db.mutation.createUser(
+    const newUser = await ctx.db.mutation.createUser(
       {
         data: {
           ...args,
@@ -386,14 +399,14 @@ const Mutation = {
     );
 
     // create the JWT toekn for them
-    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+    const token = jwt.sign({ userId: newUser.id }, process.env.APP_SECRET);
     // We set the jwt as a cookie on the response
     ctx.response.cookie("token", token, {
       httpOnly: true,
       maxAge, // 1 year cookie
     });
     // Finalllllly we return the user to the browser
-    return user;
+    return newUser;
   },
 
   async signIn(parent, { email, password }, ctx, info) {

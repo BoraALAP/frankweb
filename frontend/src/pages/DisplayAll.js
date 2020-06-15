@@ -4,7 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 import styled from "styled-components";
 // import { appContext } from "../context/context";
 import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
-import Button from "../components/UI/Button";
+import { Primary } from "../components/UI/Button";
 import Spinner from "../components/UI/Spinner";
 
 const DOOR_QUERY = gql`
@@ -81,12 +81,12 @@ const DisplayAll = (props) => {
         ))}
       </ProductContainer>
 
-      <Button
+      <Primary
         onClick={handleMore}
         disabled={!data.doorsConnection.pageInfo.hasNextPage}
       >
         More
-      </Button>
+      </Primary>
     </Container>
   );
 };

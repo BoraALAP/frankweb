@@ -6,7 +6,7 @@ import RelatedItem from "../UI/RelatedItem";
 import { appContext } from "../../../context/context";
 import Selector from "../UI/Selector";
 import Spinner from "../../UI/Spinner";
-import Button from "../../UI/Button";
+import { Primary } from "../../UI/Button";
 
 const PRODUCT_QUERY = gql`
   query door(
@@ -160,12 +160,12 @@ const Success = (props) => {
           ))}
         </Related>
       </SubLevel>
-      <Button
+      <Primary
         onClick={handleMore}
         disabled={!data.doorsConnection.pageInfo.hasNextPage}
       >
         More
-      </Button>
+      </Primary>
       <Selector onClick={resetStep}>Start Over</Selector>
     </Container>
   );

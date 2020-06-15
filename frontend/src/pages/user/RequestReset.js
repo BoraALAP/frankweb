@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
-import { CURRENT_USER_QUERY } from "../../queries/User";
+import FieldSet from "../../components/user/FieldSet";
+import { Primary, Tertiary } from "../../components/UI/Button";
 
 import DisplayError from "../../components/UI/ErrorMessage";
 
@@ -15,53 +18,58 @@ const REQUEST_RESET = gql`
   }
 `;
 
-const RequestReset = (props) => {
-  const [formValue, setFormValue] = useState({
-    email: "",
+const RequestReset = () => {
+  const [requestReset, { error, loading, called }] = useMutation(REQUEST_RESET);
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Required"),
+    }),
+    onSubmit: async (values, actions) => {
+      await requestReset({ variables: { ...values } });
+      actions.resetForm({ values: { email: "" } });
+      actions.setSubmitting(false);
+    },
   });
-
-  const [requestReset, { error, loading, called }] = useMutation(
-    REQUEST_RESET,
-    {
-      variables: {
-        email: formValue.email,
-      },
-    }
-  );
-
-  const handleChange = (e) => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await requestReset();
-    setFormValue({ email: "" });
-  };
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
-        <fieldset disabled={loading} area-busy={loading.toString()}>
+      <Form onSubmit={formik.handleSubmit}>
+        <FieldSet disabled={loading} area-busy={loading.toString()}>
           <h2>Request Password for an Account</h2>
-          <DisplayError error={error} />
+          <DisplayError formikError={formik.errors} error={error} />
           {!error && !loading && called && (
             <p>Success! check your email for a reset link!</p>
           )}
-          <label htmlFor="email">
-            Email
+          <div>
+            <label htmlFor="email">Email</label>
             <input
+              id="email"
               type="email"
               name="email"
               placeholder="Email"
-              value={formValue.email}
-              onChange={handleChange}
+              value={formik.values.email}
+              onChange={formik.handleChange}
             />
-          </label>
-          <button type="submit">Request Password</button>
-        </fieldset>
+          </div>
+
+          <Primary
+            type="submit"
+            disabled={formik.isSubmitting || !formik.isValid}
+          >
+            {" "}
+            {formik.isSubmitting ? "Sending..." : "Request Password"}
+          </Primary>
+        </FieldSet>
       </Form>
-      <Link to="/user/signIn">Sign In</Link>
+      <Tertiary link to="/user/signIn">
+        Sign In
+      </Tertiary>
     </Container>
   );
 };

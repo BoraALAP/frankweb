@@ -5,7 +5,7 @@ import { gql, useQuery } from "@apollo/client";
 import { appContext } from "../../../context/context";
 import Spinner from "../../UI/Spinner";
 import Selector from "../UI/Selector";
-import Button from "../../UI/Button";
+import { Primary } from "../../UI/Button";
 
 const PRODUCT_QUERY = gql`
   query door(
@@ -71,9 +71,9 @@ const SidePanel = (props) => {
           <h6>
             {text}: <span>{appStore[field].value}</span>
           </h6>
-          <Button onClick={() => appDispatch({ type: "SET_STEP", step })}>
+          <Primary onClick={() => appDispatch({ type: "SET_STEP", step })}>
             edit
-          </Button>
+          </Primary>
         </li>
       );
     } else {
@@ -113,7 +113,7 @@ const SidePanel = (props) => {
         {fields("glassSize", "Window Size", 5)}
         {fields("glassFamily", "Glass Family", 6)}
       </Bottom>
-      {appStore.step > 1 && <Button onClick={resetStep}>Start Over</Button>}
+      {appStore.step > 1 && <Primary onClick={resetStep}>Start Over</Primary>}
     </Container>
   );
 };

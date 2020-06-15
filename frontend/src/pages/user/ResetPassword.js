@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { gql, useMutation, useQuery } from "@apollo/client";
+import { useLocation, useHistory } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 import { CURRENT_USER_QUERY } from "../../queries/User";
-import { useLocation, Redirect, useHistory } from "react-router-dom";
 import DisplayError from "../../components/UI/ErrorMessage";
+import FieldSet from "../../components/user/FieldSet";
+import { Primary } from "../../components/UI/Button";
 
 const RESET_PASSWORD = gql`
   mutation RESET_PASSWORD(
@@ -28,47 +33,47 @@ const ResetPassword = (props) => {
   const location = useLocation().search;
   const token = new URLSearchParams(location).get("resetToken");
 
-  const [formValue, setFormValue] = useState({
-    password: "",
-    confirmPassword: "",
-  });
-
   const { data } = useQuery(CURRENT_USER_QUERY);
 
   const [resetPassword, { error, loading, called }] = useMutation(
     RESET_PASSWORD,
-    {
-      variables: {
-        ...formValue,
-        resetToken: token,
-      },
-      refetchQueries: [{ query: CURRENT_USER_QUERY }],
-    }
+    { refetchQueries: [{ query: CURRENT_USER_QUERY }] }
   );
 
   useEffect(() => {
     if (data?.me) {
-      history.push("/account");
+      history.push("/user/account");
     }
   });
 
-  const handleChange = (e) => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await resetPassword();
-
-    setFormValue({ password: "", confirmPassword: "" });
-  };
+  const formik = useFormik({
+    initialValues: {
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      password: Yup.string()
+        .min(8, "Password is too short - should be 8 chars minimum.")
+        .matches(/[a-zA-Z]/, "Password can only contain Latin letters.")
+        .required("Required"),
+      confirmPassword: Yup.string()
+        .min(8, "Confirm Password is too short - should be 8 chars minimum.")
+        .matches(/[a-zA-Z]/, "Password can only contain Latin letters.")
+        .required("Required"),
+    }),
+    onSubmit: async (values, actions) => {
+      await resetPassword({ variables: { resetToken: token, ...values } });
+      actions.resetForm({ values: { password: "", confirmPassword: "" } });
+      actions.setSubmitting(false);
+    },
+  });
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
-        <fieldset disabled={loading} area-busy={loading.toString()}>
+      <Form onSubmit={formik.handleSubmit}>
+        <FieldSet disabled={loading} area-busy={loading.toString()}>
           <h2>Reset Password for an Account</h2>
-          <DisplayError error={error} />
+          <DisplayError formikError={formik.errors} error={error} />
           {!error && !loading && called && (
             <p>Success! You have set your new password!</p>
           )}
@@ -79,8 +84,8 @@ const ResetPassword = (props) => {
               type="password"
               name="password"
               placeholder="Password"
-              value={formValue.password}
-              onChange={handleChange}
+              value={formik.values.password}
+              onChange={formik.handleChange}
             />
           </label>
           <label htmlFor="password">
@@ -89,12 +94,18 @@ const ResetPassword = (props) => {
               type="password"
               name="confirmPassword"
               placeholder="Confirm Password"
-              value={formValue.confirmPassword}
-              onChange={handleChange}
+              value={formik.values.confirmPassword}
+              onChange={formik.handleChange}
             />
           </label>
-          <button type="submit">Sign me In</button>
-        </fieldset>
+          <Primary
+            type="submit"
+            disabled={formik.isSubmitting || !formik.isValid}
+          >
+            {" "}
+            {formik.isSubmitting ? "Reseting..." : "Reset Password"}
+          </Primary>
+        </FieldSet>
       </Form>
     </Container>
   );

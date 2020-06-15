@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 import { appContext } from "../../context/context";
-import Button from "../UI/Button";
+import { Primary } from "../UI/Button";
 
 const Search = (props) => {
   let history = useHistory();
@@ -26,7 +26,7 @@ const Search = (props) => {
       <label>search:</label>
       <input type="text" onChange={handleSearchChange} value={search} />
 
-      <Button type="submit">Search</Button>
+      <Primary type="submit">Search</Primary>
     </Container>
   );
 };

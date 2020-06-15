@@ -8,7 +8,7 @@ import Selector from "../UI/Selector";
 import Spinner from "../../UI/Spinner";
 import { appContext } from "../../../context/context";
 import Layout from "./Layout";
-import Button from "../../UI/Button";
+import { Primary } from "../../UI/Button";
 
 const SIZE_QUERY = gql`
   query SIZE_QUERY {
@@ -134,7 +134,7 @@ const Size = (props) => {
   );
 };
 
-const Next = styled(Button)`
+const Next = styled(Primary)`
   display: grid;
   grid-column: span 3;
 `;

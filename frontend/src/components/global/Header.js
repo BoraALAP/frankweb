@@ -9,7 +9,6 @@ import { useQuery } from "@apollo/client";
 import { CURRENT_USER_QUERY } from "../../queries/User";
 
 const Header = (props) => {
-  // const { store, dispatch } = useContext(appContext);
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY);
 
   return (
@@ -21,7 +20,7 @@ const Header = (props) => {
         {data?.me ? (
           <>
             <Link to="/user/account">
-              <p>Account</p>
+              <p>{data?.me?.name ? data.me.name : "Account"}</p>
             </Link>
             <SignOut />
           </>
@@ -40,12 +39,25 @@ const Header = (props) => {
 };
 
 export const SimpleHeader = () => {
+  const { data, loading, error } = useQuery(CURRENT_USER_QUERY);
   return (
     <Container>
       <Link to="/">
         <LogoS />
       </Link>
       <Nav>
+        {data?.me ? (
+          <>
+            <Link to="/user/account">
+              <p>{data?.me?.name ? data.me.name : "Account"}</p>
+            </Link>
+            <SignOut />
+          </>
+        ) : (
+          <Link to="/user/signIn">
+            <p>Sign In</p>
+          </Link>
+        )}
         <Link to="/application">
           <p>App</p>
         </Link>

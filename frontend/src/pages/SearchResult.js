@@ -5,7 +5,7 @@ import { gql, useQuery } from "@apollo/client";
 import { appContext } from "../context/context";
 import Spinner from "../components/UI/Spinner";
 import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
-import Button from "../components/UI/Button";
+import { Primary } from "../components/UI/Button";
 
 const DOOR_QUERY = gql`
   query DOOR_QUERY(
@@ -213,14 +213,14 @@ const SearchResult = (props) => {
         {tabs.map((item, index) => {
           if (data[item.collection].edges.length > 0) {
             return (
-              <Button
+              <Primary
                 key={index}
                 onClick={() => handleDisplay(item.name)}
                 display={active === item.name}
                 disabled={active === item.name}
               >
                 {item.name}
-              </Button>
+              </Primary>
             );
           }
         })}
@@ -247,9 +247,9 @@ const SearchResult = (props) => {
                   />
                 ))}
               </ProductContainer>
-              <Button onClick={() => handleMore(collection.collection)}>
+              <Primary onClick={() => handleMore(collection.collection)}>
                 More
-              </Button>
+              </Primary>
             </ResultContainer>
           );
         }

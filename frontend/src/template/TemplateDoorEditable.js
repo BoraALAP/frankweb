@@ -4,7 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 
 import { editContext } from "../context/context";
 import Spinner from "../components/UI/Spinner";
-import Button from "../components/UI/Button";
+import { Primary } from "../components/UI/Button";
 
 import DoorConfiguration from "../components/applicationComponents/DoorEdit/DoorConfiguration";
 import Finishes from "../components/applicationComponents/DoorEdit/Finishes";
@@ -354,29 +354,27 @@ const TemplateDoorEditable = ({ match, history }) => {
                   return;
                 } else {
                   return (
-                    <Button
+                    <Primary
                       key={item.index}
                       onClick={() => handleDisplay(item.index)}
-                      display={item.index === editStore.doorEdit.step}
                       disabled={item.index === editStore.doorEdit.step}
                     >
                       {item.name}
-                    </Button>
+                    </Primary>
                   );
                 }
               }
             } else {
               return (
-                <Button
+                <Primary
                   key={item.index}
                   onClick={() => {
                     handleDisplay(item.index);
                   }}
-                  display={item.index === editStore.doorEdit.step}
                   disabled={item.index === editStore.doorEdit.step}
                 >
                   {item.name}
-                </Button>
+                </Primary>
               );
             }
           })}

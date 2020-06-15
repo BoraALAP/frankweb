@@ -1,24 +1,75 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const Button = (props) => {
-  return <Container {...props}>{props.children} </Container>;
+const Primary = (props) => {
+  return (
+    <>
+      {props.link ? (
+        <Link to={props.to}>
+          <PrimaryS {...props}>{props.children} </PrimaryS>
+        </Link>
+      ) : (
+        <PrimaryS {...props}>{props.children} </PrimaryS>
+      )}
+    </>
+  );
 };
 
-const Container = styled.button`
+const Secondary = (props) => {
+  return (
+    <>
+      {props.link ? (
+        <Link to={props.to}>
+          <SecondaryS {...props}>{props.children} </SecondaryS>
+        </Link>
+      ) : (
+        <SecondaryS {...props}>{props.children} </SecondaryS>
+      )}
+    </>
+  );
+};
+
+const Tertiary = (props) => {
+  return (
+    <>
+      {props.link ? (
+        <Link to={props.to}>
+          <TertiaryS {...props}>{props.children} </TertiaryS>
+        </Link>
+      ) : (
+        <TertiaryS {...props}>{props.children} </TertiaryS>
+      )}
+    </>
+  );
+};
+
+const Button = styled.button`
   text-align: center;
   font-weight: 500;
-  background-color: ${(props) =>
-    props.display ? props.theme.color.white : props.theme.color.primary};
-  color: ${(props) =>
-    props.display ? props.theme.color.primary : props.theme.color.white};
-  padding: ${({ theme }) => theme.buttonPadding};
+  min-height: 32px;
   width: 100%;
-  border-radius: ${({ theme }) => theme.boxRadius};
   margin: auto;
-  border-color: ${(props) =>
-    props.display ? props.theme.color.primary : "none"};
-  border-width: ${(props) => (props.display ? "1px" : "0")};
+  border-color: none;
+  border-width: 0;
+  padding: ${({ theme }) => theme.buttonPadding};
+  border-radius: ${({ theme }) => theme.boxRadius};
 `;
 
-export default Button;
+const PrimaryS = styled(Button)`
+  background-color: ${(props) => props.theme.color.primary};
+  color: ${(props) => props.theme.color.white};
+`;
+
+const SecondaryS = styled(Button)`
+  background-color: none;
+  color: ${(props) => props.theme.color.primary};
+  border: 1px solid ${(props) => props.theme.color.primary};
+`;
+
+const TertiaryS = styled(Button)`
+  background-color: inherit;
+  color: ${(props) => props.theme.color.primary};
+`;
+
+export { Primary, Secondary, Tertiary };
