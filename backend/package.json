@@ -21,6 +21,7 @@
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
+    "formik": "^2.1.4",
     "graphql": "^14.6.0",
     "graphql-cli": "^3.0.14",
     "graphql-yoga": "^1.18.3",

@@ -51,7 +51,7 @@ const App = () => {
             <Router>
               <Layout>
                 <Switch>
-                  <Route path="/application" component={DoorApplication} />
+                  {/* <Route path="/application" component={DoorApplication} />
                   <Route path="/search" component={SearchResult} />
                   <Route path="/dealerFinder" component={DealerFinder} />
                   <Route path="/push" component={Push} />
@@ -82,10 +82,10 @@ const App = () => {
                   <Route path="/user/signUp" component={SignUp} />
                   <Route path="/user/signOut" component={SignOut} />
                   <Route path="/user/requestReset" component={RequestReset} />
-                  <Route path="/user/resetPassword" component={ResetPassword} />
+                  <Route path="/user/resetPassword" component={ResetPassword} /> */}
 
                   <Route path="/" exact>
-                    <DisplayAll />
+                    <DealerFinder />
                   </Route>
                 </Switch>
               </Layout>

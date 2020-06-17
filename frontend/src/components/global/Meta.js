@@ -7,6 +7,10 @@ const Meta = ({ title = "Windows and Doors" }) => (
     <link rel="icon" href="../../head/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
+      name="google-site-verification"
+      content="kAqXcbSJF03EMOxfXywJMBBEYBIpyHUQbK3CybZonlE"
+    />
+    <meta
       name="description"
       content="Web site created using create-react-app"
     />

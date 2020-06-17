@@ -45,23 +45,6 @@ export const SimpleHeader = () => {
       <Link to="/">
         <LogoS />
       </Link>
-      <Nav>
-        {data?.me ? (
-          <>
-            <Link to="/user/account">
-              <p>{data?.me?.name ? data.me.name : "Account"}</p>
-            </Link>
-            <SignOut />
-          </>
-        ) : (
-          <Link to="/user/signIn">
-            <p>Sign In</p>
-          </Link>
-        )}
-        <Link to="/application">
-          <p>App</p>
-        </Link>
-      </Nav>
     </Container>
   );
 };

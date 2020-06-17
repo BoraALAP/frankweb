@@ -19,7 +19,7 @@ const Container = styled.fieldset`
   margin: 0;
   min-width: 320px;
   max-width: 400px;
-  width: 100vw;
+  width: 80vw;
   border-radius: ${({ theme }) => theme.cardRadius};
   box-shadow: ${({ theme }) => theme.cardShadow};
   margin-bottom: 3em;
