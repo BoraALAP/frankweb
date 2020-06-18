@@ -14,13 +14,12 @@ import {
   ApolloProvider,
 } from "@apollo/client";
 
-import { endpoint, prodEndpoint } from "../../config.js";
 import Meta from "./Meta";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
-    uri: endpoint,
+    uri: process.env.REACT_APP_API_ENDPOINT,
     fetchOptions: {
       credentials: "include",
     },

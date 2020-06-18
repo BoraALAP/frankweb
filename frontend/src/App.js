@@ -35,6 +35,7 @@ import Account from "./pages/user/Account";
 import SignIn from "./pages/user/SignIn";
 import SignOut from "./pages/user/SignOut";
 import ResetPassword from "./pages/user/ResetPassword";
+import DisplayError from "./components/UI/ErrorMessage";
 
 const App = () => {
   const [store, dispatch] = useReducer(globalReducer, initialState);
@@ -82,8 +83,8 @@ const App = () => {
                   <Route path="/user/signUp" component={SignUp} />
                   <Route path="/user/signOut" component={SignOut} />
                   <Route path="/user/requestReset" component={RequestReset} />
-                  <Route path="/user/resetPassword" component={ResetPassword} /> */}
-
+                  <Route path="/user/resetPassword" component={ResetPassword} /> 
+                  <Route path="/displayAll" component={DisplayAll} /> */}
                   <Route path="/" exact>
                     <DealerFinder />
                   </Route>

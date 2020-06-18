@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React from "react";
 
 import PropTypes from "prop-types";
+import { Capitilize } from "../lib/text";
 
 const DisplayError = ({ formikError, error }) => {
   const entries = Object.entries(formikError);
@@ -37,10 +38,7 @@ const DisplayError = ({ formikError, error }) => {
             return (
               <li key={index}>
                 <p>
-                  <span>{`${item[0].charAt(0).toUpperCase()}${item[0].slice(
-                    1
-                  )} `}</span>
-                  : {item[1]}
+                  <span>{Capitilize(item[0])}</span> : {Capitilize(item[1])}
                 </p>
               </li>
             );

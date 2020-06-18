@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Raleway:400,500,600,700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"');
 
   body{
     font-family: ${({ theme }) => theme.font.family.main};
@@ -13,24 +13,24 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.color.grey};
   }
   h1{
-    font-size: 1.5em;
+    font-size: 1.5rem;
   }
 
   h2{
-    font-size: 1.375em
+    font-size: 1.375rem
   }
 
   h3{
-    font-size: 1.25em
+    font-size: 1.25rem
   }
 
   h4{
-    font-size: 1.125em;
+    font-size: 1.125rem;
     font-weight: 600;
     color: ${({ theme }) => theme.color.secondary};
   }
   h5{
-    font-size: 1em;
+    font-size: 1rem;
     font-weight: 600;
     color: ${({ theme }) => theme.color.primary};
     margin-bottom: 0;
@@ -38,7 +38,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h6{
-    font-size: 0.875em;
+    font-size: 0.875rem;
+    line-height: 1rem;
     font-weight: 600;
     margin-top: 1em;
     margin-bottom: 1.5em;
@@ -50,7 +51,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   p{
-    font-size: 0.875em;
+    font-size: 0.875rem;
+    line-height: 1em;
     font-weight: 400;
   }
 
@@ -60,9 +62,14 @@ const GlobalStyle = createGlobalStyle`
     margin-block-end: 0;
     list-style: none;
   li{
-    font-size: 0.875em;
+    display: grid;
+    align-items: baseline;
+    font-size: 0.875rem;
     font-weight: 400;
       color: ${({ theme }) => theme.color.grey};
+      h5{
+        margin: 0;
+      }
   }
 }
 
@@ -90,7 +97,7 @@ const GlobalStyle = createGlobalStyle`
     padding: ${({ theme }) => theme.buttonPadding}; 
     border: 1px solid ${({ theme }) => theme.color.grey};
     min-height: 32px;
-    font-size: 0.875em;
+    font-size: 0.875rem;
     box-sizing: border-box;
   }
 
