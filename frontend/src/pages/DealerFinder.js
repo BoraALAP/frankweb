@@ -82,12 +82,14 @@ const DealerFinder = (props) => {
           <span>{loc.email}</span>
         </a>
       </InRow>
-      <InRow>
-        <h6>Phone:</h6>{" "}
-        <a href={`tel:${loc.phone}`}>
-          <span>{loc.phone}</span>
-        </a>
-      </InRow>
+      {loc.phone && (
+        <InRow>
+          <h6>Phone:</h6>{" "}
+          <a href={`tel:${loc.phone}`}>
+            <span>{loc.phone}</span>
+          </a>
+        </InRow>
+      )}
     </>
   );
 
@@ -221,7 +223,7 @@ const City = styled.div`
   }
   display: grid;
   grid-gap: 1em;
-  grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 `;
 
 export default DealerFinder;
