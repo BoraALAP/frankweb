@@ -21,7 +21,11 @@ const DealerFinder = (props) => {
 
   useEffect(() => {
     const request = async () => {
-      const { data } = await axios(`head/dealer.json`);
+      const { data } = await axios.get(`head/dealer.json`, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
       setLocations(data);
 
       setCategories(
