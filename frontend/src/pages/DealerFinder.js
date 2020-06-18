@@ -21,7 +21,9 @@ const DealerFinder = (props) => {
 
   useEffect(() => {
     const request = async () => {
-      const { data } = await axios(`%PUBLIC_URL%/dealer.json`);
+      const { data } = await axios(
+        `${process.env.REACT_APP_FRONT_END_URL}/dealer.json`
+      );
       setLocations(data);
 
       setCategories(
