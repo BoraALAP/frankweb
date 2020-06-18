@@ -73,7 +73,7 @@ const DealerFinder = (props) => {
           {loc.province}
         </span>
       </InRow>
-      <InRow>
+      {/* <InRow>
         <h6>Contact Person:</h6> <span>{Capitilize(loc.person)}</span>
       </InRow>
       <InRow>
@@ -89,7 +89,7 @@ const DealerFinder = (props) => {
             <span>{loc.phone}</span>
           </a>
         </InRow>
-      )}
+      )} */}
     </>
   );
 

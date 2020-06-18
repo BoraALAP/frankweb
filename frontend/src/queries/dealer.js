@@ -678,7 +678,7 @@ const data = [
     province: "ON",
     postal: "K8N 3B4",
     lat: 44.1683089,
-    lng: -77.3869864,
+    lng: -77.3869811,
     phone: "613-968-4512",
     email: "info@mcadamwindows.com",
     person: "Brett Chisholm",
