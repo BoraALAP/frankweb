@@ -22,7 +22,7 @@ const DealerFinder = (props) => {
   useEffect(() => {
     const request = async () => {
       const { data } = await axios(
-        `${process.env.REACT_APP_FRONT_END_URL}/dealer.json`
+        `${process.env.REACT_APP_FRONT_END_URL}/head/dealer.json`
       );
       setLocations(data);
 
