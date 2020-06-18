@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Capitilize } from "../components/lib/text";
+import { data } from "../queries/dealer";
 
 import {
   GoogleMap,
@@ -20,22 +21,14 @@ const DealerFinder = (props) => {
   const [zoom, setZoom] = useState(10);
 
   useEffect(() => {
-    const request = async () => {
-      const { data } = await axios.get(`head/dealer.json`, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-      setLocations(data);
+    setLocations(data);
 
-      setCategories(
-        data
-          .map((item) => item.city)
-          .filter((value, index, self) => self.indexOf(value) === index)
-          .sort()
-      );
-    };
-    request();
+    setCategories(
+      data
+        .map((item) => item.city)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .sort()
+    );
 
     navigator.geolocation.getCurrentPosition((position) => {
       if (position) {
