@@ -4,7 +4,10 @@ import { Helmet } from "react-helmet";
 const Meta = ({ title = "Windows and Doors" }) => (
   <Helmet>
     <meta charset="utf-8" />
-    <link rel="icon" href="../../head/favicon.ico" />
+    <link
+      rel="icon"
+      href={`${process.env.REACT_APP_FRONT_END_URL}/head/favicon.ico`}
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="google-site-verification"
@@ -14,8 +17,14 @@ const Meta = ({ title = "Windows and Doors" }) => (
       name="description"
       content="Web site created using create-react-app"
     />
-    <link rel="apple-touch-icon" href="../../head/logo192.png" />
-    <link rel="manifest" href="http://localhost:7777/head/manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      href={`${process.env.REACT_APP_FRONT_END_URL}/head/logo192.png`}
+    />
+    <link
+      rel="manifest"
+      href={`${process.env.REACT_APP_FRONT_END_URL}/head/manifest.json`}
+    />
     <title>Frank - {title}</title>
   </Helmet>
 );
