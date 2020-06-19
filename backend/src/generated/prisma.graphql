@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/bora-alap-3bfda9/dev/dev
-# timestamp: Mon Jun 08 2020 23:30:42 GMT-0400 (Eastern Daylight Time)
+# timestamp: Thu Jun 18 2020 13:30:08 GMT-0400 (Eastern Daylight Time)
 
 type AggregateArchitecturalStyle {
   count: Int!
@@ -10,6 +10,10 @@ type AggregateAvailableSizes {
 }
 
 type AggregateCamingOption {
+  count: Int!
+}
+
+type AggregateDealer {
   count: Int!
 }
 
@@ -1997,6 +2001,575 @@ input CamingOptionWhereInput {
 input CamingOptionWhereUniqueInput {
   Id: ID
   Abbreviation: String
+}
+
+type Dealer implements Node {
+  id: ID!
+  dealer: String
+  address: String
+  city: String
+  province: String
+  postal: String
+  lat: Float
+  lng: Float
+  phone: String
+  email: String!
+  person: String
+}
+
+"""A connection to a list of items."""
+type DealerConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [DealerEdge]!
+  aggregate: AggregateDealer!
+}
+
+input DealerCreateInput {
+  id: ID
+  dealer: String
+  address: String
+  city: String
+  province: String
+  postal: String
+  lat: Float
+  lng: Float
+  phone: String
+  email: String!
+  person: String
+}
+
+"""An edge in a connection."""
+type DealerEdge {
+  """The item at the end of the edge."""
+  node: Dealer!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum DealerOrderByInput {
+  id_ASC
+  id_DESC
+  dealer_ASC
+  dealer_DESC
+  address_ASC
+  address_DESC
+  city_ASC
+  city_DESC
+  province_ASC
+  province_DESC
+  postal_ASC
+  postal_DESC
+  lat_ASC
+  lat_DESC
+  lng_ASC
+  lng_DESC
+  phone_ASC
+  phone_DESC
+  email_ASC
+  email_DESC
+  person_ASC
+  person_DESC
+}
+
+type DealerPreviousValues {
+  id: ID!
+  dealer: String
+  address: String
+  city: String
+  province: String
+  postal: String
+  lat: Float
+  lng: Float
+  phone: String
+  email: String!
+  person: String
+}
+
+type DealerSubscriptionPayload {
+  mutation: MutationType!
+  node: Dealer
+  updatedFields: [String!]
+  previousValues: DealerPreviousValues
+}
+
+input DealerSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DealerSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DealerSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DealerSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: DealerWhereInput
+}
+
+input DealerUpdateInput {
+  dealer: String
+  address: String
+  city: String
+  province: String
+  postal: String
+  lat: Float
+  lng: Float
+  phone: String
+  email: String
+  person: String
+}
+
+input DealerUpdateManyMutationInput {
+  dealer: String
+  address: String
+  city: String
+  province: String
+  postal: String
+  lat: Float
+  lng: Float
+  phone: String
+  email: String
+  person: String
+}
+
+input DealerWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DealerWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DealerWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DealerWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  dealer: String
+
+  """All values that are not equal to given value."""
+  dealer_not: String
+
+  """All values that are contained in given list."""
+  dealer_in: [String!]
+
+  """All values that are not contained in given list."""
+  dealer_not_in: [String!]
+
+  """All values less than the given value."""
+  dealer_lt: String
+
+  """All values less than or equal the given value."""
+  dealer_lte: String
+
+  """All values greater than the given value."""
+  dealer_gt: String
+
+  """All values greater than or equal the given value."""
+  dealer_gte: String
+
+  """All values containing the given string."""
+  dealer_contains: String
+
+  """All values not containing the given string."""
+  dealer_not_contains: String
+
+  """All values starting with the given string."""
+  dealer_starts_with: String
+
+  """All values not starting with the given string."""
+  dealer_not_starts_with: String
+
+  """All values ending with the given string."""
+  dealer_ends_with: String
+
+  """All values not ending with the given string."""
+  dealer_not_ends_with: String
+  address: String
+
+  """All values that are not equal to given value."""
+  address_not: String
+
+  """All values that are contained in given list."""
+  address_in: [String!]
+
+  """All values that are not contained in given list."""
+  address_not_in: [String!]
+
+  """All values less than the given value."""
+  address_lt: String
+
+  """All values less than or equal the given value."""
+  address_lte: String
+
+  """All values greater than the given value."""
+  address_gt: String
+
+  """All values greater than or equal the given value."""
+  address_gte: String
+
+  """All values containing the given string."""
+  address_contains: String
+
+  """All values not containing the given string."""
+  address_not_contains: String
+
+  """All values starting with the given string."""
+  address_starts_with: String
+
+  """All values not starting with the given string."""
+  address_not_starts_with: String
+
+  """All values ending with the given string."""
+  address_ends_with: String
+
+  """All values not ending with the given string."""
+  address_not_ends_with: String
+  city: String
+
+  """All values that are not equal to given value."""
+  city_not: String
+
+  """All values that are contained in given list."""
+  city_in: [String!]
+
+  """All values that are not contained in given list."""
+  city_not_in: [String!]
+
+  """All values less than the given value."""
+  city_lt: String
+
+  """All values less than or equal the given value."""
+  city_lte: String
+
+  """All values greater than the given value."""
+  city_gt: String
+
+  """All values greater than or equal the given value."""
+  city_gte: String
+
+  """All values containing the given string."""
+  city_contains: String
+
+  """All values not containing the given string."""
+  city_not_contains: String
+
+  """All values starting with the given string."""
+  city_starts_with: String
+
+  """All values not starting with the given string."""
+  city_not_starts_with: String
+
+  """All values ending with the given string."""
+  city_ends_with: String
+
+  """All values not ending with the given string."""
+  city_not_ends_with: String
+  province: String
+
+  """All values that are not equal to given value."""
+  province_not: String
+
+  """All values that are contained in given list."""
+  province_in: [String!]
+
+  """All values that are not contained in given list."""
+  province_not_in: [String!]
+
+  """All values less than the given value."""
+  province_lt: String
+
+  """All values less than or equal the given value."""
+  province_lte: String
+
+  """All values greater than the given value."""
+  province_gt: String
+
+  """All values greater than or equal the given value."""
+  province_gte: String
+
+  """All values containing the given string."""
+  province_contains: String
+
+  """All values not containing the given string."""
+  province_not_contains: String
+
+  """All values starting with the given string."""
+  province_starts_with: String
+
+  """All values not starting with the given string."""
+  province_not_starts_with: String
+
+  """All values ending with the given string."""
+  province_ends_with: String
+
+  """All values not ending with the given string."""
+  province_not_ends_with: String
+  postal: String
+
+  """All values that are not equal to given value."""
+  postal_not: String
+
+  """All values that are contained in given list."""
+  postal_in: [String!]
+
+  """All values that are not contained in given list."""
+  postal_not_in: [String!]
+
+  """All values less than the given value."""
+  postal_lt: String
+
+  """All values less than or equal the given value."""
+  postal_lte: String
+
+  """All values greater than the given value."""
+  postal_gt: String
+
+  """All values greater than or equal the given value."""
+  postal_gte: String
+
+  """All values containing the given string."""
+  postal_contains: String
+
+  """All values not containing the given string."""
+  postal_not_contains: String
+
+  """All values starting with the given string."""
+  postal_starts_with: String
+
+  """All values not starting with the given string."""
+  postal_not_starts_with: String
+
+  """All values ending with the given string."""
+  postal_ends_with: String
+
+  """All values not ending with the given string."""
+  postal_not_ends_with: String
+  lat: Float
+
+  """All values that are not equal to given value."""
+  lat_not: Float
+
+  """All values that are contained in given list."""
+  lat_in: [Float!]
+
+  """All values that are not contained in given list."""
+  lat_not_in: [Float!]
+
+  """All values less than the given value."""
+  lat_lt: Float
+
+  """All values less than or equal the given value."""
+  lat_lte: Float
+
+  """All values greater than the given value."""
+  lat_gt: Float
+
+  """All values greater than or equal the given value."""
+  lat_gte: Float
+  lng: Float
+
+  """All values that are not equal to given value."""
+  lng_not: Float
+
+  """All values that are contained in given list."""
+  lng_in: [Float!]
+
+  """All values that are not contained in given list."""
+  lng_not_in: [Float!]
+
+  """All values less than the given value."""
+  lng_lt: Float
+
+  """All values less than or equal the given value."""
+  lng_lte: Float
+
+  """All values greater than the given value."""
+  lng_gt: Float
+
+  """All values greater than or equal the given value."""
+  lng_gte: Float
+  phone: String
+
+  """All values that are not equal to given value."""
+  phone_not: String
+
+  """All values that are contained in given list."""
+  phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  phone_not_in: [String!]
+
+  """All values less than the given value."""
+  phone_lt: String
+
+  """All values less than or equal the given value."""
+  phone_lte: String
+
+  """All values greater than the given value."""
+  phone_gt: String
+
+  """All values greater than or equal the given value."""
+  phone_gte: String
+
+  """All values containing the given string."""
+  phone_contains: String
+
+  """All values not containing the given string."""
+  phone_not_contains: String
+
+  """All values starting with the given string."""
+  phone_starts_with: String
+
+  """All values not starting with the given string."""
+  phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  phone_ends_with: String
+
+  """All values not ending with the given string."""
+  phone_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  person: String
+
+  """All values that are not equal to given value."""
+  person_not: String
+
+  """All values that are contained in given list."""
+  person_in: [String!]
+
+  """All values that are not contained in given list."""
+  person_not_in: [String!]
+
+  """All values less than the given value."""
+  person_lt: String
+
+  """All values less than or equal the given value."""
+  person_lte: String
+
+  """All values greater than the given value."""
+  person_gt: String
+
+  """All values greater than or equal the given value."""
+  person_gte: String
+
+  """All values containing the given string."""
+  person_contains: String
+
+  """All values not containing the given string."""
+  person_not_contains: String
+
+  """All values starting with the given string."""
+  person_starts_with: String
+
+  """All values not starting with the given string."""
+  person_not_starts_with: String
+
+  """All values ending with the given string."""
+  person_ends_with: String
+
+  """All values not ending with the given string."""
+  person_not_ends_with: String
+}
+
+input DealerWhereUniqueInput {
+  id: ID
+  email: String
 }
 
 type DividedLiteType {
@@ -17387,6 +17960,7 @@ type Mutation {
   createArchitecturalStyle(data: ArchitecturalStyleCreateInput!): ArchitecturalStyle!
   createRatingEligibility(data: RatingEligibilityCreateInput!): RatingEligibility!
   createUser(data: UserCreateInput!): User!
+  createDealer(data: DealerCreateInput!): Dealer!
   createGlassFamily(data: GlassFamilyCreateInput!): GlassFamily!
   createSidelite(data: SideliteCreateInput!): Sidelite!
   createDoor(data: DoorCreateInput!): Door!
@@ -17411,6 +17985,7 @@ type Mutation {
   updateArchitecturalStyle(data: ArchitecturalStyleUpdateInput!, where: ArchitecturalStyleWhereUniqueInput!): ArchitecturalStyle
   updateRatingEligibility(data: RatingEligibilityUpdateInput!, where: RatingEligibilityWhereUniqueInput!): RatingEligibility
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateDealer(data: DealerUpdateInput!, where: DealerWhereUniqueInput!): Dealer
   updateGlassFamily(data: GlassFamilyUpdateInput!, where: GlassFamilyWhereUniqueInput!): GlassFamily
   updateSidelite(data: SideliteUpdateInput!, where: SideliteWhereUniqueInput!): Sidelite
   updateDoor(data: DoorUpdateInput!, where: DoorWhereUniqueInput!): Door
@@ -17435,6 +18010,7 @@ type Mutation {
   deleteArchitecturalStyle(where: ArchitecturalStyleWhereUniqueInput!): ArchitecturalStyle
   deleteRatingEligibility(where: RatingEligibilityWhereUniqueInput!): RatingEligibility
   deleteUser(where: UserWhereUniqueInput!): User
+  deleteDealer(where: DealerWhereUniqueInput!): Dealer
   deleteGlassFamily(where: GlassFamilyWhereUniqueInput!): GlassFamily
   deleteSidelite(where: SideliteWhereUniqueInput!): Sidelite
   deleteDoor(where: DoorWhereUniqueInput!): Door
@@ -17459,6 +18035,7 @@ type Mutation {
   upsertArchitecturalStyle(where: ArchitecturalStyleWhereUniqueInput!, create: ArchitecturalStyleCreateInput!, update: ArchitecturalStyleUpdateInput!): ArchitecturalStyle!
   upsertRatingEligibility(where: RatingEligibilityWhereUniqueInput!, create: RatingEligibilityCreateInput!, update: RatingEligibilityUpdateInput!): RatingEligibility!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertDealer(where: DealerWhereUniqueInput!, create: DealerCreateInput!, update: DealerUpdateInput!): Dealer!
   upsertGlassFamily(where: GlassFamilyWhereUniqueInput!, create: GlassFamilyCreateInput!, update: GlassFamilyUpdateInput!): GlassFamily!
   upsertSidelite(where: SideliteWhereUniqueInput!, create: SideliteCreateInput!, update: SideliteUpdateInput!): Sidelite!
   upsertDoor(where: DoorWhereUniqueInput!, create: DoorCreateInput!, update: DoorUpdateInput!): Door!
@@ -17483,6 +18060,7 @@ type Mutation {
   updateManyArchitecturalStyles(data: ArchitecturalStyleUpdateManyMutationInput!, where: ArchitecturalStyleWhereInput): BatchPayload!
   updateManyRatingEligibilities(data: RatingEligibilityUpdateManyMutationInput!, where: RatingEligibilityWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyDealers(data: DealerUpdateManyMutationInput!, where: DealerWhereInput): BatchPayload!
   updateManyGlassFamilies(data: GlassFamilyUpdateManyMutationInput!, where: GlassFamilyWhereInput): BatchPayload!
   updateManySidelites(data: SideliteUpdateManyMutationInput!, where: SideliteWhereInput): BatchPayload!
   updateManyDoors(data: DoorUpdateManyMutationInput!, where: DoorWhereInput): BatchPayload!
@@ -17507,6 +18085,7 @@ type Mutation {
   deleteManyArchitecturalStyles(where: ArchitecturalStyleWhereInput): BatchPayload!
   deleteManyRatingEligibilities(where: RatingEligibilityWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyDealers(where: DealerWhereInput): BatchPayload!
   deleteManyGlassFamilies(where: GlassFamilyWhereInput): BatchPayload!
   deleteManySidelites(where: SideliteWhereInput): BatchPayload!
   deleteManyDoors(where: DoorWhereInput): BatchPayload!
@@ -17569,6 +18148,7 @@ type Query {
   architecturalStyles(where: ArchitecturalStyleWhereInput, orderBy: ArchitecturalStyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ArchitecturalStyle]!
   ratingEligibilities(where: RatingEligibilityWhereInput, orderBy: RatingEligibilityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RatingEligibility]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  dealers(where: DealerWhereInput, orderBy: DealerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Dealer]!
   glassFamilies(where: GlassFamilyWhereInput, orderBy: GlassFamilyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [GlassFamily]!
   sidelites(where: SideliteWhereInput, orderBy: SideliteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Sidelite]!
   doors(where: DoorWhereInput, orderBy: DoorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Door]!
@@ -17593,6 +18173,7 @@ type Query {
   architecturalStyle(where: ArchitecturalStyleWhereUniqueInput!): ArchitecturalStyle
   ratingEligibility(where: RatingEligibilityWhereUniqueInput!): RatingEligibility
   user(where: UserWhereUniqueInput!): User
+  dealer(where: DealerWhereUniqueInput!): Dealer
   glassFamily(where: GlassFamilyWhereUniqueInput!): GlassFamily
   sidelite(where: SideliteWhereUniqueInput!): Sidelite
   door(where: DoorWhereUniqueInput!): Door
@@ -17617,6 +18198,7 @@ type Query {
   architecturalStylesConnection(where: ArchitecturalStyleWhereInput, orderBy: ArchitecturalStyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ArchitecturalStyleConnection!
   ratingEligibilitiesConnection(where: RatingEligibilityWhereInput, orderBy: RatingEligibilityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RatingEligibilityConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  dealersConnection(where: DealerWhereInput, orderBy: DealerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DealerConnection!
   glassFamiliesConnection(where: GlassFamilyWhereInput, orderBy: GlassFamilyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GlassFamilyConnection!
   sidelitesConnection(where: SideliteWhereInput, orderBy: SideliteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SideliteConnection!
   doorsConnection(where: DoorWhereInput, orderBy: DoorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoorConnection!
@@ -25049,6 +25631,7 @@ type Subscription {
   architecturalStyle(where: ArchitecturalStyleSubscriptionWhereInput): ArchitecturalStyleSubscriptionPayload
   ratingEligibility(where: RatingEligibilitySubscriptionWhereInput): RatingEligibilitySubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  dealer(where: DealerSubscriptionWhereInput): DealerSubscriptionPayload
   glassFamily(where: GlassFamilySubscriptionWhereInput): GlassFamilySubscriptionPayload
   sidelite(where: SideliteSubscriptionWhereInput): SideliteSubscriptionPayload
   door(where: DoorSubscriptionWhereInput): DoorSubscriptionPayload

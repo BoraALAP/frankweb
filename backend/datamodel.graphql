@@ -484,3 +484,18 @@ type User {
   resetTokenExpiry: Float
   permissions: [Permission!]! @scalarList(strategy: RELATION)
 }
+
+type Dealer  {
+  id: ID! @id
+  dealer:String
+    address:String
+    city:String
+    province:String
+    postal:String
+    lat:Float
+    lng:Float
+    phone:String
+    email:String! @unique
+    person:String
+}
+

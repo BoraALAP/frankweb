@@ -28,12 +28,14 @@ import LocationOnHouse from "../dbComponents/LocationOnHouse";
 import AvailableSizes from "../dbComponents/AvailableSizes";
 import ArchitecturalStyle from "../dbComponents/ArchitecturalStyle";
 import RatingEligibility from "../dbComponents/RatingEligibility";
+import Dealers from "../dbComponents/Dealers";
 
 const Push = (props) => {
   return (
     <Container>
       {/* 1. **Level 1** */}
-      <Doors />
+      {/* <Doors /> */}
+      <Dealers />
       {/* <Sidelites /> */}
       {/* <Transoms /> */}
 

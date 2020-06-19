@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
-import { Capitilize } from "../components/lib/text";
-import { data } from "../queries/dealer";
+import { gql, useQuery } from "@apollo/client";
+import { useFormik } from "formik";
 
 import {
   GoogleMap,
@@ -11,9 +10,33 @@ import {
   Marker,
 } from "@react-google-maps/api";
 import Spinner from "../components/UI/Spinner";
+import { Primary } from "../components/UI/Button";
+
+const DEALER_QUERY = gql`
+  query DEALER_QUERY($search: String) {
+    dealersConnection(where: { postal_contains: $search }) {
+      aggregate {
+        count
+      }
+      edges {
+        node {
+          dealer
+          address
+          city
+          province
+          postal
+          lat
+          lng
+        }
+      }
+    }
+  }
+`;
 
 const DealerFinder = (props) => {
-  const [locations, setLocations] = useState([]);
+  const { data, loading, fetchMore } = useQuery(DEALER_QUERY);
+
+  const [locations, setLocations] = useState(data);
   const [categories, setCategories] = useState(undefined);
   const [center, setCenter] = useState({});
   const [activeLocation, setActiveLocation] = useState(undefined);
@@ -21,15 +44,6 @@ const DealerFinder = (props) => {
   const [zoom, setZoom] = useState(10);
 
   useEffect(() => {
-    setLocations(data);
-
-    setCategories(
-      data
-        .map((item) => item.city)
-        .filter((value, index, self) => self.indexOf(value) === index)
-        .sort()
-    );
-
     navigator.geolocation.getCurrentPosition((position) => {
       if (position) {
         setCenter({
@@ -44,6 +58,36 @@ const DealerFinder = (props) => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      setLocations(data.dealersConnection.edges);
+
+      setCategories(
+        data?.dealersConnection?.edges
+          .map(({ node }) => node.city)
+          .filter((value, index, self) => self.indexOf(value) === index)
+          .sort()
+      );
+    }
+  }, [data]);
+
+  const formik = useFormik({
+    initialValues: {
+      search: "",
+    },
+    onSubmit: async (values, actions) => {
+      actions.resetForm({ values: { search: "" } });
+      actions.setSubmitting(false);
+      fetchMore({
+        query: DEALER_QUERY,
+        variables: {
+          search: values.search,
+        },
+        // updateQuery: (previousResult, )
+      });
+    },
+  });
 
   const containerStyle = {
     width: "100%",
@@ -65,16 +109,15 @@ const DealerFinder = (props) => {
 
   const dealer = (loc) => (
     <>
-      <h5>{Capitilize(loc.dealer)}</h5>
+      <h5>{loc.dealer}</h5>
       <InRow>
         <h6>Address:</h6>{" "}
         <span>
-          {Capitilize(loc.address)} {loc.postal} {Capitilize(loc.city)}{" "}
-          {loc.province}
+          {loc.address} {loc.postal} {loc.city} {loc.province}
         </span>
       </InRow>
       {/* <InRow>
-        <h6>Contact Person:</h6> <span>{Capitilize(loc.person)}</span>
+        <h6>Contact Person:</h6> <span>{loc.person}</span>
       </InRow>
       <InRow>
         <h6>Email:</h6>{" "}
@@ -93,7 +136,7 @@ const DealerFinder = (props) => {
     </>
   );
 
-  if (!center.lat && categories === undefined) {
+  if (!center.lat || categories === undefined) {
     return <Spinner />;
   }
 
@@ -108,15 +151,14 @@ const DealerFinder = (props) => {
           >
             <MarkerClusterer options={options} averageCenter={true}>
               {(clusterer) =>
-                locations.map((loc, index) => (
+                locations.map(({ node }, index) => (
                   <MarkerS
                     key={index}
-                    position={loc}
+                    position={node}
                     clusterer={clusterer}
-                    title={loc.name}
+                    title={node.name}
                     active={activeLocation === index}
-                    // onMouseOver={() => HandleSetup(loc, index)}
-                    onClick={() => HandleSetup(loc, index)}
+                    onClick={() => HandleSetup(node, index)}
                   />
                 ))
               }
@@ -124,6 +166,26 @@ const DealerFinder = (props) => {
           </GoogleMap>
         )}
       </LoadScript>
+
+      <Form onSubmit={formik.handleSubmit}>
+        <div>
+          <input
+            type="search"
+            name="search"
+            placeholder="Search"
+            value={formik.values.search}
+            onChange={formik.handleChange}
+          />
+        </div>
+
+        <Primary
+          type="submit"
+          disabled={formik.isSubmitting || !formik.isValid}
+        >
+          {" "}
+          {formik.isSubmitting ? "Checking..." : "Search"}
+        </Primary>
+      </Form>
 
       {info !== undefined && (
         <>
@@ -148,23 +210,23 @@ const DealerFinder = (props) => {
           categories.map((item, index) => {
             return (
               <City key={index}>
-                <h4>{Capitilize(item)}</h4>
-                {locations.map((it, index) => {
-                  if (it.city === item) {
+                <h4>{item}</h4>
+                {locations.map(({ node }, index) => {
+                  if (node.city === item) {
                     return (
                       <Dealer
                         key={index}
                         active={activeLocation === index}
                         onClick={() => {
                           setCenter({
-                            lat: it.lat,
-                            lng: it.lng,
+                            lat: node.lat,
+                            lng: node.lng,
                           });
-                          HandleSetup(it, index);
+                          HandleSetup(node, index);
                           window.scrollTo(0, 0);
                         }}
                       >
-                        {dealer(it)}
+                        {dealer(node)}
                       </Dealer>
                     );
                   }
@@ -224,6 +286,10 @@ const City = styled.div`
   display: grid;
   grid-gap: 1em;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+`;
+
+const Form = styled.div`
+  display: grid;
 `;
 
 export default DealerFinder;

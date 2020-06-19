@@ -504,6 +504,22 @@ const Mutation = {
 
     return updatedUser;
   },
+
+  async createDealer(parent, args, ctx, info) {
+    const dealer = await ctx.db.mutation.createDealer({
+      ...args,
+    });
+    return dealer;
+  },
+  async updateDealer(parent, args, ctx, info) {
+    const dealer = await ctx.db.mutation.updateDealer(
+      {
+        ...args,
+      },
+      info
+    );
+    return dealer;
+  },
 };
 
 module.exports = Mutation;

@@ -4,6 +4,7 @@ type SuccessMessage{
   message: String
 }
 
+
 type Query {
   doors(
     where: DoorWhereInput
@@ -420,6 +421,9 @@ type Query {
     last: Int
   ): UserConnection!
   me: User
+
+  dealers(where: DealerWhereInput, orderBy: DealerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Dealer]!
+  dealersConnection(where: DealerWhereInput, orderBy: DealerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DealerConnection!
 }
 
 type Mutation {
@@ -861,6 +865,21 @@ type Mutation {
   signOut: SuccessMessage
   requestReset(email: String!): SuccessMessage 
   resetPassword(resetToken: String!, confirmPassword:String!, password:String!):User!
+
+  createDealer(
+    id: ID
+  dealer: String
+  address: String
+  city: String
+  province: String
+  postal: String
+  lat: Float
+  lng: Float
+  phone: String
+  email: String 
+  person: String
+  ): Dealer
+  updateDealer(data: DealerUpdateInput!, where: DealerWhereUniqueInput!): Dealer
 }
 
 type User {

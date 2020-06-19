@@ -55,7 +55,7 @@ const App = () => {
                   {/* <Route path="/application" component={DoorApplication} />
                   <Route path="/search" component={SearchResult} />
                   <Route path="/dealerFinder" component={DealerFinder} />
-                  <Route path="/push" component={Push} />
+                  
                   <Route path="/product/door/:id" component={TemplateDoor} />
                   <Route
                     path="/selected/Door/:id"
@@ -77,13 +77,14 @@ const App = () => {
                     path="/product/glassfamily/:id"
                     component={TemplateGlassFamily}
                   />
-
+    
                   <Route path="/user/account" component={Account} />
                   <Route path="/user/signIn" component={SignIn} />
                   <Route path="/user/signUp" component={SignUp} />
                   <Route path="/user/signOut" component={SignOut} />
                   <Route path="/user/requestReset" component={RequestReset} />
                   <Route path="/user/resetPassword" component={ResetPassword} /> 
+                  <Route path="/push" component={Push} />
                   <Route path="/displayAll" component={DisplayAll} /> */}
                   <Route path="/" exact>
                     <DealerFinder />

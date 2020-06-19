@@ -48,6 +48,8 @@ const Query = {
 
   user: forwardTo("db"),
   usersConnection: forwardTo("db"),
+  dealers: forwardTo("db"),
+  dealersConnection: forwardTo("db"),
   me(parent, args, ctx, info) {
     //check if there is a current user id
     if (!ctx.request.userId) {
