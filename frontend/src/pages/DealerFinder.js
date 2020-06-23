@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
+import PropTypes from "prop-types";
 import { useFormik } from "formik";
 
 import {
   GoogleMap,
-  LoadScript,
+  useLoadScript,
   MarkerClusterer,
   Marker,
+  InfoWindow,
 } from "@react-google-maps/api";
 import Spinner from "../components/UI/Spinner";
-import { Primary } from "../components/UI/Button";
 
 const DEALER_QUERY = gql`
   query DEALER_QUERY($search: String) {
-    dealersConnection(where: { postal_contains: $search }) {
+    dealersConnection(where: { city_contains: $search }) {
       aggregate {
         count
       }
       edges {
         node {
+          id
           dealer
           address
           city
@@ -40,7 +42,7 @@ const DealerFinder = (props) => {
   const [categories, setCategories] = useState(undefined);
   const [center, setCenter] = useState({});
   const [activeLocation, setActiveLocation] = useState(undefined);
-  const [info, setInfo] = useState(undefined);
+  const [search, setSearch] = useState("");
   const [zoom, setZoom] = useState(10);
 
   useEffect(() => {
@@ -72,40 +74,47 @@ const DealerFinder = (props) => {
     }
   }, [data]);
 
-  const formik = useFormik({
-    initialValues: {
-      search: "",
-    },
-    onSubmit: async (values, actions) => {
-      actions.resetForm({ values: { search: "" } });
-      actions.setSubmitting(false);
-      fetchMore({
-        query: DEALER_QUERY,
-        variables: {
-          search: values.search,
-        },
-        // updateQuery: (previousResult, )
-      });
-    },
-  });
-
   const containerStyle = {
     width: "100%",
     height: "90vh",
     maxHeight: "50vh",
   };
 
-  const options = {
+  const mapOptions = {
     imagePath:
       "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
   };
 
   const HandleSetup = (loc, index) => {
-    setInfo({ ...loc, index });
+    // setInfo({ ...loc, index });
     setActiveLocation(index);
     setCenter({ lat: loc.lat, lng: loc.lng });
-    setZoom(19);
+    setZoom(16);
   };
+
+  useEffect(() => {
+    fetchMore({
+      query: DEALER_QUERY,
+      variables: {
+        search,
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) {
+          return previousResult;
+        }
+
+        console.log(previousResult, fetchMoreResult);
+
+        setCategories(
+          fetchMoreResult.dealersConnection.edges
+            .map(({ node }) => node.city)
+            .filter((value, index, self) => self.indexOf(value) === index)
+            .sort()
+        );
+        setLocations(fetchMoreResult.dealersConnection.edges);
+      },
+    });
+  }, [search]);
 
   const dealer = (loc) => (
     <>
@@ -116,113 +125,117 @@ const DealerFinder = (props) => {
           {loc.address} {loc.postal} {loc.city} {loc.province}
         </span>
       </InRow>
+
       {/* <InRow>
-        <h6>Contact Person:</h6> <span>{loc.person}</span>
-      </InRow>
-      <InRow>
-        <h6>Email:</h6>{" "}
-        <a href={`mailto:${loc.email}`}>
-          <span>{loc.email}</span>
-        </a>
-      </InRow>
-      {loc.phone && (
-        <InRow>
-          <h6>Phone:</h6>{" "}
-          <a href={`tel:${loc.phone}`}>
-            <span>{loc.phone}</span>
-          </a>
-        </InRow>
-      )} */}
+  //       <h6>Contact Person:</h6> <span>{loc.person}</span>
+  //     </InRow>
+  //     <InRow>
+  //       <h6>Email:</h6>{" "}
+  //       <a href={`mailto:${loc.email}`}>
+  //         <span>{loc.email}</span>
+  //       </a>
+  //     </InRow>
+  //     {loc.phone && (
+  //       <InRow>
+  //         <h6>Phone:</h6>{" "}
+  //         <a href={`tel:${loc.phone}`}>
+  //           <span>{loc.phone}</span>
+  //         </a>
+  //       </InRow>
+  //     )} */}
     </>
   );
 
-  if (!center.lat || categories === undefined) {
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_MAP_API_KEY,
+    libraries: ["places"], // ,
+    // ...otherOptions
+  });
+
+  if (!center.lat || categories === undefined || !isLoaded) {
     return <Spinner />;
   }
 
   return (
     <Container>
-      <LoadScript googleMapsApiKey={process.env.REACT_APP_MAP_API_KEY}>
-        {center.lat && (
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={center}
-            zoom={zoom}
-          >
-            <MarkerClusterer options={options} averageCenter={true}>
-              {(clusterer) =>
-                locations.map(({ node }, index) => (
-                  <MarkerS
-                    key={index}
-                    position={node}
-                    clusterer={clusterer}
-                    title={node.name}
-                    active={activeLocation === index}
-                    onClick={() => HandleSetup(node, index)}
-                  />
-                ))
-              }
-            </MarkerClusterer>
-          </GoogleMap>
-        )}
-      </LoadScript>
+      {center.lat && (
+        <GoogleMap
+          center={center}
+          mapContainerStyle={containerStyle}
+          zoom={zoom}
+        >
+          <MarkerClusterer options={mapOptions} averageCenter={true}>
+            {(clusterer) =>
+              locations.map(({ node }) => (
+                <MarkerS
+                  key={node.id}
+                  position={node}
+                  clusterer={clusterer}
+                  title={node.name}
+                  active={activeLocation === node.id}
+                  onClick={() => HandleSetup(node, node.id)}
+                />
+              ))
+            }
+          </MarkerClusterer>
 
-      <Form onSubmit={formik.handleSubmit}>
+          {activeLocation &&
+            locations.map(({ node }) => {
+              return (
+                node.id === activeLocation && (
+                  <InfoWindow
+                    onCloseClick={() => setActiveLocation(undefined)}
+                    position={{ lat: node.lat, lng: node.lng }}
+                    key={node.id}
+                  >
+                    <>
+                      <h5>{node.dealer}</h5>
+
+                      <InRow>
+                        <h6>Address:</h6>
+                        <span>
+                          {node.address} {node.postal} {node.city}{" "}
+                          {node.province}
+                        </span>
+                      </InRow>
+                    </>
+                  </InfoWindow>
+                )
+              );
+            })}
+        </GoogleMap>
+      )}
+
+      <Form>
         <div>
           <input
             type="search"
             name="search"
-            placeholder="Search"
-            value={formik.values.search}
-            onChange={formik.handleChange}
+            placeholder="Which city are you looking for?"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-
-        <Primary
-          type="submit"
-          disabled={formik.isSubmitting || !formik.isValid}
-        >
-          {" "}
-          {formik.isSubmitting ? "Checking..." : "Search"}
-        </Primary>
       </Form>
 
-      {info !== undefined && (
-        <>
-          <h5>You have selected</h5>
-          <Display
-            active={activeLocation === info.index}
-            onClick={() => {
-              setCenter({
-                lat: info.lat,
-                lng: info.lng,
-              });
-              HandleSetup(info, info.index);
-            }}
-          >
-            {dealer(info)}
-          </Display>
-        </>
-      )}
-
       <Content>
-        {categories !== undefined &&
+        {categories !== undefined && categories.length > 0 ? (
           categories.map((item, index) => {
             return (
               <City key={index}>
                 <h4>{item}</h4>
-                {locations.map(({ node }, index) => {
+                {locations.map(({ node }) => {
                   if (node.city === item) {
                     return (
                       <Dealer
-                        key={index}
-                        active={activeLocation === index}
+                        key={node.id}
+                        active={activeLocation === node.id}
                         onClick={() => {
                           setCenter({
                             lat: node.lat,
                             lng: node.lng,
                           });
-                          HandleSetup(node, index);
+                          HandleSetup(node, node.id);
                           window.scrollTo(0, 0);
                         }}
                       >
@@ -233,7 +246,10 @@ const DealerFinder = (props) => {
                 })}
               </City>
             );
-          })}
+          })
+        ) : (
+          <h3>There is no city with those letters</h3>
+        )}
       </Content>
     </Container>
   );
@@ -288,7 +304,7 @@ const City = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 `;
 
-const Form = styled.div`
+const Form = styled.form`
   display: grid;
 `;
 
