@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 
@@ -68,7 +68,7 @@ const PRODUCT_QUERY = gql`
 const Success = (props) => {
   const { appStore, appDispatch } = useContext(appContext);
 
-  const { data, loading, fetchMore } = useQuery(PRODUCT_QUERY, {
+  const { data, fetchMore } = useQuery(PRODUCT_QUERY, {
     variables: {
       location: appStore.location.id,
       size: appStore.size.id,

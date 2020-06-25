@@ -1,5 +1,3 @@
-import React from "react";
-
 const Capitilize = (sentence) => {
   return sentence
     .split(" ")

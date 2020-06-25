@@ -1,7 +1,4 @@
-import React from "react";
-import { gql, useQuery } from "@apollo/client";
-import styled from "styled-components";
-import PropTypes from "prop-types";
+import { gql } from "@apollo/client";
 
 const CURRENT_USER_QUERY = gql`
   query {

@@ -3,13 +3,13 @@ import styled from "styled-components";
 
 import { useHistory } from "react-router-dom";
 
-import { appContext } from "../../context/context";
+import { globalContext } from "../../context/context";
 import { Primary } from "../UI/Button";
 
 const Search = (props) => {
   let history = useHistory();
   const [search, setSearch] = useState("");
-  const { dispatch } = useContext(appContext);
+  const { dispatch } = useContext(globalContext);
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);

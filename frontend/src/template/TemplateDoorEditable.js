@@ -227,6 +227,7 @@ const TemplateDoorEditable = ({ match, history }) => {
     });
   }, [loading]);
 
+  // eslint-disable-next-line
   const { data: checkedProduct, loading: checkedLoading } = useQuery(
     CHECK_ID_QUERY,
     {

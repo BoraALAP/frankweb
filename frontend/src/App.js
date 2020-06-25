@@ -20,7 +20,7 @@ import SearchResult from "./pages/SearchResult";
 import DoorApplication from "./pages/DoorApplication";
 
 import DisplayAll from "./pages/DisplayAll";
-import Push from "./pages/Push";
+// import Push from "./pages/Push";
 import TemplateDoor from "./template/TemplateDoor";
 import TemplateDoorEditable from "./template/TemplateDoorEditable";
 import TemplateSidelite from "./template/TemplateSidelite";
@@ -35,7 +35,6 @@ import Account from "./pages/user/Account";
 import SignIn from "./pages/user/SignIn";
 import SignOut from "./pages/user/SignOut";
 import ResetPassword from "./pages/user/ResetPassword";
-import DisplayError from "./components/UI/ErrorMessage";
 
 const App = () => {
   const [store, dispatch] = useReducer(globalReducer, initialState);
@@ -47,15 +46,13 @@ const App = () => {
       <appContext.Provider value={{ appStore, appDispatch }}>
         <editContext.Provider value={{ editStore, editDispatch }}>
           <ThemeProvider theme={store.theme ? primaryTheme : secondaryTheme}>
-            <GlobalStyle />
-
             <Router>
               <Layout>
                 <Switch>
-                  {/* <Route path="/application" component={DoorApplication} />
+                  <Route path="/application" component={DoorApplication} />
                   <Route path="/search" component={SearchResult} />
                   <Route path="/dealerFinder" component={DealerFinder} />
-                  
+
                   <Route path="/product/door/:id" component={TemplateDoor} />
                   <Route
                     path="/selected/Door/:id"
@@ -77,21 +74,22 @@ const App = () => {
                     path="/product/glassfamily/:id"
                     component={TemplateGlassFamily}
                   />
-    
+
                   <Route path="/user/account" component={Account} />
                   <Route path="/user/signIn" component={SignIn} />
                   <Route path="/user/signUp" component={SignUp} />
                   <Route path="/user/signOut" component={SignOut} />
                   <Route path="/user/requestReset" component={RequestReset} />
-                  <Route path="/user/resetPassword" component={ResetPassword} /> 
-                  <Route path="/push" component={Push} />
-                  <Route path="/displayAll" component={DisplayAll} /> */}
+                  <Route path="/user/resetPassword" component={ResetPassword} />
+                  {/* <Route path="/push" component={Push} /> */}
+                  <Route path="/displayAll" component={DisplayAll} />
                   <Route path="/" exact>
-                    <DealerFinder />
+                    <DisplayAll />
                   </Route>
                 </Switch>
               </Layout>
             </Router>
+            <GlobalStyle />
           </ThemeProvider>
         </editContext.Provider>
       </appContext.Provider>

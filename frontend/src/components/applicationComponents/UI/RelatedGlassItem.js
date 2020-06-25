@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { appContext } from "../../../context/context";
 import Box from "./Box";
 import ImageContainer from "./ImageContainer";
 

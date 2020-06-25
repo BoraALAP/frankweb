@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 import ImageContainer from "../components/applicationComponents/UI/ImageContainer";
 
 import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
-import { appContext } from "../context/context";
 import Spinner from "../components/UI/Spinner";
 
 const PRODUCT_QUERY = gql`

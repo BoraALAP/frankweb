@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 const Account = (props) => {
   const history = useHistory();
-  const { data, loading, error } = useQuery(CURRENT_USER_QUERY);
+  const { data } = useQuery(CURRENT_USER_QUERY);
 
   useEffect(() => {
     if (!data?.me) {
