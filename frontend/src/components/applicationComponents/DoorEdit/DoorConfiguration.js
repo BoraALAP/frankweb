@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { editContext } from "../../../context/context";
 import Selector from "../UI/Selector";
@@ -126,7 +126,5 @@ const DoorConfiguration = () => {
     </Layout>
   );
 };
-
-const Container = styled.div``;
 
 export default DoorConfiguration;

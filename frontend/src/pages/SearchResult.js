@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 
-import { appContext } from "../context/context";
+import { globalContext } from "../context/context";
 import Spinner from "../components/UI/Spinner";
 import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
 import { Primary } from "../components/UI/Button";
@@ -127,7 +127,7 @@ const SearchResult = (props) => {
 
   const [active, setActive] = useState(tabs[0].name);
 
-  const { store } = useContext(appContext);
+  const { store } = useContext(globalContext);
 
   const { data, loading, fetchMore } = useQuery(DOOR_QUERY, {
     variables: {
@@ -278,12 +278,6 @@ const ProductContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 20vw);
   grid-gap: 2.5vw;
-`;
-
-const Fixed = styled.div`
-  position: fixed;
-  bottom: 20px;
-  padding: 20px;
 `;
 
 export default SearchResult;

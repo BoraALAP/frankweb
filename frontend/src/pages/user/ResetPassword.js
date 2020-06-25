@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useLocation, useHistory } from "react-router-dom";

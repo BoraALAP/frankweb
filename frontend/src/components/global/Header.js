@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/branding/frank_logo.svg";
@@ -9,7 +9,7 @@ import { useQuery } from "@apollo/client";
 import { CURRENT_USER_QUERY } from "../../queries/User";
 
 const Header = (props) => {
-  const { data, loading, error } = useQuery(CURRENT_USER_QUERY);
+  const { data } = useQuery(CURRENT_USER_QUERY);
 
   return (
     <Container>
@@ -39,7 +39,6 @@ const Header = (props) => {
 };
 
 export const SimpleHeader = () => {
-  const { data, loading, error } = useQuery(CURRENT_USER_QUERY);
   return (
     <Container>
       <Link to="/">

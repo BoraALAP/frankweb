@@ -42,7 +42,7 @@ const Layout = (props) => {
     <ApolloProvider client={client}>
       <Container>
         <Meta />
-        <SimpleHeader />
+        <Header />
         <Content>{props.children}</Content>
 
         <Footer />
