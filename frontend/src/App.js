@@ -46,8 +46,6 @@ const App = () => {
       <appContext.Provider value={{ appStore, appDispatch }}>
         <editContext.Provider value={{ editStore, editDispatch }}>
           <ThemeProvider theme={store.theme ? primaryTheme : secondaryTheme}>
-            <GlobalStyle />
-
             <Router>
               <Layout>
                 <Switch>
@@ -91,6 +89,7 @@ const App = () => {
                 </Switch>
               </Layout>
             </Router>
+            <GlobalStyle />
           </ThemeProvider>
         </editContext.Provider>
       </appContext.Provider>

@@ -208,7 +208,7 @@ const DealerFinder = (props) => {
 
       <Form>
         <div>
-          <input
+          <InputS
             type="search"
             name="search"
             placeholder="Which city are you looking for?"
@@ -255,16 +255,14 @@ const DealerFinder = (props) => {
   );
 };
 
-const Container = styled.div``;
-const Display = styled.div`
+const Container = styled.div`
   display: grid;
-  grid-gap: 0.5em;
-  border-bottom: 1px solid ${({ theme }) => theme.color.grey};
-  padding-bottom: 1em;
-  h6 {
-    margin: 0;
-  }
+  grid-gap: 1.5em;
 `;
+const InputS = styled.input`
+  width: 50%;
+`;
+
 const Content = styled.ul`
   list-style: none;
   padding-inline-start: 0px;
