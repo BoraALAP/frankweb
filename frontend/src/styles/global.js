@@ -1,12 +1,13 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"');
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300..900&display=swap');
 
   body{
     font-family: ${({ theme }) => theme.font.family.main};
     font-weight: 600;
     margin: 0;
+    background-color: ${({ theme }) => theme.color.bg};
   }
 
   small{
@@ -75,6 +76,7 @@ const GlobalStyle = createGlobalStyle`
 
   a{
     text-decoration: none;
+    color: ${({ theme }) => theme.color.primary};
   }
   button{
    

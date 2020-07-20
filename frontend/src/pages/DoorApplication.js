@@ -11,6 +11,8 @@ import Wrong from "../components/applicationComponents/Application/Wrong";
 import { appContext } from "../context/context";
 import GlassFamily from "../components/applicationComponents/Application/GlassFamily";
 import SidePanel from "../components/applicationComponents/Application/SidePanel";
+import Meta from "../components/global/Meta";
+
 
 const DoorApplication = ({ match }) => {
   const { appStore } = useContext(appContext);
@@ -37,7 +39,9 @@ const DoorApplication = ({ match }) => {
   };
 
   return (
+    
     <Container>
+      <Meta title={"Door Application"} />
       <Left>
         <Switch />
       </Left>
@@ -45,6 +49,7 @@ const DoorApplication = ({ match }) => {
         <SidePanel />
       </Right>
     </Container>
+    
   );
 };
 

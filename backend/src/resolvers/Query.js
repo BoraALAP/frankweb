@@ -45,6 +45,7 @@ const Query = {
   availableSizesesConnection: forwardTo("db"),
   glassSizesConnection: forwardTo("db"),
   doorSurroundsConnection: forwardTo("db"),
+  architecturalStylesConnection: forwardTo("db"),
 
   user: forwardTo("db"),
   usersConnection: forwardTo("db"),

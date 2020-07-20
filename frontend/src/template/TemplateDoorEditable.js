@@ -53,10 +53,14 @@ const PRODUCT_QUERY = gql`
             ImageUrl
           }
           DefaultSidelite {
+            Id
             StyleNumber
+            ImageUrl
           }
           DefaultTransom {
+            Id
             StyleNumber
+            ImageUrl
           }
           RelatedDoors {
             Id
@@ -219,6 +223,20 @@ const TemplateDoorEditable = ({ match, history }) => {
         value: item.DefaultDoorSurroundStyleNumber.StyleNumber,
         id: item.DefaultDoorSurroundStyleNumber.Id,
       });
+      editDispatch({
+        type: "UPDATE_STEP",
+        step: "sidelite",
+        url: item.DefaultSidelite?.ImageUrl,
+        value: item.DefaultSidelite?.StyleNumber,
+        id: item.DefaultSidelite?.Id,
+      });
+      editDispatch({
+        type: "UPDATE_STEP",
+        step: "transom",
+        url: item.DefaultTransom?.ImageUrl,
+        value: item.DefaultTransom?.StyleNumber,
+        id: item.DefaultTransom?.Id,
+      });
     }
 
     editDispatch({
@@ -320,12 +338,37 @@ const TemplateDoorEditable = ({ match, history }) => {
     return <Spinner />;
   }
 
+  console.log(info);
+  console.log(editStore.doorEdit);
+
   return (
     <Container>
       <Left>
         <ImgContainer
           alt={info.StyleNumber}
           src={info.ImageUrl}
+          sideSrc={
+            (editStore.doorEdit.doorConfiguration.sideliteLeft ||
+              (editStore.doorEdit.doorConfiguration.sideliteRight &&
+                editStore.doorEdit?.sidelite.url)) &&
+            editStore.doorEdit.sidelite.url
+          }
+          sideAlt={
+            (editStore.doorEdit.doorConfiguration.sideliteLeft ||
+              (editStore.doorEdit.doorConfiguration.sideliteRight &&
+                editStore.doorEdit?.sidelite.value)) &&
+            editStore.doorEdit.sidelite.value
+          }
+          topSrc={
+            editStore.doorEdit.doorConfiguration.transom &&
+            editStore.doorEdit?.transom.url &&
+            editStore.doorEdit.transom.url
+          }
+          topAlt={
+            editStore.doorEdit.doorConfiguration.transom &&
+            editStore.doorEdit?.transom.value &&
+            editStore.doorEdit.transom.value
+          }
           name={info.StyleNumber}
           big
         />

@@ -1,7 +1,7 @@
 export const primaryTheme = {
   font: {
     family: {
-      main: "'Roboto', sans-serif",
+      main: "'Heebo', sans-serif",
     },
   },
   boxShadow: "0 0.25em 2em 0.25em rgba(0,0,0,0.15)",
@@ -18,7 +18,8 @@ export const primaryTheme = {
     primary: "hsl(195,30%,26%)",
     secondary: "hsl(33, 94%, 54%)",
     grey: "hsl(0, 0%, 50%)",
-    lightGrey: "hsl(0, 0%, 85%)",
+    lightGrey: "hsl(0, 0%, 77%)",
+    bg: "hsl(0, 0%, 95%)",
     black: "hsl(0, 0%, 0%)",
     white: "hsl(0, 0%, 100%)",
   },

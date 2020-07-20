@@ -220,6 +220,15 @@ type Query {
     first: Int
     last: Int
   ): DoorConnection
+    architecturalStylesConnection(
+    where: ArchitecturalStyleWhereInput
+    orderBy: ArchitecturalStyleOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ArchitecturalStyleConnection
   doorCollectionsConnection(
     where: DoorCollectionWhereInput
     orderBy: DoorCollectionOrderByInput
@@ -373,15 +382,7 @@ type Query {
     first: Int
     last: Int
   ): FrameProfileConnection
-  architecturalStylesConnection(
-    where: ArchitecturalStyleWhereInput
-    orderBy: ArchitecturalStyleOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): ArchitecturalStyleConnection!
+
   ratingEligibilitiesConnection(
     where: RatingEligibilityWhereInput
     orderBy: RatingEligibilityOrderByInput
@@ -390,7 +391,7 @@ type Query {
     before: String
     first: Int
     last: Int
-  ): RatingEligibilityConnection!
+  ): RatingEligibilityConnection
   availableSizesesConnection(
     where: AvailableSizesWhereInput
     orderBy: AvailableSizesOrderByInput
@@ -399,7 +400,7 @@ type Query {
     before: String
     first: Int
     last: Int
-  ): AvailableSizesConnection!
+  ): AvailableSizesConnection
   doorSurroundsConnection(
     where: DoorSurroundWhereInput
     orderBy: DoorSurroundOrderByInput

@@ -266,7 +266,7 @@ const Container = styled.div`
 const Tabs = styled.div`
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 2.5vw;
+  grid-gap: ${({ theme }) => `calc(${theme.pagePaddingW})`};
 `;
 const ResultContainer = styled.div`
   display: grid;
@@ -277,7 +277,7 @@ const Title = styled.h2``;
 const ProductContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 20vw);
-  grid-gap: 2.5vw;
+  grid-gap: ${({ theme }) => `calc(${theme.pagePaddingW})`};
 `;
 
 export default SearchResult;

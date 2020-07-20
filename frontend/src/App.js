@@ -12,14 +12,19 @@ import {
 } from "./context/reducer";
 
 import { ThemeProvider } from "styled-components";
-import { primaryTheme, secondaryTheme } from "./styles/theme";
-import GlobalStyle from "./styles/global";
 
-import Layout from "./components/global/Layout";
+import Home from "./pages/Home";
+import DisplayAll from "./pages/DisplayAll";
+import DealerFinder from "./pages/DealerFinder";
 import SearchResult from "./pages/SearchResult";
 import DoorApplication from "./pages/DoorApplication";
+import SignUp from "./pages/user/SignUp";
+import RequestReset from "./pages/user/RequestReset";
+import Account from "./pages/user/Account";
+import SignIn from "./pages/user/SignIn";
+import SignOut from "./pages/user/SignOut";
+import ResetPassword from "./pages/user/ResetPassword";
 
-import DisplayAll from "./pages/DisplayAll";
 // import Push from "./pages/Push";
 import TemplateDoor from "./template/TemplateDoor";
 import TemplateDoorEditable from "./template/TemplateDoorEditable";
@@ -27,14 +32,12 @@ import TemplateSidelite from "./template/TemplateSidelite";
 import TemplateTransom from "./template/TemplateTransom";
 import TemplateDividedLites from "./template/TemplateDividedLites";
 import TemplateGlassFamily from "./template/TemplateGlassFamily";
-import DealerFinder from "./pages/DealerFinder";
 
-import SignUp from "./pages/user/SignUp";
-import RequestReset from "./pages/user/RequestReset";
-import Account from "./pages/user/Account";
-import SignIn from "./pages/user/SignIn";
-import SignOut from "./pages/user/SignOut";
-import ResetPassword from "./pages/user/ResetPassword";
+import { primaryTheme, secondaryTheme } from "./styles/theme";
+import GlobalStyle from "./styles/global";
+
+import Layout from "./components/global/Layout";
+import Toastify from "./components/helper/Toastify";
 
 const App = () => {
   const [store, dispatch] = useReducer(globalReducer, initialState);
@@ -46,6 +49,7 @@ const App = () => {
       <appContext.Provider value={{ appStore, appDispatch }}>
         <editContext.Provider value={{ editStore, editDispatch }}>
           <ThemeProvider theme={store.theme ? primaryTheme : secondaryTheme}>
+          
             <Router>
               <Layout>
                 <Switch>
@@ -84,11 +88,12 @@ const App = () => {
                   {/* <Route path="/push" component={Push} /> */}
                   <Route path="/displayAll" component={DisplayAll} />
                   <Route path="/" exact>
-                    <DisplayAll />
+                    <Home />
                   </Route>
                 </Switch>
               </Layout>
             </Router>
+            <Toastify />
             <GlobalStyle />
           </ThemeProvider>
         </editContext.Provider>

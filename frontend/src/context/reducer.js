@@ -64,7 +64,7 @@ export const editState = {
       double: false,
       triple: false,
       quadruple: false,
-      value: "",
+      value: "Single",
       completed: false,
     },
     doorStyles: {
@@ -109,12 +109,14 @@ export const editState = {
     },
     sidelite: {
       id: "",
+      url: "",
       value: "",
       completed: false,
     },
     transom: {
       id: "",
       value: "",
+      url: "",
       completed: false,
     },
   },
@@ -197,6 +199,7 @@ export const editReducer = (state = editState, actions) => {
           [actions.step]: {
             value: actions.value,
             id: actions.id,
+            url: actions.url,
             completed: true,
           },
         },

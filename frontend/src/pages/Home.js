@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import Menu from "../components/global/Menu";
 
 const Home = props => {
   return (
     <Container>
-      <p>text</p>
+      <Menu />
     </Container>
   );
 };

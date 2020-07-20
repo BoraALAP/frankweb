@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import nprogress from "nprogress";
@@ -26,8 +26,9 @@ const client = new ApolloClient({
   }),
 });
 
-const Layout = (props) => {
+const Layout = ({ children, title }) => {
   const history = useHistory();
+  
 
   useEffect(() => {
     history.listen((location) => {
@@ -41,9 +42,9 @@ const Layout = (props) => {
   return (
     <ApolloProvider client={client}>
       <Container>
-        <Meta />
+        <Meta title={title} />
         <Header />
-        <Content>{props.children}</Content>
+        <Content>{children}</Content>
 
         <Footer />
       </Container>
@@ -56,7 +57,8 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 2.5vh 5vw;
+  padding: ${({ theme }) =>
+    `calc(${theme.pagePaddingH}/ 2 + 126px) ${theme.pagePaddingW} calc(${theme.pagePaddingH}/ 2)`};
 `;
 
 export default Layout;

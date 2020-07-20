@@ -6,6 +6,8 @@ import styled from "styled-components";
 import RelatedItem from "../components/applicationComponents/UI/RelatedItem";
 import { Primary } from "../components/UI/Button";
 import Spinner from "../components/UI/Spinner";
+import Meta from "../components/global/Meta";
+
 
 const DOOR_QUERY = gql`
   query DOOR_QUERY($first: Int, $after: String) {
@@ -67,7 +69,9 @@ const DisplayAll = (props) => {
   }
 
   return (
+    
     <Container>
+      <Meta title="Display Doors" />
       <ProductContainer>
         {data.doorsConnection.edges.map(({ node }, index) => (
           <RelatedItem
@@ -88,6 +92,7 @@ const DisplayAll = (props) => {
         More
       </Primary>
     </Container>
+    
   );
 };
 

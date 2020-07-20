@@ -11,10 +11,11 @@ import Selector from "../UI/Selector";
 const Transom = ({ data }) => {
   const { editStore, editDispatch } = useContext(editContext);
 
-  const handleClick = (value, id) => {
+  const handleClick = (value, id, url) => {
     editDispatch({
       type: "UPDATE_STEP",
       step: "transom",
+      url,
       value,
       id,
     });
@@ -29,7 +30,7 @@ const Transom = ({ data }) => {
       {data.map((item, index) => (
         <Selector
           key={index}
-          onClick={() => handleClick(item.StyleNumber, item.Id)}
+          onClick={() => handleClick(item.StyleNumber, item.Id, item.ImageUrl)}
           select={item.StyleNumber === editStore.doorEdit.transom.value}
         >
           <ImageContainer

@@ -18,7 +18,7 @@ const ImageContainer = ({ src, alt = "image", big, small, med }) => {
 const BigContainer = styled(LazyLoadImage)`
   display: grid;
   max-height: 238px;
-  max-width: 100%;
+  max-width: 150px;
 `;
 const MediumContainer = styled(LazyLoadImage)`
   display: grid;
