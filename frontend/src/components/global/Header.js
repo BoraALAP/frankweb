@@ -1,55 +1,75 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ReactComponent as Logo } from "../../assets/branding/frank_logo.svg";
 
+import { useQuery } from "@apollo/client";
+import { CURRENT_USER_QUERY } from "../../queries/User";
+
+import disableScroll from "disable-scroll";
+
+import { ReactComponent as Logo } from "../../assets/branding/frank_logo.svg";
 import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
 import { ReactComponent as MenuIcon } from "../../assets/icons/menu.svg";
 
 import SignOut from "../../pages/user/SignOut";
 import Search from "../search/Search";
-import { useQuery } from "@apollo/client";
-import { CURRENT_USER_QUERY } from "../../queries/User";
-import Menu from "./Menu";
+
+import MenuComp from "./Menu";
 
 const Header = (props) => {
   const { data } = useQuery(CURRENT_USER_QUERY);
+  const [menuState, setMenuState] = useState(false);
 
-  const [sticky, setSticky] = useState({ show: true, scrollPos: 0 });
+  const [sticky, setSticky] = useState(true);
 
-  const handleScroll = async() => {
-    let prev =  sticky.scrollPos
-    setSticky({
-      show: document.body.getBoundingClientRect().top >= prev,
-      scrollPos: document.body.getBoundingClientRect().top,
-    });
+  props.history.listen(location => {
+    setMenuState(false)
+  })
 
-    console.log(prev);
-    
+  useEffect(() => {
+    if (menuState) {
+      disableScroll.on();
+    } else {
+      disableScroll.off();
+    }
+  }, [menuState]);
+
+  let prev = window.pageYOffset;
+  const handleScroll = () => {
+    let current = window.pageYOffset;
+    if (prev > current) {
+      setSticky(true);
+    } else {
+      setSticky(false);
+    }
+    prev = current;
   };
 
-  console.log(sticky, document.body.getBoundingClientRect().top);
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", () => handleScroll);
     };
   }, []);
 
+  const handleMenu = () => {
+    setMenuState(!menuState);
+  };
+
   return (
-    <Container show={sticky.show}>
-      <Left>
-        <Link to="/">
-          <LogoS />
-        </Link>
-        <H4>
-          We make
-          <br />
-          Windows and Doors
-        </H4>
-      </Left>
-      {/* <Nav>
+    <Container show={sticky}>
+      <HeaderS>
+        <Left>
+          <Link to="/">
+            <LogoS />
+          </Link>
+          <H4>
+            We make
+            <br />
+            Windows and Doors
+          </H4>
+        </Left>
+        {/* <Nav>
         {data?.me ? (
           <>
             <Link to="/user/account">
@@ -66,46 +86,46 @@ const Header = (props) => {
           <p>App</p>
         </Link>
       </Nav> */}
-      <Right>
-        <MenuIcon />
-        <SearchIcon />
-      </Right>
+        <Right>
+          <MenuIconS menuprop={menuState} onClick={handleMenu} />
+          {/* <SearchIcon /> */}
+        </Right>
+      </HeaderS>
       {/* <Search /> */}
-      {/* <Menu /> */}
-    </Container>
-  );
-};
-
-export const SimpleHeader = () => {
-  return (
-    <Container>
-      <Link to="/">
-        <LogoS />
-      </Link>
+      <MenuStyle open={menuState} />
     </Container>
   );
 };
 
 const Container = styled.div`
   display: grid;
-  grid-auto-flow: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 2.5vh ${({ theme }) => theme.pagePaddingW};
   position: fixed;
   z-index: 1000;
   width: 100%;
   box-sizing: border-box;
   background-color: ${({ theme }) => theme.color.bg};
-
-  top: ${(props) => (props.show ? "0" : "-30vh")};
   transition: top 1s ease;
+  top: ${(props) => (props.show ? "0" : "-30vh")};
+`;
+
+const MenuStyle = styled(MenuComp)`
+  z-index: 800;
+`;
+
+const HeaderS = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  padding: 2.5vh ${({ theme }) => theme.pagePaddingW};
 `;
 
 const Left = styled.div`
   grid-auto-flow: column;
   display: grid;
-  grid-gap: 5rem;
+  grid-gap: 3vw;
   align-items: center;
 `;
 
@@ -126,7 +146,10 @@ const H4 = styled.h4`
   }
 `;
 
-const Nav = styled.nav``;
+const MenuIconS = styled(MenuIcon)`
+  transform: ${(props) => props.menuprop ? "rotate(-45deg)" : "rotate(0)"};
+  transition: transform 0.75s ease;
+`;
 
 const LogoS = styled(Logo)`
   display: grid;

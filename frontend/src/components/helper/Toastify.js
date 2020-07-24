@@ -3,20 +3,20 @@ import styled from "styled-components";
 import { Primary } from "../UI/Button";
 
 const Toastify = (props) => {
-  const [close, setClose] = useState(false);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
-    setClose(localStorage.getItem('toast'));
+    setOpen(localStorage.getItem('toast'));
   }, [])
   
 
   const closeToast = () => {
-    setClose(true);
+    setOpen(false);
     localStorage.setItem('toast',true);
   };
 
   return (
-    <ToastContainerS active={close}>
+    <ToastContainerS active={open}>
       <Left>
         <h5>This website uses cookies</h5>
         <p>

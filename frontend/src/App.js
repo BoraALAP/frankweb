@@ -18,12 +18,24 @@ import DisplayAll from "./pages/DisplayAll";
 import DealerFinder from "./pages/DealerFinder";
 import SearchResult from "./pages/SearchResult";
 import DoorApplication from "./pages/DoorApplication";
+import ContactUs from "./pages/ContactUs";
+import NotFound from "./pages/NotFound";
+
 import SignUp from "./pages/user/SignUp";
 import RequestReset from "./pages/user/RequestReset";
 import Account from "./pages/user/Account";
 import SignIn from "./pages/user/SignIn";
 import SignOut from "./pages/user/SignOut";
 import ResetPassword from "./pages/user/ResetPassword";
+
+import Doors from "./pages/brochure/Doors";
+import Patio from "./pages/brochure/Patio";
+import Windows from "./pages/brochure/Windows";
+
+import Frank from "./pages/sub/Frank";
+import Imagine from "./pages/sub/Imagine";
+import Learn from "./pages/sub/Learn";
+import Make from "./pages/sub/Make";
 
 // import Push from "./pages/Push";
 import TemplateDoor from "./template/TemplateDoor";
@@ -49,14 +61,9 @@ const App = () => {
       <appContext.Provider value={{ appStore, appDispatch }}>
         <editContext.Provider value={{ editStore, editDispatch }}>
           <ThemeProvider theme={store.theme ? primaryTheme : secondaryTheme}>
-          
             <Router>
               <Layout>
                 <Switch>
-                  <Route path="/application" component={DoorApplication} />
-                  <Route path="/search" component={SearchResult} />
-                  <Route path="/dealerFinder" component={DealerFinder} />
-
                   <Route path="/product/door/:id" component={TemplateDoor} />
                   <Route
                     path="/selected/Door/:id"
@@ -85,11 +92,24 @@ const App = () => {
                   <Route path="/user/signOut" component={SignOut} />
                   <Route path="/user/requestReset" component={RequestReset} />
                   <Route path="/user/resetPassword" component={ResetPassword} />
+
+                  <Route path="/brochure/doors" component={Doors} />
+                  <Route path="/brochure/windows" component={Windows} />
+                  <Route path="/brochure/patio" component={Patio} />
+
+                  <Route path="/sub/frank" component={Frank} />
+                  <Route path="/sub/imagine" component={Imagine} />
+                  <Route path="/sub/learn" component={Learn} />
+                  <Route path="/sub/make" component={Make} />
+
                   {/* <Route path="/push" component={Push} /> */}
+                  <Route path="/application" component={DoorApplication} />
+                  <Route path="/contactus" component={ContactUs} />
+                  <Route path="/search" component={SearchResult} />
+                  <Route path="/dealerFinder" component={DealerFinder} />
                   <Route path="/displayAll" component={DisplayAll} />
-                  <Route path="/" exact>
-                    <Home />
-                  </Route>
+                  <Route path="/" exact component={Home} />
+                  <Route exact component={NotFound} />
                 </Switch>
               </Layout>
             </Router>
