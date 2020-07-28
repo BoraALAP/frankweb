@@ -3,21 +3,19 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
+import { AnimatePresence } from "framer-motion";
+
 import { CURRENT_USER_QUERY } from "../../queries/User";
 
 import disableScroll from "disable-scroll";
 
 import { ReactComponent as Logo } from "../../assets/branding/frank_logo.svg";
-import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg";
 import { ReactComponent as MenuIcon } from "../../assets/icons/menu.svg";
-
-import SignOut from "../../pages/user/SignOut";
-import Search from "../search/Search";
 
 import MenuComp from "./Menu";
 
 const Header = (props) => {
-  const { data } = useQuery(CURRENT_USER_QUERY);
+  // const { data } = useQuery(CURRENT_USER_QUERY);
   const [menuState, setMenuState] = useState(false);
 
   const [sticky, setSticky] = useState(true);
@@ -60,7 +58,7 @@ const Header = (props) => {
     <Container show={sticky}>
       <HeaderS>
         <Left>
-          <Link to="/">
+          <Link to="/home">
             <LogoS />
           </Link>
           <H4>
@@ -87,12 +85,14 @@ const Header = (props) => {
         </Link>
       </Nav> */}
         <Right>
-          <MenuIconS menuprop={menuState} onClick={handleMenu} />
+          <MenuIconS menuprop={menuState} onClick={handleMenu} /> 
           {/* <SearchIcon /> */}
         </Right>
       </HeaderS>
       {/* <Search /> */}
-      <MenuStyle open={menuState} />
+      <AnimatePresence exitBeforeEnter>
+      {menuState && <MenuStyle open={menuState} />}
+      </AnimatePresence>
     </Container>
   );
 };

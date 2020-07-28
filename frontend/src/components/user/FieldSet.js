@@ -15,13 +15,10 @@ const Container = styled.fieldset`
   align-content: center;
   border: none;
   box-sizing: border-box;
-  padding: ${({ theme }) => theme.cardPadding};
   margin: 0;
   min-width: 320px;
   max-width: 400px;
   width: 80vw;
-  border-radius: ${({ theme }) => theme.cardRadius};
-  box-shadow: ${({ theme }) => theme.cardShadow};
   margin-bottom: 3em;
 `;
 

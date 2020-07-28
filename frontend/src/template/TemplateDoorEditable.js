@@ -18,6 +18,7 @@ import Wrong from "../components/applicationComponents/Application/Wrong";
 import Sidelite from "../components/applicationComponents/DoorEdit/Sidelite";
 import Transom from "../components/applicationComponents/DoorEdit/Transom";
 import ImgContainer from "../components/applicationComponents/DoorEdit/ImageContainer";
+import Layout from "../components/applicationComponents/Application/Layout";
 
 const PRODUCT_QUERY = gql`
   query PRODUCT_QUERY($productid: ID) {
@@ -337,9 +338,6 @@ const TemplateDoorEditable = ({ match, history }) => {
   if (info === undefined) {
     return <Spinner />;
   }
-
-  console.log(info);
-  console.log(editStore.doorEdit);
 
   return (
     <Container>

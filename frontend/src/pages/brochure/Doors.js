@@ -1,12 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import Meta from "../../components/global/Meta";
-
 const Doors = (props) => {
   return (
-    <Container>
-      <Meta title="Doors" />
+    <Container >
       <p> Doors </p>
     </Container>
   );

@@ -1,17 +1,16 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
-import Customer from "../components/applicationComponents/Application/Customer";
-import Location from "../components/applicationComponents/Application/Location";
-import Texture from "../components/applicationComponents/Application/Texture";
-import Size from "../components/applicationComponents/Application/Size";
-import GlassSize from "../components/applicationComponents/Application/GlassSize";
-import Success from "../components/applicationComponents/Application/Success";
-import Wrong from "../components/applicationComponents/Application/Wrong";
-import { appContext } from "../context/context";
-import GlassFamily from "../components/applicationComponents/Application/GlassFamily";
-import SidePanel from "../components/applicationComponents/Application/SidePanel";
-import Meta from "../components/global/Meta";
+import Customer from "../../components/applicationComponents/Application/Customer";
+import Location from "../../components/applicationComponents/Application/Location";
+import Texture from "../../components/applicationComponents/Application/Texture";
+import Size from "../../components/applicationComponents/Application/Size";
+import GlassSize from "../../components/applicationComponents/Application/GlassSize";
+import Success from "../../components/applicationComponents/Application/Success";
+import Wrong from "../../components/applicationComponents/Application/Wrong";
+import { appContext } from "../../context/context";
+import GlassFamily from "../../components/applicationComponents/Application/GlassFamily";
+import SidePanel from "../../components/applicationComponents/Application/SidePanel";
 
 
 const DoorApplication = ({ match }) => {
@@ -41,7 +40,6 @@ const DoorApplication = ({ match }) => {
   return (
     
     <Container>
-      <Meta title={"Door Application"} />
       <Left>
         <Switch />
       </Left>

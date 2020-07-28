@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
  
-const NotFound = (props) => {
+const DealerDashboard = (props) => {
   return (
     <Container>
-      <p> NotFound </p>
+      <h1> Welcome to Dealer Dashboard </h1>
     </Container>
   );
 };
@@ -12,4 +12,4 @@ const NotFound = (props) => {
 const Container = styled.div`
 `;
  
-export default NotFound
+export default DealerDashboard

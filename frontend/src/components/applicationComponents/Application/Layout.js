@@ -5,7 +5,7 @@ import Selector from "../UI/Selector";
 import { appContext } from "../../../context/context";
 
 const Layout = ({ title, gridSize = 3, children, component }, props) => {
-  const { store, dispatch } = useContext(appContext);
+  const { dispatch } = useContext(appContext);
 
   const nextStep = (props) => {
     dispatch({

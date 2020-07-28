@@ -11,6 +11,7 @@ export const primaryTheme = {
   cardRadius: "1em",
   cardShadow: "0 0.25em 2em 0.25em rgba(0,0,0,0.15)",
   cardPadding: "3em 3em",
+  contentPadding: "2.5vw",
   pagePaddingW: "5vw",
   pagePaddingH: "5vh",
   pagePadding: "5vh 5vw",
@@ -22,6 +23,7 @@ export const primaryTheme = {
     bg: "hsl(0, 0%, 95%)",
     black: "hsl(0, 0%, 0%)",
     white: "hsl(0, 0%, 100%)",
+    whiteBg: "hsla(0, 0%, 100%, 0.5)",
   },
 };
 

@@ -869,18 +869,19 @@ type Mutation {
 
   createDealer(
     id: ID
-  dealer: String
-  address: String
-  city: String
-  province: String
-  postal: String
-  lat: Float
-  lng: Float
-  phone: String
-  email: String 
-  person: String
+    dealer: String
+    address: String
+    city: String
+    province: String
+    postal: String
+    lat: Float
+    lng: Float
+    phone: String
+    email: String 
+    person: String
   ): Dealer
   updateDealer(data: DealerUpdateInput!, where: DealerWhereUniqueInput!): Dealer
+  
 }
 
 type User {

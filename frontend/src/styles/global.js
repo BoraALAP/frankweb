@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${({ theme }) => theme.font.family.main};
     font-weight: 600;
     margin: 0;
+    color:  ${({ theme }) => theme.color.primary};
     background-color: ${({ theme }) => theme.color.bg};
   }
 

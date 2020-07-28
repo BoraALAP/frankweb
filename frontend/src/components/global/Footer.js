@@ -6,10 +6,10 @@ const Footer = (props) => {
   return (
     <Container>
       <Left>
-        <Link to="/">About us </Link>
-        <Link to="/">Contact Us </Link>
+        <Link to="/sub/frank">About us </Link>
+        <Link to="/contactUs">Contact Us </Link>
         <Link to="/">Paradigm</Link>
-        <Link to="/">Find a dealer</Link>
+        <Link to="/dealerFinder">Find a dealer</Link>
         <Link to="/">Your Projects </Link>
         <Link to="/">Privacy Policy</Link>
       </Left>
