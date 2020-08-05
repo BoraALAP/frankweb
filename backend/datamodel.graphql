@@ -500,3 +500,10 @@ type Dealer  {
     person:String
 }
 
+type Testing {
+  id: ID! @id
+  dealer:String
+    address:String
+    city:String
+}
+

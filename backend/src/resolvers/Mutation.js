@@ -372,15 +372,15 @@ const Mutation = {
     // lowercase the email
     args.email = args.email.toLowerCase();
 
-    // console.log(args.code);
-    // let permission = ""
-    // if (args.code !== "" && args.code === process.env.DEALER_CODE ) {
-    //   permission = "DEALER"
-    // } else if (args.code !== "" && args.code !== process.env.DEALER_CODE) {
-    //   throw new Error("Dealer Code is not Correct");
-    // } else {
-    //   permission = "USER"
-    // }
+    console.log(args.code);
+    let permission = ""
+    if (args.code !== "" && args.code === process.env.DEALER_CODE ) {
+      permission = "DEALER"
+    } else if (args.code !== "" && args.code !== process.env.DEALER_CODE) {
+      throw new Error("Dealer Code is not Correct");
+    } else {
+      permission = "USER"
+    }
 
     const [user] = await ctx.db.query.users({
       where: {
@@ -403,7 +403,7 @@ const Mutation = {
         data: {
           ...args,
           password,
-          permissions: { set: ["USER"] },
+          permissions: { set: [permission] },
         },
       },
       info
