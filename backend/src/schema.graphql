@@ -901,11 +901,7 @@ type Mutation {
     lat: Float
     lng: Float
     phone: String
-<<<<<<< HEAD
     email: String 
-=======
-    email: String
->>>>>>> findingfix
     person: String
   ): Dealer
   updateDealer(data: DealerUpdateInput!, where: DealerWhereUniqueInput!): Dealer
