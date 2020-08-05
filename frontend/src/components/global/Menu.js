@@ -11,6 +11,7 @@ const Menu = (props) => {
     exit: { x: 10, opacity: 0 },
   };
 
+<<<<<<< HEAD
   return (
     <Container
       initial={{ y: "-100vh" }}
@@ -55,6 +56,55 @@ const Menu = (props) => {
         </Bottom>
       </Right>
     </Container>
+=======
+console.log(props.me);
+  return (
+    <AnimatePresence exitBeforeEnter>
+      {props.open && (
+        <Container
+          initial={{ y: "-100vh" }}
+          animate={{ y: "0vh" }}
+          transition={{ duration: 0.25 }}
+          exit={{ y: "-100vh" }}
+          key="container"
+        >
+          <Left
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={opacity}
+            transition={{ delay: 0.35, duration: 0.75 }}
+          >
+            <ImgContainer src={MenuImage} />
+          </Left>
+          <Right
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={opacity}
+            transition={{ delay: 0.65, duration: 0.75 }}
+          >
+            <Top>
+              <Link to="/brochure/windows">Windows</Link>
+              <Link to="/brochure/doors">Doors</Link>
+              <Link to="/brochure/patio">Patio Doors</Link>
+            </Top>
+            <Mid>
+              <Link to="/sub/frank">Who is Frank?</Link>
+              <Link to="/sub/imagine">Imagine</Link>
+              <Link to="/sub/make">Make</Link>
+              <Link to="/sub/learn">Learn</Link>
+            </Mid>
+            <Bottom>
+              <Link to="/contactUs">Contact Us</Link>
+              <Link to="/user/account">{ props.me ? "Account" : "Dealer Login" }</Link>
+              <Link to="/dealerFinder">Find a Dealer</Link>
+            </Bottom>
+          </Right>
+        </Container>
+      )}
+    </AnimatePresence>
+>>>>>>> findingfix
   );
 };
 

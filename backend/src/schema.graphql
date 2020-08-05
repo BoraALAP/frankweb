@@ -1,9 +1,8 @@
 # import * from './generated/prisma.graphql'
 
-type SuccessMessage{
+type SuccessMessage {
   message: String
 }
-
 
 type Query {
   doors(
@@ -220,7 +219,7 @@ type Query {
     first: Int
     last: Int
   ): DoorConnection
-    architecturalStylesConnection(
+  architecturalStylesConnection(
     where: ArchitecturalStyleWhereInput
     orderBy: ArchitecturalStyleOrderByInput
     skip: Int
@@ -423,8 +422,24 @@ type Query {
   ): UserConnection!
   me: User
 
-  dealers(where: DealerWhereInput, orderBy: DealerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Dealer]!
-  dealersConnection(where: DealerWhereInput, orderBy: DealerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DealerConnection!
+  dealers(
+    where: DealerWhereInput
+    orderBy: DealerOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Dealer]!
+  dealersConnection(
+    where: DealerWhereInput
+    orderBy: DealerOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): DealerConnection!
 }
 
 type Mutation {
@@ -495,7 +510,7 @@ type Mutation {
     IsFlushGlazed: Boolean
     RelatedFamily: GlassFamilyUpdateManyInput
     RelatedGlasses: GlassUpdateManyInput
-    RelatedDoors: DoorUpdateManyInput
+    RelatedDoors: DoorCreateManyWithoutRelatedDoorsInput
     Finishes: FinishUpdateManyWithoutDoorsInput
   ): Door!
   createDoorCollection(
@@ -823,7 +838,7 @@ type Mutation {
     Name: String
     Abbreviation: String
     Doors: DoorUpdateManyWithoutGlassSizeCategoryInput
-    Sidelites: SideliteUpdateManyInput
+    Sidelites: SideliteCreateManyWithoutGlassSizeCategoryInput
     Transoms: TransomUpdateManyWithoutGlassSizeCategoryInput
   ): GlassFeature!
   createDoorSurround(
@@ -861,11 +876,20 @@ type Mutation {
     where: TransomWhereUniqueInput!
   ): Transom
 
-  createUser(email: String!, password: String!, name: String!): User!
+  createUser(
+    email: String!
+    password: String!
+    name: String!
+    code: String
+  ): User!
   signIn(email: String!, password: String!): User!
   signOut: SuccessMessage
-  requestReset(email: String!): SuccessMessage 
-  resetPassword(resetToken: String!, confirmPassword:String!, password:String!):User!
+  requestReset(email: String!): SuccessMessage
+  resetPassword(
+    resetToken: String!
+    confirmPassword: String!
+    password: String!
+  ): User!
 
   createDealer(
     id: ID
@@ -877,7 +901,11 @@ type Mutation {
     lat: Float
     lng: Float
     phone: String
+<<<<<<< HEAD
     email: String 
+=======
+    email: String
+>>>>>>> findingfix
     person: String
   ): Dealer
   updateDealer(data: DealerUpdateInput!, where: DealerWhereUniqueInput!): Dealer
@@ -888,5 +916,6 @@ type User {
   id: ID!
   name: String!
   email: String!
+  code: String
   permissions: [Permission!]!
 }

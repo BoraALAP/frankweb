@@ -90,9 +90,13 @@ const Header = (props) => {
         </Right>
       </HeaderS>
       {/* <Search /> */}
+<<<<<<< HEAD
       <AnimatePresence exitBeforeEnter>
       {menuState && <MenuStyle open={menuState} />}
       </AnimatePresence>
+=======
+      <MenuStyle open={menuState}  me={data?.me} />
+>>>>>>> findingfix
     </Container>
   );
 };

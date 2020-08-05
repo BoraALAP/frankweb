@@ -7,6 +7,7 @@
     "start": "nodemon -e js, graphql -x node src/index.js",
     "debug": "nodemon -e js, graphql -x node --inspect src/index.js",
     "deploy": "prisma deploy --env-file variables.env",
+    "generate": "prisma generate --env-file variables.env",
     "deployForce": "prisma deploy --env-file variables.env --force",
     "playground": "graphql playground --dotenv variables.env",
     "reset": "prisma reset --force --env-file variables.env",
@@ -20,7 +21,7 @@
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "formik": "^2.1.4",
-    "graphql": "^14.6.0",
+    "graphql": "^14.7.0",
     "graphql-cli": "^4.0.0",
     "graphql-yoga": "^1.18.3",
     "jsonwebtoken": "^8.5.1",
@@ -30,5 +31,8 @@
     "prisma": "^1.34.10",
     "prisma-binding": "^2.3.16",
     "prisma-client-lib": "^1.34.10"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.4.0"
   }
 }

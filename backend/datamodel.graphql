@@ -480,6 +480,7 @@ type User {
   name: String!
   email: String! @unique
   password: String! 
+  code: String
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission!]! @scalarList(strategy: RELATION)
@@ -497,5 +498,12 @@ type Dealer  {
     phone:String
     email:String! @unique
     person:String
+}
+
+type Testing {
+  id: ID! @id
+  dealer:String
+    address:String
+    city:String
 }
 
