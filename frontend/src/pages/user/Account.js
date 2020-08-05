@@ -27,7 +27,7 @@ const Account = (props) => {
         if (item === "DEALER") {
           return <DealerDashboard />
         } else if (item === "USER") {
-          return <UserDashboard />
+          return <UserDashboard />  
         }
       })}
     </Container>
