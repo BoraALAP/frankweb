@@ -861,7 +861,7 @@ type Mutation {
     where: TransomWhereUniqueInput!
   ): Transom
 
-  createUser(email: String!, password: String!, name: String!): User!
+  createUser(email: String!, password: String!, name: String! code:String): User!
   signIn(email: String!, password: String!): User!
   signOut: SuccessMessage
   requestReset(email: String!): SuccessMessage 
@@ -887,5 +887,6 @@ type User {
   id: ID!
   name: String!
   email: String!
+  code: String
   permissions: [Permission!]!
 }

@@ -16,8 +16,9 @@ const CREATE_USER_MUTATION = gql`
     $email: String!
     $name: String!
     $password: String!
+    $code: String!
   ) {
-    createUser(email: $email, name: $name, password: $password) {
+    createUser(email: $email, name: $name, password: $password, code: $code) {
       id
       email
       name
@@ -44,6 +45,7 @@ const SignUp = () => {
       name: "",
       email: "",
       password: "",
+      code: "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Required"),
@@ -61,7 +63,7 @@ const SignUp = () => {
           ...values,
         },
       });
-      actions.resetForm({ values: { email: "", name: "", password: "" } });
+      actions.resetForm({ values: { email: "", name: "", password: "", code:"" } });
       actions.setSubmitting(false);
     },
   });
@@ -103,6 +105,16 @@ const SignUp = () => {
               name="password"
               placeholder="Password"
               value={formik.values.password}
+              onChange={formik.handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="code">Dealer Code</label>
+            <input
+              type="password"
+              name="code"
+              placeholder="Dealer Code"
+              value={formik.values.code}
               onChange={formik.handleChange}
             />
           </div>

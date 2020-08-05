@@ -13,7 +13,7 @@ const Menu = (props) => {
     exit: { x: 10, opacity: 0 },
   };
 
-
+console.log(props.me);
   return (
     <AnimatePresence exitBeforeEnter>
       {props.open && (
@@ -53,7 +53,7 @@ const Menu = (props) => {
             </Mid>
             <Bottom>
               <Link to="/contactUs">Contact Us</Link>
-              <Link to="/account">Dealer Login</Link>
+              <Link to="/user/account">{ props.me ? "Account" : "Dealer Login" }</Link>
               <Link to="/dealerFinder">Find a Dealer</Link>
             </Bottom>
           </Right>

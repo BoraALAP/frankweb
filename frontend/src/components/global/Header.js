@@ -92,7 +92,7 @@ const Header = (props) => {
         </Right>
       </HeaderS>
       {/* <Search /> */}
-      <MenuStyle open={menuState} />
+      <MenuStyle open={menuState}  me={data?.me} />
     </Container>
   );
 };
