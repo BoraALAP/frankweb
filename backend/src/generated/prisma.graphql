@@ -90,10 +90,6 @@ type AggregateStyleShape {
   count: Int!
 }
 
-type AggregateTesting {
-  count: Int!
-}
-
 type AggregateTransom {
   count: Int!
 }
@@ -12323,12 +12319,6 @@ type Mutation {
   upsertStyleShape(where: StyleShapeWhereUniqueInput!, create: StyleShapeCreateInput!, update: StyleShapeUpdateInput!): StyleShape!
   deleteStyleShape(where: StyleShapeWhereUniqueInput!): StyleShape
   deleteManyStyleShapes(where: StyleShapeWhereInput): BatchPayload!
-  createTesting(data: TestingCreateInput!): Testing!
-  updateTesting(data: TestingUpdateInput!, where: TestingWhereUniqueInput!): Testing
-  updateManyTestings(data: TestingUpdateManyMutationInput!, where: TestingWhereInput): BatchPayload!
-  upsertTesting(where: TestingWhereUniqueInput!, create: TestingCreateInput!, update: TestingUpdateInput!): Testing!
-  deleteTesting(where: TestingWhereUniqueInput!): Testing
-  deleteManyTestings(where: TestingWhereInput): BatchPayload!
   createTransom(data: TransomCreateInput!): Transom!
   updateTransom(data: TransomUpdateInput!, where: TransomWhereUniqueInput!): Transom
   updateManyTransoms(data: TransomUpdateManyMutationInput!, where: TransomWhereInput): BatchPayload!
@@ -12438,9 +12428,6 @@ type Query {
   styleShape(where: StyleShapeWhereUniqueInput!): StyleShape
   styleShapes(where: StyleShapeWhereInput, orderBy: StyleShapeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [StyleShape]!
   styleShapesConnection(where: StyleShapeWhereInput, orderBy: StyleShapeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StyleShapeConnection!
-  testing(where: TestingWhereUniqueInput!): Testing
-  testings(where: TestingWhereInput, orderBy: TestingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Testing]!
-  testingsConnection(where: TestingWhereInput, orderBy: TestingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TestingConnection!
   transom(where: TransomWhereUniqueInput!): Transom
   transoms(where: TransomWhereInput, orderBy: TransomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transom]!
   transomsConnection(where: TransomWhereInput, orderBy: TransomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TransomConnection!
@@ -17926,148 +17913,8 @@ type Subscription {
   sidelite(where: SideliteSubscriptionWhereInput): SideliteSubscriptionPayload
   styleLayoutPair(where: StyleLayoutPairSubscriptionWhereInput): StyleLayoutPairSubscriptionPayload
   styleShape(where: StyleShapeSubscriptionWhereInput): StyleShapeSubscriptionPayload
-  testing(where: TestingSubscriptionWhereInput): TestingSubscriptionPayload
   transom(where: TransomSubscriptionWhereInput): TransomSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-}
-
-type Testing {
-  id: ID!
-  dealer: String
-  address: String
-  city: String
-}
-
-type TestingConnection {
-  pageInfo: PageInfo!
-  edges: [TestingEdge]!
-  aggregate: AggregateTesting!
-}
-
-input TestingCreateInput {
-  id: ID
-  dealer: String
-  address: String
-  city: String
-}
-
-type TestingEdge {
-  node: Testing!
-  cursor: String!
-}
-
-enum TestingOrderByInput {
-  id_ASC
-  id_DESC
-  dealer_ASC
-  dealer_DESC
-  address_ASC
-  address_DESC
-  city_ASC
-  city_DESC
-}
-
-type TestingPreviousValues {
-  id: ID!
-  dealer: String
-  address: String
-  city: String
-}
-
-type TestingSubscriptionPayload {
-  mutation: MutationType!
-  node: Testing
-  updatedFields: [String!]
-  previousValues: TestingPreviousValues
-}
-
-input TestingSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: TestingWhereInput
-  AND: [TestingSubscriptionWhereInput!]
-  OR: [TestingSubscriptionWhereInput!]
-  NOT: [TestingSubscriptionWhereInput!]
-}
-
-input TestingUpdateInput {
-  dealer: String
-  address: String
-  city: String
-}
-
-input TestingUpdateManyMutationInput {
-  dealer: String
-  address: String
-  city: String
-}
-
-input TestingWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  dealer: String
-  dealer_not: String
-  dealer_in: [String!]
-  dealer_not_in: [String!]
-  dealer_lt: String
-  dealer_lte: String
-  dealer_gt: String
-  dealer_gte: String
-  dealer_contains: String
-  dealer_not_contains: String
-  dealer_starts_with: String
-  dealer_not_starts_with: String
-  dealer_ends_with: String
-  dealer_not_ends_with: String
-  address: String
-  address_not: String
-  address_in: [String!]
-  address_not_in: [String!]
-  address_lt: String
-  address_lte: String
-  address_gt: String
-  address_gte: String
-  address_contains: String
-  address_not_contains: String
-  address_starts_with: String
-  address_not_starts_with: String
-  address_ends_with: String
-  address_not_ends_with: String
-  city: String
-  city_not: String
-  city_in: [String!]
-  city_not_in: [String!]
-  city_lt: String
-  city_lte: String
-  city_gt: String
-  city_gte: String
-  city_contains: String
-  city_not_contains: String
-  city_starts_with: String
-  city_not_starts_with: String
-  city_ends_with: String
-  city_not_ends_with: String
-  AND: [TestingWhereInput!]
-  OR: [TestingWhereInput!]
-  NOT: [TestingWhereInput!]
-}
-
-input TestingWhereUniqueInput {
-  id: ID
 }
 
 type Transom {
