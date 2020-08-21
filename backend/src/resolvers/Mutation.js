@@ -403,6 +403,7 @@ const Mutation = {
         data: {
           ...args,
           password,
+          verified:false,
           permissions: { set: [permission] },
         },
       },
@@ -515,6 +516,38 @@ const Mutation = {
 
     return updatedUser;
   },
+
+
+
+
+
+  async verifyEmail(parent, { id, email }, ctx, info) {
+    // 1. Check if this is a real user
+    const user = await ctx.db.query.user({ where: { id } });
+    if (!user) {
+      throw new Error(`No such user found for email ${email}`);
+    }
+   
+    // 3. email them that reset token
+    const mailRes = await transport.sendMail({
+      from: "bora.alap@artticfox.com",
+      to: user.email,
+      subject: "Verify Email",
+      html: makeAVerifyEmail(`Your verification is here! 
+        \n\n 
+        <a href="${
+          process.env.FRONTEND_DEV
+        }/user/verifyEmail?id=${id}">Verify Email</a>`),
+    });
+
+    //4. return the message
+    return { message: "Thanks" };
+  },
+
+
+
+
+
 
   async createDealer(parent, args, ctx, info) {
     const dealer = await ctx.db.mutation.createDealer({

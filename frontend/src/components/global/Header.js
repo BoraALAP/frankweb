@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
-import { AnimatePresence } from "framer-motion";
 
 import { CURRENT_USER_QUERY } from "../../queries/User";
 
@@ -17,12 +16,14 @@ import MenuComp from "./Menu";
 const Header = (props) => {
   // const { data } = useQuery(CURRENT_USER_QUERY);
   const [menuState, setMenuState] = useState(false);
-
+  const { data } = useQuery(CURRENT_USER_QUERY);
   const [sticky, setSticky] = useState(true);
 
   props.history.listen(location => {
     setMenuState(false)
   })
+
+  console.log(data);
 
   useEffect(() => {
     if (menuState) {
@@ -90,13 +91,7 @@ const Header = (props) => {
         </Right>
       </HeaderS>
       {/* <Search /> */}
-<<<<<<< HEAD
-      <AnimatePresence exitBeforeEnter>
-      {menuState && <MenuStyle open={menuState} />}
-      </AnimatePresence>
-=======
       <MenuStyle open={menuState}  me={data?.me} />
->>>>>>> findingfix
     </Container>
   );
 };
@@ -152,7 +147,12 @@ const H4 = styled.h4`
 
 const MenuIconS = styled(MenuIcon)`
   transform: ${(props) => props.menuprop ? "rotate(-45deg)" : "rotate(0)"};
-  transition: transform 0.75s ease;
+  transition: all 0.75s ease;
+  
+  
+  &:hover{
+    filter: ${({ theme }) => `drop-shadow(2px 2px 2px rgba(0,0,0,0.3))`};
+  }
 `;
 
 const LogoS = styled(Logo)`

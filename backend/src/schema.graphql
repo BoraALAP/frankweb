@@ -881,6 +881,7 @@ type Mutation {
     password: String!
     name: String!
     code: String
+    verified: Boolean
   ): User!
   signIn(email: String!, password: String!): User!
   signOut: SuccessMessage
@@ -890,6 +891,8 @@ type Mutation {
     confirmPassword: String!
     password: String!
   ): User!
+
+  verifyEmail(id:ID, email:String):User!
 
   createDealer(
     id: ID
@@ -913,5 +916,6 @@ type User {
   name: String!
   email: String!
   code: String
+  verified: Boolean
   permissions: [Permission!]!
 }

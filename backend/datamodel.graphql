@@ -483,6 +483,7 @@ type User {
   code: String
   resetToken: String
   resetTokenExpiry: Float
+  verified: Boolean
   permissions: [Permission!]! @scalarList(strategy: RELATION)
 }
 

@@ -21964,6 +21964,7 @@ type User {
   code: String
   resetToken: String
   resetTokenExpiry: Float
+  verified: Boolean
   permissions: [Permission!]!
 }
 
@@ -21981,6 +21982,7 @@ input UserCreateInput {
   code: String
   resetToken: String
   resetTokenExpiry: Float
+  verified: Boolean
   permissions: UserCreatepermissionsInput
 }
 
@@ -22008,6 +22010,8 @@ enum UserOrderByInput {
   resetToken_DESC
   resetTokenExpiry_ASC
   resetTokenExpiry_DESC
+  verified_ASC
+  verified_DESC
 }
 
 type UserPreviousValues {
@@ -22018,6 +22022,7 @@ type UserPreviousValues {
   code: String
   resetToken: String
   resetTokenExpiry: Float
+  verified: Boolean
   permissions: [Permission!]!
 }
 
@@ -22046,6 +22051,7 @@ input UserUpdateInput {
   code: String
   resetToken: String
   resetTokenExpiry: Float
+  verified: Boolean
   permissions: UserUpdatepermissionsInput
 }
 
@@ -22056,6 +22062,7 @@ input UserUpdateManyMutationInput {
   code: String
   resetToken: String
   resetTokenExpiry: Float
+  verified: Boolean
   permissions: UserUpdatepermissionsInput
 }
 
@@ -22156,6 +22163,8 @@ input UserWhereInput {
   resetTokenExpiry_lte: Float
   resetTokenExpiry_gt: Float
   resetTokenExpiry_gte: Float
+  verified: Boolean
+  verified_not: Boolean
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

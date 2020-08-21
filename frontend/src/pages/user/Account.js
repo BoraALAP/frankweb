@@ -19,7 +19,12 @@ const Account = (props) => {
     }
   });
 
-  return (
+  
+    if (!data?.me?.verified) {
+      return (  <Container><p>Not verified yet Please check your email</p></Container>
+        ) 
+    } else {
+      return(
     <Container>
       <h2>{data?.me?.name}</h2>
       <SignOut />
@@ -31,7 +36,8 @@ const Account = (props) => {
         }
       })}
     </Container>
-  );
+    )}
+  
 };
 
 const Container = styled.div``;

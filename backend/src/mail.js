@@ -23,5 +23,20 @@ const makeANiceEmail = (text) => `
   </div>
 `;
 
+
+const makeAVerifyEmail = (text) => `
+  <div className="email" style="
+    border: 1px solid black;
+    padding: 24px;
+    font-family: sans-serif;
+    line-height: 2;
+    font-size: 16px;
+    ">
+    <h2>Hello!</h2>
+    <p>${text}</p>
+  </div>
+`;
+
 exports.transport = transport;
 exports.makeANiceEmail = makeANiceEmail;
+exports.makeAVerifyEmail = makeAVerifyEmail;
